@@ -1,5 +1,5 @@
 import { Eye, EyeOff } from "lucide-react-native";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { Pressable, Text, TextInput, type TextInputProps, View } from "react-native";
 
 interface AuthFieldProps {
 	label: string;
@@ -10,7 +10,7 @@ interface AuthFieldProps {
 	showPasswordToggle?: boolean;
 	onTogglePassword?: () => void;
 	keyboardType?: "default" | "email-address" | "number-pad";
-	autoComplete?: TextInput["props"]["autoComplete"];
+	autoComplete?: TextInputProps["autoComplete"];
 	autoCapitalize?: "none" | "sentences" | "words" | "characters";
 	editable?: boolean;
 	hint?: string;

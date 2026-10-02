@@ -16,6 +16,10 @@ export type OSModule =
 	| "Focus"
 	| "Library";
 
+function handleAvatarPress() {
+	router.replace("/(modules)/(profile)" as Href);
+}
+
 export function OSHeader() {
 	const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
 	const segments = useSegments() as string[];
@@ -26,10 +30,6 @@ export function OSHeader() {
 		(user
 			? `https://avatar.vercel.sh/${encodeURIComponent(user.username)}`
 			: "https://avatar.vercel.sh/guest");
-
-	const handleAvatarPress = () => {
-		router.replace("/(modules)/(profile)" as Href);
-	};
 
 	const currentModule: OSModule = React.useMemo(() => {
 		if (segments.includes("(profile)")) return "Profile";

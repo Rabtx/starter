@@ -64,7 +64,6 @@ export function AddEntryModal({
 							placeholderTextColor={NeonColors.text.muted}
 							value={title}
 							onChangeText={setTitle}
-							autoFocus
 						/>
 						<TextInput
 							className="bg-zinc-950 border border-zinc-800 rounded-xl p-4 text-white text-base"

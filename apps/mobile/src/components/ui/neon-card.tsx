@@ -1,10 +1,10 @@
 import { LinearGradient } from "expo-linear-gradient";
 import type * as React from "react";
-import { View, type ViewStyle } from "react-native";
+import { View, type ViewProps } from "react-native";
 
 interface NeonCardProps {
 	children: React.ReactNode;
-	style?: ViewStyle;
+	style?: ViewProps["style"];
 	className?: string;
 	glowPosition?: "top-right" | "bottom-left" | "both-diagonal" | "none";
 	accentColor?: string;

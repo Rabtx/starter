@@ -32,8 +32,10 @@ export default function AppTabs() {
 }
 
 export function TabButton({ children, isFocused, ...props }: TabTriggerSlotProps) {
+	// Destructure ref to prevent Pressable ref type incompatibility with TabTriggerSlotProps
+	const { ref: _ref, ...pressableProps } = props as Record<string, unknown>;
 	return (
-		<Pressable {...props} className="active:opacity-70">
+		<Pressable {...pressableProps} className="active:opacity-70">
 			<ThemedView
 				type={isFocused ? "backgroundSelected" : "backgroundElement"}
 				className="py-1 px-4 rounded-xl"
@@ -48,7 +50,7 @@ export function TabButton({ children, isFocused, ...props }: TabTriggerSlotProps
 
 export function CustomTabList(props: TabListProps) {
 	const scheme = useColorScheme();
-	const colors = Colors[scheme === "unspecified" ? "light" : scheme];
+	const colors = Colors[scheme === "dark" ? "dark" : "light"];
 
 	return (
 		<View {...props} className="absolute w-full p-4 justify-center items-center flex-row">

@@ -111,6 +111,7 @@ export function BillingScreen() {
 	}, [token]);
 
 	useEffect(() => {
+		// oxlint-disable-next-line react/set-state-in-effect
 		void loadBilling();
 	}, [loadBilling]);
 

@@ -45,6 +45,9 @@
 			"files": ["apps/mobile/**/*.ts", "apps/mobile/**/*.tsx"],
 			"rules": {
 				"react/no-array-index-key": "off",
+				"react/no-unstable-nested-components": ["warn", { "allowAsProps": true }],
+				"react/memo-dependencies": "off",
+				"import/no-unassigned-import": "off",
 				"nextjs/no-img-element": "off",
 				"nextjs/no-head-element": "off",
 				"nextjs/no-document-import-in-page": "off",

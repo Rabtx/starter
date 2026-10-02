@@ -36,8 +36,7 @@ function SplashScreenController() {
 }
 
 function RootNavigator() {
-	const { user, loading } = useAuth();
-	const _signedIn = !!user;
+	const { loading } = useAuth();
 
 	if (loading) {
 		return null;
