@@ -1,45 +1,26 @@
 "use client";
 
 import {
-	AccessibilityIcon,
 	Add01Icon,
-	ArrowDown01Icon,
-	ArrowRightIcon,
-	ArrowUp01Icon,
-	ArrowUpDownIcon,
-	BrushIcon,
-	ChevronDownIcon,
 	CodeIcon,
 	Copy01Icon,
 	CubeIcon,
-	DatabaseIcon,
 	Delete02Icon,
 	Download01Icon,
 	EyeIcon,
-	Grid02Icon,
 	Home01Icon,
 	InboxIcon,
-	InputTextIcon,
-	Layers01Icon,
 	Loading01Icon,
-	Mail01Icon,
 	Moon01Icon,
 	Search01Icon,
-	Settings02Icon,
-	SmartPhone01Icon,
 	SparklesIcon,
 	Sun01Icon,
-	TextFontIcon,
 	Tick02Icon,
 	UserIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Badge } from "@school-os/ui/components/badge";
-import {
-	BottomBar,
-	BottomBarItem,
-	generateAaveLensNormalMap,
-} from "@school-os/ui/components/bottom-bar";
+import { BottomBar, BottomBarItem } from "@school-os/ui/components/bottom-bar";
 import { Button } from "@school-os/ui/components/button";
 import { Card, CardContent } from "@school-os/ui/components/card";
 import {
@@ -57,19 +38,7 @@ import {
 	AccordionTrigger,
 	MotionAccordion,
 } from "@school-os/ui/components/motion/accordion";
-import { type ButtonState, StatefulButton } from "@school-os/ui/components/motion/button";
 import { MotionCheckbox, StatefulCheckbox } from "@school-os/ui/components/motion/checkbox";
-import { MotionInput } from "@school-os/ui/components/motion/input";
-import {
-	MotionSelect,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectLabel,
-	SelectSearch,
-	SelectTrigger,
-	SelectValue,
-} from "@school-os/ui/components/motion/select";
 import { MotionSlider } from "@school-os/ui/components/motion/slider";
 import { MotionSwitch, StatefulSwitch } from "@school-os/ui/components/motion/switch";
 import {
@@ -87,12 +56,6 @@ import {
 	useTableSort,
 } from "@school-os/ui/components/motion/table";
 import {
-	Tabs as MotionTabs,
-	TabsContent as MotionTabsContent,
-	TabsList as MotionTabsList,
-	TabsTrigger as MotionTabsTrigger,
-} from "@school-os/ui/components/motion/tabs";
-import {
 	TableBody,
 	TableCell,
 	TableFooter,
@@ -100,12 +63,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@school-os/ui/components/table";
-import {
-	NotTypeset,
-	Typeset,
-	type TypesetPreset,
-	TypesetScroll,
-} from "@school-os/ui/components/typeset";
+import { Typeset, type TypesetPreset } from "@school-os/ui/components/typeset";
 import { AnimatePresence, motion } from "motion/react";
 import { use, useEffect, useRef, useState } from "react";
 import { useTheme } from "@/components/theme";
@@ -1053,7 +1011,7 @@ export default function ComponentPage({ params }: { params: Promise<{ slug: stri
 	const [cmdCopied, setCmdCopied] = useState(false);
 
 	const [bottomBarTab, setBottomBarTab] = useState("home");
-	const [typesetPreset, setTypesetPreset] = useState<TypesetPreset>("docs");
+	const [typesetPreset] = useState<TypesetPreset>("docs");
 
 	const [manualThemeMode, setManualThemeMode] = useState<"dark" | "light" | null>(null);
 	const activeTheme = manualThemeMode ?? (resolvedTheme === "light" ? "light" : "dark");
@@ -1499,7 +1457,7 @@ export default function ComponentPage({ params }: { params: Promise<{ slug: stri
 													<StatefulCheckbox
 														size="lg"
 														variant="destructive"
-														onToggle={async (next) => {
+														onToggle={async () => {
 															await new Promise((res) => setTimeout(res, 1200));
 															return true;
 														}}
@@ -1580,7 +1538,7 @@ export default function ComponentPage({ params }: { params: Promise<{ slug: stri
 												<StatefulSwitch
 													size="lg"
 													variant="destructive"
-													onToggle={async (next) => {
+													onToggle={async () => {
 														await new Promise((res) => setTimeout(res, 1200));
 														return true;
 													}}

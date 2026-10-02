@@ -30,8 +30,8 @@
     "ci:typecheck": "bun run typecheck",
     "ci:test": "bun run test:coverage",
     "ci:e2e:web": "bun run test:e2e:web",
-    "scripts:lint": "shellcheck scripts/bash/*.sh scripts/git-hooks/*.sh && (ruff check scripts/python 2>/dev/null || true)",
-    "scripts:format": "shfmt -i 4 -w scripts/bash/*.sh scripts/git-hooks/*.sh || true",
+    "scripts:lint": "shellcheck scripts/bash/*.sh scripts/bash/tests/*.sh scripts/git-hooks/*.sh scripts/architecture/*.sh && (ruff check scripts/python 2>/dev/null || true)",
+    "scripts:format": "shfmt -i 4 -w scripts/bash/*.sh scripts/bash/tests/*.sh scripts/git-hooks/*.sh scripts/architecture/*.sh || true",
     "scripts:run": "bash scripts/bash/main.sh",
     "scripts:run:bash": "bash scripts/bash/main.sh",
     "scripts:run:python": "python scripts/python/main.py",
@@ -56,15 +56,12 @@
     "lightningcss": "1.33.0",
     "@expo/dom-webview": "58.0.2",
     "@expo/log-box": "58.0.7",
-    "@expo/metro-runtime": "58.0.9",
-    "expo": "58.0.0",
+    "@expo/metro-runtime": "58.0.10",
+    "expo": "58.0.1",
     "expo-constants": "58.0.9",
     "expo-font": "58.0.4",
     "expo-glass-effect": "58.0.3",
     "expo-linking": "58.0.9",
     "expo-symbols": "58.0.3"
-  },
-  "dependencies": {
-    "@turbo/linux-64": "^2.11.6"
   }
 }

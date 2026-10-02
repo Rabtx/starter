@@ -7,13 +7,13 @@
     "dev": "next dev --port 3002",
     "start": "next start",
     "types:check": "fumadocs-mdx && next typegen && tsc --noEmit",
+    "typecheck": "bun run types:check",
     "postinstall": "fumadocs-mdx",
     "lint": "oxlint",
     "format": "oxfmt"
   },
   "dependencies": {
     "@rabtx/ui": "workspace:*",
-    "motion": "^13.4.6",
     "fumadocs-core": "16.15.17",
     "fumadocs-mdx": "15.4.5",
     "fumadocs-ui": "16.15.17",
