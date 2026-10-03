@@ -9,13 +9,13 @@ describe('HealthController', () => {
 	let controller: HealthController;
 
 	beforeEach(async () => {
-		const module: TestingModule = await Test.createTestingModule({
+		const moduleRef: TestingModule = await Test.createTestingModule({
 			imports: [ConfigModule],
 			controllers: [HealthController],
 			providers: [HealthService],
 		}).compile();
 
-		controller = module.get(HealthController);
+		controller = moduleRef.get(HealthController);
 	});
 
 	it('returns the API health status', () => {
