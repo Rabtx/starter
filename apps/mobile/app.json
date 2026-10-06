@@ -21,10 +21,6 @@
       "predictiveBackGestureEnabled": false,
       "package": "com.shabirkhandev.mobile"
     },
-    "web": {
-      "output": "single",
-      "favicon": "./assets/images/favicon.png"
-    },
     "plugins": [
       "expo-router",
       [

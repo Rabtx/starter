@@ -399,7 +399,7 @@ export function SelectItem({ value, disabled = false, className, children }: Sel
 	useLayoutEffect(() => {
 		ctx.register(value, label);
 		return () => ctx.unregister(value);
-	}, [ctx.register, ctx.unregister, value, label]);
+	}, [ctx, value, label]);
 
 	// Filter search
 	if (ctx.searchQuery && !label.toLowerCase().includes(ctx.searchQuery.toLowerCase())) {

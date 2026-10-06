@@ -1,5 +1,5 @@
 import type React from "react";
-import { createContext, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useMemo, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 
 type Variant = "pill" | "underline" | "segment";
@@ -39,13 +39,21 @@ export function Tabs({
 	const controlled = value !== undefined;
 	const current = controlled ? value : internal;
 
-	const setValue = (v: string) => {
-		if (!controlled) setInternal(v);
-		onValueChange?.(v);
-	};
+	const setValue = useCallback(
+		(v: string) => {
+			if (!controlled) setInternal(v);
+			onValueChange?.(v);
+		},
+		[controlled, onValueChange],
+	);
+
+	const contextValue = useMemo(
+		() => ({ value: current ?? "", setValue, variant }),
+		[current, setValue, variant],
+	);
 
 	return (
-		<TabsCtx.Provider value={{ value: current, setValue, variant }}>
+		<TabsCtx.Provider value={contextValue}>
 			<View className={className} style={style}>
 				{children}
 			</View>

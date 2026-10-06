@@ -4,6 +4,7 @@ import type React from "react";
 import { useEffect } from "react";
 import { Pressable, Text, View } from "react-native";
 import Animated, {
+	createAnimatedComponent,
 	useAnimatedStyle,
 	useSharedValue,
 	withSpring,
@@ -19,7 +20,7 @@ export type ButtonVariant =
 	| "default";
 export type ButtonSize = "sm" | "md" | "lg" | "icon";
 
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+const AnimatedPressable = createAnimatedComponent(Pressable);
 
 const SPRING_PRESS = {
 	stiffness: 500,
@@ -161,7 +162,7 @@ export function MobileStatefulButton({
 	const textOpacity = useSharedValue(1);
 	const textTranslateY = useSharedValue(0);
 
-	// oxlint-disable-next-line react/exhaustive-deps -- trigger text animation on state change
+	// oxlint-disable-next-line react-hooks/exhaustive-deps -- trigger text animation on state change
 	useEffect(() => {
 		textOpacity.value = 0;
 		textTranslateY.value = 8;

@@ -1104,7 +1104,7 @@ export default function ComponentPage({ params }: { params: Promise<{ slug: stri
 		}
 
 		ctx.putImageData(imgData, 0, 0);
-	}, [slug, lensWidth, lensHeight, borderRadius, depth, curvature, splay, glow, activeTheme]);
+	}, [slug, lensWidth, lensHeight, depth, curvature, splay, glow, activeTheme]);
 
 	const codeSnippet =
 		slug === "table"

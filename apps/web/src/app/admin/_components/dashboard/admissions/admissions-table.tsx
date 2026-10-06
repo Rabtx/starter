@@ -22,7 +22,7 @@ const COLUMNS: Col[] = [
 	{ id: "guardian", label: "Guardian", sortable: true, width: "22%" },
 	{ id: "date", label: "Applied", sortable: true, width: "14%" },
 	{ id: "status", label: "Status", sortable: true, width: "12%" },
-	{ id: "actions", label: "", width: "52px" },
+	{ id: "actions", label: "Actions", width: "52px" },
 ];
 
 const SOURCE_LABEL: Record<Admission["source"], string> = {
@@ -71,7 +71,7 @@ function useAdmissionRows(query: string, sortKey: SortKey, sortDir: "asc" | "des
 				)
 			: seedAdmissions;
 
-		const sorted = [...filtered].sort((a, b) => compareAdmissions(a, b, sortKey));
+		const sorted = filtered.toSorted((a, b) => compareAdmissions(a, b, sortKey));
 		if (sortDir === "desc") sorted.reverse();
 		return sorted;
 	}, [query, sortDir, sortKey]);
@@ -171,6 +171,7 @@ export function AdmissionsTable({ className, query = "" }: Props) {
 									i > 0 && "border-dashboard-border-subtle [&>td]:border-t",
 								)}
 							>
+								{/* oxlint-disable-next-line jsx-a11y/control-has-associated-label */}
 								<td className="py-3 pr-3 pl-4 align-top">
 									<div className="flex min-w-0 items-start gap-2.5">
 										<span

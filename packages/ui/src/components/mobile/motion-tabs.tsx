@@ -51,40 +51,49 @@ export function MotionTabs({
 	const indicatorWidth = useSharedValue(0);
 	const layoutsRef = React.useRef<Record<string, { x: number; width: number }>>({});
 
-	const registerLayout = (val: string, x: number, width: number) => {
-		layoutsRef.current[val] = { x, width };
-		if (val === current) {
-			indicatorX.value = withSpring(x, SPRING_CONFIG);
-			indicatorWidth.value = withSpring(width, SPRING_CONFIG);
-		}
-	};
+	const registerLayout = React.useCallback(
+		(val: string, x: number, width: number) => {
+			layoutsRef.current[val] = { x, width };
+			if (val === current) {
+				indicatorX.value = withSpring(x, SPRING_CONFIG);
+				indicatorWidth.value = withSpring(width, SPRING_CONFIG);
+			}
+		},
+		[current, indicatorWidth, indicatorX],
+	);
 
-	const setValue = (v: string) => {
-		if (!controlled) setInternal(v);
-		onValueChange?.(v);
+	const setValue = React.useCallback(
+		(v: string) => {
+			if (!controlled) setInternal(v);
+			onValueChange?.(v);
 
-		const layout = layoutsRef.current[v];
-		if (layout) {
-			indicatorX.value = withSpring(layout.x, SPRING_CONFIG);
-			indicatorWidth.value = withSpring(layout.width, SPRING_CONFIG);
-		}
-	};
+			const layout = layoutsRef.current[v];
+			if (layout) {
+				indicatorX.value = withSpring(layout.x, SPRING_CONFIG);
+				indicatorWidth.value = withSpring(layout.width, SPRING_CONFIG);
+			}
+		},
+		[controlled, indicatorWidth, indicatorX, onValueChange],
+	);
 
 	const indicatorAnimatedStyle = useAnimatedStyle(() => ({
 		transform: [{ translateX: indicatorX.value }],
 		width: indicatorWidth.value,
 	}));
 
+	const contextValue = React.useMemo(
+		() => ({
+			value: current,
+			setValue,
+			variant,
+			registerLayout,
+			indicatorAnimatedStyle,
+		}),
+		[current, setValue, variant, registerLayout, indicatorAnimatedStyle],
+	);
+
 	return (
-		<TabsCtx.Provider
-			value={{
-				value: current,
-				setValue,
-				variant,
-				registerLayout,
-				indicatorAnimatedStyle,
-			}}
-		>
+		<TabsCtx.Provider value={contextValue}>
 			<View className={className} style={style}>
 				{children}
 			</View>

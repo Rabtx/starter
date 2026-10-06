@@ -55,7 +55,7 @@ function useBottomBar() {
 export function generateAaveLensNormalMap({
 	width = 120,
 	height = 60,
-	borderRadius = 30,
+	borderRadius: _borderRadius = 30,
 	depth = 52,
 	curvature = 80,
 	splay = 1.0,
@@ -247,9 +247,14 @@ export function BottomBar({
 	const scaleG = baseScale * (1 + config.chroma * 0.04);
 	const scaleB = baseScale;
 
+	const contextValue = useMemo(
+		() => ({ value: current, setValue, groupId, filterId, config }),
+		[current, setValue, groupId, filterId, config],
+	);
+
 	return (
 		<MotionConfig transition={reduce ? { duration: 0 } : springTransition}>
-			<BottomBarContext.Provider value={{ value: current, setValue, groupId, filterId, config }}>
+			<BottomBarContext.Provider value={contextValue}>
 				<LayoutGroup id={groupId}>
 					{/* SVG PIPELINE */}
 					<svg className="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
@@ -383,7 +388,7 @@ export function BottomBarItem({
 	children: ReactNode;
 	className?: string;
 }) {
-	const { value: current, setValue, filterId, config } = useBottomBar();
+	const { value: current, setValue, config } = useBottomBar();
 	const active = current === value;
 	const isLight = config.themeMode === "light";
 

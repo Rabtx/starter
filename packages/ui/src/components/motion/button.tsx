@@ -68,7 +68,7 @@ export const MotionButton = forwardRef<HTMLButtonElement, MotionButtonProps>(fun
 		size = "md",
 		pressScale = 0.93,
 		ripple = false,
-		elevated = true,
+		elevated: _elevated = true,
 		loading = false,
 		className,
 		children,
@@ -89,7 +89,7 @@ export const MotionButton = forwardRef<HTMLButtonElement, MotionButtonProps>(fun
 		(event: PointerEvent<HTMLButtonElement>) => {
 			if (ripple && !reduce && !isDisabled) {
 				const rect = event.currentTarget.getBoundingClientRect();
-				const size = Math.max(rect.width, rect.height) * 2;
+				const rippleSize = Math.max(rect.width, rect.height) * 2;
 				const id = nextId.current++;
 				setRipples((prev) => [
 					...prev,
@@ -97,7 +97,7 @@ export const MotionButton = forwardRef<HTMLButtonElement, MotionButtonProps>(fun
 						id,
 						x: event.clientX - rect.left,
 						y: event.clientY - rect.top,
-						size,
+						size: rippleSize,
 					},
 				]);
 			}
@@ -243,10 +243,11 @@ function TextSlot({ value, children }: { value: string; children: ReactNode }) {
 	const cascade = label !== null && !reduce;
 
 	useLayoutEffect(() => {
+		if (children === undefined || children === null) return;
 		const nextWidth = measureRef.current?.offsetWidth;
 		if (!nextWidth) return;
 		setWidth((current) => (current === nextWidth ? current : nextWidth));
-	});
+	}, [children]);
 
 	return (
 		<motion.span

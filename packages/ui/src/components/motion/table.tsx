@@ -23,6 +23,7 @@ import {
 	type ReactNode,
 	useCallback,
 	useContext,
+	useMemo,
 	useState,
 } from "react";
 
@@ -62,8 +63,10 @@ export interface MotionTableProps extends ComponentPropsWithoutRef<typeof Table>
 
 export const MotionTable = forwardRef<HTMLTableElement, MotionTableProps>(
 	({ density = "default", rowStyle = "plain", className, ...props }, ref) => {
+		const contextValue = useMemo(() => ({ density, rowStyle }), [density, rowStyle]);
+
 		return (
-			<TableSettingsContext.Provider value={{ density, rowStyle }}>
+			<TableSettingsContext.Provider value={contextValue}>
 				<Table
 					ref={ref}
 					data-density={density}
@@ -200,7 +203,7 @@ export function sortRows<T>(
 	if (!state.sortKey || !state.sortDirection) return rows;
 	const key = state.sortKey as keyof T;
 	const direction: "asc" | "desc" = state.sortDirection;
-	return [...rows].sort((a, b) => {
+	return rows.toSorted((a, b) => {
 		if (options?.compare) return options.compare(a, b, key, direction);
 		const aVal = a[key];
 		const bVal = b[key];
@@ -477,6 +480,14 @@ export interface MotionTablePaginationProps {
 	className?: string;
 }
 
+const paginationBtnClass = (disabled: boolean) =>
+	cn(
+		"inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors",
+		disabled
+			? "cursor-not-allowed opacity-40"
+			: "cursor-pointer hover:bg-muted/60 hover:text-foreground",
+	);
+
 export function MotionTablePagination({
 	page,
 	totalPages,
@@ -491,14 +502,6 @@ export function MotionTablePagination({
 	const from = totalItems != null && pageSize != null ? (page - 1) * pageSize + 1 : null;
 	const to = totalItems != null && pageSize != null ? Math.min(page * pageSize, totalItems) : null;
 
-	const btn = (disabled: boolean) =>
-		cn(
-			"inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors",
-			disabled
-				? "cursor-not-allowed opacity-40"
-				: "cursor-pointer hover:bg-muted/60 hover:text-foreground",
-		);
-
 	return (
 		<div className={cn("flex items-center justify-between px-2 pt-3", className)}>
 			<span className="text-xs font-mono text-muted-foreground">
@@ -512,7 +515,7 @@ export function MotionTablePagination({
 					whileTap={!reduce && canPrev ? { scale: 0.9 } : undefined}
 					transition={SPRING_PRESS}
 					onClick={() => onPageChange(page - 1)}
-					className={btn(!canPrev)}
+					className={paginationBtnClass(!canPrev)}
 					aria-label="Previous page"
 				>
 					<HugeiconsIcon icon={ArrowLeft01Icon} size={14} />
@@ -526,7 +529,7 @@ export function MotionTablePagination({
 					whileTap={!reduce && canNext ? { scale: 0.9 } : undefined}
 					transition={SPRING_PRESS}
 					onClick={() => onPageChange(page + 1)}
-					className={btn(!canNext)}
+					className={paginationBtnClass(!canNext)}
 					aria-label="Next page"
 				>
 					<HugeiconsIcon icon={ArrowRight01Icon} size={14} />
@@ -556,7 +559,7 @@ export function MotionTableSkeleton({
 			{Array.from({ length: rows }).map((_, rIdx) => (
 				// oxlint-disable-next-line react/no-array-index-key -- static skeleton placeholders, never reordered
 				<TableRow key={`skeleton-row-${rIdx}`} className="border-b border-border/40">
-					{Array.from({ length: columns }).map((_, cIdx) => (
+					{Array.from({ length: columns }).map((_col, cIdx) => (
 						// oxlint-disable-next-line react/no-array-index-key -- static skeleton placeholders, never reordered
 						<TableCell key={`skeleton-cell-${rIdx}-${cIdx}`} className="py-3.5">
 							<Skeleton className="h-4 w-full rounded-md opacity-60" />

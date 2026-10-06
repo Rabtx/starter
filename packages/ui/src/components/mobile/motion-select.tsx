@@ -66,7 +66,7 @@ export function MobileMotionSelect({
 	const hasError = Boolean(error);
 
 	// Trigger animation on open state change
-	// oxlint-disable-next-line react/exhaustive-deps -- animate sheet on open
+	// oxlint-disable-next-line react-hooks/exhaustive-deps -- animate sheet on open
 	useEffect(() => {
 		if (isOpen) {
 			chevronRotate.value = withSpring(180, SPRING_PRESS);

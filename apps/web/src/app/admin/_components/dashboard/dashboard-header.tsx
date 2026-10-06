@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useAuth } from "@/context/auth-context";
 import { userFirstName } from "@/lib/user-display";
 import { cn } from "@/lib/utils";
@@ -16,15 +17,20 @@ type Props = {
 export function DashboardHeader({ name, className, onExport }: Props) {
 	const { user } = useAuth();
 	const greetingName = name ?? (user ? userFirstName(user.username) : "there");
-	const today = new Date().toLocaleDateString("en-US", {
-		weekday: "short",
-		month: "short",
-		day: "numeric",
-	});
-	const todayLong = new Date().toLocaleDateString("en-US", {
-		weekday: "long",
-		month: "long",
-		day: "numeric",
+	const [{ today, todayLong }] = useState(() => {
+		const now = new Date();
+		return {
+			today: now.toLocaleDateString("en-US", {
+				weekday: "short",
+				month: "short",
+				day: "numeric",
+			}),
+			todayLong: now.toLocaleDateString("en-US", {
+				weekday: "long",
+				month: "long",
+				day: "numeric",
+			}),
+		};
 	});
 
 	return (

@@ -41,12 +41,6 @@ export const Fonts = Platform.select({
 		rounded: "normal",
 		mono: "monospace",
 	},
-	web: {
-		sans: "var(--font-display)",
-		serif: "var(--font-serif)",
-		rounded: "var(--font-rounded)",
-		mono: "var(--font-mono)",
-	},
 });
 
 export const Spacing = {
@@ -60,4 +54,3 @@ export const Spacing = {
 } as const;
 
 export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
-export const MaxContentWidth = 800;

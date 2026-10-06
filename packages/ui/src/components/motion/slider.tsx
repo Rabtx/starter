@@ -1,3 +1,4 @@
+/* oxlint-disable react/no-array-index-key */
 "use client";
 
 import { Slider as SliderPrimitive } from "@base-ui/react/slider";
@@ -31,10 +32,12 @@ const VARIANT_BADGE: Record<MotionSliderVariant, string> = {
 	destructive: "bg-destructive text-destructive-foreground dark:bg-red-500 dark:text-white",
 };
 
+const defaultFormatValue = (v: number) => String(v);
+
 export function MotionSlider({
 	variant = "default",
 	showTooltip = true,
-	formatValue = (v) => String(v),
+	formatValue = defaultFormatValue,
 	showTicks = false,
 	min = 0,
 	max = 100,
@@ -102,15 +105,20 @@ export function MotionSlider({
 					{showTicks && ticksCount > 0 && (
 						<div className="absolute inset-x-0 top-1/2 -translate-y-1/2 pointer-events-none flex justify-between px-1">
 							{Array.from({ length: Math.min(ticksCount + 1, 21) }).map((_, i) => (
-								<span key={i} className="size-1 rounded-full bg-zinc-400/40 dark:bg-zinc-600/40" />
+								// oxlint-disable-next-line react/no-array-index-key -- static tick mark placeholders
+								<span
+									key={`tick-${i}`}
+									className="size-1 rounded-full bg-zinc-400/40 dark:bg-zinc-600/40"
+								/>
 							))}
 						</div>
 					)}
 
 					{/* THUMBS WITH FLOATING TOOLTIP BADGE */}
 					{currentValues.map((val, index) => (
+						/* oxlint-disable-next-line react/no-array-index-key */
 						<SliderPrimitive.Thumb
-							key={index}
+							key={`thumb-${index}`}
 							data-slot="slider-thumb"
 							onPointerDown={() => setIsDragging(true)}
 							onPointerUp={() => setIsDragging(false)}

@@ -1,4 +1,3 @@
-/// <reference path="../../uniwind-types.d.ts" />
 export { MobileBottomBar, MobileBottomBarItem } from "./bottom-bar";
 export { MobileButton } from "./button";
 export { MobileInput } from "./input";

@@ -1,5 +1,5 @@
 import type React from "react";
-import { createContext, useContext, useRef, useState } from "react";
+import { createContext, useCallback, useContext, useMemo, useRef, useState } from "react";
 import { type LayoutChangeEvent, Pressable, Text, View } from "react-native";
 import Animated, {
 	useAnimatedStyle,
@@ -70,48 +70,71 @@ export function MobileBottomBar({
 		Record<string, { x: number; y: number; width: number; height: number }>
 	>({});
 
-	const springConfig = {
-		stiffness,
-		damping,
-		mass,
-	};
+	const springConfig = useMemo(
+		() => ({
+			stiffness,
+			damping,
+			mass,
+		}),
+		[stiffness, damping, mass],
+	);
 
 	const isLight = themeMode === "light";
 
-	const registerLayout = (val: string, x: number, y: number, width: number, height: number) => {
-		layoutsRef.current[val] = { x, y, width, height };
-		if (val === current) {
-			indicatorX.value = x;
-			indicatorY.value = y;
-			indicatorWidth.value = width;
-			indicatorHeight.value = height;
-		}
-	};
+	const registerLayout = useCallback(
+		(val: string, x: number, y: number, width: number, height: number) => {
+			layoutsRef.current[val] = { x, y, width, height };
+			if (val === current) {
+				indicatorX.value = x;
+				indicatorY.value = y;
+				indicatorWidth.value = width;
+				indicatorHeight.value = height;
+			}
+		},
+		[current, indicatorHeight, indicatorWidth, indicatorX, indicatorY],
+	);
 
-	const setValue = (v: string) => {
-		if (v === current) return;
-		if (!controlled) setInternal(v);
-		onValueChange?.(v);
+	const setValue = useCallback(
+		(v: string) => {
+			if (v === current) return;
+			if (!controlled) setInternal(v);
+			onValueChange?.(v);
 
-		const layout = layoutsRef.current[v];
-		if (layout) {
-			indicatorScaleY.value = withSequence(
-				withSpring(switchScaleY, { stiffness: stiffness + 50, damping: 10 }),
-				withSpring(0.94, { stiffness: stiffness + 10, damping: 14 }),
-				withSpring(1, springConfig),
-			);
-			indicatorScaleX.value = withSequence(
-				withSpring(switchScaleX, { stiffness: stiffness + 50, damping: 12 }),
-				withSpring(0.97, { stiffness: stiffness + 10, damping: 14 }),
-				withSpring(1, springConfig),
-			);
+			const layout = layoutsRef.current[v];
+			if (layout) {
+				indicatorScaleY.value = withSequence(
+					withSpring(switchScaleY, { stiffness: stiffness + 50, damping: 10 }),
+					withSpring(0.94, { stiffness: stiffness + 10, damping: 14 }),
+					withSpring(1, springConfig),
+				);
+				indicatorScaleX.value = withSequence(
+					withSpring(switchScaleX, { stiffness: stiffness + 50, damping: 12 }),
+					withSpring(0.97, { stiffness: stiffness + 10, damping: 14 }),
+					withSpring(1, springConfig),
+				);
 
-			indicatorX.value = withSpring(layout.x, springConfig);
-			indicatorY.value = withSpring(layout.y, springConfig);
-			indicatorWidth.value = withSpring(layout.width, springConfig);
-			indicatorHeight.value = withSpring(layout.height, springConfig);
-		}
-	};
+				indicatorX.value = withSpring(layout.x, springConfig);
+				indicatorY.value = withSpring(layout.y, springConfig);
+				indicatorWidth.value = withSpring(layout.width, springConfig);
+				indicatorHeight.value = withSpring(layout.height, springConfig);
+			}
+		},
+		[
+			controlled,
+			current,
+			indicatorHeight,
+			indicatorScaleX,
+			indicatorScaleY,
+			indicatorWidth,
+			indicatorX,
+			indicatorY,
+			onValueChange,
+			springConfig,
+			stiffness,
+			switchScaleX,
+			switchScaleY,
+		],
+	);
 
 	const indicatorAnimatedStyle = useAnimatedStyle(() => {
 		if (indicatorX.value < 0) return { opacity: 0 };
@@ -132,16 +155,19 @@ export function MobileBottomBar({
 		};
 	});
 
+	const contextValue = useMemo(
+		() => ({
+			value: current,
+			setValue,
+			registerLayout,
+			indicatorAnimatedStyle,
+			themeMode,
+		}),
+		[current, setValue, registerLayout, indicatorAnimatedStyle, themeMode],
+	);
+
 	return (
-		<MobileBottomBarContext.Provider
-			value={{
-				value: current,
-				setValue,
-				registerLayout,
-				indicatorAnimatedStyle,
-				themeMode,
-			}}
-		>
+		<MobileBottomBarContext.Provider value={contextValue}>
 			<View
 				className={`flex-row items-center justify-center p-2 rounded-full border shadow-2xl relative self-center ${
 					isLight

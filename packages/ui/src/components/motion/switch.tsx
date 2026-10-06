@@ -3,7 +3,7 @@
 import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
 import { Cancel01Icon, CheckIcon, Loading01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { SPRING_PRESS, SPRING_SWAP } from "@school-os/ui/lib/ease";
+import { SPRING_SWAP } from "@school-os/ui/lib/ease";
 import { cn } from "@school-os/ui/lib/utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type ComponentPropsWithoutRef, type ReactNode, forwardRef, useState } from "react";

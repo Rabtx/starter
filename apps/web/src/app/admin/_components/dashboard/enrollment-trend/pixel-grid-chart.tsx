@@ -83,7 +83,7 @@ type Props = {
 };
 
 export function PixelGridChart({ highlightMonth = "JUL", className }: Props) {
-	const cols = useMemo(buildColumns, []);
+	const cols = useMemo(() => buildColumns(), []);
 	const [hoverCol, setHoverCol] = useState<number | null>(null);
 
 	const highlightIdx = MONTHS.indexOf(highlightMonth);

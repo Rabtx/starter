@@ -13,7 +13,7 @@ import { Field, FieldDescription, FieldGroup, FieldLabel } from "@school-os/ui/c
 import { Input } from "@school-os/ui/components/input";
 import { Spinner } from "@school-os/ui/components/spinner";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as api from "@/lib/api-client";
 import { readDevCodeFromSearchParams } from "@/modules/auth/lib/dev-auth-code";
 
@@ -24,13 +24,9 @@ export function ResetPasswordForm() {
 	const [code, setCode] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
-	const [developmentCode, setDevelopmentCode] = useState<string | null>(null);
+	const developmentCode = readDevCodeFromSearchParams(searchParams);
 	const [error, setError] = useState<string | null>(null);
 	const [submitting, setSubmitting] = useState(false);
-
-	useEffect(() => {
-		setDevelopmentCode(readDevCodeFromSearchParams(searchParams));
-	}, [searchParams]);
 
 	async function handleSubmit(event: React.FormEvent) {
 		event.preventDefault();

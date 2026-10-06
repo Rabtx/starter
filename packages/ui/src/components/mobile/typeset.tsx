@@ -1,5 +1,5 @@
 import type React from "react";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useMemo } from "react";
 import { ScrollView, Text, View } from "react-native";
 
 export type MobileTypesetPreset = "docs" | "chat" | "compact" | "reading" | "large";
@@ -44,8 +44,13 @@ export function MobileTypeset({
 	className,
 	children,
 }: MobileTypesetProps) {
+	const contextValue = useMemo(
+		() => ({ preset, size, leading, flow }),
+		[preset, size, leading, flow],
+	);
+
 	return (
-		<TypesetContext.Provider value={{ preset, size, leading, flow }}>
+		<TypesetContext.Provider value={contextValue}>
 			<View className={`w-full ${PRESET_CONTAINER_CLASS[preset]} ${className || ""}`}>
 				{children}
 			</View>

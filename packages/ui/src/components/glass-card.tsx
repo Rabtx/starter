@@ -30,7 +30,7 @@ export function GlassCard({
 	chroma = 0.85,
 	blur = 2.5,
 	glow = 1.0,
-	edgeHighlight = 0.35,
+	edgeHighlight: _edgeHighlight = 0.35,
 	specularAngle = 145,
 	interactive = true,
 	children,

@@ -289,7 +289,7 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 							<ul className="space-y-0.5">
 								{section.items.map((item) => {
 									const active = item.id === activeId;
-									const className = cn(
+									const itemClassName = cn(
 										"group/item relative flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-left text-[13px] transition-all duration-150",
 										isCollapsed && "justify-center px-0",
 										active
@@ -319,13 +319,13 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 										<span className="truncate">{item.label}</span>
 									) : null;
 									const button = item.href ? (
-										<Link href={item.href} className={className} onClick={onNavigate}>
+										<Link href={item.href} className={itemClassName} onClick={onNavigate}>
 											{indicator}
 											{icon}
 											{label}
 										</Link>
 									) : (
-										<button type="button" className={className}>
+										<button type="button" className={itemClassName}>
 											{indicator}
 											{icon}
 											{label}
