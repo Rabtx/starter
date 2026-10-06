@@ -55,7 +55,7 @@ function AboutHero() {
 				</FadeIn>
 				<FadeIn delay={0.06}>
 					<h1 className="mt-6 text-balance font-serif text-4xl text-foreground leading-[1.1] tracking-tight sm:text-5xl">
-						A monorepo starter built for school-scale products.
+						A monorepo starter built for production-scale products.
 					</h1>
 				</FadeIn>
 				<FadeIn delay={0.12}>

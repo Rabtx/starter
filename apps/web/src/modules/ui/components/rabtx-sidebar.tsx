@@ -2,8 +2,8 @@
 
 import { Search01Icon, SparklesIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Badge } from "@school-os/ui/components/badge";
-import { Input } from "@school-os/ui/components/input";
+import { Badge } from "@starter/ui/components/badge";
+import { Input } from "@starter/ui/components/input";
 import {
 	Sidebar,
 	SidebarContent,
@@ -18,8 +18,8 @@ import {
 	SidebarRail,
 	SidebarTrigger,
 	useSidebar,
-} from "@school-os/ui/components/sidebar";
-import { cn } from "@school-os/ui/lib/utils";
+} from "@starter/ui/components/sidebar";
+import { cn } from "@starter/ui/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";

@@ -2,7 +2,6 @@
 
 import {
 	BubbleChatIcon,
-	Calendar03Icon,
 	ClipboardIcon,
 	DashboardSquare01Icon,
 	File01Icon,
@@ -10,13 +9,10 @@ import {
 	Invoice01Icon,
 	Logout01Icon,
 	Megaphone01Icon,
-	Mortarboard01Icon,
 	PuzzleIcon,
 	SecurityIcon,
 	Settings02Icon,
 	SidebarLeftIcon,
-	StudentIcon,
-	TeacherIcon,
 	Tick02Icon,
 	UnfoldMoreIcon,
 	UserAdd01Icon,
@@ -33,13 +29,13 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@school-os/ui/components/dropdown-menu";
+} from "@starter/ui/components/dropdown-menu";
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
-} from "@school-os/ui/components/tooltip";
+} from "@starter/ui/components/tooltip";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { type ComponentProps, useState } from "react";
@@ -57,35 +53,31 @@ const sections: NavSection[] = [
 		items: [
 			{ id: "dashboard", label: "Dashboard", icon: DashboardSquare01Icon, href: "/admin" },
 			{ id: "ai-assist", label: "AI Assist", icon: BubbleChatIcon, href: "/admin/ai" },
-			{ id: "attendance", label: "Attendance", icon: ClipboardIcon },
-			{ id: "timetable", label: "Timetable", icon: Calendar03Icon },
-			{ id: "exams", label: "Exams", icon: File01Icon },
+			{ id: "analytics", label: "Analytics", icon: ClipboardIcon },
+			{ id: "audit-logs", label: "Audit Logs", icon: File01Icon },
 			{ id: "announcements", label: "Announcements", icon: Megaphone01Icon },
 		],
 	},
 	{
-		heading: "People",
+		heading: "Team & Access",
 		items: [
-			{ id: "students", label: "Students", icon: StudentIcon },
-			{ id: "teachers", label: "Teachers", icon: TeacherIcon },
-			{ id: "guardians", label: "Guardians", icon: UserMultiple02Icon },
+			{ id: "members", label: "Members", icon: UserMultiple02Icon },
+			{ id: "teams", label: "Teams", icon: UserAdd01Icon },
+			{ id: "roles", label: "Roles & Permissions", icon: UserSettings01Icon },
 		],
 	},
 	{
-		heading: "Management",
+		heading: "Operations",
 		items: [
-			{ id: "admissions", label: "Admissions", icon: UserAdd01Icon },
-			{ id: "fees", label: "Fees & Invoices", icon: Invoice01Icon },
-			{ id: "academics", label: "Academics", icon: Mortarboard01Icon },
-			{ id: "roles", label: "Roles & Permissions", icon: UserSettings01Icon },
-			{ id: "integrations", label: "Integrations", icon: PuzzleIcon },
+			{ id: "billing", label: "Billing & Plans", icon: Invoice01Icon, href: "/billing" },
+			{ id: "integrations", label: "Integrations & API", icon: PuzzleIcon },
 		],
 	},
 	{
 		heading: "Settings",
 		items: [
-			{ id: "help", label: "Help Center", icon: HelpCircleIcon },
 			{ id: "system", label: "System Settings", icon: Settings02Icon },
+			{ id: "help", label: "Help Center", icon: HelpCircleIcon },
 			{
 				id: "account-profile",
 				label: "Profile",
@@ -102,12 +94,12 @@ const sections: NavSection[] = [
 	},
 ];
 
-type School = { id: string; name: string; kind: string; mark: string };
+type Workspace = { id: string; name: string; kind: string; mark: string };
 
-const schools: School[] = [
-	{ id: "northwood", name: "Northwood High School", kind: "Grades 9–12", mark: "N" },
-	{ id: "riverside", name: "Riverside Elementary", kind: "Grades K–5", mark: "R" },
-	{ id: "district", name: "District Office", kind: "All campuses", mark: "D" },
+const workspaces: Workspace[] = [
+	{ id: "production", name: "Acme Production", kind: "Enterprise Plan", mark: "P" },
+	{ id: "staging", name: "Acme Staging", kind: "Developer Plan", mark: "S" },
+	{ id: "internal", name: "Internal Core", kind: "System Workspace", mark: "I" },
 ];
 
 type AdminSidebarProps = {
@@ -137,9 +129,9 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 	const router = useRouter();
 	const { user, logout } = useAuth();
 	const [collapsed, setCollapsed] = useState(false);
-	const [schoolId, setSchoolId] = useState(schools[0].id);
+	const [workspaceId, setWorkspaceId] = useState(workspaces[0].id);
 
-	const school = schools.find((s) => s.id === schoolId) ?? schools[0];
+	const workspace = workspaces.find((s) => s.id === workspaceId) ?? workspaces[0];
 	const isCollapsed = !mobile && collapsed;
 	const width = mobile ? "w-full" : isCollapsed ? "w-[76px]" : "w-[260px]";
 	const activeId = activeNavId(pathname);
@@ -204,16 +196,16 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 									)}
 								>
 									<div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-dashboard-accent-soft text-dashboard-accent">
-										<span className="font-bold text-[15px] leading-none">{school.mark}</span>
+										<span className="font-bold text-[15px] leading-none">{workspace.mark}</span>
 									</div>
 									{!isCollapsed && (
 										<>
 											<div className="min-w-0 flex-1">
 												<div className="text-[11px] text-dashboard-text-dim leading-tight">
-													{school.kind}
+													{workspace.kind}
 												</div>
 												<div className="truncate font-semibold text-[13px] text-dashboard-text-secondary leading-tight">
-													{school.name}
+													{workspace.name}
 												</div>
 											</div>
 											<HugeiconsIcon
@@ -234,16 +226,16 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 						>
 							<DropdownMenuGroup>
 								<DropdownMenuLabel className="text-[10.5px] text-dashboard-text-dim uppercase">
-									Switch campus
+									Switch workspace
 								</DropdownMenuLabel>
 							</DropdownMenuGroup>
 							<DropdownMenuSeparator className="bg-dashboard-border" />
-							{schools.map((s) => {
-								const selected = s.id === schoolId;
+							{workspaces.map((s) => {
+								const selected = s.id === workspaceId;
 								return (
 									<DropdownMenuItem
 										key={s.id}
-										onClick={() => setSchoolId(s.id)}
+										onClick={() => setWorkspaceId(s.id)}
 										className="gap-3 focus:bg-dashboard-hover-strong"
 									>
 										<div className="flex size-8 items-center justify-center rounded-md bg-dashboard-accent-soft font-bold text-[13px] text-dashboard-accent">

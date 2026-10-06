@@ -1,6 +1,6 @@
 # Starter
 
-A production-ready monorepo for school-platform work, built on **Bun workspaces + Turborepo**.
+A production-ready monorepo starter kit for modern SaaS applications, built on **Bun workspaces + Turborepo**.
 
 Six apps — Next.js web, Expo mobile, NestJS API, Fumadocs docs, optional FastAPI AI service and
 Rust demo — sharing one UI layer, one logger, one TypeScript config, one CI pipeline and a slim
@@ -52,10 +52,10 @@ To work on one app in isolation: `bun --cwd=apps/web run dev` (same pattern for 
 
 | Package | Path | Role |
 | --- | --- | --- |
-| `@school-os/ui` | `packages/ui` | shadcn base — the unopinionated primitives |
+| `@starter/ui` | `packages/ui` | shadcn base — the unopinionated primitives |
 | `@rabtx/ui` | `packages/rabtx` | Polished animated layer; one API for web and native |
-| `@school-os/logger` | `packages/logger` | Shared structured logging |
-| `@school-os/typescript-config` | `packages/typescript-config` | Base tsconfigs every workspace extends |
+| `@starter/logger` | `packages/logger` | Shared structured logging |
+| `@starter/typescript-config` | `packages/typescript-config` | Base tsconfigs every workspace extends |
 
 `@rabtx/ui` sits on top of shadcn rather than replacing it. Components take three orthogonal
 props — `kind` (material), `variant` (colour role), `size` — and Metro resolves the `.native.tsx`

@@ -66,7 +66,7 @@
         "@react-navigation/native": "^7.5.0",
         "@rn-primitives/hooks": "^1.5.2",
         "@rn-primitives/types": "^1.5.2",
-        "@school-os/ui": "workspace:*",
+        "@starter/ui": "workspace:*",
         "@tanstack/react-query": "^5.104.0",
         "expo": "~58.0.2",
         "expo-constants": "~58.0.9",
@@ -166,8 +166,8 @@
         "@hugeicons/core-free-icons": "^4.3.5",
         "@hugeicons/react": "^1.1.10",
         "@paper-design/shaders-react": "^0.0.81",
-        "@school-os/ui": "workspace:*",
         "@simplewebauthn/browser": "^14.0.0",
+        "@starter/ui": "workspace:*",
         "@tanstack/react-query": "^5.104.0",
         "clsx": "^2.1.1",
         "motion": "^13.4.6",
@@ -179,7 +179,7 @@
       },
       "devDependencies": {
         "@playwright/test": "^1.63.0",
-        "@school-os/typescript-config": "workspace:*",
+        "@starter/typescript-config": "workspace:*",
         "@tailwindcss/postcss": "^4.3.3",
         "@types/node": "^26.6.3",
         "@types/react": "^19.3.0",
@@ -192,10 +192,10 @@
       },
     },
     "packages/logger": {
-      "name": "@school-os/logger",
+      "name": "@starter/logger",
       "version": "0.0.0",
       "devDependencies": {
-        "@school-os/typescript-config": "workspace:*",
+        "@starter/typescript-config": "workspace:*",
         "@types/node": "^26.6.3",
         "@vitest/coverage-v8": "^5.0.3",
         "typescript": "^7.0.2",
@@ -207,11 +207,11 @@
       "version": "0.0.0",
       "dependencies": {
         "@base-ui/react": "^1.8.0",
-        "@school-os/ui": "workspace:*",
+        "@starter/ui": "workspace:*",
         "class-variance-authority": "^0.7.1",
       },
       "devDependencies": {
-        "@school-os/typescript-config": "workspace:*",
+        "@starter/typescript-config": "workspace:*",
         "@types/react": "^19.3.0",
         "react": "^19.3.0",
         "typescript": "^7.0.2",
@@ -221,11 +221,11 @@
       },
     },
     "packages/typescript-config": {
-      "name": "@school-os/typescript-config",
+      "name": "@starter/typescript-config",
       "version": "0.0.0",
     },
     "packages/ui": {
-      "name": "@school-os/ui",
+      "name": "@starter/ui",
       "version": "0.0.0",
       "dependencies": {
         "@base-ui/react": "^1.8.0",
@@ -240,7 +240,7 @@
       },
       "devDependencies": {
         "@hugeicons/react-native": "^1.0.16",
-        "@school-os/typescript-config": "workspace:*",
+        "@starter/typescript-config": "workspace:*",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
         "react-native": "0.88.0-rc.3",
@@ -1051,12 +1051,6 @@
 
     "@scarf/scarf": ["@scarf/scarf@1.4.0", "", {}, "sha512-xxeapPiUXdZAE3che6f3xogoJPeZgig6omHEy1rIY5WVsB3H2BHNnZH+gHG6x91SCWyQCzWGsuL2Hh3ClO5/qQ=="],
 
-    "@school-os/logger": ["@school-os/logger@workspace:packages/logger"],
-
-    "@school-os/typescript-config": ["@school-os/typescript-config@workspace:packages/typescript-config"],
-
-    "@school-os/ui": ["@school-os/ui@workspace:packages/ui"],
-
     "@scure/base": ["@scure/base@2.4.0", "", {}, "sha512-thZ1TuJwFwBblOhgsjDKvvGirBxNp+wSvY/DR6tJBJOTDhdAAcHJ8Vbr2eFnqaxeca4+t0i9KBf+uHYGWwZORg=="],
 
     "@shadcn/react": ["@shadcn/react@0.3.1", "", { "peerDependencies": { "@types/react": ">=19", "react": ">=19" }, "optionalPeers": ["@types/react", "react"] }, "sha512-2gOR0HDMtWeRsCZfNDaU0YDFdgH3zsDQ6lz67Fv/y/qjY9y+R8kJqAn6q56phqv7/zHi0wqURjntrNO9zL7vnQ=="],
@@ -1088,6 +1082,12 @@
     "@standard-schema/spec": ["@standard-schema/spec@1.1.0", "", {}, "sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w=="],
 
     "@standard-schema/utils": ["@standard-schema/utils@0.3.0", "", {}, "sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g=="],
+
+    "@starter/logger": ["@starter/logger@workspace:packages/logger"],
+
+    "@starter/typescript-config": ["@starter/typescript-config@workspace:packages/typescript-config"],
+
+    "@starter/ui": ["@starter/ui@workspace:packages/ui"],
 
     "@swc/helpers": ["@swc/helpers@0.5.23", "", { "dependencies": { "tslib": "^2.8.0" } }, "sha512-5lSsMOTXURePglDfvuAQUqkGek9Hg2kksOYay2m0+XR++b2NWYL/4sWyuvVBIs8oKnJaxkdi9whaL/sqN13afw=="],
 

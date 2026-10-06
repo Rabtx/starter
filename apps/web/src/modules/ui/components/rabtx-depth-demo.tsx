@@ -12,9 +12,9 @@ import {
 	SparklesIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from "@school-os/ui/components/avatar";
-import { Badge } from "@school-os/ui/components/badge";
-import { Button } from "@school-os/ui/components/button";
+import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from "@starter/ui/components/avatar";
+import { Badge } from "@starter/ui/components/badge";
+import { Button } from "@starter/ui/components/button";
 import {
 	Card,
 	CardContent,
@@ -22,7 +22,7 @@ import {
 	CardFooter,
 	CardHeader,
 	CardTitle,
-} from "@school-os/ui/components/card";
+} from "@starter/ui/components/card";
 import {
 	Drawer,
 	DrawerClose,
@@ -32,22 +32,22 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 	DrawerTrigger,
-} from "@school-os/ui/components/drawer";
-import { Input } from "@school-os/ui/components/input";
+} from "@starter/ui/components/drawer";
+import { Input } from "@starter/ui/components/input";
 import {
 	InputGroup,
 	InputGroupAddon,
 	InputGroupButton,
 	InputGroupInput,
-} from "@school-os/ui/components/input-group";
+} from "@starter/ui/components/input-group";
 import {
 	Tabs as MotionTabs,
 	TabsContent as MotionTabsContent,
 	TabsList as MotionTabsList,
 	TabsTrigger as MotionTabsTrigger,
-} from "@school-os/ui/components/motion/tabs";
-import { Spinner } from "@school-os/ui/components/spinner";
-import { cn } from "@school-os/ui/lib/utils";
+} from "@starter/ui/components/motion/tabs";
+import { Spinner } from "@starter/ui/components/spinner";
+import { cn } from "@starter/ui/lib/utils";
 import { motion } from "motion/react";
 import { useState } from "react";
 
@@ -322,7 +322,7 @@ export function RabtxTabsDemo() {
 								<p className="text-muted-foreground">
 									Glides smoothly between triggers with text exclusion color inversion from{" "}
 									<code className="text-teal-600 dark:text-teal-400 font-mono text-[11px]">
-										@school-os/ui/components/motion/tabs
+										@starter/ui/components/motion/tabs
 									</code>
 									.
 								</p>
@@ -358,7 +358,7 @@ export function RabtxTabsDemo() {
 								<p className="text-muted-foreground">
 									Spring stiffness & damping configured via{" "}
 									<code className="font-mono">SPRING_LAYOUT</code> in{" "}
-									<code className="font-mono">@school-os/ui/lib/ease</code>.
+									<code className="font-mono">@starter/ui/lib/ease</code>.
 								</p>
 							</Card>
 						</MotionTabsContent>

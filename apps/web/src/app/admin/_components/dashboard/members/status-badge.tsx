@@ -4,7 +4,7 @@ import { AlertCircleIcon, CheckmarkCircle02Icon, ReloadIcon } from "@hugeicons/c
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
-import type { AdmissionStatus } from "./admissions-data";
+import type { MemberStatus } from "./members-data";
 
 type IconType = ComponentProps<typeof HugeiconsIcon>["icon"];
 
@@ -14,9 +14,9 @@ type StatusSpec = {
 	className: string;
 };
 
-const SPECS: Record<AdmissionStatus, StatusSpec> = {
-	enrolled: {
-		label: "Enrolled",
+const SPECS: Record<MemberStatus, StatusSpec> = {
+	active: {
+		label: "Active",
 		icon: CheckmarkCircle02Icon,
 		className: "border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
 	},
@@ -25,15 +25,15 @@ const SPECS: Record<AdmissionStatus, StatusSpec> = {
 		icon: AlertCircleIcon,
 		className: "border-amber-500/25 bg-amber-500/10 text-amber-600 dark:text-amber-400",
 	},
-	waitlisted: {
-		label: "Waitlisted",
+	suspended: {
+		label: "Suspended",
 		icon: ReloadIcon,
 		className: "border-dashboard-border bg-dashboard-surface-strong text-dashboard-text-secondary",
 	},
 };
 
 type Props = {
-	status: AdmissionStatus;
+	status: MemberStatus;
 	className?: string;
 };
 

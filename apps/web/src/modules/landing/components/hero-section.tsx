@@ -42,7 +42,7 @@ export function HeroSection() {
 								/>
 							))}
 						</span>
-						Built for teams shipping school products
+						Built for teams shipping modern SaaS products
 					</motion.span>
 
 					<motion.h1
@@ -51,7 +51,7 @@ export function HeroSection() {
 						transition={{ duration: 0.8, delay: 0.08, ease: EASE }}
 						className="mt-6 text-balance font-semibold text-3xl leading-[1.1] tracking-tight sm:text-5xl"
 					>
-						<span className="text-foreground">Ship a school-scale monorepo</span>
+						<span className="text-foreground">Ship a production-grade monorepo</span>
 						<br />
 						<span className="text-foreground/40">without starting from zero</span>
 					</motion.h1>
@@ -123,7 +123,7 @@ function WorkflowCard() {
 					</span>
 					<div>
 						<p className="font-semibold text-neutral-900 text-sm">Workspace bootstrap</p>
-						<p className="text-[11px] text-neutral-500">school-os · just now</p>
+						<p className="text-[11px] text-neutral-500">starter · just now</p>
 					</div>
 				</div>
 

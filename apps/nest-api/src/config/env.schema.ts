@@ -17,7 +17,7 @@ export const envSchema = z
 		SERVICE_NAME: z.string().min(1).default('starter-api'),
 		APP_NAME: z.string().min(1).max(80).default('Starter'),
 		WEB_APP_URL: z.url().default('http://localhost:3000'),
-		DATABASE_URL: z.url().default('postgresql://school-os:school-os@localhost:5433/school-os'),
+		DATABASE_URL: z.url().default('postgresql://starter:starter@localhost:5433/starter'),
 		DATABASE_POOL_MAX: z.coerce.number().int().min(1).max(50).default(10),
 		DATABASE_SSL: z.enum(['true', 'false']).optional(),
 		JWT_SECRET: z.string().min(32).default(developmentJwtSecret),

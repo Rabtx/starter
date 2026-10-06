@@ -4,10 +4,10 @@ import { ArrowDown01Icon, ArrowUp01Icon, MoreHorizontalIcon } from "@hugeicons/c
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
-import { type Admission, admissions as seedAdmissions } from "./admissions-data";
+import { type Member, members as seedMembers } from "./members-data";
 import { StatusBadge } from "./status-badge";
 
-type SortKey = "id" | "student" | "grade" | "guardian" | "date" | "status" | "campus";
+type SortKey = "id" | "name" | "role" | "team" | "date" | "status" | "workspace";
 
 type Col = {
 	id: SortKey | "actions";
@@ -17,19 +17,19 @@ type Col = {
 };
 
 const COLUMNS: Col[] = [
-	{ id: "student", label: "Applicant", sortable: true, width: "34%" },
-	{ id: "campus", label: "Campus", sortable: true, width: "14%" },
-	{ id: "guardian", label: "Guardian", sortable: true, width: "22%" },
-	{ id: "date", label: "Applied", sortable: true, width: "14%" },
+	{ id: "name", label: "Member", sortable: true, width: "34%" },
+	{ id: "workspace", label: "Workspace", sortable: true, width: "14%" },
+	{ id: "team", label: "Team", sortable: true, width: "22%" },
+	{ id: "date", label: "Joined", sortable: true, width: "14%" },
 	{ id: "status", label: "Status", sortable: true, width: "12%" },
 	{ id: "actions", label: "Actions", width: "52px" },
 ];
 
-const SOURCE_LABEL: Record<Admission["source"], string> = {
-	portal: "Online portal",
-	"walk-in": "Walk-in",
-	referral: "Referral",
-	transfer: "Transfer",
+const SOURCE_LABEL: Record<Member["source"], string> = {
+	portal: "Self-serve",
+	"walk-in": "Direct invite",
+	referral: "Workspace invite",
+	transfer: "SSO / SAML",
 };
 
 type Props = {
@@ -37,7 +37,7 @@ type Props = {
 	query?: string;
 };
 
-function compareAdmissions(a: Admission, b: Admission, key: SortKey): number {
+function compareMembers(a: Member, b: Member, key: SortKey): number {
 	return String(a[key]).localeCompare(String(b[key]), undefined, {
 		numeric: true,
 		sensitivity: "base",
@@ -52,35 +52,35 @@ function initials(name: string): string {
 		.join("");
 }
 
-function useAdmissionRows(query: string, sortKey: SortKey, sortDir: "asc" | "desc") {
+function useMemberRows(query: string, sortKey: SortKey, sortDir: "asc" | "desc") {
 	return useMemo(() => {
 		const q = query.trim().toLowerCase();
 		const filtered = q
-			? seedAdmissions.filter((row) =>
+			? seedMembers.filter((row) =>
 					[
 						row.id,
-						row.student,
+						row.name,
 						row.email,
-						row.grade,
-						row.campus,
-						row.guardian,
+						row.role,
+						row.workspace,
+						row.team,
 						row.status,
 						row.source,
 						row.note,
 					].some((field) => field.toLowerCase().includes(q)),
 				)
-			: seedAdmissions;
+			: seedMembers;
 
-		const sorted = filtered.toSorted((a, b) => compareAdmissions(a, b, sortKey));
+		const sorted = filtered.toSorted((a, b) => compareMembers(a, b, sortKey));
 		if (sortDir === "desc") sorted.reverse();
 		return sorted;
 	}, [query, sortDir, sortKey]);
 }
 
-export function AdmissionsTable({ className, query = "" }: Props) {
+export function MembersTable({ className, query = "" }: Props) {
 	const [sortKey, setSortKey] = useState<SortKey>("date");
 	const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
-	const rows = useAdmissionRows(query, sortKey, sortDir);
+	const rows = useMemberRows(query, sortKey, sortDir);
 
 	const toggleSort = (key: SortKey) => {
 		if (sortKey === key) {
@@ -94,11 +94,9 @@ export function AdmissionsTable({ className, query = "" }: Props) {
 	if (rows.length === 0) {
 		return (
 			<div className={cn("px-4 py-10 text-center", className)}>
-				<p className="font-medium text-[14px] text-dashboard-text-primary">
-					No matching admissions
-				</p>
+				<p className="font-medium text-[14px] text-dashboard-text-primary">No matching members</p>
 				<p className="mx-auto mt-1 max-w-sm text-[12.5px] text-dashboard-text-muted leading-5">
-					Nothing matches “{query.trim()}”. Try a student name, campus, or status.
+					Nothing matches “{query.trim()}”. Try a member name, workspace, or status.
 				</p>
 			</div>
 		);
@@ -110,7 +108,7 @@ export function AdmissionsTable({ className, query = "" }: Props) {
 			<ul className="divide-y divide-dashboard-border-subtle md:hidden">
 				{rows.map((a) => (
 					<li key={a.id} className="px-4 py-3.5">
-						<AdmissionMobileCard admission={a} />
+						<MemberMobileCard member={a} />
 					</li>
 				))}
 			</ul>
@@ -178,14 +176,14 @@ export function AdmissionsTable({ className, query = "" }: Props) {
 											aria-hidden
 											className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg bg-dashboard-surface-strong font-semibold text-[11px] text-dashboard-text-secondary ring-1 ring-dashboard-border"
 										>
-											{initials(a.student)}
+											{initials(a.name)}
 										</span>
 										<span className="min-w-0">
 											<span className="block truncate font-semibold text-[13px] text-dashboard-text-primary">
-												{a.student}
+												{a.name}
 											</span>
 											<span className="mt-0.5 block truncate text-[12px] text-dashboard-text-muted">
-												{a.id} · {a.grade} · {SOURCE_LABEL[a.source]}
+												{a.id} · {a.role} · {SOURCE_LABEL[a.source]}
 											</span>
 											<span className="mt-0.5 block truncate text-[11.5px] text-dashboard-text-secondary">
 												{a.note}
@@ -195,18 +193,18 @@ export function AdmissionsTable({ className, query = "" }: Props) {
 								</td>
 								<td className="py-3 pr-3 align-top">
 									<span className="block truncate font-medium text-[12.5px] text-dashboard-text-primary">
-										{a.campus}
+										{a.workspace}
 									</span>
 									<span className="mt-0.5 block truncate text-[11.5px] text-dashboard-text-muted">
-										{a.grade}
+										{a.role}
 									</span>
 								</td>
 								<td className="py-3 pr-3 align-top">
 									<span className="block truncate font-medium text-[12.5px] text-dashboard-text-primary">
-										{a.guardian}
+										{a.team}
 									</span>
 									<span className="mt-0.5 block truncate text-[11.5px] text-dashboard-text-muted">
-										{a.guardianRelation} · {a.guardianPhone}
+										{a.teamRole} · {a.location}
 									</span>
 								</td>
 								<td className="py-3 pr-3 align-top tabular-nums">
@@ -221,8 +219,8 @@ export function AdmissionsTable({ className, query = "" }: Props) {
 								<td className="py-3 pr-3 align-top">
 									<button
 										type="button"
-										aria-label={`Actions for ${a.student}`}
-										title="Open admission detail"
+										aria-label={`Actions for ${a.name}`}
+										title="Open member detail"
 										className="flex size-7 items-center justify-center rounded-md border border-dashboard-border-strong bg-dashboard-surface text-dashboard-text-muted transition-colors hover:border-dashboard-border-focus hover:text-dashboard-text-primary"
 									>
 										<HugeiconsIcon icon={MoreHorizontalIcon} size={13} strokeWidth={2} />
@@ -237,23 +235,23 @@ export function AdmissionsTable({ className, query = "" }: Props) {
 	);
 }
 
-function AdmissionMobileCard({ admission: a }: { admission: Admission }) {
+function MemberMobileCard({ member: a }: { member: Member }) {
 	return (
 		<article className="flex gap-3">
 			<span
 				aria-hidden
 				className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-xl bg-dashboard-surface-strong font-semibold text-[12px] text-dashboard-text-secondary ring-1 ring-dashboard-border"
 			>
-				{initials(a.student)}
+				{initials(a.name)}
 			</span>
 			<div className="min-w-0 flex-1 space-y-2">
 				<div className="flex items-start justify-between gap-2">
 					<div className="min-w-0">
 						<p className="truncate font-semibold text-[14px] text-dashboard-text-primary">
-							{a.student}
+							{a.name}
 						</p>
 						<p className="mt-0.5 text-[12px] text-dashboard-text-muted">
-							{a.id} · {a.grade}
+							{a.id} · {a.role}
 						</p>
 					</div>
 					<StatusBadge status={a.status} className="shrink-0" />
@@ -262,13 +260,13 @@ function AdmissionMobileCard({ admission: a }: { admission: Admission }) {
 				<dl className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-[12px]">
 					<div>
 						<dt className="text-[10.5px] text-dashboard-text-dim uppercase tracking-[0.05em]">
-							Campus
+							Workspace
 						</dt>
-						<dd className="mt-0.5 font-medium text-dashboard-text-secondary">{a.campus}</dd>
+						<dd className="mt-0.5 font-medium text-dashboard-text-secondary">{a.workspace}</dd>
 					</div>
 					<div>
 						<dt className="text-[10.5px] text-dashboard-text-dim uppercase tracking-[0.05em]">
-							Applied
+							Joined
 						</dt>
 						<dd className="mt-0.5 font-medium text-dashboard-text-secondary tabular-nums">
 							{a.date}
@@ -276,13 +274,13 @@ function AdmissionMobileCard({ admission: a }: { admission: Admission }) {
 					</div>
 					<div className="col-span-2">
 						<dt className="text-[10.5px] text-dashboard-text-dim uppercase tracking-[0.05em]">
-							Guardian
+							Team
 						</dt>
 						<dd className="mt-0.5 text-dashboard-text-secondary">
-							<span className="font-medium">{a.guardian}</span>
+							<span className="font-medium">{a.team}</span>
 							<span className="text-dashboard-text-muted">
 								{" "}
-								· {a.guardianRelation} · {a.guardianPhone}
+								· {a.teamRole} · {a.location}
 							</span>
 						</dd>
 					</div>

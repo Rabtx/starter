@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@school-os/ui/lib/utils";
+import { cn } from "@starter/ui/lib/utils";
 import { LayoutGroup, MotionConfig, motion, type Transition, useReducedMotion } from "motion/react";
 import React, {
 	createContext,

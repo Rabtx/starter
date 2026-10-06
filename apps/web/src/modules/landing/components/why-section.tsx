@@ -53,7 +53,7 @@ export function WhySection() {
 						</FadeIn>
 						<FadeIn delay={0.06}>
 							<h2 className="mt-5 text-balance font-serif text-3xl text-foreground leading-[1.12] sm:text-4xl lg:text-[2.75rem]">
-								Built for teams who ship school products.
+								Built for teams who ship modern products.
 							</h2>
 						</FadeIn>
 					</div>

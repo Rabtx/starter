@@ -12,20 +12,20 @@ type Props = {
 	className?: string;
 };
 
-export function EnrollmentTrendCard({ className }: Props) {
+export function GrowthTrendCard({ className }: Props) {
 	return (
 		<section
 			className={cn(
 				"overflow-hidden rounded-[16px] border border-dashboard-border bg-dashboard-surface shadow-(--dashboard-shadow-card)",
 				className,
 			)}
-			aria-label="Enrollment trend"
+			aria-label="User growth trend"
 		>
 			<DashboardCardHeader
-				title="Enrollment Trend"
-				description="New admissions versus returning students across the academic year."
-				meta="Fall planning · all campuses"
-				info="Each column cluster is a month. Accent cells are new seats; muted cells are returning cohort."
+				title="User Growth Trend"
+				description="New user signups versus active returning users across workspaces."
+				meta="Q3 metrics · all workspaces"
+				info="Each column cluster is a month. Accent cells are new users; muted cells are recurring cohort."
 				actions={<RangeToggle className="w-full sm:w-auto" />}
 			/>
 
@@ -33,28 +33,28 @@ export function EnrollmentTrendCard({ className }: Props) {
 				<div className="mb-4 grid grid-cols-2 gap-4 sm:mb-5 sm:flex sm:flex-wrap sm:items-start sm:justify-between sm:gap-6">
 					<div className="col-span-2 grid grid-cols-2 gap-4 sm:flex sm:flex-wrap sm:gap-8 lg:grid-cols-none">
 						<InsightStat
-							label="Total students"
+							label="Total active users"
 							value="2,847"
-							hint="+118 net since Jan · capacity 3,100"
+							hint="+118 net since Jan · target 3,500"
 						/>
-						<InsightStat label="New this month" value="142" hint="Jul peak · 38 pending offers" />
+						<InsightStat label="New this month" value="142" hint="Jul peak · 38 pending invites" />
 						<InsightStat
 							label="Retention"
 							value="96.1%"
-							hint="Returning vs prior term"
+							hint="Recurring vs prior month"
 							className="col-span-2 sm:col-span-1"
 						/>
 					</div>
 					<div className="col-span-2 flex flex-wrap items-center gap-3 sm:gap-4 sm:pt-1">
-						<LegendDot color="var(--dashboard-accent)" label="New admissions" />
-						<LegendDot color="var(--dashboard-chart-dot)" label="Returning" />
+						<LegendDot color="var(--dashboard-accent)" label="New signups" />
+						<LegendDot color="var(--dashboard-chart-dot)" label="Recurring" />
 					</div>
 				</div>
 
 				<div className="mb-3 rounded-[12px] border border-dashboard-border-subtle bg-dashboard-surface/70 px-3 py-2.5 text-[12.5px] text-dashboard-text-secondary leading-5 sm:mb-4 sm:px-3.5">
-					<span className="font-medium text-dashboard-text-primary">July spike:</span> transfer
-					window + portal reopen drove +19% new seats vs June. Riverside Grade 2 is near capacity —
-					waitlist is active.
+					<span className="font-medium text-dashboard-text-primary">July spike:</span> self-serve
+					onboarding drove +19% new users vs June. All provisioned clusters are operating within
+					quota.
 				</div>
 
 				<p className="mb-2 text-[11px] text-dashboard-text-dim md:hidden">
@@ -71,17 +71,17 @@ export function EnrollmentTrendCard({ className }: Props) {
 						type="button"
 						className="inline-flex items-center gap-1 font-medium text-[12px] text-dashboard-accent transition-colors hover:text-dashboard-accent-hover"
 					>
-						Open enrollment plan
+						Growth analytics
 						<HugeiconsIcon icon={ArrowRight01Icon} size={13} strokeWidth={2} />
 					</button>
 				}
 			>
 				<span>
-					<span className="font-semibold text-dashboard-text-secondary">253</span> seats free
+					<span className="font-semibold text-dashboard-text-secondary">653</span> seats open
 				</span>
 				<FooterSep />
 				<span>
-					<span className="font-semibold text-dashboard-text-secondary">2</span> near capacity
+					<span className="font-semibold text-dashboard-text-secondary">99.9%</span> uptime
 				</span>
 				<FooterSep />
 				<span className="hidden sm:inline">Updated 14:02</span>

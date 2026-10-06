@@ -55,7 +55,7 @@ export function CtaSection() {
 							<span className="size-3 rounded-full bg-[#ff5f57]" />
 							<span className="size-3 rounded-full bg-[#febc2e]" />
 							<span className="size-3 rounded-full bg-[#28c840]" />
-							<span className="ml-2 font-mono text-[11px] text-white/40">~/school-os</span>
+							<span className="ml-2 font-mono text-[11px] text-white/40">~/starter</span>
 							<motion.button
 								type="button"
 								onClick={handleCopy}

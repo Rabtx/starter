@@ -1,6 +1,6 @@
 "use client";
 
-import { SidebarInset, SidebarProvider } from "@school-os/ui/components/sidebar";
+import { SidebarInset, SidebarProvider } from "@starter/ui/components/sidebar";
 import { usePathname } from "next/navigation";
 import { type ReactNode, useState } from "react";
 import { RabtxSidebar, RabtxTopbar, SHADCN_COMPONENTS_NAV } from "@/modules/ui";

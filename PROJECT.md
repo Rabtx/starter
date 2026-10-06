@@ -8,7 +8,7 @@ For quick setup/use, start with `README.md`.
 Monorepo starter managed by **Bun + Turborepo**, with:
 
 - Multiple app templates (web, mobile, API, docs, Rust)
-- Shared workspace packages (`@school-os/*`)
+- Shared workspace packages (`@starter/*`)
 - Polyglot scripts and quality tooling
 - Architecture boundary checks
 - Git hooks and CI/CD/security pipelines
@@ -57,9 +57,9 @@ There is no root `docs/` directory.
 
 | Package | Workspace import | Purpose |
 | --- | --- | --- |
-| `packages/ui` | `@school-os/ui` | Shared web UI primitives + design tokens |
-| `packages/logger` | `@school-os/logger` | Shared structured logger for TypeScript and Rust |
-| `packages/typescript-config` | `@school-os/typescript-config` | Reusable TypeScript config presets |
+| `packages/ui` | `@starter/ui` | Shared web UI primitives + design tokens |
+| `packages/logger` | `@starter/logger` | Shared structured logger for TypeScript and Rust |
+| `packages/typescript-config` | `@starter/typescript-config` | Reusable TypeScript config presets |
 
 ## Root command surface
 
@@ -171,7 +171,7 @@ More details: docs app `/docs/docker` and `docker/README.md`.
 - Cursor-specific rules: `.agents/rules/`
 - Architecture baseline: docs app `/docs/architecture`
 - Override process: docs app `/docs/overrides`
-- Use workspace imports as `@school-os/<package>`
+- Use workspace imports as `@starter/<package>`
 
 ## Related docs
 

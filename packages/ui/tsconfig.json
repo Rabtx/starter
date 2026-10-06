@@ -4,7 +4,7 @@
 		"types": ["react"],
 		"ignoreDeprecations": "6.0",
 		"paths": {
-			"@school-os/ui/*": ["./src/*"]
+			"@starter/ui/*": ["./src/*"]
 		}
 	},
 	"include": ["src/**/*.ts", "src/**/*.tsx"],

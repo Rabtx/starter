@@ -54,7 +54,7 @@ export function LoginForm() {
 			description={
 				challenge
 					? "Enter the code from your authenticator app"
-					: "Sign in to access your school workspace"
+					: "Sign in to access your workspace"
 			}
 		>
 			{notice ? <AuthAlert message={notice} variant="info" /> : null}

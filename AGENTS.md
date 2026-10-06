@@ -112,7 +112,7 @@ starter/
 - **No ESLint/Prettier**: oxlint and oxfmt are the only lint/format tools for TS/JS in this project.
 - **Naming**: PascalCase for components; files match component name. Hooks use `use*` prefix;
   utility functions are plain named exports.
-- **Imports**: Prefer workspace imports as `@school-os/<package>` (e.g. `@school-os/ui`).
+- **Imports**: Prefer workspace imports as `@starter/<package>` (e.g. `@starter/ui`).
   Group: external → workspace → relative. No unused imports.
 - **Types**: Explicit types for props and public APIs. Avoid `any`; use `unknown` and narrow.
 - **Errors**: Handle explicitly — log and rethrow, or use result types. No silent catches.
@@ -123,7 +123,7 @@ starter/
 - **Monorepo**: Apps in `apps/`, shared code in `packages/`. When a change applies across apps,
   prefer changing a shared package.
 - **New apps**: Add under `apps/`, wire into `turbo.json` tasks if needed.
-- **New packages**: Add under `packages/`, export via `@school-os/<name>`.
+- **New packages**: Add under `packages/`, export via `@starter/<name>`.
 - **Shared UI**: `packages/ui` uses shadcn-style components. Shared Tailwind tokens live in
   `packages/ui/src/styles/globals.css`.
 - **TypeScript config**: Extend from `packages/typescript-config/base.json` (or `nextjs.json`

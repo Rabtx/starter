@@ -8,23 +8,23 @@ import {
 	ViewOffSlashIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Alert, AlertDescription, AlertTitle } from "@school-os/ui/components/alert";
-import { Button } from "@school-os/ui/components/button";
+import { Alert, AlertDescription, AlertTitle } from "@starter/ui/components/alert";
+import { Button } from "@starter/ui/components/button";
 import {
 	Card,
 	CardContent,
 	CardDescription,
 	CardHeader,
 	CardTitle,
-} from "@school-os/ui/components/card";
-import { Field, FieldDescription, FieldGroup, FieldLabel } from "@school-os/ui/components/field";
+} from "@starter/ui/components/card";
+import { Field, FieldDescription, FieldGroup, FieldLabel } from "@starter/ui/components/field";
 import {
 	InputGroup,
 	InputGroupAddon,
 	InputGroupButton,
 	InputGroupInput,
-} from "@school-os/ui/components/input-group";
-import { Spinner } from "@school-os/ui/components/spinner";
+} from "@starter/ui/components/input-group";
+import { Spinner } from "@starter/ui/components/spinner";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -114,7 +114,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
 									<InputGroupInput
 										id="signup-email"
 										type="email"
-										placeholder="you@school.edu"
+										placeholder="you@example.com"
 										value={email}
 										onChange={(e) => setEmail(e.target.value)}
 										required

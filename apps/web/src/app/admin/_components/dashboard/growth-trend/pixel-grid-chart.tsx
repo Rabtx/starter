@@ -93,10 +93,10 @@ export function PixelGridChart({ highlightMonth = "JUL", className }: Props) {
 	const activeMonth = activeCol?.month ?? highlightMonth;
 
 	const monthTotals = useMemo(() => {
-		const map = new Map<string, { newAdmissions: number; returning: number }>();
+		const map = new Map<string, { newSignups: number; returning: number }>();
 		for (const c of cols) {
-			const cur = map.get(c.month) ?? { newAdmissions: 0, returning: 0 };
-			cur.newAdmissions += c.newCells * PER_ROW;
+			const cur = map.get(c.month) ?? { newSignups: 0, returning: 0 };
+			cur.newSignups += c.newCells * PER_ROW;
 			cur.returning += c.existingCells * PER_ROW;
 			map.set(c.month, cur);
 		}
@@ -145,7 +145,7 @@ export function PixelGridChart({ highlightMonth = "JUL", className }: Props) {
 						preserveAspectRatio="xMidYMid meet"
 						className="block h-auto w-full"
 						role="img"
-						aria-label="Enrollment trend pixel chart"
+						aria-label="User growth pixel chart"
 					>
 						{Array.from({ length: ROWS * COLS }).map((_, idx) => {
 							const r = Math.floor(idx / COLS);
@@ -240,9 +240,9 @@ export function PixelGridChart({ highlightMonth = "JUL", className }: Props) {
 											className="size-1.5 rounded-full"
 											style={{ backgroundColor: COLOR_NEW }}
 										/>
-										<span className="text-[13.5px] text-dashboard-text-muted">New admissions</span>
+										<span className="text-[13.5px] text-dashboard-text-muted">New signups</span>
 										<span className="ml-auto font-semibold text-[15px] text-dashboard-text-primary tabular-nums">
-											{Math.round(tip.newAdmissions / 1000)}k
+											{Math.round(tip.newSignups / 1000)}k
 										</span>
 									</div>
 									<div className="flex items-center gap-2.5">

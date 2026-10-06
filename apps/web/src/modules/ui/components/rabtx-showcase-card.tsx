@@ -2,17 +2,17 @@
 
 import { CodeIcon, Copy01Icon, EyeIcon, Tick02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Badge } from "@school-os/ui/components/badge";
-import { Button } from "@school-os/ui/components/button";
+import { Badge } from "@starter/ui/components/badge";
+import { Button } from "@starter/ui/components/button";
 import {
 	Card,
 	CardContent,
 	CardDescription,
 	CardHeader,
 	CardTitle,
-} from "@school-os/ui/components/card";
-import { Tabs, TabsList, TabsTrigger } from "@school-os/ui/components/tabs";
-import { cn } from "@school-os/ui/lib/utils";
+} from "@starter/ui/components/card";
+import { Tabs, TabsList, TabsTrigger } from "@starter/ui/components/tabs";
+import { cn } from "@starter/ui/lib/utils";
 import { motion } from "motion/react";
 import { type ReactNode, useState } from "react";
 

@@ -2,16 +2,16 @@
 
 import { AlertCircleIcon, FingerPrintIcon, MailSend01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Alert, AlertDescription, AlertTitle } from "@school-os/ui/components/alert";
-import { Button } from "@school-os/ui/components/button";
+import { Alert, AlertDescription, AlertTitle } from "@starter/ui/components/alert";
+import { Button } from "@starter/ui/components/button";
 import {
 	Card,
 	CardContent,
 	CardDescription,
 	CardHeader,
 	CardTitle,
-} from "@school-os/ui/components/card";
-import { FieldDescription } from "@school-os/ui/components/field";
+} from "@starter/ui/components/card";
+import { FieldDescription } from "@starter/ui/components/field";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";

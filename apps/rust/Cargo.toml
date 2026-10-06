@@ -1,5 +1,5 @@
 [package]
-name = "school-os-rust"
+name = "starter-rust"
 version = "0.1.0"
 edition = "2021"
 description = "Rust app for starter monorepo"

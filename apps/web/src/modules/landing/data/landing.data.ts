@@ -136,7 +136,7 @@ export type ChatMessage = {
 export const AGENT_MESSAGES: ChatMessage[] = [
 	{
 		role: "user",
-		text: "Can we scaffold a school product with web + mobile + API?",
+		text: "Can we scaffold a production SaaS product with web + mobile + API?",
 	},
 	{
 		role: "agent",
@@ -144,7 +144,7 @@ export const AGENT_MESSAGES: ChatMessage[] = [
 	},
 	{
 		role: "agent",
-		text: "Shared @school-os/ui and typescript-config keep stacks consistent.",
+		text: "Shared @starter/ui and typescript-config keep stacks consistent.",
 	},
 	{
 		role: "agent",
@@ -170,7 +170,7 @@ export const CUSTOMER_LOGOS: CustomerLogo[] = [
 
 export const PRODUCT_BULLETS: string[] = [
 	"Five apps in one workspace — web, mobile, Nest, docs, Rust",
-	"Shared UI tokens and TypeScript configs via @school-os/*",
+	"Shared UI tokens and TypeScript configs via @starter/*",
 	"Hooks, CI, architecture boundaries, and Compose out of the box",
 ];
 
@@ -208,7 +208,7 @@ export const INCIDENT_TIMELINE: IncidentEvent[] = [
 	},
 	{
 		title: "Ready to ship",
-		detail: "Docker Compose optional — school-os is live",
+		detail: "Docker Compose optional — starter stack is live",
 		tone: "ok",
 		icon: "shield",
 	},
@@ -247,14 +247,14 @@ export const CAPABILITY_CARDS: CapabilityCard[] = [
 	{
 		title: "Add an app in one workspace",
 		description:
-			"Drop a package under apps/ or packages/, export as @school-os/*, and wire it into turbo.json.",
+			"Drop a package under apps/ or packages/, export as @starter/*, and wire it into turbo.json.",
 		span: 2,
 		kind: "tools",
 		palette: "blue",
 	},
 	{
 		title: "Shared UI that sticks",
-		description: "Design tokens and primitives live in @school-os/ui for web.",
+		description: "Design tokens and primitives live in @starter/ui for web.",
 		span: 2,
 		kind: "memory",
 		palette: "teal",
@@ -404,7 +404,7 @@ export const TESTIMONIALS_ROW_ONE: Testimonial[] = [
 		quote:
 			"We skipped three weeks of wiring Turbo, hooks, and Docker. Starter was already opinionated the right way.",
 		name: "Maya Chen",
-		role: "Staff Eng, campus product",
+		role: "Staff Eng, SaaS platform",
 		seed: "Maya",
 	},
 	{
@@ -416,9 +416,9 @@ export const TESTIMONIALS_ROW_ONE: Testimonial[] = [
 	},
 	{
 		quote:
-			"Students can PR into a real monorepo without babysitting tooling. lint and typecheck just work.",
+			"Developers can PR into a real monorepo without babysitting tooling. lint and typecheck just work.",
 		name: "Priya Nair",
-		role: "CS faculty",
+		role: "Engineering lead",
 		seed: "Priya",
 	},
 ];
@@ -426,7 +426,7 @@ export const TESTIMONIALS_ROW_ONE: Testimonial[] = [
 export const TESTIMONIALS_ROW_TWO: Testimonial[] = [
 	{
 		quote:
-			"Adding a package under packages/ and exporting @school-os/* took minutes. Turbo picked it up immediately.",
+			"Adding a package under packages/ and exporting @starter/* took minutes. Turbo picked it up immediately.",
 		name: "Theo Park",
 		role: "Mobile engineer",
 		seed: "Theo",
@@ -442,7 +442,7 @@ export const TESTIMONIALS_ROW_TWO: Testimonial[] = [
 		quote:
 			"Docs live in the same repo. New teammates read /docs/quick-start and are productive the same afternoon.",
 		name: "Maya Chen",
-		role: "Staff Eng, campus product",
+		role: "Staff Eng, SaaS platform",
 		seed: "MayaTwo",
 	},
 ];
@@ -475,7 +475,7 @@ export const PRICING_TIERS: PricingTier[] = [
 
 export const PRICING_FEATURES: string[] = [
 	"Full monorepo starter (web · mobile · Nest · docs · Rust)",
-	"Shared @school-os packages and TS configs",
+	"Shared @starter packages and TS configs",
 	"Lefthook, oxlint, Turbo, and architecture checks",
 	"Docker Compose fragments + Dev Container",
 	"Docs site and production roadmap baked in",

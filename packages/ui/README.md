@@ -1,4 +1,4 @@
-# `@school-os/ui`
+# `@starter/ui`
 
 Shared shadcn/ui primitives for the Starter monorepo.
 
@@ -31,15 +31,15 @@ Keep `style`, `iconLibrary`, and `baseColor` identical in:
 Preferred (deep imports — matches CLI aliases):
 
 ```tsx
-import { Button } from "@school-os/ui/components/button";
-import { cn } from "@school-os/ui/lib/utils";
-import { useIsMobile } from "@school-os/ui/hooks/use-mobile";
+import { Button } from "@starter/ui/components/button";
+import { cn } from "@starter/ui/lib/utils";
+import { useIsMobile } from "@starter/ui/hooks/use-mobile";
 ```
 
 Barrel import (still supported):
 
 ```tsx
-import { Button, Card, cn } from "@school-os/ui";
+import { Button, Card, cn } from "@starter/ui";
 ```
 
 ## Styles
@@ -48,7 +48,7 @@ Apps import shared tokens from this package:
 
 ```css
 @import "tailwindcss";
-@import "@school-os/ui/globals.css";
+@import "@starter/ui/globals.css";
 @source "../../../../packages/ui/src";
 ```
 

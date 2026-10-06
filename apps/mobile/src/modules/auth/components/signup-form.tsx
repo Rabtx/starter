@@ -74,7 +74,7 @@ export function SignupForm() {
 				label="Email"
 				value={email}
 				onChangeText={setEmail}
-				placeholder="you@school.edu"
+				placeholder="you@example.com"
 				keyboardType="email-address"
 				autoComplete="email"
 				editable={!submitting}

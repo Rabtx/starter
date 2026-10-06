@@ -4,20 +4,20 @@ import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { SidebarLeftIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Button } from "@school-os/ui/components/button";
-import { Input } from "@school-os/ui/components/input";
-import { Separator } from "@school-os/ui/components/separator";
+import { Button } from "@starter/ui/components/button";
+import { Input } from "@starter/ui/components/input";
+import { Separator } from "@starter/ui/components/separator";
 import {
 	Sheet,
 	SheetContent,
 	SheetDescription,
 	SheetHeader,
 	SheetTitle,
-} from "@school-os/ui/components/sheet";
-import { Skeleton } from "@school-os/ui/components/skeleton";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@school-os/ui/components/tooltip";
-import { useIsMobile } from "@school-os/ui/hooks/use-mobile";
-import { cn } from "@school-os/ui/lib/utils";
+} from "@starter/ui/components/sheet";
+import { Skeleton } from "@starter/ui/components/skeleton";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@starter/ui/components/tooltip";
+import { useIsMobile } from "@starter/ui/hooks/use-mobile";
+import { cn } from "@starter/ui/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 

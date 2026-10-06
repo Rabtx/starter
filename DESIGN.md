@@ -106,7 +106,7 @@ and supported platforms. Be explicit about untested native behavior and simplifi
 
 ### Current implementation and preview
 
-- Foundation: `packages/ui` (`@school-os/ui`). Its namespace remains unchanged intentionally.
+- Foundation: `packages/ui` (`@starter/ui`). Its namespace remains unchanged intentionally.
 - Polished layer: `packages/rabtx` (`@rabtx/ui`), starting with `@rabtx/ui/button`.
 - Shared tokens: `packages/ui/src/styles/globals.css`.
 - Shared Button choices: `packages/rabtx/src/button/button.shared.ts` — `kindShape`, `kindSurface`,
@@ -167,7 +167,7 @@ The repo has a shared web primitive package at `packages/ui` and app-local primi
 
 Current rule:
 
-- Use `@school-os/ui` for stable shared primitives such as `Button`, `Card`, `Badge`, form fields,
+- Use `@starter/ui` for stable shared primitives such as `Button`, `Card`, `Badge`, form fields,
   `Separator`, `Skeleton`, and `Textarea`.
 - Use `@rabtx/ui` for the polished material variants described above; extend that layer one
   component at a time rather than creating another parallel library.

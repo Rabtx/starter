@@ -19,10 +19,10 @@ import {
 	UserIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Badge } from "@school-os/ui/components/badge";
-import { BottomBar, BottomBarItem } from "@school-os/ui/components/bottom-bar";
-import { Button } from "@school-os/ui/components/button";
-import { Card, CardContent } from "@school-os/ui/components/card";
+import { Badge } from "@starter/ui/components/badge";
+import { BottomBar, BottomBarItem } from "@starter/ui/components/bottom-bar";
+import { Button } from "@starter/ui/components/button";
+import { Card, CardContent } from "@starter/ui/components/card";
 import {
 	GlassCard,
 	GlassCardBadge,
@@ -31,16 +31,16 @@ import {
 	GlassCardFooter,
 	GlassCardHeader,
 	GlassCardTitle,
-} from "@school-os/ui/components/glass-card";
+} from "@starter/ui/components/glass-card";
 import {
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 	MotionAccordion,
-} from "@school-os/ui/components/motion/accordion";
-import { MotionCheckbox, StatefulCheckbox } from "@school-os/ui/components/motion/checkbox";
-import { MotionSlider } from "@school-os/ui/components/motion/slider";
-import { MotionSwitch, StatefulSwitch } from "@school-os/ui/components/motion/switch";
+} from "@starter/ui/components/motion/accordion";
+import { MotionCheckbox, StatefulCheckbox } from "@starter/ui/components/motion/checkbox";
+import { MotionSlider } from "@starter/ui/components/motion/slider";
+import { MotionSwitch, StatefulSwitch } from "@starter/ui/components/motion/switch";
 import {
 	MotionTable,
 	MotionTableCell,
@@ -54,7 +54,7 @@ import {
 	TableSortHead,
 	useTableSelection,
 	useTableSort,
-} from "@school-os/ui/components/motion/table";
+} from "@starter/ui/components/motion/table";
 import {
 	TableBody,
 	TableCell,
@@ -62,8 +62,8 @@ import {
 	TableHead,
 	TableHeader,
 	TableRow,
-} from "@school-os/ui/components/table";
-import { Typeset, type TypesetPreset } from "@school-os/ui/components/typeset";
+} from "@starter/ui/components/table";
+import { Typeset, type TypesetPreset } from "@starter/ui/components/typeset";
 import { AnimatePresence, motion } from "motion/react";
 import { use, useEffect, useRef, useState } from "react";
 import { useTheme } from "@/components/theme";
@@ -73,18 +73,18 @@ const WEB_TABLE_SORT_CODE = `import {
   MotionTableRow,
   TableSortHead,
   useTableSort,
-} from "@school-os/ui/components/motion/table";
-import { TableHeader, TableBody, TableCell } from "@school-os/ui/components/table";
+} from "@starter/ui/components/motion/table";
+import { TableHeader, TableBody, TableCell } from "@starter/ui/components/table";
 
-const STUDENTS = [
-  { id: "1", name: "Elena Rostova", grade: "Grade 11", gpa: 3.95 },
-  { id: "2", name: "Marcus Chen", grade: "Grade 10", gpa: 3.88 },
+const MEMBERS = [
+  { id: "1", name: "Elena Rostova", role: "Staff Engineer", score: 98 },
+  { id: "2", name: "Marcus Chen", role: "DevOps Lead", score: 94 },
 ];
 
 export function MotionTableSortDemo() {
   const sort = useTableSort({ key: "name", direction: "asc" });
 
-  const sorted = [...STUDENTS].sort((a, b) => {
+  const sorted = [...MEMBERS].sort((a, b) => {
     if (!sort.sortKey || !sort.sortDirection) return 0;
     const aVal = a[sort.sortKey as keyof typeof a];
     const bVal = b[sort.sortKey as keyof typeof a];
@@ -100,13 +100,13 @@ export function MotionTableSortDemo() {
             sortDirection={sort.sortKey === "name" ? sort.sortDirection : null}
             onSort={() => sort.toggleSort("name")}
           >
-            Student Name
+            Member Name
           </TableSortHead>
           <TableSortHead
-            sortDirection={sort.sortKey === "gpa" ? sort.sortDirection : null}
-            onSort={() => sort.toggleSort("gpa")}
+            sortDirection={sort.sortKey === "score" ? sort.sortDirection : null}
+            onSort={() => sort.toggleSort("score")}
           >
-            GPA
+            Score
           </TableSortHead>
         </MotionTableRow>
       </TableHeader>
@@ -114,7 +114,7 @@ export function MotionTableSortDemo() {
         {sorted.map((row, idx) => (
           <MotionTableRow key={row.id} index={idx}>
             <TableCell className="font-semibold">{row.name}</TableCell>
-            <TableCell>{row.gpa.toFixed(2)}</TableCell>
+            <TableCell>{row.score}</TableCell>
           </MotionTableRow>
         ))}
       </TableBody>
@@ -126,13 +126,13 @@ const WEB_TABLE_SELECT_CODE = `import {
   MotionTable,
   MotionTableRow,
   useTableSelection,
-} from "@school-os/ui/components/motion/table";
-import { TableHeader, TableBody, TableHead, TableCell } from "@school-os/ui/components/table";
-import { MotionCheckbox } from "@school-os/ui/components/motion/checkbox";
+} from "@starter/ui/components/motion/table";
+import { TableHeader, TableBody, TableHead, TableCell } from "@starter/ui/components/table";
+import { MotionCheckbox } from "@starter/ui/components/motion/checkbox";
 
 const ROWS = [
-  { id: "1", name: "Elena Rostova", role: "Student" },
-  { id: "2", name: "Marcus Chen", role: "Student" },
+  { id: "1", name: "Elena Rostova", role: "Engineer" },
+  { id: "2", name: "Marcus Chen", role: "Engineer" },
 ];
 
 export function MotionTableSelectDemo() {
@@ -177,8 +177,8 @@ export function MotionTableSelectDemo() {
 const WEB_TABLE_EXPAND_CODE = `import {
   MotionTable,
   MotionTableExpandableRow,
-} from "@school-os/ui/components/motion/table";
-import { TableHeader, TableBody, TableCell } from "@school-os/ui/components/table";
+} from "@starter/ui/components/motion/table";
+import { TableHeader, TableBody, TableCell } from "@starter/ui/components/table";
 
 const TASKS = [
   { id: "1", title: "Design system audit", status: "In progress", detail: "Review all tokens..." },
@@ -218,8 +218,8 @@ const WEB_TABLE_LIVE_CODE = `import { AnimatePresence } from "motion/react";
 import {
   MotionTable,
   MotionTableRow,
-} from "@school-os/ui/components/motion/table";
-import { TableHeader, TableBody, TableCell } from "@school-os/ui/components/table";
+} from "@starter/ui/components/motion/table";
+import { TableHeader, TableBody, TableCell } from "@starter/ui/components/table";
 
 const initial = [{ id: "1", name: "Elena Rostova", status: "Queued" }];
 
@@ -264,8 +264,8 @@ const WEB_TABLE_EMPTY_CODE = `import {
   MotionTable,
   MotionTableRow,
   TableEmptyState,
-} from "@school-os/ui/components/motion/table";
-import { TableHeader, TableBody, TableCell } from "@school-os/ui/components/table";
+} from "@starter/ui/components/motion/table";
+import { TableHeader, TableBody, TableCell } from "@starter/ui/components/table";
 
 export function MotionTableEmptyDemo() {
   const [rows, setRows] = useState<string[]>([]);
@@ -281,9 +281,9 @@ export function MotionTableEmptyDemo() {
         {rows.length === 0 ? (
           <TableEmptyState
             colSpan={1}
-            message="No students yet"
-            description="Add a student to populate the roster."
-            action={<button onClick={() => setRows(["Alex Rivera"])}>Add student</button>}
+            message="No members yet"
+            description="Add a member to populate the roster."
+            action={<button onClick={() => setRows(["Alex Rivera"])}>Add member</button>}
           />
         ) : (
           rows.map((name, idx) => (
@@ -300,8 +300,8 @@ export function MotionTableEmptyDemo() {
 const WEB_TABLE_SKELETON_CODE = `import {
   MotionTable,
   MotionTableSkeleton,
-} from "@school-os/ui/components/motion/table";
-import { TableHeader, TableBody, TableHead, TableCell } from "@school-os/ui/components/table";
+} from "@starter/ui/components/motion/table";
+import { TableHeader, TableBody, TableHead, TableCell } from "@starter/ui/components/table";
 
 export function MotionTableSkeletonDemo() {
   return (
@@ -322,7 +322,7 @@ const WEB_ACCORDION_CODE = `import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "@school-os/ui/components/motion/accordion";
+} from "@starter/ui/components/motion/accordion";
 
 export function MotionAccordionDemo() {
   return (
@@ -337,7 +337,7 @@ export function MotionAccordionDemo() {
   );
 }`;
 
-const WEB_CHECKBOX_CODE = `import { MotionCheckbox, StatefulCheckbox } from "@school-os/ui/components/motion/checkbox";
+const WEB_CHECKBOX_CODE = `import { MotionCheckbox, StatefulCheckbox } from "@starter/ui/components/motion/checkbox";
 
 export function MotionCheckboxDemo() {
   return (
@@ -357,7 +357,7 @@ export function MotionCheckboxDemo() {
   );
 }`;
 
-const WEB_SLIDER_CODE = `import { MotionSlider } from "@school-os/ui/components/motion/slider";
+const WEB_SLIDER_CODE = `import { MotionSlider } from "@starter/ui/components/motion/slider";
 
 export function MotionSliderDemo() {
   return (
@@ -369,7 +369,7 @@ export function MotionSliderDemo() {
   );
 }`;
 
-const WEB_SWITCH_CODE = `import { MotionSwitch, StatefulSwitch } from "@school-os/ui/components/motion/switch";
+const WEB_SWITCH_CODE = `import { MotionSwitch, StatefulSwitch } from "@starter/ui/components/motion/switch";
 
 export function MotionSwitchDemo() {
   return (
@@ -396,7 +396,7 @@ const WEB_GLASS_CARD_CODE = `import {
   GlassCardContent,
   GlassCardFooter,
   GlassCardBadge,
-} from "@school-os/ui/components/glass-card";
+} from "@starter/ui/components/glass-card";
 
 export function LiquidGlassCardDemo() {
   return (
@@ -422,7 +422,7 @@ export function LiquidGlassCardDemo() {
   );
 }`;
 
-const WEB_BOTTOM_BAR_CODE = `import { BottomBar, BottomBarItem } from "@school-os/ui/components/bottom-bar";
+const WEB_BOTTOM_BAR_CODE = `import { BottomBar, BottomBarItem } from "@starter/ui/components/bottom-bar";
 
 export function OfficialAaveGlassStudioDemo() {
   const [active, setActive] = useState("home");
@@ -444,23 +444,23 @@ export function OfficialAaveGlassStudioDemo() {
   );
 }`;
 
-const WEB_TABS_CODE = `import { Tabs, TabsList, TabsTrigger, TabsContent } from "@school-os/ui/components/motion/tabs";`;
-const WEB_BUTTON_CODE = `import { MotionButton, StatefulButton } from "@school-os/ui/components/motion/button";`;
-const WEB_INPUT_CODE = `import { MotionInput } from "@school-os/ui/components/motion/input";`;
-const WEB_SELECT_CODE = `import { MotionSelect } from "@school-os/ui/components/motion/select";`;
-const WEB_TYPESET_CODE = `import { Typeset, TypesetScroll, NotTypeset } from "@school-os/ui";`;
+const WEB_TABS_CODE = `import { Tabs, TabsList, TabsTrigger, TabsContent } from "@starter/ui/components/motion/tabs";`;
+const WEB_BUTTON_CODE = `import { MotionButton, StatefulButton } from "@starter/ui/components/motion/button";`;
+const WEB_INPUT_CODE = `import { MotionInput } from "@starter/ui/components/motion/input";`;
+const WEB_SELECT_CODE = `import { MotionSelect } from "@starter/ui/components/motion/select";`;
+const WEB_TYPESET_CODE = `import { Typeset, TypesetScroll, NotTypeset } from "@starter/ui";`;
 
 /* ─────────────────────────────────────────────────────────────────── */
 /* Motion Table demo sub-components                                    */
 /* ─────────────────────────────────────────────────────────────────── */
 
-const SORT_STUDENTS = [
-	{ id: "1", name: "Elena Rostova", grade: "Grade 11", attendance: "98.5%", gpa: 3.95 },
-	{ id: "2", name: "Marcus Chen", grade: "Grade 10", attendance: "96.2%", gpa: 3.88 },
-	{ id: "3", name: "Sophia Martinez", grade: "Grade 12", attendance: "99.1%", gpa: 4.0 },
-	{ id: "4", name: "Liam O'Connor", grade: "Grade 9", attendance: "94.8%", gpa: 3.75 },
-	{ id: "5", name: "Aisha Khan", grade: "Grade 11", attendance: "97.3%", gpa: 3.91 },
-	{ id: "6", name: "Noah Patel", grade: "Grade 10", attendance: "95.6%", gpa: 3.82 },
+const SORT_MEMBERS = [
+	{ id: "1", name: "Elena Rostova", role: "Staff Engineer", uptime: "99.8%", score: 98 },
+	{ id: "2", name: "Marcus Chen", role: "DevOps Lead", uptime: "99.2%", score: 94 },
+	{ id: "3", name: "Sophia Martinez", role: "Product Manager", uptime: "99.9%", score: 99 },
+	{ id: "4", name: "Liam O'Connor", role: "Security Lead", uptime: "98.5%", score: 91 },
+	{ id: "5", name: "Aisha Khan", role: "Frontend Lead", uptime: "99.5%", score: 96 },
+	{ id: "6", name: "Noah Patel", role: "Backend Engineer", uptime: "98.9%", score: 93 },
 ];
 
 function TableSortDemo({
@@ -472,9 +472,9 @@ function TableSortDemo({
 	onPageChange: (p: number) => void;
 	pageSize: number;
 }) {
-	const sort = useTableSort<(typeof SORT_STUDENTS)[number]>({ key: "name", direction: "asc" });
-	const sorted = sortRows(SORT_STUDENTS, sort);
-	const totalPages = Math.max(1, Math.ceil(SORT_STUDENTS.length / pageSize));
+	const sort = useTableSort<(typeof SORT_MEMBERS)[number]>({ key: "name", direction: "asc" });
+	const sorted = sortRows(SORT_MEMBERS, sort);
+	const totalPages = Math.max(1, Math.ceil(SORT_MEMBERS.length / pageSize));
 	const pageRows = sorted.slice((page - 1) * pageSize, page * pageSize);
 	const safePage = Math.min(page, totalPages);
 
@@ -497,26 +497,26 @@ function TableSortDemo({
 								sortDirection={sort.sortKey === "name" ? sort.sortDirection : null}
 								onSort={() => sort.toggleSort("name")}
 							>
-								Student Name
+								Member Name
 							</TableSortHead>
 							<TableSortHead
-								sortDirection={sort.sortKey === "grade" ? sort.sortDirection : null}
-								onSort={() => sort.toggleSort("grade")}
+								sortDirection={sort.sortKey === "role" ? sort.sortDirection : null}
+								onSort={() => sort.toggleSort("role")}
 							>
-								Grade Level
+								Role
 							</TableSortHead>
 							<TableSortHead
-								sortDirection={sort.sortKey === "attendance" ? sort.sortDirection : null}
-								onSort={() => sort.toggleSort("attendance")}
+								sortDirection={sort.sortKey === "uptime" ? sort.sortDirection : null}
+								onSort={() => sort.toggleSort("uptime")}
 							>
-								Attendance
+								Uptime
 							</TableSortHead>
 							<TableSortHead
-								sortDirection={sort.sortKey === "gpa" ? sort.sortDirection : null}
-								onSort={() => sort.toggleSort("gpa")}
+								sortDirection={sort.sortKey === "score" ? sort.sortDirection : null}
+								onSort={() => sort.toggleSort("score")}
 								className="text-end"
 							>
-								GPA
+								Score
 							</TableSortHead>
 						</MotionTableRow>
 					</TableHeader>
@@ -527,12 +527,10 @@ function TableSortDemo({
 									{row.id}
 								</TableCell>
 								<TableCell className="font-semibold text-foreground">{row.name}</TableCell>
-								<TableCell className="text-xs font-mono">{row.grade}</TableCell>
-								<TableCell className="text-xs font-mono text-emerald-400">
-									{row.attendance}
-								</TableCell>
+								<TableCell className="text-xs font-mono">{row.role}</TableCell>
+								<TableCell className="text-xs font-mono text-emerald-400">{row.uptime}</TableCell>
 								<TableCell className="text-end font-mono font-bold text-teal-400">
-									{row.gpa.toFixed(2)}
+									{row.score}
 								</TableCell>
 							</MotionTableRow>
 						))}
@@ -540,11 +538,11 @@ function TableSortDemo({
 					<TableFooter>
 						<TableRow>
 							<TableCell colSpan={4} className="text-xs font-mono text-muted-foreground">
-								Average GPA
+								Average Score
 							</TableCell>
 							<TableCell className="text-end font-mono font-bold text-teal-400">
-								{(SORT_STUDENTS.reduce((acc, s) => acc + s.gpa, 0) / SORT_STUDENTS.length).toFixed(
-									2,
+								{(SORT_MEMBERS.reduce((acc, s) => acc + s.score, 0) / SORT_MEMBERS.length).toFixed(
+									1,
 								)}
 							</TableCell>
 						</TableRow>
@@ -554,7 +552,7 @@ function TableSortDemo({
 					page={safePage}
 					totalPages={totalPages}
 					onPageChange={onPageChange}
-					totalItems={SORT_STUDENTS.length}
+					totalItems={SORT_MEMBERS.length}
 					pageSize={pageSize}
 				/>
 			</div>
@@ -563,10 +561,10 @@ function TableSortDemo({
 }
 
 const SELECT_ROWS = [
-	{ id: "1", name: "Elena Rostova", role: "Student", status: "Active" },
-	{ id: "2", name: "Marcus Chen", role: "Student", status: "Active" },
-	{ id: "3", name: "Sophia Martinez", role: "Mentor", status: "Active" },
-	{ id: "4", name: "Liam O'Connor", role: "Student", status: "Inactive" },
+	{ id: "1", name: "Elena Rostova", role: "Staff Engineer", status: "Active" },
+	{ id: "2", name: "Marcus Chen", role: "DevOps Lead", status: "Active" },
+	{ id: "3", name: "Sophia Martinez", role: "Product Manager", status: "Active" },
+	{ id: "4", name: "Liam O'Connor", role: "Security Lead", status: "Inactive" },
 ];
 
 function TableSelectDemo({
@@ -909,10 +907,10 @@ function TableSkeletonDemo() {
 				<MotionTable>
 					<TableHeader className="bg-muted/40">
 						<MotionTableRow interactive={false}>
-							<TableHead>Student Name</TableHead>
-							<TableHead>Grade</TableHead>
-							<TableHead>Attendance</TableHead>
-							<TableHead className="text-end">GPA</TableHead>
+							<TableHead>Member Name</TableHead>
+							<TableHead>Role</TableHead>
+							<TableHead>Uptime</TableHead>
+							<TableHead className="text-end">Score</TableHead>
 						</MotionTableRow>
 					</TableHeader>
 					<MotionTableSkeleton rows={4} columns={4} />
@@ -942,8 +940,8 @@ function TableEmptyDemo({
 					<TableHeader className="bg-muted/40">
 						<MotionTableRow interactive={false}>
 							<TableHead className="w-12 text-center">#</TableHead>
-							<TableHead>Student Name</TableHead>
-							<TableHead>Grade</TableHead>
+							<TableHead>Member Name</TableHead>
+							<TableHead>Role</TableHead>
 							<TableHead className="text-end">Action</TableHead>
 						</MotionTableRow>
 					</TableHeader>
@@ -951,8 +949,8 @@ function TableEmptyDemo({
 						{emptyRows.length === 0 ? (
 							<TableEmptyState
 								colSpan={4}
-								message="No students in the roster"
-								description="Add a student to start populating the table — the row will spring in."
+								message="No members in the workspace"
+								description="Add a member to start populating the table — the row will spring in."
 								icon={<HugeiconsIcon icon={InboxIcon} size={22} />}
 								action={
 									<motion.button
@@ -960,14 +958,14 @@ function TableEmptyDemo({
 										whileTap={{ scale: 0.94 }}
 										onClick={() =>
 											setEmptyRows([
-												{ id: "e1", name: "Alex Rivera", grade: "Grade 10" },
-												{ id: "e2", name: "Priya Sharma", grade: "Grade 11" },
+												{ id: "e1", name: "Alex Rivera", grade: "Staff Engineer" },
+												{ id: "e2", name: "Priya Sharma", grade: "Product Manager" },
 											])
 										}
 										className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:brightness-110 transition-all"
 									>
 										<HugeiconsIcon icon={Add01Icon} size={14} />
-										Add first student
+										Add first member
 									</motion.button>
 								}
 							/>
@@ -1148,7 +1146,7 @@ export default function ComponentPage({ params }: { params: Promise<{ slug: stri
 	};
 
 	const copyInstall = () => {
-		navigator.clipboard.writeText("bun add @school-os/ui");
+		navigator.clipboard.writeText("bun add @starter/ui");
 		setCmdCopied(true);
 		setTimeout(() => setCmdCopied(false), 2000);
 	};
@@ -2093,7 +2091,7 @@ export default function ComponentPage({ params }: { params: Promise<{ slug: stri
 				</h2>
 				<Card className="border border-border bg-card p-4">
 					<div className="flex items-center justify-between font-mono text-xs bg-zinc-950 text-zinc-100 p-3 rounded-lg border border-zinc-800">
-						<code>bun add @school-os/ui</code>
+						<code>bun add @starter/ui</code>
 						<Button
 							variant="ghost"
 							size="sm"

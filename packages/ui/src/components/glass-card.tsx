@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@school-os/ui/lib/utils";
+import { cn } from "@starter/ui/lib/utils";
 import { MotionConfig, motion, useReducedMotion } from "motion/react";
 import React, { type HTMLAttributes, type ReactNode, useId, useMemo } from "react";
 import { generateAaveLensNormalMap } from "./bottom-bar";

@@ -79,16 +79,16 @@ export function SiteFooter() {
 								onSubmit={handleSubmit}
 								className="mt-4 flex flex-col gap-2.5 sm:flex-row sm:items-center"
 							>
-								<label htmlFor="school-os-newsletter" className="sr-only">
+								<label htmlFor="starter-newsletter" className="sr-only">
 									Email address
 								</label>
 								<input
-									id="school-os-newsletter"
+									id="starter-newsletter"
 									type="email"
 									required
 									value={email}
 									onChange={(event) => setEmail(event.target.value)}
-									placeholder="you@school.dev"
+									placeholder="you@starter.dev"
 									className="h-12 w-full flex-1 appearance-none rounded-full border border-border bg-background px-5 text-foreground text-sm shadow-none outline-none transition-[border-color,box-shadow] placeholder:text-muted-foreground focus-visible:border-primary/50 focus-visible:ring-2 focus-visible:ring-ring/40"
 								/>
 								<button
