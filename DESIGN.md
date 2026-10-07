@@ -269,7 +269,8 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   Exports: `@rabtx/ui/button`, `@rabtx/ui/button/styles`, `@rabtx/ui/input`,
   `@rabtx/ui/input/styles`, `@rabtx/ui/field`, `@rabtx/ui/field/styles`, `@rabtx/ui/textarea`,
   `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/badge`, `@rabtx/ui/badge/styles`,
-  `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/motion`, `@rabtx/ui/styles.css`.
+  `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/checkbox`, `@rabtx/ui/checkbox/styles`,
+  `@rabtx/ui/motion`, `@rabtx/ui/styles.css`.
 - **Input** (Figma `6:14`): a wrapper draws the field (`rx-control rx-field`) around a native
   `<input>`. Heights 28, 32 (default), 36, 44, 48. Depth: Flat is one 1px border; Floating is a
   recess (dark top edge fading to a light bottom edge plus a faint top shade), which replaces
@@ -321,6 +322,19 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   unfold-more glyph (MIT) inlined, so the package needs no icon set. Menu itself (a general popover
   menu, not tied to a select) is a separate component. Lightning CSS rejects
   `::picker(select):popover-open`; use `:open::picker(select)`.
+- **Checkbox** (Figma `6:59`): a native `<input type="checkbox">` with `appearance: none`, 16px, off
+  (surface fill, strong border), on (accent fill, white tick) and mixed (accent fill, white minus),
+  plus disabled (pressed fill, default border, gray glyph). With children it wraps the box in a
+  `<label>` so the text names it and the row is clickable. `mixed` sets `indeterminate` (derived
+  state: the browser clears it on click). The tick and minus are CSS masks on `::before` (so they
+  take the text color), with a pop on the swap spring, off with Motion off. A 24px hit area comes
+  from an invisible `::after`, since 16px is below the 24px target size. Radius is its own tier,
+  `--rx-r-check`: 4px Default (Figma), 2px Sharp, **6px in Round** so a checkbox stays a square
+  and is never mistaken for a radio. Figma has no hover, error or focus state and no depth
+  variants, so none were invented (focus uses the shared 2px ring). **Flagged:** the off box's
+  border (`#e3e3e3` on white, about 1.3:1) is below the 3:1 non-text contrast WCAG asks for; it is
+  the same border token Input, Select and Textarea use, so one darker control-border token would fix
+  all of them. The Figma `Task Check` (6:78, a priority circle) is a separate component.
   Dark values are derived from the dark Sidebar and are not yet confirmed in Figma.
 - Other frameworks: a Solid component is another thin wrapper over `button.styles.ts` plus the same
   CSS, not a clone or a rewrite. Not built yet; add it as a separate package or export with
