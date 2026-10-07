@@ -151,6 +151,7 @@
 	--rx-r-item: 6px;
 	--rx-r-box: 12px;
 	--rx-r-badge: 4px;
+	--rx-r-check: 4px;
 	--rx-r-pill: 999px;
 }
 [data-radius="sharp"] {
@@ -160,6 +161,7 @@
 	--rx-r-item: 2px;
 	--rx-r-box: 4px;
 	--rx-r-badge: 2px;
+	--rx-r-check: 2px;
 	--rx-r-pill: 2px;
 }
 [data-radius="round"] {
@@ -169,5 +171,6 @@
 	--rx-r-item: 10px;
 	--rx-r-box: 20px;
 	--rx-r-badge: 999px;
+	--rx-r-check: 6px;
 	--rx-r-pill: 999px;
 }

@@ -13,6 +13,8 @@
 		"./button/styles": "./src/button/button.styles.ts",
 		"./card": "./src/card/index.ts",
 		"./card/styles": "./src/card/card.styles.ts",
+		"./checkbox": "./src/checkbox/index.ts",
+		"./checkbox/styles": "./src/checkbox/checkbox.styles.ts",
 		"./field": "./src/field/index.ts",
 		"./field/styles": "./src/field/field.styles.ts",
 		"./input": "./src/input/index.ts",
