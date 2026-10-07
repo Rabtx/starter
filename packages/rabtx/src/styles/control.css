@@ -1,14 +1,16 @@
 /*
- * The surface every control shares (DESIGN.md, "depth"): a real 1px gradient edge, a hairline ring
+ * The surface everything shares (DESIGN.md, "depth"): a real 1px gradient edge, a hairline ring
  * and a faint sheen/shade, all driven by variables. Tones set the variables, the depth mode swaps
- * them, and Tailwind classes (see button/button.styles.ts) do everything else.
+ * them, and Tailwind classes (see button/button.styles.ts) do everything else. A control adds
+ * hover, press and disabled on top; a card is just the surface.
  */
 @source "../button";
+@source "../card";
 @source "../field";
 @source "../input";
 @source "../textarea";
 
-@utility rx-control {
+@utility rx-surface {
 	border: 1px solid transparent;
 	background:
 		linear-gradient(180deg, var(--rx-sheen), transparent 40%, transparent 60%, var(--rx-shade))
@@ -24,6 +26,10 @@
 		color 150ms var(--rx-ease),
 		box-shadow 150ms var(--rx-ease),
 		scale var(--rx-spring-press-d) var(--rx-spring-press);
+}
+
+@utility rx-control {
+	@apply rx-surface;
 
 	@media (hover: hover) {
 		&:hover:not(:disabled, [aria-disabled="true"], [data-loading]) {
@@ -138,8 +144,20 @@
 	}
 }
 
+/* A card: the plain surface with a white fill. `--rx-flat` is Figma's default border. */
+@utility rx-card {
+	--rx-fill: var(--rx-surface);
+	--rx-flat: var(--rx-border);
+	--rx-ring: var(--rx-surface-ring);
+	--rx-edge-a: var(--rx-surface-edge-a);
+	--rx-edge-b: var(--rx-surface-edge-b);
+	--rx-sheen: var(--rx-surface-sheen);
+	--rx-shade: var(--rx-surface-shade);
+	color: var(--rx-text);
+}
+
 /* Flat: one border color, nothing else. Beats the tones above because it is not layered. */
-[data-depth="flat"] .rx-control {
+[data-depth="flat"] :is(.rx-control, .rx-surface) {
 	--rx-edge-a: var(--rx-flat);
 	--rx-edge-b: var(--rx-flat);
 	--rx-sheen: transparent;
@@ -148,12 +166,14 @@
 }
 
 /* Motion off, or the OS asks for less: every state is still visible, nothing travels. */
-[data-motion="off"] .rx-control,
-[data-motion="off"] .rx-control * {
+[data-motion="off"] .rx-surface,
+[data-motion="off"] .rx-control *,
+[data-motion="off"] .rx-control {
 	transition-duration: 0ms !important;
 	animation-duration: 2400ms !important;
 }
 @media (prefers-reduced-motion: reduce) {
+	.rx-surface,
 	.rx-control,
 	.rx-control * {
 		transition-duration: 0ms !important;
