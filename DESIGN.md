@@ -269,7 +269,7 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   Exports: `@rabtx/ui/button`, `@rabtx/ui/button/styles`, `@rabtx/ui/input`,
   `@rabtx/ui/input/styles`, `@rabtx/ui/field`, `@rabtx/ui/field/styles`, `@rabtx/ui/textarea`,
   `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/badge`, `@rabtx/ui/badge/styles`,
-  `@rabtx/ui/motion`, `@rabtx/ui/styles.css`.
+  `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/motion`, `@rabtx/ui/styles.css`.
 - **Input** (Figma `6:14`): a wrapper draws the field (`rx-control rx-field`) around a native
   `<input>`. Heights 28, 32 (default), 36, 44, 48. Depth: Flat is one 1px border; Floating is a
   recess (dark top edge fading to a light bottom edge plus a faint top shade), which replaces
@@ -307,6 +307,20 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   white in dark). Measured: light 4.86 (warning) to 6.8, dark 5.07 to 6.6, asserted in
   `ui-badge.spec.ts`. Success, warning and violet reuse the same base color in dark; their dark
   values are not in Figma. Tag (outlined, `42:441`) and Chip (interactive, `6:139`) are separate.
+- **Select** (Figma `66:770`, the trigger; the list follows Menu `7:91` and Menu Item `7:60`): a
+  native `<select>` inside a field wrapper (`rx-control rx-field`), sizes 28, 32 (default), 36, 13/20
+  text, optional leading icon, a `placeholder` (a hidden first option) and the same focus, error and
+  disabled treatment as Input. The platform does the hard parts: keyboard, typeahead, screen readers,
+  mobile pickers. Where `appearance: base-select` exists (Chromium) the list is styled to Menu: surface
+  fill, hairline border, box radius, 28px rows, item radius, hover on `--rx-selected`, a blue tick on
+  the chosen row, and a 150ms fade (off with Motion off). Elsewhere the OS list opens and the closed
+  field looks the same. Floating uses a hairline ring on the list instead of Menu's cast shadow.
+  **Notes:** Figma draws the Select trigger white and plain, like Textarea; it follows Input
+  (see Textarea, same open question). Figma's `Value` text is the primary color even for "Select an
+  option"; an unchosen placeholder is the tertiary gray here, as in Input. The chevron is HugeIcons'
+  unfold-more glyph (MIT) inlined, so the package needs no icon set. Menu itself (a general popover
+  menu, not tied to a select) is a separate component. Lightning CSS rejects
+  `::picker(select):popover-open`; use `:open::picker(select)`.
   Dark values are derived from the dark Sidebar and are not yet confirmed in Figma.
 - Other frameworks: a Solid component is another thin wrapper over `button.styles.ts` plus the same
   CSS, not a clone or a rewrite. Not built yet; add it as a separate package or export with

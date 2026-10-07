@@ -18,6 +18,8 @@
 		"./input": "./src/input/index.ts",
 		"./input/styles": "./src/input/input.styles.ts",
 		"./motion": "./src/motion/index.ts",
+		"./select": "./src/select/index.ts",
+		"./select/styles": "./src/select/select.styles.ts",
 		"./styles.css": "./src/styles/index.css",
 		"./textarea": "./src/textarea/index.ts",
 		"./textarea/styles": "./src/textarea/textarea.styles.ts"

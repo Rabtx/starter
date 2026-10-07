@@ -7,6 +7,7 @@ export const NAV = [
 			{ href: "/ui/input", label: "Input" },
 			{ href: "/ui/field", label: "Field" },
 			{ href: "/ui/textarea", label: "Textarea" },
+			{ href: "/ui/select", label: "Select" },
 			{ href: "/ui/card", label: "Card" },
 			{ href: "/ui/badge", label: "Badge" },
 		],
