@@ -64,7 +64,7 @@ roles:
       - DESIGN.md
       - packages/ui/**
       - packages/rabtx/**
-      - apps/docs/content/rabtx/**
+      - apps/web/src/app/ui/**
     reviewers:
       - reviewer
       - web

@@ -41,10 +41,10 @@ To work on one app in isolation: `bun --cwd=apps/web run dev` (same pattern for 
 
 | Path | What it is |
 | --- | --- |
-| `apps/web` | Next.js 16 — admin, marketing, auth and billing |
+| `apps/web` | Next.js 16 — admin, marketing, auth and billing; component playground at `/ui` |
 | `apps/mobile` | Expo SDK 57 — auth, billing via hosted checkout |
 | `apps/nest-api` | NestJS API spine, Drizzle over Postgres/Neon |
-| `apps/docs` | Fumadocs site — project docs at `/docs`, component docs at `/rabtx` |
+| `apps/docs` | Fumadocs site — project docs at `/docs` |
 | `apps/ai-api` | Optional FastAPI AI assist; Nest proxies it, never public |
 | `apps/rust` | Optional Rust/Axum demo |
 
@@ -53,14 +53,13 @@ To work on one app in isolation: `bun --cwd=apps/web run dev` (same pattern for 
 | Package | Path | Role |
 | --- | --- | --- |
 | `@starter/ui` | `packages/ui` | shadcn base — the unopinionated primitives |
-| `@rabtx/ui` | `packages/rabtx` | Polished animated layer; one API for web and native |
+| `@rabtx/ui` | `packages/rabtx` | The component library, rebuilt from scratch for web and native |
 | `@starter/logger` | `packages/logger` | Shared structured logging |
 | `@starter/typescript-config` | `packages/typescript-config` | Base tsconfigs every workspace extends |
 
-`@rabtx/ui` sits on top of shadcn rather than replacing it. Components take three orthogonal
-props — `kind` (material), `variant` (colour role), `size` — and Metro resolves the `.native.tsx`
-file while Next resolves the web one, so a single import serves both platforms with no
-`Platform.OS` branching. Docs at `/rabtx`.
+`@rabtx/ui` is being rebuilt one component at a time: CSS-only motion, no animation library,
+HugeIcons, Flat and Floating depth. The design rules live in [DESIGN.md](DESIGN.md). Components are
+shown in the playground at `/ui` in `apps/web`.
 
 ### Everything else
 
@@ -139,7 +138,7 @@ bun --cwd=apps/docs run dev
 - [/docs/deploy](http://localhost:3002/docs/deploy)
 - [/docs/docker](http://localhost:3002/docs/docker)
 - [/docs/production-roadmap](http://localhost:3002/docs/production-roadmap)
-- [/rabtx](http://localhost:3002/rabtx) — `@rabtx/ui` component reference
+- [/ui](http://localhost:3000/ui) — `@rabtx/ui` playground (in `apps/web`)
 
 Also in the repo: [PROJECT.md](PROJECT.md), [DESIGN.md](DESIGN.md), [AGENTS.md](AGENTS.md),
 [CHANGELOG.md](CHANGELOG.md).
