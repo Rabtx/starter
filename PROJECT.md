@@ -20,7 +20,7 @@ Monorepo starter managed by **Bun + Turborepo**, with:
 starter/
 ├── apps/                     # Runnable applications
 │   ├── web/                  # Next.js app
-│   ├── mobile/               # Expo Router + NativeWind app
+│   ├── mobile/               # Expo Router + Uniwind app
 │   ├── nest-api/             # NestJS production API
 │   ├── docs/                 # Documentation app (Next.js + Fumadocs)
 │   └── rust/                 # Rust binary app (Cargo)
@@ -48,7 +48,7 @@ There is no root `docs/` directory.
 | App | Stack | Notes |
 | --- | --- | --- |
 | `apps/web` | Next.js 16, React 19, Tailwind 4 | Includes unit/integration and Playwright e2e flow |
-| `apps/mobile` | Expo SDK 57, Expo Router, React Native, NativeWind | Mobile-first file-based routing |
+| `apps/mobile` | Expo SDK 57, Expo Router, React Native, Uniwind | Mobile-first file-based routing |
 | `apps/nest-api` | NestJS 11, Zod, Jest | Production API spine |
 | `apps/docs` | Next.js + Fumadocs + MDX | Project docs site |
 | `apps/rust` | Cargo, clippy, rustfmt | Rust application template |
