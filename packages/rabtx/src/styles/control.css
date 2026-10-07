@@ -4,6 +4,7 @@
  * them, and Tailwind classes (see button/button.styles.ts) do everything else.
  */
 @source "../button";
+@source "../input";
 
 @utility rx-control {
 	border: 1px solid transparent;
@@ -12,11 +13,14 @@
 			padding-box,
 		linear-gradient(var(--rx-fill), var(--rx-fill)) padding-box,
 		linear-gradient(180deg, var(--rx-edge-a), var(--rx-edge-b)) border-box;
-	box-shadow: 0 0 0 1px var(--rx-ring);
+	box-shadow:
+		0 0 0 1px var(--rx-ring),
+		0 0 0 4px var(--rx-halo, transparent);
 	-webkit-tap-highlight-color: transparent;
 	transition:
 		--rx-fill 150ms var(--rx-ease),
 		color 150ms var(--rx-ease),
+		box-shadow 150ms var(--rx-ease),
 		scale var(--rx-spring-press-d) var(--rx-spring-press);
 
 	@media (hover: hover) {
@@ -28,7 +32,8 @@
 		scale: var(--rx-press, 0.93);
 	}
 	&:disabled,
-	&[aria-disabled="true"] {
+	&[aria-disabled="true"],
+	&:has(> :disabled) {
 		--rx-fill: var(--rx-dis-fill, var(--rx-pressed));
 		--rx-flat: var(--rx-dis-edge, var(--rx-pressed));
 		--rx-edge-a: var(--rx-flat);
@@ -99,6 +104,35 @@
 	--rx-sheen: transparent;
 	--rx-shade: transparent;
 	color: var(--rx-text);
+}
+
+/* A text field: recessed instead of raised, never scales, and shows focus and error on its own edge. */
+@utility rx-field {
+	--rx-fill: var(--rx-field);
+	--rx-fill-hover: var(--rx-field);
+	--rx-flat: var(--rx-border-strong);
+	--rx-dis-fill: var(--rx-field-disabled);
+	--rx-dis-edge: var(--rx-border);
+	--rx-press: 1;
+	--rx-ring: transparent;
+	--rx-edge-a: var(--rx-field-edge-a);
+	--rx-edge-b: var(--rx-field-edge-b);
+	--rx-sheen: var(--rx-field-shade);
+	--rx-shade: transparent;
+	color: var(--rx-text);
+
+	&:focus-within {
+		--rx-flat: var(--rx-focus);
+		--rx-edge-a: var(--rx-focus);
+		--rx-edge-b: var(--rx-focus);
+		--rx-halo: color-mix(in oklab, var(--rx-focus) 20%, transparent);
+	}
+	&:has([aria-invalid="true"]) {
+		--rx-flat: var(--rx-danger);
+		--rx-edge-a: var(--rx-danger);
+		--rx-edge-b: var(--rx-danger);
+		--rx-halo: color-mix(in oklab, var(--rx-danger) 18%, transparent);
+	}
 }
 
 /* Flat: one border color, nothing else. Beats the tones above because it is not layered. */
