@@ -24,8 +24,8 @@ export function HeroSection() {
 			<div className="mx-auto w-full max-w-5xl">
 				<div className="mx-auto max-w-3xl text-center">
 					<motion.span
-						initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
-						animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+						initial={{ opacity: 0, y: 16 }}
+						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.7, ease: EASE }}
 						className="inline-flex items-center gap-2 rounded-full bg-card py-1.5 pr-4 pl-1.5 font-medium text-foreground text-sm shadow-[inset_0_1px_3px_rgba(0,0,0,0.07)]"
 					>
@@ -46,8 +46,8 @@ export function HeroSection() {
 					</motion.span>
 
 					<motion.h1
-						initial={{ opacity: 0, y: 24, filter: "blur(10px)" }}
-						animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+						initial={{ opacity: 0, y: 24 }}
+						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.8, delay: 0.08, ease: EASE }}
 						className="mt-6 text-balance font-semibold text-3xl leading-[1.1] tracking-tight sm:text-5xl"
 					>
@@ -57,8 +57,8 @@ export function HeroSection() {
 					</motion.h1>
 
 					<motion.p
-						initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-						animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.8, delay: 0.16, ease: EASE }}
 						className="mx-auto mt-5 max-w-xl text-pretty text-base text-muted-foreground leading-7"
 					>
@@ -67,8 +67,8 @@ export function HeroSection() {
 					</motion.p>
 
 					<motion.div
-						initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-						animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.8, delay: 0.24, ease: EASE }}
 						className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center"
 					>
@@ -112,7 +112,7 @@ export function HeroSection() {
 function WorkflowCard() {
 	return (
 		<motion.div
-			className="rounded-[1.4rem] bg-white/15 p-1.5 shadow-2xl ring-1 ring-white/40 backdrop-blur-md"
+			className="rounded-[1.4rem] bg-white/15 p-1.5 shadow-2xl ring-1 ring-white/40"
 			whileHover={{ y: -4, scale: 1.01 }}
 			transition={{ type: "spring", stiffness: 420, damping: 28 }}
 		>
@@ -135,8 +135,8 @@ function WorkflowCard() {
 					{WORKFLOW_STEPS.map((step, index) => (
 						<motion.div
 							key={step.label}
-							initial={{ opacity: 0, filter: "blur(4px)" }}
-							whileInView={{ opacity: 1, filter: "blur(0px)" }}
+							initial={{ opacity: 0 }}
+							whileInView={{ opacity: 1 }}
 							viewport={{ once: true }}
 							transition={{ duration: 0.4, delay: index * 0.1, ease: EASE }}
 							className="flex gap-3 py-1.5"
@@ -161,8 +161,8 @@ function WorkflowCard() {
 				</div>
 
 				<motion.div
-					initial={{ opacity: 0, filter: "blur(4px)" }}
-					whileInView={{ opacity: 1, filter: "blur(0px)" }}
+					initial={{ opacity: 0 }}
+					whileInView={{ opacity: 1 }}
 					viewport={{ once: true }}
 					transition={{ duration: 0.4, delay: 0.55, ease: EASE }}
 					className="mt-2 flex items-center gap-2 rounded-xl bg-emerald-50 px-3 py-2.5"
@@ -181,7 +181,7 @@ function WorkflowCard() {
 function AgentChatCard() {
 	return (
 		<motion.div
-			className="rounded-[1.4rem] bg-white/15 p-1.5 shadow-2xl ring-1 ring-white/40 backdrop-blur-md"
+			className="rounded-[1.4rem] bg-white/15 p-1.5 shadow-2xl ring-1 ring-white/40"
 			whileHover={{ y: -4, scale: 1.01 }}
 			transition={{ type: "spring", stiffness: 420, damping: 28 }}
 		>
@@ -203,8 +203,8 @@ function AgentChatCard() {
 					{AGENT_MESSAGES.map((message, index) => (
 						<motion.div
 							key={message.text}
-							initial={{ opacity: 0, filter: "blur(4px)" }}
-							whileInView={{ opacity: 1, filter: "blur(0px)" }}
+							initial={{ opacity: 0 }}
+							whileInView={{ opacity: 1 }}
 							viewport={{ once: true }}
 							transition={{ duration: 0.45, delay: index * 0.12, ease: EASE }}
 							className={
