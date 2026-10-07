@@ -93,7 +93,7 @@ export function ProductSection() {
 
 function IncidentTimelineCard() {
 	return (
-		<div className="relative rounded-2xl border border-white/10 bg-neutral-950/85 p-4 shadow-2xl backdrop-blur-md sm:p-5">
+		<div className="relative rounded-2xl border border-white/10 bg-neutral-950/85 p-4 shadow-2xl sm:p-5">
 			<div className="flex items-center justify-between border-white/10 border-b pb-3">
 				<span className="font-medium font-mono text-white text-xs">starter · turborepo</span>
 				<span className="flex items-center gap-1.5 text-[10px] text-white/60">
