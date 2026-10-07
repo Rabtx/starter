@@ -1,97 +1,105 @@
 ---
-name: Reliability-First Starter Roadmap
-overview: ""
-todos: []
-isProject: false
----
-
----
+name: Starter Roadmap
+overview: "Make the starter a safe default base for every Reptex product (Grid and others)."
 todos:
-  - id: "phase1-test-depth"
-    content: "Design and implement deeper test suites (unit/integration/e2e) with shared fixtures and coverage gates."
-    status: pending
-  - id: "phase2-ci-cd-gates"
-    content: "Refactor CI into explicit quality gates, add artifacts/reporting, and define staged CD with rollback checks."
-    status: pending
-  - id: "phase3-architecture-baseline"
-    content: "Create enforceable architecture baseline docs and boundary checks with override mechanism."
-    status: pending
-  - id: "phase4-dx-generators"
-    content: "Add scaffolding generators and preflight workflows after reliability and architecture are stable."
+  - id: "ui-rebuild"
+    content: "Rebuild @rabtx/ui from scratch on platform features, against the Reptex/Grid Figma system; HugeIcons only; shadcn kept as CLI only. See DESIGN.md."
     status: pending
   - id: "docs-drift-cleanup"
-    content: "Unify README/PROJECT/docs with actual runtime ports, scripts, and CI behavior to remove ambiguity."
+    content: "Unify README/PROJECT/docs with actual runtime ports, scripts, and CI behavior."
+    status: in_progress
+  - id: "test-depth"
+    content: "Deepen tests beyond smoke level (contract and behavior tests) and add enforced coverage gates."
+    status: pending
+  - id: "ci-cd-gates"
+    content: "Branch protection aligned to CI jobs, JUnit/report artifacts, rollback and health-check gate in CD."
+    status: in_progress
+  - id: "architecture-baseline"
+    content: "Architecture baseline docs and boundary checks with an override mechanism."
+    status: done
+  - id: "dx-generators"
+    content: "Scaffolding generators and one-command preflight."
     status: pending
 isProject: false
 ---
-# Reliability-First Starter Roadmap
+
+# Starter Roadmap
+
+Last reviewed: 2026-10-07. Statuses below reflect what is in the repo on that date.
 
 ## Goals
-- Make this starter safe as a default base for all 5 upcoming projects.
-- Enforce high-confidence quality gates in CI before merge/release.
-- Define an opinionated architecture that is easy to override per project.
 
-## Current-State Findings (from rescan)
-- Test foundation exists and is multi-language (`vitest`, Playwright, Rust/C/script tests via `package.json`).
-- CI currently runs a single `qa` job with lint/typecheck/build/test in `.github/workflows/ci.yml`.
-- Tooling/docs drift exists (example: Docker/port notes differ across docs, and local lint depends on host tools).
-- Architecture guidance is broad (`AGENTS.md`, `PROJECT.md`) but not yet codified as enforceable module boundaries.
+- Make this starter safe as the base for every upcoming product built on it (Grid and others).
+- Enforce high-confidence quality gates in CI before merge and release.
+- Keep the architecture opinionated but easy to override per project.
 
-## Phase 1: Reliability and Test Depth (highest priority)
-- Expand tests from smoke-level to contract-level and behavior-level:
-  - `apps/hono-api`: endpoint integration tests (auth/session/2FA, error shapes, cookie behavior).
-  - `apps/web`: component + integration tests for auth/dashboard flows; keep Playwright for critical happy paths.
-  - `packages/logger`: edge-case tests (color/no-color, min-level behavior, child logger composition).
-  - `apps/rust`, `apps/c`, `scripts/*`: add negative-path tests and lightweight fixture-based tests.
-- Add deterministic test harness patterns:
-  - Shared test utils per app (`test-utils/`), fixture conventions, and seeded data strategy.
-  - Isolate external dependencies with mocks/fakes where possible.
-- Introduce minimum coverage gates for TS packages/apps first, then expand to other stacks where practical.
+## Where things stand
 
-## Phase 2: CI Gates and Release Confidence
-- Split CI into clear jobs with fail-fast matrix where useful:
-  - `lint`, `typecheck`, `unit`, `integration`, `e2e` (e2e optional on PR, required on main/release).
-- Add required branch protections aligned to CI jobs.
-- Add artifact publishing from CI:
-  - test reports (JUnit), Playwright report artifact, coverage summary/comment.
-- Add release-safe CD flow:
-  - staging deploy on merge to `main` (or pre-release tag), production deploy on signed/tagged release.
-  - include rollback steps and health-check gate before marking deploy success.
-- Add dependency/security gates:
-  - dependency audit, secret scan in CI, and PR automation for updates.
+Done and verified in the repo:
 
-## Phase 3: Strong Opinionated Architecture (overridable)
-- Define an Architecture Decision baseline in `docs/architecture/`:
-  - module boundaries, naming, layering (app/module/domain/infrastructure), error model, API contracts.
-- Codify architecture via enforceable checks:
-  - import boundary checks (for TS), directory conventions, and module template structure.
-- Add override mechanism for future projects:
-  - `docs/overrides.md` + per-project `ARCHITECTURE.md` that can intentionally deviate with rationale.
-- Create starter templates for new modules/apps with default folders and test scaffolding.
+- CI (`.github/workflows/ci.yml`) is split into `lint`, `typecheck`, `build`, `test` (with a
+  coverage artifact) and a web e2e job (with a Playwright report artifact).
+- `bun run ci:lint` runs lint plus `architecture:check`, which enforces import boundaries and
+  kebab-case naming (`scripts/architecture/`).
+- Dependency review and CodeQL run in `.github/workflows/security.yml`.
+- CD (`.github/workflows/cd.yml`) has a quality gate, a staging deploy on `main` and a production
+  deploy on `v*` tags.
+- Lint and format moved to oxlint and oxfmt; the repo lints with zero warnings.
+- Architecture docs and the override policy live in the docs app (`/docs/architecture`,
+  `/docs/overrides`).
 
-## Phase 4: DX Acceleration (after reliability baseline)
-- Add generators (`scripts/scaffold/*` or CLI) for:
-  - new feature module, API route+validator+test, UI component+test, package bootstrap.
-- Add quality-of-life automations:
-  - one-command local preflight (`lint+typecheck+test`), issue/PR templates, release checklist.
-- Improve docs as executable runbooks:
-  - onboarding path, troubleshooting matrix, CI failure playbook.
+Still open:
 
-## Suggested Execution Order (2-week chunks)
-- Chunk 1: Phase 1 core test depth + coverage gate for TS.
-- Chunk 2: Phase 2 CI split + artifact/reporting + branch protection.
-- Chunk 3: Phase 3 architecture ADR + enforceable boundaries + override model.
-- Chunk 4: Phase 4 generators and DX polish.
+- Test depth. The repo has about a dozen test files and one Playwright spec
+  (`apps/web/e2e/home.spec.ts`). Coverage is collected and uploaded; whether a minimum threshold
+  fails the build is not verified.
+- Branch protection matching CI jobs, JUnit reporting, and a rollback or health-check gate in CD
+  are not in the repo.
+- Generators and a single preflight entry point beyond `bun run preflight`.
 
-## Key Files to Touch First
-- `package.json` (gate scripts and pipeline entry points)
-- `.github/workflows/ci.yml` (job split, artifacts, release/deploy flow)
-- `turbo.json` (task graph for unit/integration/e2e separation)
-- `AGENTS.md`, `PROJECT.md`, `docs/QoL.md`, `docs/docker.md` (single source of truth and drift cleanup)
-- New docs: `docs/architecture/*`, `docs/overrides.md`
+## Phase A: UI library rebuild (current focus)
 
-## Definition of Done for “production-ready starter”
-- Every PR gated by lint/typecheck/unit; integration/e2e policy enforced.
-- Main branch has deterministic build/test results with artifacted reports.
-- Clear architecture rules are both documented and machine-enforced.
-- Project-specific overrides are explicit, documented, and safe.
+Source of truth for decisions is `DESIGN.md` (Direction, Dependency policy, Open decisions).
+
+- Rebuild `@rabtx/ui` one component at a time: web (native HTML and CSS first) and React
+  Native/Expo, sharing tokens and design language.
+- Keep the shadcn CLI only; drop its component code, `@base-ui/react`, `class-variance-authority`
+  and other dependencies that no longer have a written reason.
+- Standardize on HugeIcons; remove `lucide-react`, `lucide-react-native`.
+- When a component is rebuilt, switch its consumers over and delete the `@starter/ui` original in
+  the same change. Decide what remains of `@starter/ui` (tokens only, or removed) afterwards.
+- Blocked on the owner for: the Figma file link, the animation spec, the order of components and
+  the answers listed under Open decisions in `DESIGN.md`.
+
+## Phase B: Test depth and gates
+
+- Contract-level and behavior-level tests for `nest-api` (auth, session, error shapes), `web`
+  (auth and dashboard flows), `packages/logger` edge cases, `apps/rust` and `scripts/*` negative
+  paths.
+- Shared test utilities and fixture conventions per app; isolate external services with fakes.
+- Minimum coverage thresholds for the TypeScript apps and packages first, then other stacks.
+
+## Phase C: CI/CD confidence
+
+- Required branch protection aligned to the CI jobs.
+- JUnit test reports and a coverage summary on pull requests.
+- CD rollback steps and a health-check gate before a deploy is marked successful.
+
+## Phase D: DX acceleration
+
+- Generators for a feature module, an API route with validator and test, a UI component with test,
+  and package bootstrap.
+- Release checklist, onboarding path and a troubleshooting matrix as executable runbooks.
+
+## Order
+
+A first, since every product depends on the component library. B and C can proceed in parallel
+by different roles. D after B and C are stable.
+
+## Definition of done for "production-ready starter"
+
+- Every PR gated by lint, typecheck and tests; e2e policy enforced.
+- `main` has deterministic build and test results with archived reports.
+- Architecture rules are documented and machine-enforced.
+- A new product can adopt the UI library, the API spine and the agent workflow without removing
+  leftovers from other products.

@@ -31,18 +31,74 @@ Generated UI must feel domain-specific, accessible, responsive, and built from r
 This section records the owner's agreed direction. Use it when another agent or session takes
 on a component. Existing code is an implementation to assess, not proof that the design is finished.
 
+### Direction (agreed 2026-10-07)
+
+`@rabtx/ui` is being rebuilt from scratch. It is not a styled layer over shadcn and it does not
+inherit `@starter/ui`'s components.
+
+- **Design source:** the Reptex/Grid design system in Figma. Where this file and Figma disagree on
+  a visual decision, Figma wins; record the Figma link on the component's card.
+- **shadcn is kept only for its CLI** (`components.json`, registry and add-component workflow). Its
+  component code is not the foundation and is replaced component by component.
+- **Tailwind CSS stays** as the styling system, on the shared tokens in
+  `packages/ui/src/styles/globals.css`.
+- **Icons are HugeIcons only** (`@hugeicons/react` on web, `@hugeicons/react-native` on native).
+  `lucide-react`, `lucide-react-native` and any other icon set are not used.
+- **Two targets, one design language:** web components and real React Native/Expo components that
+  share tokens and design intent but not rendering code.
+
+### Dependency policy
+
+The goal is a clean, modern implementation, not zero dependencies. Component libraries became the
+default mainly to get accessibility and interaction behavior that native HTML lacked. Modern
+browsers now provide much of it, so prefer the platform first.
+
+1. **Platform first (web).** Reach for native HTML and CSS before any package: `<dialog>`, the
+   Popover API, `<details>`, `inert`, CSS anchor positioning, `:focus-visible`, `:has()`,
+   `@starting-style` for entry animation, view transitions and `prefers-reduced-motion`. Check each feature against the browser baseline the product supports
+   before using it, and note that baseline on the component.
+2. **Accessibility is not optional.** Keyboard operation, focus management, roles, names and
+   states must be at least as good as the library being replaced. Verify with the keyboard and a
+   screen reader, not just by reading the markup.
+3. **A dependency needs a written reason.** State the platform gap it fills (usually an accessible
+   behavior the platform cannot yet do) and the condition under which it can be removed. Without
+   that, do not add it. Where a gap is real, using a dependency is correct.
+4. **Native (Expo / React Native) follows the same rule**, but the platform surface is smaller, so
+   some dependencies (Expo modules, gesture and animation runtime) are expected. Which animation
+   runtime is acceptable is an open decision (see below).
+5. **Remove, do not stack.** Replacing a dependency means deleting it and its imports in the same
+   change, not running two systems side by side.
+
+### Open decisions
+
+These are not settled; do not guess them.
+
+- Figma file link and the node IDs for each component.
+- The animation spec (which animations, durations and easing curves). The owner has this planned
+  and has not shared it yet.
+- Whether the four materials below survive as the `kind` axis, or are replaced by the Figma
+  system's own variants.
+- Whether `react-native-reanimated` counts as acceptable for native motion or the built-in
+  `Animated` API should be used.
+- What `@starter/ui` becomes once components are rebuilt (tokens and CLI config only, or removed).
+- The order in which components are rebuilt.
+
 ### Goal and scope
 
-Build a polished, animated component layer on the existing shadcn-style foundation. Web components
-must be responsive by default and work on desktop browsers. Mobile means real React Native/Expo
-components, not just a narrow web layout. Share the design language and tokens; use platform-specific
-rendering and interactions where needed. No separate desktop library is required now.
+Web components must be responsive by default and work on desktop browsers. Mobile means real React
+Native/Expo components, not just a narrow web layout. Share the design language and tokens; use
+platform-specific rendering and interactions where needed. No separate desktop library is required
+now.
 
 Work on one component at a time. Keep the implementation minimal (KISS, DRY, Ponytail): every
 wrapper, style, dependency and abstraction must solve a current need. “Minimal” does not mean
 omitting accessibility, useful feedback or the edge detailing that defines the material.
 
 ### Four materials
+
+Status: this is the previous Button direction. It stays as the reference for the edge and material
+language until it is reconciled with the Figma system (see Open decisions); do not treat it as the
+final variant model for the rebuilt library.
 
 Material is the `kind` axis: `solid`, `detail`, `glass`, `terminal`. It is independent of color role
 (`variant`: primary, secondary, destructive, ghost) and size. Do not confuse a material with a color.
@@ -82,16 +138,18 @@ Motion is on by default, purposeful and restrained. Press/release should feel re
 moving surrounding layout. Respect reduced motion and `animated={false}`. Disabled controls must
 not activate or animate as enabled controls. Native caller callbacks must not suppress internal motion.
 
-Current Button direction: solid uses a stiff press spring (0.93) with a 1.02 hover scale, detail a
-restrained press (0.94) with a 1px hover lift, glass a softer spring, and terminal neither scales
-nor lifts. Hover is gated behind a real-hover media query so touch devices do not keep a phantom
-hover. These are a starting point to evaluate, not universal physics rules.
+Previous Button direction (removed by the reset, kept as a starting point): solid used a stiff press
+spring (0.93) with a 1.02 hover scale, detail a restrained press (0.94) with a 1px hover lift,
+glass a softer spring, and terminal neither scaled nor lifted. Hover was gated behind a real-hover
+media query so touch devices did not keep a phantom hover. These are values to evaluate, not
+universal physics rules, and the owner's animation spec supersedes them once shared.
 
 Review default, hover (web), keyboard focus, pressed, disabled, loading and success states where
 applicable. Include leading/trailing icons and icon-only examples with accessible names. Keep labels
-and dimensions stable during state changes. State-driven loading and result labels are built
-(`state` with `loadingText` / `successText` / `errorText`) and morph the button's width between
-labels; review them once on both platforms before calling them finished.
+and dimensions stable during state changes. The earlier Button had state-driven loading and result
+labels (`state` with `loadingText` / `successText` / `errorText`) that morphed the width between
+labels. That behavior is gone with the reset; re-establish it deliberately, and review it on both
+platforms before calling it finished.
 
 ### Consistency and review
 
@@ -106,24 +164,30 @@ and supported platforms. Be explicit about untested native behavior and simplifi
 
 ### Current implementation and preview
 
-- Foundation: `packages/ui` (`@starter/ui`). Its namespace remains unchanged intentionally.
-- Polished layer: `packages/rabtx` (`@rabtx/ui`), starting with `@rabtx/ui/button`.
-- Shared tokens: `packages/ui/src/styles/globals.css`.
-- Shared Button choices: `packages/rabtx/src/button/button.shared.ts` — `kindShape`, `kindSurface`,
-  `ghostSurface`, `sizeClass`, `kindMotion` — plus the transitions in `packages/rabtx/src/motion.ts`.
-- Web/native implementations: `button.tsx` and `button.native.tsx` in that Button directory, with
-  the ripple (`ripple.tsx`), the state label swap (`state-label.tsx`) and the hover-capability
-  query (`../use-hover-capable.ts`) split out so a kind can be tuned without touching them.
-- Preview source: `apps/docs/content/rabtx/button.mdx`; route: `/rabtx/button`. Previews are labelled
-  rows, and `apps/docs/src/components/button-matrix.tsx` renders a material across all colour roles
-  and sizes so a kind is reviewed at every box size at once.
-- Current glass fallback: web translucency plus backdrop blur; native flat translucency. Neither is
-  liquid glass yet. On native the intended path is `expo-glass-effect`, already a mobile dependency,
-  which hands the real system material to iOS instead of imitating it. The web has no equivalent
-  system material, so it has to be approximated — layered translucency, an edge highlight that
-  responds to the surface behind it, and refraction where it is affordable. Treat the web and native
-  results as the same material with different fidelity, and say which one you tested.
-  Shadows still present in other kinds do not redefine the detail contract.
+State as of 2026-10-07. Verify against the repo before relying on it.
+
+- `packages/ui` (`@starter/ui`): the original shadcn-style web components (about 30), `motion/*`
+  variants and `mobile/*` components, plus the shared tokens. The apps still consume it. It is the
+  thing being replaced, not the foundation to extend.
+- `packages/rabtx` (`@rabtx/ui`): the rebuild target. It currently holds a single
+  `src/button.tsx`, a verbatim shadcn Button copy left by the "reset the Button" commit, exported as
+  `@rabtx/ui/button`. It still depends on `@base-ui/react`, `@starter/ui` and
+  `class-variance-authority`, all of which the rebuild is expected to remove.
+- Shared tokens: `packages/ui/src/styles/globals.css`. It still defines the `--button-rim`,
+  `--button-edge`, `--button-sheen` and `--button-shade` tokens from the previous direction; the
+  baseline Button does not use them.
+- Preview route: `apps/docs/content/rabtx/` (`index.mdx`, `button.mdx`), served at `/rabtx`.
+  `button.mdx` is a short page rendering the baseline Button. The earlier material matrix
+  component no longer exists.
+- Icons: HugeIcons is the target, but 44 files still import `lucide` and 93 import HugeIcons.
+  Migrating the remaining lucide usage is part of the rebuild.
+- Glass: the earlier web implementation was translucency plus backdrop blur and the native one was
+  flat translucency; neither was liquid glass. On native the intended path is `expo-glass-effect`,
+  already a mobile dependency, which hands the real system material to iOS instead of imitating it.
+  The web has no equivalent system material, so it has to be approximated — layered translucency,
+  an edge highlight that responds to the surface behind it, and refraction where it is affordable.
+  Treat web and native results as the same material with different fidelity, and say which one you
+  tested.
 
 ## Layout Rules
 
@@ -165,12 +229,14 @@ create an app-specific override with a short rationale.
 The repo has a shared web primitive package at `packages/ui` and app-local primitives in
 `apps/web/src/components/ui`.
 
-Current rule:
+Current rule (during the rebuild):
 
-- Use `@starter/ui` for stable shared primitives such as `Button`, `Card`, `Badge`, form fields,
-  `Separator`, `Skeleton`, and `Textarea`.
-- Use `@rabtx/ui` for the polished material variants described above; extend that layer one
-  component at a time rather than creating another parallel library.
+- Existing screens keep using `@starter/ui` until the matching `@rabtx/ui` component exists. Do not
+  add new components or features to `@starter/ui`.
+- New and rebuilt components go in `@rabtx/ui`, one at a time, following the Direction and
+  Dependency policy above. Do not wrap or extend a shadcn component.
+- When a component is rebuilt, switch its consumers over and delete the `@starter/ui` original in
+  the same change.
 - Keep complex or app-specific composed components inside each app or feature module.
 - Promote a component to `packages/ui` only after it is reusable and free of route/auth/data
   coupling.

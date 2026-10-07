@@ -27,8 +27,10 @@ The short version: claim a card before coding, work in your own worktree on
 ## UI design context
 
 Before changing UI components, read [DESIGN.md](DESIGN.md), especially **Rabtx UI: shared design intent**.
-It defines solid, detailed, glass and terminal materials, motion, platform scope and known gaps.
-Detailed means touching tonal contours with no shadows; do not infer the design solely from existing code.
+It records the agreed direction (rebuild `@rabtx/ui` from scratch against the Reptex/Grid Figma
+system), the dependency policy, the open decisions, and the earlier material language (solid,
+detailed, glass, terminal). Do not infer the design solely from existing code, and do not extend
+`@starter/ui` components: new work goes in `@rabtx/ui`.
 Keep that document as the shared source of truth instead of copying design rules into agent-specific folders.
 
 ## Documentation
@@ -56,7 +58,7 @@ Before any Next.js work, find and read the relevant doc in `node_modules/next/di
 starter/
 ├── apps/
 │   ├── web/             # Next.js (React, Tailwind, shadcn-style UI)
-│   ├── mobile/          # Expo Router + NativeWind app (TypeScript)
+│   ├── mobile/          # Expo Router + Uniwind app (TypeScript)
 │   ├── nest-api/        # NestJS production API (PostgreSQL in later phases)
 │   ├── docs/            # Docs site (Fumadocs); source in apps/docs/content/docs/
 │   ├── ai-api/          # FastAPI AI assist (uv); Nest proxies, never public LLM keys
@@ -64,7 +66,8 @@ starter/
 
 ├── packages/
 │   ├── typescript-config/ # Shared tsconfig bases (base.json, nextjs.json)
-│   ├── ui/              # Shared web UI primitives + shadcn styles/tokens
+│   ├── ui/              # @starter/ui: legacy shadcn-style components (being replaced) + shared tokens
+│   ├── rabtx/           # @rabtx/ui: the from-scratch component library (web + native), see DESIGN.md
 │   └── logger/          # Shared logger (TS + Rust)
 ├── scripts/             # Utility scripts: bash/, python/
 ├── docker/              # Docker Compose fragments (see docker/README.md)
@@ -124,8 +127,10 @@ starter/
   prefer changing a shared package.
 - **New apps**: Add under `apps/`, wire into `turbo.json` tasks if needed.
 - **New packages**: Add under `packages/`, export via `@starter/<name>`.
-- **Shared UI**: `packages/ui` uses shadcn-style components. Shared Tailwind tokens live in
-  `packages/ui/src/styles/globals.css`.
+- **Shared UI**: new and rebuilt components live in `packages/rabtx` (`@rabtx/ui`), built on
+  platform features first (see the dependency policy in `DESIGN.md`). `packages/ui` (`@starter/ui`)
+  is the legacy shadcn-style set being replaced; do not add to it. Shared Tailwind tokens still
+  live in `packages/ui/src/styles/globals.css`. Icons are HugeIcons only; do not add lucide.
 - **TypeScript config**: Extend from `packages/typescript-config/base.json` (or `nextjs.json`
   for Next.js apps).
 - **Expo mobile structure**: Use `src/app` for routes, `src/components/ui` for UI primitives,
@@ -190,7 +195,6 @@ only, then `bun run dev`. See `/docs/docker` and `docker/README.md`.
 - `.agents/skills/expo-mobile/SKILL.md` — Expo Router + EAS + official Expo Skills / LLM doc links for `apps/mobile`.
 - `.agents/skills/browser-ui-test/SKILL.md` — Browser UI/UX verification via Playwright MCP + `apps/web` e2e after interactive web changes.
 - `.agents/rules/expo-ai-agents.mdc` — Expo remote skills URL, skill table, `llms.txt` bundles (when working under `apps/mobile/**`).
-- `apps/mobile/AGENTS.md` — Short index for agents opening the mobile app folder.
 - `docker/README.md` — Compose fragment layout and `-f` fallback.
 - `.oxlintrc.json` — oxlint rules. `.oxfmtrc.json` — oxfmt formatting.
 - `lefthook.yml` — Git hook definitions.
