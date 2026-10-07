@@ -28,8 +28,8 @@ The short version: claim a card before coding, work in your own worktree on
 
 Before changing UI components, read [DESIGN.md](DESIGN.md), especially **Rabtx UI: shared design intent**.
 It records the agreed direction (rebuild `@rabtx/ui` from scratch against the Reptex/Grid Figma
-system), the dependency policy, the open decisions, and the earlier material language (solid,
-detailed, glass, terminal). Do not infer the design solely from existing code, and do not extend
+system, with its file key and section IDs), the dependency policy, the radius / depth / kind model
+(no shadows), the beUI animation reference and the open decisions. Do not infer the design solely from existing code, and do not extend
 `@starter/ui` components: new work goes in `@rabtx/ui`.
 Keep that document as the shared source of truth instead of copying design rules into agent-specific folders.
 

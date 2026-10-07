@@ -68,8 +68,9 @@ Source of truth for decisions is `DESIGN.md` (Direction, Dependency policy, Open
 - Standardize on HugeIcons; remove `lucide-react`, `lucide-react-native`.
 - When a component is rebuilt, switch its consumers over and delete the `@starter/ui` original in
   the same change. Decide what remains of `@starter/ui` (tokens only, or removed) afterwards.
-- Blocked on the owner for: the Figma file link, the animation spec, the order of components and
-  the answers listed under Open decisions in `DESIGN.md`.
+- Figma is linked in `DESIGN.md`; beUI is the animation reference. Blocked on the owner for: the
+  depth-without-shadows example, the glass look, the animation mapping, the order of components
+  and the other answers listed under Open decisions in `DESIGN.md`.
 
 ## Phase B: Test depth and gates
 
