@@ -141,12 +141,13 @@ round the things that should be round without over-rounding the things that hold
 
 | Tier | Used for | Sharp | Default | Round |
 | --- | --- | --- | --- | --- |
-| pill | buttons, tags, count badges | 2px | full | full |
+| button | buttons (small size uses 6px in Default) | 2px | 8px | full |
+| pill | tags, count badges | 2px | full | full |
 | control | inputs, nav items, cards | 2px | 8px | 12px |
 | item | menu and select options, checkboxes | 2px | 6px | 10px |
 | box | dialogs, popovers, sheets | 4px | 12px | 20px |
 
-Round must never turn a card or a select option into a near-capsule: only pills go fully round.
+Round must never turn a card or a select option into a near-capsule: only buttons and pills go fully round.
 Default matches Figma's `--radius-sm/md/lg/full` (6, 8, 12, 999). Check every component in Round
 with long text.
 
@@ -259,11 +260,19 @@ State as of 2026-10-07. Verify against the repo before relying on it.
 - `packages/ui` (`@starter/ui`): the original shadcn-style web components (about 30), `motion/*`
   variants and `mobile/*` components, plus the shared tokens. The apps still consume it. It is the
   thing being replaced, not the foundation to extend.
-- `packages/rabtx` (`@rabtx/ui`): the rebuild target. It currently holds a single
-  `src/button.tsx`, a verbatim shadcn Button copy. The rebuilt Button replaces it and removes its
-  `@base-ui/react`, `@starter/ui` and `class-variance-authority` dependencies.
-- Playground: `apps/web` at `/ui`. The old lab and the docs `/rabtx` pages are being deleted and
-  `/ui` rebuilt from scratch, starting with Button.
+- `packages/rabtx` (`@rabtx/ui`): the rebuild target. Built so far: the tokens and modes
+  (`src/styles/tokens.css`), the spring solver (`src/motion`, generated `springs.css`) and **Button**
+  (`src/button`, `src/styles/button.css`). Button has five styles (primary, secondary, ghost,
+  accent, danger), five sizes (24 to 48), icon-only, a loading state that holds width, and no
+  runtime dependencies. Its hover edge in Flat follows the fill so Flat stays one border color.
+  Dark values are derived from the dark Sidebar and are not yet confirmed in Figma. Exports:
+  `@rabtx/ui/button`, `@rabtx/ui/motion`, `@rabtx/ui/styles.css`.
+- Playground: `apps/web` at `/ui` (`/ui/button`), rebuilt from scratch. A Design bar sets
+  `data-theme`, `data-depth`, `data-radius` and `data-motion` on one wrapper. The page has a
+  props playground with copyable code, a styles x states matrix (hover, pressed and focus forced
+  with `data-rx-force`), sizes, every depth x radius combination, in-context examples and the
+  spec. E2E: `apps/web/e2e/ui-button.spec.ts`. One component at a time; the next is chosen by the
+  owner.
 - Icons: HugeIcons is the target, but 44 files still import `lucide` and 93 import HugeIcons.
   Migrating the remaining lucide usage is part of the rebuild.
 - Glass: the earlier web implementation was translucency plus backdrop blur and the native one was

@@ -19,6 +19,7 @@
     "@hugeicons/core-free-icons": "^4.3.5",
     "@hugeicons/react": "^1.1.10",
     "@paper-design/shaders-react": "^0.0.81",
+    "@rabtx/ui": "workspace:*",
     "@starter/ui": "workspace:*",
     "@simplewebauthn/browser": "^14.0.0",
     "@tanstack/react-query": "^5.104.0",
