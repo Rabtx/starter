@@ -1,6 +1,7 @@
 "use client";
 
-import { type InputHTMLAttributes, type ReactNode, type Ref, useRef } from "react";
+import { type InputHTMLAttributes, type ReactNode, type Ref, useContext, useRef } from "react";
+import { FieldContext } from "../field/context";
 import { type InputSize, inputClass, inputParts } from "./input.styles";
 
 export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size"> & {
@@ -14,8 +15,8 @@ export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size"> & {
 };
 
 /**
- * A native `<input>` inside a wrapper that draws the field. Mark an invalid field with
- * `aria-invalid`, which also turns the edge red. Give it a visible `<label>` or an `aria-label`.
+ * A native `<input>` inside a wrapper that draws the field. Put it in a `Field` to get a label, a
+ * hint and an error wired up, or give it an `aria-label`. `aria-invalid` turns the edge red.
  */
 export function Input({
 	size,
@@ -27,6 +28,7 @@ export function Input({
 	...rest
 }: InputProps) {
 	const inner = useRef<HTMLInputElement>(null);
+	const fieldState = useContext(FieldContext);
 	const { field, icon } = inputParts;
 
 	return (
@@ -42,6 +44,9 @@ export function Input({
 		>
 			{leadingIcon && <span className={icon}>{leadingIcon}</span>}
 			<input
+				id={fieldState?.id}
+				aria-describedby={fieldState?.describedBy}
+				aria-invalid={fieldState?.invalid || undefined}
 				{...rest}
 				ref={(node) => {
 					inner.current = node;

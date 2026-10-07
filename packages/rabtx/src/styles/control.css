@@ -4,6 +4,7 @@
  * them, and Tailwind classes (see button/button.styles.ts) do everything else.
  */
 @source "../button";
+@source "../field";
 @source "../input";
 
 @utility rx-control {
