@@ -68,9 +68,9 @@ Source of truth for decisions is `DESIGN.md` (Direction, Dependency policy, Open
 - Standardize on HugeIcons; remove `lucide-react`, `lucide-react-native`.
 - When a component is rebuilt, switch its consumers over and delete the `@starter/ui` original in
   the same change. Decide what remains of `@starter/ui` (tokens only, or removed) afterwards.
-- Figma is linked in `DESIGN.md`; beUI is the animation reference. Blocked on the owner for: the
-  depth-without-shadows example, the glass look, the animation mapping, the order of components
-  and the other answers listed under Open decisions in `DESIGN.md`.
+- Locked in `DESIGN.md`: Figma source, Flat and Floating depth, tiered radius, CSS-only motion (no
+  animation library), HugeIcons only. Components are rebuilt one at a time, Button first, and shown
+  in the playground at `apps/web` `/ui`. Still open: native motion runtime, glass, light theme, font.
 
 ## Phase B: Test depth and gates
 

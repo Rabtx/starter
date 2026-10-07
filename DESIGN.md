@@ -28,28 +28,34 @@ Generated UI must feel domain-specific, accessible, responsive, and built from r
 
 ## Rabtx UI: shared design intent
 
-This section records the owner's agreed direction. Use it when another agent or session takes
+This section records the owner's locked direction. Use it when another agent or session takes
 on a component. Existing code is an implementation to assess, not proof that the design is finished.
 
-### Direction (agreed 2026-10-07)
+### Direction (locked 2026-10-07)
 
-`@rabtx/ui` is being rebuilt from scratch. It is not a styled layer over shadcn and it does not
-inherit `@starter/ui`'s components.
+`@rabtx/ui` is being rebuilt from scratch, one component at a time. It is not a styled layer over
+shadcn and it does not inherit `@starter/ui`'s components.
 
 - **Design source:** the Reptex/Grid design system in Figma (see Figma source below). Where this
-  file and Figma disagree on a visual decision, Figma wins, with one exception: no shadows (see
-  Radius, depth and kind). Record the component's Figma node ID on its card.
-- **Animation reference:** beUI (`https://beui.dev`; MCP server `https://mcp.beui.dev/mcp`).
+  file and Figma disagree on a visual decision, Figma wins, with two exceptions: no shadows, and
+  depth has two modes (Flat and Floating), not three. Record the component's Figma node ID on its
+  card.
+- **No animation library.** Motion is CSS only on the web (see Motion). Do not add `motion`,
+  `framer-motion`, GSAP or similar. JavaScript may set state (an attribute, a CSS variable) but the
+  animation itself lives in CSS.
 - **shadcn is kept only for its CLI** (`components.json`, registry and add-component workflow). Its
   component code is not the foundation and is replaced component by component.
-- **Tailwind CSS stays** as the styling system, on the shared tokens in
-  `packages/ui/src/styles/globals.css`.
-- **Icons are HugeIcons only** (`@hugeicons/react` on web, `@hugeicons/react-native` on native).
-  `lucide-react`, `lucide-react-native` and any other icon set are not used.
+- **Tailwind CSS stays** as the styling system, on the shared tokens.
+- **Icons are HugeIcons only** (`@hugeicons/react` on web, `@hugeicons/react-native` on native), at
+  the sizes the design uses. `lucide-react`, `lucide-react-native` and any other icon set are not
+  used.
 - **Two targets, one design language:** web components and real React Native/Expo components that
-  share tokens and design intent but not rendering code.
-- **Clean components:** a component carries no per-style branching. Radius and depth come from
-  token modes, and each `kind` is a ready-made set of Tailwind classes applied only when selected.
+  share tokens, spring parameters and design intent, but not rendering code.
+- **Clean components:** a component carries no per-style branching. Radius and depth come from token
+  modes, and each `kind` is a ready-made set of classes applied only when selected.
+- **Playground:** `apps/web` at `/ui` is the playground that showcases `@rabtx/ui`. It is rebuilt
+  fresh; the earlier shadcn lab and the docs `/rabtx` preview pages are deleted.
+- **Animation reference:** beUI (`https://beui.dev`; MCP server `https://mcp.beui.dev/mcp`).
 
 ### Figma source
 
@@ -73,14 +79,21 @@ Grid Shell `113:12741`, Thread Status `128:1062`, Thread Row `128:1111`, PR Row 
 Banner `129:17096`. Product-specific sections (Composer, Kanban, Tool Call, Diff, Approval,
 Thread, PR, Inbox) are Grid app components, not part of the first library pass.
 
-Tokens read from the Sidebar node (`92:11340`, dark theme) so far, as a starting point; read each
-component's own variables before building it:
+Tokens read from Figma so far, as a starting point; read each component's own variables before
+building it:
 
 - Names are `--color-*`, `--space-*`, `--radius-*`, `--size-*`.
-- Radius 4, 6, 8, 12 and 999. Space 0, 2, 4, 6, 8, 10, 12. Control height 24, nav row height 28.
-- Type is SF Pro at 13/20 and 12/16 (regular 400, medium 510), letter spacing -0.15.
+- Radius 4, 6, 8, 12 and 999. Space 0, 2, 4, 6, 8, 10, 12, 16, 20, 24, 32.
+- Control height 24 (sm), 28 (md), 36 (xl), 44 (2xl) and 48 (3xl); nav row height 28.
+- Type is SF Pro at 12/16, 13/20, 14/20 and 18/26 (regular 400, medium 510), letter spacing -0.15.
 - Dark colors: surface `#212121`, subtle `#1b1b1b`, pressed `#303030`, border `#303030` and strong
   `#3d3d3d`; text `#ebebeb`, `#a3a3a3`, `#7f7f7f`; accent `#2d7cf6`; danger `#f0686d`.
+- Light colors (Button section): app and surface `#ffffff`, inverse `#1b1b1b` (hover `#292929`),
+  pressed `#f2f2f2`, selected `#ebebeb`, border `#f2f2f2` and strong `#e3e3e3`; text `#292929`,
+  `#5d5d5d`, `#9e9e9e`, disabled `#a3a3a3`; accent `#2d7cf6` (hover `#1f66db`); danger `#e5484d`.
+- Button (`5:6`) is a matrix of style by size by state (default, hover, pressed, disabled). Styles:
+  black primary, blue accent, hairline secondary, secondary, ghost and danger. It repeats for two
+  radius modes (default and fully round) and two depth modes.
 
 ### Dependency policy
 
@@ -90,40 +103,21 @@ browsers now provide much of it, so prefer the platform first.
 
 1. **Platform first (web).** Reach for native HTML and CSS before any package: `<dialog>`, the
    Popover API, `<details>`, `inert`, CSS anchor positioning, `:focus-visible`, `:has()`,
-   `@starting-style` for entry animation, view transitions and `prefers-reduced-motion`. Check each feature against the browser baseline the product supports
+   `@starting-style`, `@property`, `linear()` easing, View Transitions and
+   `prefers-reduced-motion`. Check each feature against the browser baseline the product supports
    before using it, and note that baseline on the component.
 2. **Accessibility is not optional.** Keyboard operation, focus management, roles, names and
    states must be at least as good as the library being replaced. Verify with the keyboard and a
    screen reader, not just by reading the markup.
 3. **A dependency needs a written reason.** State the platform gap it fills (usually an accessible
    behavior the platform cannot yet do) and the condition under which it can be removed. Without
-   that, do not add it. Where a gap is real, using a dependency is correct.
+   that, do not add it. Animation is never a valid reason on the web.
 4. **Native (Expo / React Native) follows the same rule**, but the platform surface is smaller, so
    some dependencies (Expo modules, gesture and animation runtime) are expected. Which animation
-   runtime is acceptable is an open decision (see below).
+   runtime native uses is an open decision (see below); it must take the same spring parameters as
+   the web.
 5. **Remove, do not stack.** Replacing a dependency means deleting it and its imports in the same
    change, not running two systems side by side.
-
-### Open decisions
-
-These are not settled; do not guess them.
-
-- **Depth without shadows.** The mechanism is undecided. The owner will share a real example and
-  update Figma, whose Raised and Floating depths currently use drop shadows.
-- **Glass.** How far it goes (translucency plus blur, or closer to Apple's liquid glass) is to be
-  discussed. The structure is decided: a simple `kind` backed by ready-made Tailwind classes.
-- **Animation spec.** beUI is the reference. Still needed: which beUI motions map to which
-  components, and any deviations. The beUI MCP server is not yet configured in agent sessions.
-- Whether `react-native-reanimated` counts as acceptable for native motion or the built-in
-  `Animated` API should be used.
-- What `@starter/ui` becomes once components are rebuilt (tokens and CLI config only, or removed).
-- The order in which components are rebuilt.
-- Whether both light and dark themes ship in the first pass (Figma shows both: the Sidebar is dark,
-  Shape & Depth is light).
-- Mapping Figma's token names (`--color-*`, `--space-*`, `--radius-*`, `--size-*`) onto the existing
-  shadcn names in `packages/ui/src/styles/globals.css`.
-- Font. Figma uses SF Pro, which exists only on Apple platforms; the web and Android fallback is
-  undecided. A global monospace option is app-level theming, not a component concern.
 
 ### Goal and scope
 
@@ -138,86 +132,125 @@ omitting accessibility, useful feedback or the detailing that defines the depth 
 
 ### Radius, depth and kind
 
-Agreed 2026-10-07, replacing the earlier four materials (`solid`, `detail`, `glass`, `terminal`).
-Components vary along independent axes: color role (`variant`), size, and the three below.
+Components vary along independent axes: color role (`variant`), size, and the three below. The old
+four materials (`solid`, `detail`, `glass`, `terminal`) no longer exist.
 
-- **Radius** (Figma mode: Sharp, Default, Round). The terminal look is not a material any more: it
-  is the Sharp radius mode. Radius is a token, so it can be switched for a whole app or theme
-  instead of per component. A monospace font for a terminal feel is likewise applied globally by
-  the app, never by an individual component.
-- **Depth** (Figma mode: Flat, Raised, Floating). **No shadows**: no drop shadow, blurred shadow or
-  background glow. This overrides Figma, whose Raised and Floating currently draw drop shadows
-  (and the Sidebar uses `Shadow/sm` and `Depth/Soft`); do not copy those. The owner will update
-  Figma. How depth is expressed instead is an open decision. The tonal-edge language of the earlier
-  direction (a hairline edge, a light top edge and a dark bottom edge) is a candidate starting
-  point, not a decision.
-- **Kind.** Reserved for a treatment that needs its own look. Today only `glass`. Each kind is a
-  ready-made set of Tailwind classes applied only when that kind is selected, so the component
-  itself stays free of per-kind logic. `glass` is deliberately simple; its exact look is open.
+**Radius** has three modes: Sharp, Default and Round. The terminal look is the Sharp mode; a
+monospace font is applied globally by the app, never by a component. Radius is tiered, so a mode can
+round the things that should be round without over-rounding the things that hold text:
 
-Radius and depth are expected to ship as token modes (CSS variables switched by a mode attribute on
-a container) so components do not need props for them. Confirm this when the first component is
-built.
+| Tier | Used for | Sharp | Default | Round |
+| --- | --- | --- | --- | --- |
+| pill | buttons, tags, count badges | 2px | full | full |
+| control | inputs, nav items, cards | 2px | 8px | 12px |
+| item | menu and select options, checkboxes | 2px | 6px | 10px |
+| box | dialogs, popovers, sheets | 4px | 12px | 20px |
+
+Round must never turn a card or a select option into a near-capsule: only pills go fully round.
+Default matches Figma's `--radius-sm/md/lg/full` (6, 8, 12, 999). Check every component in Round
+with long text.
+
+**Depth** has two modes, Flat and Floating. Figma also draws a middle "Raised" mode and draws depth
+with drop shadows; the owner will update Figma, and until then do not copy either.
+
+- **Flat** is one simple 1px border. No second edge, no ring, no gradient.
+- **Floating** is the depth. It uses no cast or blurred shadows. A surface has a real 1px border
+  painted with a vertical gradient (light top edge to dark bottom edge), a 1px hairline ring just
+  outside it, and faint sheen (top) and shade (bottom) gradients inside. Inputs and tracks use the
+  inverse (a recessed well: dark top edge, light bottom edge).
+
+The edge must be a border, not an inset shadow line: inset lines are straight and get clipped by the
+corner radius, which makes the highlight look cut. A gradient border follows the radius exactly.
+
+```css
+@property --fill { syntax: "<color>"; inherits: false; initial-value: transparent; }
+/* mode switches the variables only; components never branch on depth */
+[data-depth="flat"]     { --e-ring: transparent; --e-edge-a: var(--line); --e-edge-b: var(--line); --e-sheen: transparent; --e-shade: transparent; }
+[data-depth="floating"] { --e-ring: rgb(0 0 0 / .6); --e-edge-a: rgb(255 255 255 / .18); --e-edge-b: rgb(0 0 0 / .4); --e-sheen: rgb(255 255 255 / .06); --e-shade: rgb(0 0 0 / .16); }
+
+.depth {
+	border: 1px solid transparent;
+	background:
+		linear-gradient(180deg, var(--e-sheen), transparent 40%, transparent 60%, var(--e-shade)) padding-box,
+		linear-gradient(var(--fill), var(--fill)) padding-box,
+		linear-gradient(180deg, var(--e-edge-a), var(--e-edge-b)) border-box;
+	box-shadow: 0 0 0 1px var(--e-ring);
+}
+```
+
+Colors inside gradients are registered with `@property` so they can transition. The values above are
+the dark-theme values from the sales-crm reference; Light needs its own set. Overlays (dialogs,
+popovers, sheets) separate with the same edge plus a dimmed backdrop, never a cast shadow.
+
+**Kind.** Reserved for a treatment that needs its own look. Today only `glass`. Each kind is a
+ready-made set of classes applied only when that kind is selected, so the component itself stays
+free of per-kind logic. `glass` is deliberately simple; its exact look is open.
+
+Radius and depth ship as token modes: CSS variables switched by `data-radius` and `data-depth` on a
+container, so components do not need props for them.
 
 Do not interpret polished as “add more shadows, glow or animation.”
 
-### Earlier construction notes (candidate for depth)
-
-From the earlier `solid` and `detail` materials, kept as reference while the depth mechanism is
-undecided. Radius-per-material (`kindShape`) no longer applies: radius is now its own mode.
-
-
-- Start with the actual component surface and its rounded boundary.
-- Put the outer contour directly against the inner contour; keep their curves concentric.
-- Let the outer rim sit only subtly apart from the surrounding surface, including charcoal.
-- Create depth through edge contrast, not a floating drop shadow. Detail and solid share one
-  depth language: `--button-edge` for the hairline, `--button-sheen` and `--button-shade` for the
-  light top and dark bottom. Solid draws those three tones as a border plus inset shadows; detail
-  draws the same tones as its inner contour, which is what keeps its two contours touching, and
-  inverts the bevel while pressed.
-- Keep surface, rim and radius decisions in shared tokens. The Button consumes `--button-rim`
-  for the outer detail contour and `--button-edge`, `--button-sheen`, `--button-shade` for the
-  surface that sits inside it (the sheen and shade carry their own dark-theme values). Add more
-  tokens only when an actual design decision needs them.
-- Radius is its own mode, not a property of the size or the kind. Sizes change height, padding and
-  text scale only.
-- Check the result in light and dark themes on a plain background. A background effect must not
-  conceal weak component styling. Where the host surface differs, adapt the rim token deliberately.
-
 ### Motion and interaction
 
-Motion is on by default, purposeful and restrained. Press/release should feel responsive without
-moving surrounding layout. Respect reduced motion and `animated={false}`. Disabled controls must
-not activate or animate as enabled controls. Native caller callbacks must not suppress internal motion.
+Motion is on by default, purposeful and restrained, and CSS only on the web. Press and release feel
+responsive without moving surrounding layout. Respect reduced motion; a Motion off switch in the
+playground must also leave every state visible. Disabled controls must not activate or animate as
+enabled ones. Motion is never the only feedback channel.
 
-The animation reference is beUI (`https://beui.dev`, for example its motion Button at
-`https://beui.dev/components/motion/button`). Match its feel; take concrete values from it or from
-the owner's spec rather than from the numbers below.
+- **Springs** are defined by stiffness, damping and mass, solved into a CSS `linear()` easing with
+  the settle time as the duration. The same three numbers feed the native runtime. beUI values:
 
-Previous Button direction (removed by the reset, kept as a starting point): solid used a stiff press
-spring (0.93) with a 1.02 hover scale, detail a restrained press (0.94) with a 1px hover lift,
-glass a softer spring, and terminal neither scaled nor lifted (these names are the old
-materials). Hover was gated behind a real-hover media query so touch devices did not keep a
-phantom hover. These are values to evaluate, not universal physics rules, and the owner's
-animation spec supersedes them once shared.
+  | Use | Stiffness / damping / mass | Notes |
+  | --- | --- | --- |
+  | Press | 500 / 30 / 0.6 | scale 0.93 on press, about 280ms |
+  | Tabs indicator | 245 / 36 / 1.2 | no overshoot, about 670ms |
+  | Swap (icon, label, morph) | 460 / 30 / 1 | about 5% overshoot |
+  | Switch thumb | 800 / 80 / 4 | squish to 0.9 |
+  | Toast | 420 / 34 / 0.75 | in: y 22, scale 0.96, blur 10 |
+  | Panel (dialog, sheet) | 420 / 40 / 0.5 | exit shorter than enter |
+
+  Springs given as duration and bounce convert as stiffness = (2π / duration)² and damping ratio =
+  1 minus bounce.
+- **State changes** (hover, focus, selected) use `cubic-bezier(0.25, 1, 0.5, 1)` for about 150ms.
+  High-frequency interactions (row hover, tab switch, keystrokes) get instant or near-instant
+  feedback.
+- **Icon and label swaps** cross-fade with scale 0.25 to 1, opacity and 4px blur over 300ms
+  (`cubic-bezier(0.2, 0, 0, 1)`). Exits are shorter than enters.
+- **Limits:** a `linear()` spring is a fixed curve. If interrupted it restarts from the current value
+  with no velocity carried over, and its duration does not depend on distance. Drag, swipe and
+  momentum need JavaScript; the tooltip "warm window" does too. View Transitions snapshot the
+  element, so a shared-element morph is a picture while it moves. Where one real element can morph
+  by itself (width, height, radius, fill), prefer that.
 
 Review default, hover (web), keyboard focus, pressed, disabled, loading and success states where
-applicable. Include leading/trailing icons and icon-only examples with accessible names. Keep labels
-and dimensions stable during state changes. The earlier Button had state-driven loading and result
-labels (`state` with `loadingText` / `successText` / `errorText`) that morphed the width between
-labels. That behavior is gone with the reset; re-establish it deliberately, and review it on both
-platforms before calling it finished.
+applicable. Include leading and trailing icons and icon-only examples with accessible names. Keep
+labels and dimensions stable during state changes.
+
+### Open decisions
+
+These are not settled; do not guess them.
+
+- **Native motion runtime.** Whether `react-native-reanimated` is acceptable or the built-in
+  `Animated` API is used. Either way it takes the same spring parameters as the web.
+- **Glass.** How far it goes (translucency plus blur, or closer to Apple's liquid glass).
+- What `@starter/ui` becomes once components are rebuilt (tokens and CLI config only, or removed).
+- Whether both light and dark themes ship in the first pass (Figma shows both).
+- Mapping Figma's token names (`--color-*`, `--space-*`, `--radius-*`, `--size-*`) onto the existing
+  shadcn names in `packages/ui/src/styles/globals.css`.
+- Font. Figma uses SF Pro, which exists only on Apple platforms; the web and Android fallback is
+  undecided. A global monospace option is app-level theming, not a component concern.
+- The order after Button. Button is first.
 
 ### Consistency and review
 
-The same language should eventually apply to cards, inputs, sidebar items and the surrounding
-application shell. Use semantic color and helpful SVGs where they clarify content, without decorative
-color noise. Do not redesign every screen as part of a single component task.
+The same language applies to cards, inputs, sidebar items and the surrounding application shell. Use
+semantic color and helpful SVGs where they clarify content, without decorative color noise. Do not
+redesign every screen as part of a single component task.
 
-The earlier design lab included controls for outer rim, inner edge, material, motion and a
-flat/polished comparison. Those are useful review tools, not a requirement to add a large control API to components.
-Before moving to the next component, review the current one across themes, sizes, interaction states
-and supported platforms. Be explicit about untested native behavior and simplified glass fallbacks.
+Before moving to the next component, review the current one in the playground across Flat and
+Floating, Sharp, Default and Round, Motion on and off, light and dark, every size and state, and long
+text. Be explicit about untested native behavior and simplified glass fallbacks.
 
 ### Current implementation and preview
 
@@ -227,24 +260,19 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   variants and `mobile/*` components, plus the shared tokens. The apps still consume it. It is the
   thing being replaced, not the foundation to extend.
 - `packages/rabtx` (`@rabtx/ui`): the rebuild target. It currently holds a single
-  `src/button.tsx`, a verbatim shadcn Button copy left by the "reset the Button" commit, exported as
-  `@rabtx/ui/button`. It still depends on `@base-ui/react`, `@starter/ui` and
-  `class-variance-authority`, all of which the rebuild is expected to remove.
-- Shared tokens: `packages/ui/src/styles/globals.css`. It still defines the `--button-rim`,
-  `--button-edge`, `--button-sheen` and `--button-shade` tokens from the previous direction; the
-  baseline Button does not use them.
-- Preview route: `apps/docs/content/rabtx/` (`index.mdx`, `button.mdx`), served at `/rabtx`.
-  `button.mdx` is a short page rendering the baseline Button. The earlier material matrix
-  component no longer exists.
+  `src/button.tsx`, a verbatim shadcn Button copy. The rebuilt Button replaces it and removes its
+  `@base-ui/react`, `@starter/ui` and `class-variance-authority` dependencies.
+- Playground: `apps/web` at `/ui`. The old lab and the docs `/rabtx` pages are being deleted and
+  `/ui` rebuilt from scratch, starting with Button.
 - Icons: HugeIcons is the target, but 44 files still import `lucide` and 93 import HugeIcons.
   Migrating the remaining lucide usage is part of the rebuild.
 - Glass: the earlier web implementation was translucency plus backdrop blur and the native one was
   flat translucency; neither was liquid glass. On native the intended path is `expo-glass-effect`,
   already a mobile dependency, which hands the real system material to iOS instead of imitating it.
-  The web has no equivalent system material, so it has to be approximated — layered translucency,
-  an edge highlight that responds to the surface behind it, and refraction where it is affordable.
-  Treat web and native results as the same material with different fidelity, and say which one you
-  tested.
+  The web has no equivalent system material, so it has to be approximated. Treat web and native
+  results as the same material with different fidelity, and say which one you tested.
+- Reference: `kargulstudio/sales-crm` (public, MIT) shows the depth technique and the app density we
+  are targeting. Read it, do not copy its libraries.
 
 ## Layout Rules
 
