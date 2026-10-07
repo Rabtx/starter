@@ -6,6 +6,7 @@
 @source "../button";
 @source "../field";
 @source "../input";
+@source "../textarea";
 
 @utility rx-control {
 	border: 1px solid transparent;
@@ -128,11 +129,12 @@
 		--rx-edge-b: var(--rx-focus);
 		--rx-halo: color-mix(in oklab, var(--rx-focus) 20%, transparent);
 	}
-	&:has([aria-invalid="true"]) {
+	&:has([aria-invalid="true"]),
+	&[aria-invalid="true"] {
 		--rx-flat: var(--rx-danger);
 		--rx-edge-a: var(--rx-danger);
 		--rx-edge-b: var(--rx-danger);
-		--rx-halo: color-mix(in oklab, var(--rx-danger) 18%, transparent);
+		--rx-halo: color-mix(in oklab, var(--rx-danger) 10%, transparent);
 	}
 }
 
