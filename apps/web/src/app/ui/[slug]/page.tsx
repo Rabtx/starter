@@ -710,7 +710,7 @@ const EXPAND_TASKS = [
 		id: "t3",
 		title: "RN parity",
 		status: "Planned",
-		detail: "Port the Motion Table feature set to React Native with Reanimated and NativeWind.",
+		detail: "Port the Motion Table feature set to React Native with Reanimated and Uniwind.",
 		tags: ["mobile", "expo"],
 	},
 ];
@@ -1611,13 +1611,6 @@ export default function ComponentPage({ params }: { params: Promise<{ slug: stri
 														: "border-white/10 bg-gradient-to-br from-indigo-950/60 via-zinc-950 to-purple-950/60"
 												}`}
 											>
-												<div
-													className="absolute inset-0 bg-cover bg-center opacity-80"
-													style={{
-														backgroundImage:
-															'url("/home/shabir/.gemini/antigravity-cli/brain/862b382b-0ea2-4445-b312-852049313c8d/glass_background_1785059083234.jpg")',
-													}}
-												/>
 												<div
 													className={`absolute inset-0 bg-[size:32px_32px] ${
 														activeTheme === "light"
