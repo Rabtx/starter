@@ -8,6 +8,7 @@ export const NAV = [
 			{ href: "/ui/field", label: "Field" },
 			{ href: "/ui/textarea", label: "Textarea" },
 			{ href: "/ui/card", label: "Card" },
+			{ href: "/ui/badge", label: "Badge" },
 		],
 	},
 ];

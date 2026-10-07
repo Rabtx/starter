@@ -268,8 +268,8 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   (`buttonClass`, `buttonParts`) with no framework code; `button.tsx` is a thin React wrapper.
   Exports: `@rabtx/ui/button`, `@rabtx/ui/button/styles`, `@rabtx/ui/input`,
   `@rabtx/ui/input/styles`, `@rabtx/ui/field`, `@rabtx/ui/field/styles`, `@rabtx/ui/textarea`,
-  `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/motion`,
-  `@rabtx/ui/styles.css`.
+  `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/badge`, `@rabtx/ui/badge/styles`,
+  `@rabtx/ui/motion`, `@rabtx/ui/styles.css`.
 - **Input** (Figma `6:14`): a wrapper draws the field (`rx-control rx-field`) around a native
   `<input>`. Heights 28, 32 (default), 36, 44, 48. Depth: Flat is one 1px border; Floating is a
   recess (dark top edge fading to a light bottom edge plus a faint top shade), which replaces
@@ -298,6 +298,15 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   dropped. `rx-surface` was split out of `rx-control` so a card is the plain surface with no hover or
   press. Deviation: the description uses the secondary gray (passes 4.5:1) where Figma's Option Card
   uses the tertiary gray; flagged. Option Card (selectable) and Stat Card are separate components.
+- **Badge** (Figma `6:116`): 20px, 12/16 medium, a pale tint with colored text, six tones (neutral,
+  accent, success, warning, danger, violet), optional 6px dot. Radius is its own tier,
+  `--rx-r-badge`: 4px Default (Figma), 2px Sharp, fully round in Round. One `--tone` color per
+  class drives both the fill (12% of the tone over the surface, which reproduces Figma's tints) and
+  the ink. **Deviation, tested:** Figma's raw tone text (for example `#f0803c` on `#fef0e6`) is
+  2.7 to 3.9:1, below 4.5:1 for 12px text, so the ink is the tone mixed 75% toward black (toward
+  white in dark). Measured: light 4.86 (warning) to 6.8, dark 5.07 to 6.6, asserted in
+  `ui-badge.spec.ts`. Success, warning and violet reuse the same base color in dark; their dark
+  values are not in Figma. Tag (outlined, `42:441`) and Chip (interactive, `6:139`) are separate.
   Dark values are derived from the dark Sidebar and are not yet confirmed in Figma.
 - Other frameworks: a Solid component is another thin wrapper over `button.styles.ts` plus the same
   CSS, not a clone or a rewrite. Not built yet; add it as a separate package or export with
