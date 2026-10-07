@@ -5,6 +5,7 @@ export const NAV = [
 		links: [
 			{ href: "/ui/button", label: "Button" },
 			{ href: "/ui/input", label: "Input" },
+			{ href: "/ui/field", label: "Field" },
 		],
 	},
 ];

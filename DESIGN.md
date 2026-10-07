@@ -267,7 +267,8 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   and motion-off rules; `src/button/button.styles.ts` holds the Button as Tailwind class strings
   (`buttonClass`, `buttonParts`) with no framework code; `button.tsx` is a thin React wrapper.
   Exports: `@rabtx/ui/button`, `@rabtx/ui/button/styles`, `@rabtx/ui/input`,
-  `@rabtx/ui/input/styles`, `@rabtx/ui/motion`, `@rabtx/ui/styles.css`.
+  `@rabtx/ui/input/styles`, `@rabtx/ui/field`, `@rabtx/ui/field/styles`, `@rabtx/ui/motion`,
+  `@rabtx/ui/styles.css`.
 - **Input** (Figma `6:14`): a wrapper draws the field (`rx-control rx-field`) around a native
   `<input>`. Heights 28, 32 (default), 36, 44, 48. Depth: Flat is one 1px border; Floating is a
   recess (dark top edge fading to a light bottom edge plus a faint top shade), which replaces
@@ -276,6 +277,12 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   property), independent of the Round radius mode, so text is never clipped. Dark field values and
   the 20% / 18% halo strengths are derived, not read from Figma. Figma's placeholder color
   (`#9e9e9e` on `#f5f5f5`) is below 4.5:1; kept as specified, flagged for the design owner.
+- **Field** (Figma `26:436`): a label (13/20 medium), one control and an optional 12/16 hint, 6px
+  apart. It owns the wiring: a generated `id` for the label, the hint or error linked with
+  `aria-describedby`, `aria-invalid` on an error, and a polite live region for the message. The
+  control reads this from a React context, so Textarea and Select can join it later. The context is
+  internal (not exported) so server files can import `@rabtx/ui/field`. The hint (`#9e9e9e`) and
+  error (`#e5484d`) text colors are as specified and are below 4.5:1 on white; flagged.
   Dark values are derived from the dark Sidebar and are not yet confirmed in Figma.
 - Other frameworks: a Solid component is another thin wrapper over `button.styles.ts` plus the same
   CSS, not a clone or a rewrite. Not built yet; add it as a separate package or export with

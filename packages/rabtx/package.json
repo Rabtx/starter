@@ -9,6 +9,8 @@
 	"exports": {
 		"./button": "./src/button/index.ts",
 		"./button/styles": "./src/button/button.styles.ts",
+		"./field": "./src/field/index.ts",
+		"./field/styles": "./src/field/field.styles.ts",
 		"./input": "./src/input/index.ts",
 		"./input/styles": "./src/input/input.styles.ts",
 		"./motion": "./src/motion/index.ts",
