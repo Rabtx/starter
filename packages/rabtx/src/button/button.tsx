@@ -1,18 +1,14 @@
 "use client";
 
 import type { ButtonHTMLAttributes, MouseEvent, ReactNode, Ref } from "react";
-
-export type ButtonVariant = "primary" | "secondary" | "ghost" | "accent" | "danger";
-export type ButtonSize = "sm" | "md" | "lg" | "xl" | "2xl";
+import { type ButtonSize, type ButtonVariant, buttonClass, buttonParts } from "./button.styles";
 
 type BaseProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> & {
-	/** Visual role. Primary is black, Accent is blue, Secondary has a hairline, Ghost has none. */
 	variant?: ButtonVariant;
-	/** Control height: 24, 28, 36, 44 and 48. */
 	size?: ButtonSize;
-	/** Swaps the content for a spinner without changing the button's width, and blocks clicks. */
+	/** Swaps the content for a spinner at the same width and blocks clicks. */
 	loading?: boolean;
-	/** Removes the press scale, for buttons where the motion would distract. */
+	/** Removes the press scale. */
 	static?: boolean;
 	ref?: Ref<HTMLButtonElement>;
 };
@@ -25,75 +21,58 @@ type LabelProps = BaseProps & {
 };
 
 type IconOnlyProps = BaseProps & {
-	/** A square button. Needs an accessible name because it has no visible text. */
+	/** A square button. It has no visible text, so it needs an accessible name. */
 	iconOnly: true;
 	"aria-label": string;
 	leadingIcon?: never;
 	trailingIcon?: never;
-	/** The icon. */
 	children: ReactNode;
 };
 
 export type ButtonProps = LabelProps | IconOnlyProps;
 
-/**
- * A native `<button>`. Styling is CSS only (see `@rabtx/ui/styles.css`) and reads the radius and
- * depth modes from an ancestor, so the component carries no per-style branching.
- *
- * Icons are passed in, so the package depends on no icon set. Size them with the icon library's own
- * size prop or leave them to fill the 16px slot (20px at 2X-Large).
- */
+/** A native `<button>`. Icons are passed in, so the package depends on no icon set. */
 export function Button(props: ButtonProps) {
 	const {
-		variant = "primary",
-		size = "md",
-		loading = false,
-		static: isStatic = false,
-		iconOnly = false,
+		variant,
+		size,
+		iconOnly,
+		loading,
+		static: isStatic,
 		leadingIcon,
 		trailingIcon,
 		children,
 		className,
 		type = "button",
 		onClick,
-		ref,
 		...rest
 	} = props;
-
-	function handleClick(event: MouseEvent<HTMLButtonElement>) {
-		if (loading) {
-			event.preventDefault();
-			return;
-		}
-		onClick?.(event);
-	}
+	const { content, icon, label, spinner } = buttonParts;
 
 	return (
 		<button
 			{...rest}
-			ref={ref}
 			type={type}
-			className={className ? `rx-btn ${className}` : "rx-btn"}
-			data-variant={variant}
-			data-size={size}
-			data-icon-only={iconOnly ? "" : undefined}
+			className={`${buttonClass({ variant, size, iconOnly })} ${className ?? ""}`}
 			data-loading={loading ? "" : undefined}
 			data-static={isStatic ? "" : undefined}
 			aria-busy={loading || undefined}
-			onClick={handleClick}
+			onClick={(event: MouseEvent<HTMLButtonElement>) =>
+				loading ? event.preventDefault() : onClick?.(event)
+			}
 		>
-			<span className="rx-btn__content">
+			<span className={content}>
 				{iconOnly ? (
-					<span className="rx-btn__icon">{children}</span>
+					<span className={icon}>{children}</span>
 				) : (
 					<>
-						{leadingIcon ? <span className="rx-btn__icon">{leadingIcon}</span> : null}
-						<span className="rx-btn__label">{children}</span>
-						{trailingIcon ? <span className="rx-btn__icon">{trailingIcon}</span> : null}
+						{leadingIcon && <span className={icon}>{leadingIcon}</span>}
+						<span className={label}>{children}</span>
+						{trailingIcon && <span className={icon}>{trailingIcon}</span>}
 					</>
 				)}
 			</span>
-			<span className="rx-btn__spinner" aria-hidden="true" />
+			<span className={spinner} aria-hidden="true" />
 		</button>
 	);
 }

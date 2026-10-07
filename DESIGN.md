@@ -261,18 +261,21 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   variants and `mobile/*` components, plus the shared tokens. The apps still consume it. It is the
   thing being replaced, not the foundation to extend.
 - `packages/rabtx` (`@rabtx/ui`): the rebuild target. Built so far: the tokens and modes
-  (`src/styles/tokens.css`), the spring solver (`src/motion`, generated `springs.css`) and **Button**
-  (`src/button`, `src/styles/button.css`). Button has five styles (primary, secondary, ghost,
-  accent, danger), five sizes (24 to 48), icon-only, a loading state that holds width, and no
-  runtime dependencies. Its hover edge in Flat follows the fill so Flat stays one border color.
-  Dark values are derived from the dark Sidebar and are not yet confirmed in Figma. Exports:
-  `@rabtx/ui/button`, `@rabtx/ui/motion`, `@rabtx/ui/styles.css`.
-- Playground: `apps/web` at `/ui` (`/ui/button`), rebuilt from scratch. A Design bar sets
-  `data-theme`, `data-depth`, `data-radius` and `data-motion` on one wrapper. The page has a
-  props playground with copyable code, a styles x states matrix (hover, pressed and focus forced
-  with `data-rx-force`), sizes, every depth x radius combination, in-context examples and the
-  spec. E2E: `apps/web/e2e/ui-button.spec.ts`. One component at a time; the next is chosen by the
-  owner.
+  (`src/styles/tokens.css`), the spring solver (`src/motion`, generated `springs.css`) and **Button**.
+  Styling is Tailwind first: `src/styles/control.css` holds the shared depth recipe (`rx-control`),
+  the five tones (`rx-primary`, `rx-secondary`, `rx-ghost`, `rx-accent`, `rx-danger`) and the flat
+  and motion-off rules; `src/button/button.styles.ts` holds the Button as Tailwind class strings
+  (`buttonClass`, `buttonParts`) with no framework code; `button.tsx` is a thin React wrapper.
+  Exports: `@rabtx/ui/button`, `@rabtx/ui/button/styles`, `@rabtx/ui/motion`, `@rabtx/ui/styles.css`.
+  Dark values are derived from the dark Sidebar and are not yet confirmed in Figma.
+- Other frameworks: a Solid component is another thin wrapper over `button.styles.ts` plus the same
+  CSS, not a clone or a rewrite. Not built yet; add it as a separate package or export with
+  `solid-js` as a peer dependency, and test it with a real Solid render.
+- Docs: `apps/web` at `/ui`, in the style of shadcn and beUI: one page per component with a short
+  intro, a few important live examples (each one's source is read from its file, so it cannot
+  drift), an API table and accessibility notes. A header toggle sets `data-theme`, `data-depth`,
+  `data-radius` and `data-motion`. Add examples only when they teach something new. E2E:
+  `apps/web/e2e/ui-button.spec.ts`. One component at a time; the owner picks the next.
 - Icons: HugeIcons is the target, but 44 files still import `lucide` and 93 import HugeIcons.
   Migrating the remaining lucide usage is part of the rebuild.
 - Glass: the earlier web implementation was translucency plus backdrop blur and the native one was
