@@ -3,24 +3,27 @@
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
+	"sideEffects": ["**/*.css"],
 	"exports": {
-		"./button": "./src/button.tsx"
+		"./button": "./src/button/index.ts",
+		"./motion": "./src/motion/index.ts",
+		"./styles.css": "./src/styles/index.css"
 	},
 	"scripts": {
+		"springs": "bun scripts/generate-springs.ts",
 		"lint": "oxlint",
 		"lint:fix": "oxlint --fix",
-		"typecheck": "tsc --noEmit"
-	},
-	"dependencies": {
-		"@base-ui/react": "^1.8.0",
-		"@starter/ui": "workspace:*",
-		"class-variance-authority": "^0.7.1"
+		"typecheck": "tsc --noEmit",
+		"test": "vitest run",
+		"test:watch": "vitest"
 	},
 	"devDependencies": {
 		"@starter/typescript-config": "workspace:*",
+		"@types/node": "^26.6.3",
 		"@types/react": "^19.3.0",
 		"react": "^19.3.0",
-		"typescript": "^7.0.2"
+		"typescript": "^7.0.2",
+		"vitest": "^5.0.3"
 	},
 	"peerDependencies": {
 		"react": ">=19"

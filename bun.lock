@@ -165,6 +165,7 @@
         "@hugeicons/core-free-icons": "^4.3.5",
         "@hugeicons/react": "^1.1.10",
         "@paper-design/shaders-react": "^0.0.81",
+        "@rabtx/ui": "workspace:*",
         "@simplewebauthn/browser": "^14.0.0",
         "@starter/ui": "workspace:*",
         "@tanstack/react-query": "^5.104.0",
@@ -205,16 +206,13 @@
     "packages/rabtx": {
       "name": "@rabtx/ui",
       "version": "0.0.0",
-      "dependencies": {
-        "@base-ui/react": "^1.8.0",
-        "@starter/ui": "workspace:*",
-        "class-variance-authority": "^0.7.1",
-      },
       "devDependencies": {
         "@starter/typescript-config": "workspace:*",
+        "@types/node": "^26.6.3",
         "@types/react": "^19.3.0",
         "react": "^19.3.0",
         "typescript": "^7.0.2",
+        "vitest": "^5.0.3",
       },
       "peerDependencies": {
         "react": ">=19",
