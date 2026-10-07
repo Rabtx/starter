@@ -6,6 +6,7 @@ export const NAV = [
 			{ href: "/ui/button", label: "Button" },
 			{ href: "/ui/input", label: "Input" },
 			{ href: "/ui/field", label: "Field" },
+			{ href: "/ui/textarea", label: "Textarea" },
 		],
 	},
 ];
