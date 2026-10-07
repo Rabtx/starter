@@ -11,7 +11,7 @@ design-system decisions.
 - `DESIGN.md`
 - `packages/ui/**` — the shadcn base
 - `packages/rabtx/**` — the polished Rabtx layer built on top of it
-- `apps/docs/content/rabtx/**` — the component preview route
+- `apps/web/src/app/ui/**` — the component playground at `/ui`
 
 Web and mobile remain the owners of their application code. UI/UX may provide specifications,
 review screens, and change shared UI primitives. A UI implementation inside `apps/web/**` or
