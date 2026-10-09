@@ -16,7 +16,7 @@ Dual-licensed **MIT OR Apache-2.0**.
 - Optional: Docker Compose `v2.20+`, Rust toolchain (`apps/rust`), Python 3 (`apps/ai-api`, script tests)
 
 ```bash
-git clone https://github.com/shabirkhan-dev/starter.git
+git clone https://github.com/rabtx/starter.git
 cd starter
 bun install
 bun run prepare
