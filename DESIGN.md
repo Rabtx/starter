@@ -270,7 +270,7 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   `@rabtx/ui/input/styles`, `@rabtx/ui/field`, `@rabtx/ui/field/styles`, `@rabtx/ui/textarea`,
   `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/badge`, `@rabtx/ui/badge/styles`,
   `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/checkbox`, `@rabtx/ui/checkbox/styles`,
-  `@rabtx/ui/motion`, `@rabtx/ui/styles.css`.
+  `@rabtx/ui/toggle`, `@rabtx/ui/toggle/styles`, `@rabtx/ui/motion`, `@rabtx/ui/styles.css`.
 - **Input** (Figma `6:14`): a wrapper draws the field (`rx-control rx-field`) around a native
   `<input>`. Heights 28, 32 (default), 36, 44, 48. Depth: Flat is one 1px border; Floating is a
   recess (dark top edge fading to a light bottom edge plus a faint top shade), which replaces
@@ -335,6 +335,18 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   border (`#e3e3e3` on white, about 1.3:1) is below the 3:1 non-text contrast WCAG asks for; it is
   the same border token Input, Select and Textarea use, so one darker control-border token would fix
   all of them. The Figma `Task Check` (6:78, a priority circle) is a separate component.
+- **Toggle** (Figma `6:103`): a native `<input type="checkbox" role="switch">`, announced as on or
+  off. Figma exports it as flat SVGs, so the values come from them: a 28x16 track, a 12px white
+  thumb inset 2px, off `#e3e3e3`, on `#2d7cf6`, disabled off `#f2f2f2`, disabled on `#d3e4fd`
+  (`--rx-accent-soft`; dark derived at 25% of the accent over the surface). The thumb is a
+  `::before` that slides 12px on the `switch` spring (527ms, 4% overshoot), with no JavaScript, off
+  with Motion off. An invisible `::after` makes the target 24px tall. Track and thumb share the pill
+  radius, so Sharp gives a square thumb in a square track. With children it wraps a `<label>`.
+  Server-safe (no hooks). `role="switch"` without `aria-checked` trips a lint rule; it is suppressed
+  on purpose because the native checkbox already exposes its state and `aria-checked` would
+  duplicate it and can drift. **Flagged:** the off track (`#e3e3e3` on white) is about 1.3:1, the same
+  low-contrast control border as the Checkbox, Input, Select and Textarea; one darker token would
+  fix all of them. Not in this PR: Radio, Task Check, Setting Row (which composes a Toggle).
   Dark values are derived from the dark Sidebar and are not yet confirmed in Figma.
 - Other frameworks: a Solid component is another thin wrapper over `button.styles.ts` plus the same
   CSS, not a clone or a rewrite. Not built yet; add it as a separate package or export with

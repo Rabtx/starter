@@ -64,6 +64,7 @@
 	--rx-accent-hover: #1f66db;
 	--rx-danger: #e5484d;
 	--rx-focus: #2d7cf6;
+	--rx-accent-soft: #d3e4fd;
 
 	/* Status tones (Figma). Tints and ink are derived from these in badge.css. */
 	--rx-success: #30a46c;
@@ -113,6 +114,7 @@
 	--rx-accent-hover: #4a8ff7;
 	--rx-danger: #f0686d;
 	--rx-focus: #6aa4fa;
+	--rx-accent-soft: color-mix(in oklab, var(--rx-accent) 25%, var(--rx-surface));
 
 	--rx-success: #30a46c;
 	--rx-warning: #f0803c;

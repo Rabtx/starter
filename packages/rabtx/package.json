@@ -24,7 +24,9 @@
 		"./select/styles": "./src/select/select.styles.ts",
 		"./styles.css": "./src/styles/index.css",
 		"./textarea": "./src/textarea/index.ts",
-		"./textarea/styles": "./src/textarea/textarea.styles.ts"
+		"./textarea/styles": "./src/textarea/textarea.styles.ts",
+		"./toggle": "./src/toggle/index.ts",
+		"./toggle/styles": "./src/toggle/toggle.styles.ts"
 	},
 	"scripts": {
 		"springs": "bun scripts/generate-springs.ts",
