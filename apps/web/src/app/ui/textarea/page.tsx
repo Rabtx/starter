@@ -8,7 +8,7 @@ export default function TextareaPage() {
 	return (
 		<Doc>
 			<h1>Textarea</h1>
-			<p>A multi-line text field, drawn like Input.</p>
+			<p>A multi-line text field, drawn like the Input and the Select trigger.</p>
 			<Example file="textarea/_examples/default.tsx">
 				<TextareaDefault />
 			</Example>
@@ -16,8 +16,8 @@ export default function TextareaPage() {
 			<h2>Usage</h2>
 			<pre>{`import { Field } from "@rabtx/ui/field";\nimport { Textarea } from "@rabtx/ui/textarea";\n\n<Field label="Description">\n\t<Textarea />\n</Field>`}</pre>
 			<p>
-				The minimum height is 96px, four lines. Set <code>rows</code> for a taller field. Users can
-				drag the corner to resize it vertically.
+				The minimum height is 96px, four lines. It grows with its text where the browser supports{" "}
+				<code>field-sizing: content</code>, and users can drag the corner to resize it vertically.
 			</p>
 
 			<h2>Error and disabled</h2>

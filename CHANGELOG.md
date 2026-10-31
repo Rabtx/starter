@@ -9,6 +9,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `@rabtx/ui` Checkbox rebuilt on a native checkbox laid over a box styled with `:has()`: sizes
+  `sm` (16), `md` (20, default), `lg` (24); shadcn API (`checked` incl. `"indeterminate"`,
+  `defaultChecked`, `onCheckedChange`) plus `indeterminate` and `description`; Field and
+  `aria-invalid` error state; the tick pops in and draws itself with `stroke-dashoffset` on a new
+  `check` spring, all in CSS. `/docs/ui/checkbox` and the `/ui/checkbox` playground updated
+  (`mixed` is now `indeterminate`).
+- `@rabtx/ui` Switch: a native checkbox with `role="switch"` and the `switch` attribute, sizes
+  `sm` (36x20), `md` (48x28) and `lg` (56x32), `checked` / `defaultChecked` / `onCheckedChange`,
+  a label row via children and `Field` wiring. The thumb stretches toward its destination and
+  squishes on press, then springs across on the `switch` spring, all in CSS. Registry item
+  `@rabtx/switch`, `/docs/ui/switch`, the `/ui/switch` playground page and `ui-switch.spec.ts`.
+- `@rabtx/ui` Input rebuilt on the native `<input>` in the Select trigger's look: sizes `sm` (32),
+  `md` (40), `lg` (48), `outline` and `filled` (the recessed field) variants, `pill`, icons,
+  `startAddon` / `endAddon`, `clearable`, `success`, a floating `label`, `action`, plus
+  `PasswordInput` and `InputOTP` (one input with `one-time-code` autofill shown as slots). State is
+  read in CSS (`:has()`, `:focus-visible`, `:user-invalid`, `:placeholder-shown`); the shake, label
+  float, eye swap, tick draw, ring glide and character roll are CSS only. Textarea moved to the same
+  look and grows with its text (`field-sizing: content`). `/docs/ui/input` added. **Breaking:**
+  Input sizes `xl` and `2xl` are gone and `md` is now 40px.
+- `@rabtx/ui` Card rebuilt on shadcn's parts (`Card`, `CardHeader`, `CardTitle`,
+  `CardDescription`, `CardAction`, `CardContent`, `CardFooter`, sizes `sm` / `default` / `lg`), with
+  CSS-only link and selectable cards (`cardParts.target` plus `:has()`), `TiltCard`,
+  `SpotlightCard`, `ExpandableCard` (`<details>`) and `CardStack`; `/docs/ui/card`, the `/ui/card`
+  playground and its e2e spec. Replaces `padding` and `cardParts.title/description/meta`.
 - `@rabtx/ui` shadcn registry: every component (`button`, `select`, `input`, `textarea`, `field`,
   `checkbox`, `card`, `badge`) plus `theme`, the shared `rabtx` style, `springs`, `utils` and
   `use-base-select` items, built by `bun run registry` (`shadcn build`) into

@@ -234,9 +234,16 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 	{
 		name: "input",
 		title: "Input",
-		description: "A recessed text field with optional icons, in five sizes.",
+		description:
+			"A native text input in three sizes with icons, addons, a floating label, clear and password buttons, plus a one-time code. CSS-only motion.",
+		css: "input.css",
 	},
-	{ name: "textarea", title: "Textarea", description: "A recessed multi-line text field." },
+	{
+		name: "textarea",
+		title: "Textarea",
+		description: "A native textarea that grows with its text.",
+		css: "textarea.css",
+	},
 	{
 		name: "field",
 		title: "Field",
@@ -245,13 +252,23 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 	{
 		name: "checkbox",
 		title: "Checkbox",
-		description: "A native checkbox with a springy tick and an indeterminate state.",
+		description:
+			"A native checkbox whose tick pops in and draws itself, an indeterminate dash and three sizes. CSS-only motion.",
 		css: "checkbox.css",
+	},
+	{
+		name: "switch",
+		title: "Switch",
+		description:
+			"A native checkbox drawn as a switch, with a thumb that stretches on press and springs across.",
+		css: "switch.css",
 	},
 	{
 		name: "card",
 		title: "Card",
-		description: "A raised surface with title, description and meta text styles.",
+		description:
+			"A raised surface with header, title, description, action, content and footer parts, plus tilt, spotlight, expandable and stacked cards. CSS-only motion.",
+		css: "card.css",
 	},
 	{
 		name: "badge",

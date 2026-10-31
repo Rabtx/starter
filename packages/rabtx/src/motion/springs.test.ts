@@ -33,6 +33,14 @@ describe("springs", () => {
 		expect(overshootPercent).toBeLessThan(6);
 	});
 
+	it("check draws in about 300ms and never overshoots", () => {
+		expect(dampingRatio(SPRINGS.check)).toBeCloseTo(1, 6);
+		const solved = solveSpring(SPRINGS.check);
+		expect(solved.overshootPercent).toBe(0);
+		expect(solved.settleMs).toBeGreaterThan(280);
+		expect(solved.settleMs).toBeLessThan(330);
+	});
+
 	it("emits a valid linear() easing of fixed length", () => {
 		const { easing } = solveSpring(SPRINGS.press);
 		expect(easing.startsWith("linear(0, ")).toBe(true);

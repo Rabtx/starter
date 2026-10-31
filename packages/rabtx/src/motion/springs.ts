@@ -15,6 +15,8 @@ export const SPRINGS = {
 	press: { stiffness: 500, damping: 30, mass: 0.6 },
 	/** Icon, label and shape swaps. About 5% overshoot. */
 	swap: { stiffness: 460, damping: 30, mass: 1 },
+	/** A tick or dash drawing itself in (stroke-dashoffset). Critically damped, about 300ms. */
+	check: { stiffness: 784, damping: 56, mass: 1 },
 	/** A button's label, status icons and width trading places. Quick, with no visible overshoot. */
 	label: { stiffness: 460, damping: 30, mass: 0.55 },
 	/** A magnetic button chasing the pointer. Soft, just under critical damping. */

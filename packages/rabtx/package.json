@@ -23,6 +23,8 @@
 		"./select": "./src/select/index.ts",
 		"./select/styles": "./src/select/select.styles.ts",
 		"./styles.css": "./src/styles/index.css",
+		"./switch": "./src/switch/index.ts",
+		"./switch/styles": "./src/switch/switch.styles.ts",
 		"./theme.css": "./src/styles/theme.css",
 		"./textarea": "./src/textarea/index.ts",
 		"./textarea/styles": "./src/textarea/textarea.styles.ts"

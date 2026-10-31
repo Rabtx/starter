@@ -1,9 +1,9 @@
 /*
  * The surface everything shares (DESIGN.md, "depth"): a real 1px gradient edge, a hairline ring
  * and a faint sheen/shade, all driven by private variables. Tones set the variables from theme
- * tokens, the depth mode swaps them, and Tailwind classes (see input/input.styles.ts) do everything
- * else. A control adds hover, press and disabled on top; a card is just the surface. The Button has
- * its own look in button.css.
+ * tokens, the depth mode swaps them, and Tailwind classes do everything
+ * else. A card is the surface with the card tone; the Button, inputs, checkbox and switch draw their
+ * own look in their own files.
  *
  * Plain classes in the components layer, so Tailwind classes passed in `className` win.
  */
@@ -36,8 +36,7 @@
 }
 
 @layer components {
-	.rx-surface,
-	.rx-control {
+	.rx-surface {
 		border: 1px solid transparent;
 		background:
 			linear-gradient(180deg, var(--_sheen), transparent 40%, transparent 60%, var(--_shade))
@@ -55,54 +54,6 @@
 			scale var(--spring-press-duration) var(--spring-press);
 	}
 
-	@media (hover: hover) {
-		.rx-control:hover:not(:disabled, [aria-disabled="true"]) {
-			--_fill: var(--_fill-hover);
-		}
-	}
-	.rx-control:active:not(:disabled, [aria-disabled="true"]) {
-		scale: var(--_press, 0.93);
-	}
-	.rx-control:is(:disabled, [aria-disabled="true"], :has(> :disabled)) {
-		--_fill: var(--_dis-fill, var(--muted));
-		--_flat: var(--_dis-edge, var(--muted));
-		--_edge-a: var(--_flat);
-		--_edge-b: var(--_flat);
-		--_sheen: transparent;
-		--_shade: transparent;
-		--_ring: transparent;
-		color: var(--disabled-foreground);
-		cursor: not-allowed;
-	}
-
-	/* A text field: recessed instead of raised, never scales, and shows focus and error on its own edge. */
-	.rx-field {
-		--_fill: var(--field);
-		--_fill-hover: var(--field);
-		--_flat: var(--input);
-		--_dis-fill: var(--field-disabled);
-		--_dis-edge: var(--border);
-		--_press: 1;
-		--_ring: transparent;
-		--_edge-a: var(--field-edge-top);
-		--_edge-b: var(--field-edge-bottom);
-		--_sheen: var(--field-shade);
-		--_shade: transparent;
-		color: var(--foreground);
-	}
-	.rx-field:focus-within {
-		--_flat: var(--ring);
-		--_edge-a: var(--ring);
-		--_edge-b: var(--ring);
-		--_halo: color-mix(in oklab, var(--ring) 20%, transparent);
-	}
-	.rx-field:is(:has([aria-invalid="true"]), [aria-invalid="true"]) {
-		--_flat: var(--destructive);
-		--_edge-a: var(--destructive);
-		--_edge-b: var(--destructive);
-		--_halo: color-mix(in oklab, var(--destructive) 10%, transparent);
-	}
-
 	/* A card: the plain surface with the card fill. `--_flat` is Figma's default border. */
 	.rx-card {
 		--_fill: var(--card);
@@ -116,7 +67,7 @@
 	}
 
 	/* Flat: one border color, nothing else. */
-	[data-depth="flat"] :is(.rx-control, .rx-surface) {
+	[data-depth="flat"] .rx-surface {
 		--_edge-a: var(--_flat);
 		--_edge-b: var(--_flat);
 		--_sheen: transparent;
@@ -125,14 +76,12 @@
 	}
 
 	/* Motion off, or the OS asks for less: every state is still visible, nothing travels. */
-	[data-motion="off"] :is(.rx-surface, .rx-control, .rx-control *) {
+	[data-motion="off"] .rx-surface {
 		transition-duration: 0ms !important;
 		animation-duration: 2400ms !important;
 	}
 	@media (prefers-reduced-motion: reduce) {
-		.rx-surface,
-		.rx-control,
-		.rx-control * {
+		.rx-surface {
 			transition-duration: 0ms !important;
 			animation-duration: 2400ms !important;
 		}

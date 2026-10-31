@@ -207,6 +207,7 @@ enabled ones. Motion is never the only feedback channel.
   | Tabs indicator | 245 / 36 / 1.2 | no overshoot, about 670ms |
   | Swap (icon, label, morph) | 460 / 30 / 1 | about 5% overshoot |
   | Button label (letters, status icons, width) | 460 / 30 / 0.55 | about 245ms, no visible overshoot |
+  | Check (tick and dash draw, glyph pop) | 784 / 56 / 1 | critically damped, about 306ms |
   | Magnetic (follow the pointer) | 200 / 15 / 0.3 | about 300ms |
   | Unfold (a list from its trigger) | 987 / 55.3 / 1 | about 250ms, a hint of bounce |
   | Switch thumb | 800 / 80 / 4 | squish to 0.9 |
@@ -265,8 +266,8 @@ State as of 2026-10-07. Verify against the repo before relying on it.
 - `packages/rabtx` (`@rabtx/ui`): the rebuild target. Built so far: the tokens and modes
   (one shadcn-style theme file, `src/styles/theme.css`), the spring solver (`src/motion`, generating
   the `--spring-*` tokens in `theme.css`) and **Button**.
-  Styling is Tailwind first: `src/styles/control.css` holds the shared depth recipe (`rx-control`,
-  `rx-surface`, `rx-field`, `rx-card`) and the flat and motion-off rules for fields and cards.
+  Styling is Tailwind first: `src/styles/control.css` holds the shared depth recipe (`rx-surface`,
+  `rx-card`) and the flat and motion-off rules for cards.
   Exports: `@rabtx/ui/button`, `@rabtx/ui/button/styles`, `@rabtx/ui/input`,
   `@rabtx/ui/input/styles`, `@rabtx/ui/field`, `@rabtx/ui/field/styles`, `@rabtx/ui/textarea`,
   `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/badge`, `@rabtx/ui/badge/styles`,
@@ -297,34 +298,54 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   so the Figma values are dropped into `theme.css`, not into the component. **Deviation from Figma:** this look (blue primary, pill sizes, no depth
   modes) replaces Figma's black primary, accent and danger tones and the 24 to 48 size matrix; the
   Button ignores `data-depth`. Reconcile when the Figma design system is shared.
-- **Input** (Figma `6:14`): a wrapper draws the field (`rx-control rx-field`) around a native
-  `<input>`. Heights 28, 32 (default), 36, 44, 48. Depth: Flat is one 1px border; Floating is a
-  recess (dark top edge fading to a light bottom edge plus a faint top shade), which replaces
-  Figma's inner shadow because depth has no cast or inset shadows. Focus is a blue edge plus a 3px
-  halo; error (`aria-invalid`) is red the same way. Pill is a per-input `pill` prop (Figma's Shape
-  property), independent of the Round radius mode, so text is never clipped. Dark field values and
-  the 20% / 18% halo strengths are derived, not read from Figma. Figma's placeholder color
-  (`#9e9e9e` on `#f5f5f5`) is below 4.5:1; kept as specified, flagged for the design owner.
+- **Input** (Figma `6:14`): a native `<input>` inside a wrapper (`rx-input-field`, drawn by
+  `src/styles/input.css`) that holds icons, addons, a floating label and small buttons. **Deviation
+  from Figma, like the Select:** the default `outline` look is the Select trigger's (sizes 32, 40
+  and 48, `--card` fill, `--input` edge, `--radius-box`, the same hover, focus and error), so an
+  Input, a Select and a Button of one size line up; Figma's recessed 28 to 48 field survives as
+  `variant="filled"` (the `--field*` tokens; Flat makes it one border). The platform carries the
+  state and CSS reads it with `:has()`: focus is `:focus-visible`; an error is `aria-invalid` (from
+  Field) or `:user-invalid` (native constraints, only after editing), and the error rule also sets
+  a one-shot shake keyframe; emptiness is `:placeholder-shown` (the component always sets a
+  placeholder), which shows the clear button and floats the label. Extras: `leadingIcon` /
+  `trailingIcon` (decorative, hidden), `startAddon` / `endAddon` (divided segments), `pill`,
+  `clearable` (empties the input through the native value setter so controlled inputs get
+  `onChange`), `success` (a tick drawn with `stroke-dashoffset`), a floating `label` (on the label
+  spring; md and lg only), `action` (your own trailing button), `PasswordInput` (an eye with
+  `aria-pressed`, glyphs cross-fading with blur) and `InputOTP` (one real input with
+  `autocomplete="one-time-code"` over aria-hidden slots; the ring glides on the swap spring and
+  characters roll in). No animation library. Figma's placeholder color (`#9e9e9e` on white) is
+  below 4.5:1; kept as specified, flagged for the design owner.
 - **Field** (Figma `26:436`): a label (13/20 medium), one control and an optional 12/16 hint, 6px
   apart. It owns the wiring: a generated `id` for the label, the hint or error linked with
   `aria-describedby`, `aria-invalid` on an error, and a polite live region for the message. The
   control reads this from a React context, so Textarea and Select can join it later. The context is
   internal (not exported) so server files can import `@rabtx/ui/field`. The hint (`#9e9e9e`) and
   error (`#e5484d`) text colors are as specified and are below 4.5:1 on white; flagged.
-- **Textarea** (Figma `66:783`): the `<textarea>` itself is the field (`rx-control rx-field`, no
-  wrapper), 96px minimum height, 13/20 text, vertical resize, and it reads Field's context like
-  Input. **Open inconsistency in Figma:** Textarea is drawn white with a plain border and no recess,
-  while Input is `#f5f5f5` with a recess. Textarea follows Input so a form does not mix two field
-  looks; if the owner wants it white, change its fill token only. Its focus (`#d3e4fd`) and error
-  (`#fdecec`) halos are measured from Figma; Input's error halo was corrected to match (10%).
+- **Textarea** (Figma `66:783`): the `<textarea>` itself is the field (`rx-textarea`, drawn by
+  `src/styles/textarea.css`), in the Input's outline look so a form does not mix two field looks:
+  `--card` fill, `--input` edge, `--radius-box`, the same focus and error (`aria-invalid` or
+  `:user-invalid`), 14/20 text. It grows with its text (`field-sizing: content`) from a 96px
+  minimum and still resizes vertically by hand. Figma draws it white with a plain border, which this
+  now matches.
 - **Card**: Figma has no generic Card section, so this is the container shared by its Kanban (12px
   padding), Option (16) and Stat (20) cards: surface fill, 1px `#f2f2f2` border, the box radius tier
-  (12 Default, 20 Round, 4 Sharp), a vertical stack. One component, `padding` sm, md (default) or
-  lg, an `as` tag for semantics, and `cardParts` text styles instead of header and footer parts.
-  Floating uses the raised-surface edge and ring (as the secondary Button); Figma's cast shadow is
-  dropped. `rx-surface` was split out of `rx-control` so a card is the plain surface with no hover or
-  press. Deviation: the description uses the secondary gray (passes 4.5:1) where Figma's Option Card
-  uses the tertiary gray; flagged. Option Card (selectable) and Stat Card are separate components.
+  (12 Default, 20 Round, 4 Sharp). Floating uses the raised-surface edge and ring (as the secondary
+  Button); Figma's cast shadow is dropped. `rx-surface` was split out of `rx-control` so a card is the
+  plain surface with no hover or press. API follows shadcn's parts and `data-slot` names (`Card`
+  with `size` sm, default or lg and an `as` tag, `CardHeader`, `CardTitle`, `CardDescription`,
+  `CardAction`, `CardContent`, `CardFooter`); each part pads itself, media placed directly inside
+  runs edge to edge, and the header is a container so a narrow card drops its action under the
+  title. `card.css` draws the rest, CSS only: a link, button or label with `cardParts.target`
+  stretches over the card and the card derives hover, a 0.985 press, the focus ring and a `--primary`
+  selected edge (a checked input) through `:has()`; `TiltCard` (3D lean on the magnetic spring with a
+  glare, pointer written as `--_tilt-*` / `--_px` / `--_py`), `SpotlightCard` (a radial light and a
+  masked 1px lit edge in `--primary`), `ExpandableCard` (`<details>` with `::details-content` and
+  `interpolate-size` on the panel spring) and `CardStack` (items `interpolate-size` between a 10px
+  peek and `auto`, inert while hidden, a real toggle button). Deviation: the description uses the
+  secondary gray (passes 4.5:1) where Figma's Option Card uses the tertiary gray; flagged. Option
+  Card (selectable) and Stat Card are separate Figma components; the selectable card covers the
+  former's behaviour until it is drawn.
 - **Badge** (Figma `6:116`): 20px, 12/16 medium, a pale tint with colored text, six tones (neutral,
   accent, success, warning, danger, violet), optional 6px dot. Radius is its own tier,
   `--radius-badge`: 4px Default (Figma), 2px Sharp, fully round in Round. One `--_tone` color per
@@ -334,6 +355,19 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   white in dark). Measured: light 4.86 (warning) to 6.8, dark 5.07 to 6.6, asserted in
   `ui-badge.spec.ts`. Success, warning and violet reuse the same base color in dark; their dark
   values are not in Figma. Tag (outlined, `42:441`) and Chip (interactive, `6:139`) are separate.
+- **Switch** (Figma Toggle `6:103` not yet read): a native `<input type="checkbox" role="switch">`
+  with the HTML `switch` attribute (Safari 17.4+ treats it as a native switch; elsewhere it is
+  ignored) and `appearance: none`. The input is the track and `::before` the thumb. Tracks 36x20,
+  48x28 (default) and 56x32, thumb inset 3, 4 and 4px. Off track is `--muted-foreground` 70% over
+  `--background` (60% measured 2.7:1 against the white thumb, so it was darkened to pass 3:1),
+  on track `--primary`; thumb `--background` off and `--primary-foreground` on. Floating recesses
+  the track (field edge and shade) and gives the thumb the surface ring and sheen; Flat drops both.
+  Corners follow `--radius-button`. Motion: `:active` (switch or label) widens the thumb by 4px
+  toward its destination and scales it to 0.9; `:checked` moves `inset-inline-start` across; all
+  on the existing `switch` spring (800 / 80 / 4). Logical insets mirror it in RTL with no
+  `:dir()` (Lightning CSS drops a nested `:dir()` rule). Disabled is 50% opacity and never moves.
+  `Field` supplies the id, description and `aria-invalid` (red edge, soft halo). Space toggles; the
+  checked state is native, so there is no `aria-checked`.
 - **Select**: a native `<select>` that draws its own trigger (`rx-select`, inside an
   `rx-select-field` wrapper that holds the chevron and an optional leading icon), sizes 32, 40
   (default) and 48, the box radius tier, a 1px border that darkens on hover, the shared blue focus
@@ -354,20 +388,28 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   the same. **Deviation from Figma:** the trigger follows the Button's look (surface fill, plain
   border, 32/40/48) instead of Input's recessed 28/32/36 field, and the Select ignores `data-depth`
   except for the list's shadow. Reconcile when the Figma design system is shared.
-- **Checkbox** (Figma `6:59`): a native `<input type="checkbox">` with `appearance: none`, 16px, off
-  (surface fill, strong border), on (accent fill, white tick) and mixed (accent fill, white minus),
-  plus disabled (pressed fill, default border, gray glyph). With children it wraps the box in a
-  `<label>` so the text names it and the row is clickable. `mixed` sets `indeterminate` (derived
-  state: the browser clears it on click). The tick and minus are CSS masks on `::before` (so they
-  take the text color), with a pop on the swap spring, off with Motion off. A 24px hit area comes
-  from an invisible `::after`, since 16px is below the 24px target size. Radius is its own tier,
-  `--radius-check`: 4px Default (Figma), 2px Sharp, **6px in Round** so a checkbox stays a square
-  and is never mistaken for a radio. Figma has no hover, error or focus state and no depth
-  variants, so none were invented (focus uses the shared 2px ring). **Flagged:** the off box's
-  border (`#e3e3e3` on white, about 1.3:1) is below the 3:1 non-text contrast WCAG asks for; it is
-  the same border token Input, Select and Textarea use, so one darker control-border token would fix
-  all of them. The Figma `Task Check` (6:78, a priority circle) is a separate component.
-  Dark values are derived from the dark Sidebar and are not yet confirmed in Figma.
+- **Checkbox** (Figma `6:59`, rebuilt 2026-11-01): a native `<input type="checkbox">`, invisible
+  (`appearance: none`, opacity 0) and laid over a drawn box that reads its state with `:has()`
+  (`:checked`, `:indeterminate`, `:disabled`, `:focus-visible`, `:active`, `aria-invalid`). The
+  input is at least 24px, centered, so it is also the hit area. Sizes 16 (`sm`, Figma), 20 (`md`,
+  default) and 24 (`lg`). Off is `--background` with a 2px `--muted-foreground` 50% edge (full on
+  hover, only while empty); on and indeterminate fill `--primary` with a `--primary-foreground`
+  glyph; disabled is 50% opacity; error (Field or `aria-invalid`) is a `--destructive` edge and 15%
+  halo; focus the shared 2px ring. The tick and the dash are two inline SVGs with `pathLength="1"`:
+  checking pops the glyph in (opacity, scale 0.5 to 1, 4px blur clearing, half the `check` spring)
+  and draws the stroke with `stroke-dashoffset` 1 to 0 on the new `check` spring (784 / 56 / 1,
+  critically damped, about 306ms) 40ms later; the dash draws a third quicker; unchecking fades,
+  shrinks and blurs out in 160ms. Pressing the box or its label springs it to 0.92 on the press
+  spring. Reduced motion keeps only a 100ms fade; Motion off is instant. API is shadcn's
+  (`checked` incl. `"indeterminate"`, `defaultChecked`, `onCheckedChange`) plus `indeterminate`,
+  `size` and `description`; children wrap it in a `<label>`, a description is linked with
+  `aria-describedby` and the name comes from the label text alone. Radius is `--radius-check`
+  (4px Default, 2px Sharp, 6px Round) scaled with the box (1, 1.25, 1.5). **Deviations from Figma:**
+  20px default and the 2px muted edge (which also clears the 3:1 non-text contrast the old `--input`
+  edge failed), a hover state, an error state and 50% disabled replace Figma's 16px box with the
+  `#e3e3e3` edge and pressed-fill disabled. No CheckboxGroup: a list of checkboxes is a `fieldset`
+  of Checkboxes; add a group when a design needs one. The Figma `Task Check` (6:78, a priority
+  circle) is a separate component.
 - Other frameworks: a Solid component is another thin wrapper over `button.styles.ts` plus the same
   CSS, not a clone or a rewrite. Not built yet; add it as a separate package or export with
   `solid-js` as a peer dependency, and test it with a real Solid render.

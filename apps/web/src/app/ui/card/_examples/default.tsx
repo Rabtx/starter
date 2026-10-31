@@ -1,19 +1,50 @@
 import { Button } from "@rabtx/ui/button";
-import { Card, cardParts } from "@rabtx/ui/card";
+import {
+	Card,
+	CardAction,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@rabtx/ui/card";
+
+const rows = [
+	["Plan", "Team, yearly"],
+	["Seats", "12"],
+	["Billing email", "billing@acme.co"],
+];
 
 export default function CardDefault() {
 	return (
-		<Card className="w-72">
-			<div>
-				<h3 className={cardParts.title}>Invite your team</h3>
-				<p className={cardParts.description}>Teammates can view and edit every project.</p>
-			</div>
-			<div className="flex gap-2">
-				<Button size="sm">Invite</Button>
-				<Button size="sm" variant="ghost">
-					Later
+		<Card as="section" aria-labelledby="order-title" className="w-full max-w-sm">
+			<CardHeader>
+				<CardTitle as="h3" id="order-title">
+					Review order
+				</CardTitle>
+				<CardDescription>Check the details before you confirm.</CardDescription>
+				<CardAction>
+					<Button variant="ghost" size="sm">
+						Edit
+					</Button>
+				</CardAction>
+			</CardHeader>
+			<CardContent>
+				<dl className="divide-y divide-border">
+					{rows.map(([label, value]) => (
+						<div key={label} className="flex justify-between gap-4 py-2 first:pt-0 last:pb-0">
+							<dt className="text-muted-foreground">{label}</dt>
+							<dd className="font-medium">{value}</dd>
+						</div>
+					))}
+				</dl>
+			</CardContent>
+			<CardFooter className="justify-end">
+				<Button variant="secondary" size="sm">
+					Back
 				</Button>
-			</div>
+				<Button size="sm">Confirm order</Button>
+			</CardFooter>
 		</Card>
 	);
 }

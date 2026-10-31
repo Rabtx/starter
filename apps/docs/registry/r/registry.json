@@ -18,6 +18,7 @@
           "color-field": "var(--field)",
           "ease-spring-press": "var(--spring-press)",
           "ease-spring-swap": "var(--spring-swap)",
+          "ease-spring-check": "var(--spring-check)",
           "ease-spring-label": "var(--spring-label)",
           "ease-spring-magnetic": "var(--spring-magnetic)",
           "ease-spring-unfold": "var(--spring-unfold)",
@@ -167,6 +168,7 @@
         "theme": {
           "ease-spring-press": "var(--spring-press)",
           "ease-spring-swap": "var(--spring-swap)",
+          "ease-spring-check": "var(--spring-check)",
           "ease-spring-label": "var(--spring-label)",
           "ease-spring-magnetic": "var(--spring-magnetic)",
           "ease-spring-unfold": "var(--spring-unfold)",
@@ -180,6 +182,8 @@
           "spring-press-duration": "279ms",
           "spring-swap": "linear(0, 0.021, 0.0756, 0.1529, 0.2439, 0.3414, 0.4399, 0.5351, 0.6241, 0.7049, 0.7765, 0.8384, 0.8906, 0.9336, 0.9681, 0.9949, 1.0149, 1.0291, 1.0384, 1.0438, 1.0461, 1.0459, 1.0439, 1.0407, 1.0367, 1.0323, 1.0277, 1.0232, 1.019, 1.0151, 1.0116, 1.0086, 1.006, 1.0038, 1.0021, 1.0007, 0.9996, 0.9989, 0.9984, 0.9981, 0.9979, 0.9979, 0.9979, 1)",
           "spring-swap-duration": "432ms",
+          "spring-check": "linear(0, 0.0174, 0.0612, 0.1212, 0.1901, 0.2629, 0.3358, 0.4064, 0.4731, 0.5352, 0.592, 0.6434, 0.6896, 0.7307, 0.7671, 0.7992, 0.8272, 0.8517, 0.873, 0.8914, 0.9073, 0.921, 0.9328, 0.9429, 0.9516, 0.9589, 0.9652, 0.9706, 0.9752, 0.979, 0.9823, 0.9851, 0.9874, 0.9894, 0.9911, 0.9925, 0.9937, 0.9947, 0.9956, 0.9963, 0.9969, 0.9974, 0.9978, 1)",
+          "spring-check-duration": "306ms",
           "spring-label": "linear(0, 0.0122, 0.0439, 0.0893, 0.1436, 0.2033, 0.2655, 0.3281, 0.3896, 0.4488, 0.505, 0.5577, 0.6066, 0.6515, 0.6925, 0.7298, 0.7633, 0.7934, 0.8203, 0.8441, 0.8653, 0.8839, 0.9002, 0.9145, 0.927, 0.9378, 0.9472, 0.9553, 0.9623, 0.9683, 0.9734, 0.9778, 0.9815, 0.9847, 0.9874, 0.9896, 0.9915, 0.9931, 0.9944, 0.9955, 0.9964, 0.9972, 0.9978, 1)",
           "spring-label-duration": "244ms",
           "spring-magnetic": "linear(0, 0.0145, 0.0516, 0.1037, 0.1649, 0.231, 0.2985, 0.3654, 0.4299, 0.491, 0.548, 0.6005, 0.6485, 0.692, 0.7311, 0.766, 0.797, 0.8245, 0.8486, 0.8698, 0.8883, 0.9044, 0.9184, 0.9305, 0.9409, 0.9499, 0.9576, 0.9641, 0.9698, 0.9746, 0.9787, 0.9821, 0.985, 0.9875, 0.9896, 0.9914, 0.9928, 0.9941, 0.9951, 0.996, 0.9967, 0.9973, 0.9978, 1)",
@@ -288,57 +292,12 @@
           "initial-value": "transparent"
         },
         "@layer components": {
-          ".rx-surface, .rx-control": {
+          ".rx-surface": {
             "border": "1px solid transparent",
             "background": "linear-gradient(180deg, var(--_sheen), transparent 40%, transparent 60%, var(--_shade)) padding-box, linear-gradient(var(--_fill), var(--_fill)) padding-box, linear-gradient(180deg, var(--_edge-a), var(--_edge-b)) border-box",
             "box-shadow": "0 0 0 1px var(--_ring), 0 0 0 4px var(--_halo, transparent)",
             "-webkit-tap-highlight-color": "transparent",
             "transition": "--_fill 150ms var(--motion-ease), color 150ms var(--motion-ease), box-shadow 150ms var(--motion-ease), scale var(--spring-press-duration) var(--spring-press)"
-          },
-          "@media (hover: hover)": {
-            ".rx-control:hover:not(:disabled, [aria-disabled=\"true\"])": {
-              "--_fill": "var(--_fill-hover)"
-            }
-          },
-          ".rx-control:active:not(:disabled, [aria-disabled=\"true\"])": {
-            "scale": "var(--_press, 0.93)"
-          },
-          ".rx-control:is(:disabled, [aria-disabled=\"true\"], :has(> :disabled))": {
-            "--_fill": "var(--_dis-fill, var(--muted))",
-            "--_flat": "var(--_dis-edge, var(--muted))",
-            "--_edge-a": "var(--_flat)",
-            "--_edge-b": "var(--_flat)",
-            "--_sheen": "transparent",
-            "--_shade": "transparent",
-            "--_ring": "transparent",
-            "color": "var(--disabled-foreground)",
-            "cursor": "not-allowed"
-          },
-          ".rx-field": {
-            "--_fill": "var(--field)",
-            "--_fill-hover": "var(--field)",
-            "--_flat": "var(--input)",
-            "--_dis-fill": "var(--field-disabled)",
-            "--_dis-edge": "var(--border)",
-            "--_press": "1",
-            "--_ring": "transparent",
-            "--_edge-a": "var(--field-edge-top)",
-            "--_edge-b": "var(--field-edge-bottom)",
-            "--_sheen": "var(--field-shade)",
-            "--_shade": "transparent",
-            "color": "var(--foreground)"
-          },
-          ".rx-field:focus-within": {
-            "--_flat": "var(--ring)",
-            "--_edge-a": "var(--ring)",
-            "--_edge-b": "var(--ring)",
-            "--_halo": "color-mix(in oklab, var(--ring) 20%, transparent)"
-          },
-          ".rx-field:is(:has([aria-invalid=\"true\"]), [aria-invalid=\"true\"])": {
-            "--_flat": "var(--destructive)",
-            "--_edge-a": "var(--destructive)",
-            "--_edge-b": "var(--destructive)",
-            "--_halo": "color-mix(in oklab, var(--destructive) 10%, transparent)"
           },
           ".rx-card": {
             "--_fill": "var(--card)",
@@ -350,19 +309,19 @@
             "--_shade": "var(--surface-shade)",
             "color": "var(--card-foreground)"
           },
-          "[data-depth=\"flat\"] :is(.rx-control, .rx-surface)": {
+          "[data-depth=\"flat\"] .rx-surface": {
             "--_edge-a": "var(--_flat)",
             "--_edge-b": "var(--_flat)",
             "--_sheen": "transparent",
             "--_shade": "transparent",
             "--_ring": "transparent"
           },
-          "[data-motion=\"off\"] :is(.rx-surface, .rx-control, .rx-control *)": {
+          "[data-motion=\"off\"] .rx-surface": {
             "transition-duration": "0ms !important",
             "animation-duration": "2400ms !important"
           },
           "@media (prefers-reduced-motion: reduce)": {
-            ".rx-surface, .rx-control, .rx-control *": {
+            ".rx-surface": {
               "transition-duration": "0ms !important",
               "animation-duration": "2400ms !important"
             }
@@ -1121,13 +1080,17 @@
       "name": "input",
       "type": "registry:ui",
       "title": "Input",
-      "description": "A recessed text field with optional icons, in five sizes.",
+      "description": "A native text input in three sizes with icons, addons, a floating label, clear and password buttons, plus a one-time code. CSS-only motion.",
       "registryDependencies": [
         "{{origin}}/r/rabtx.json",
         "{{origin}}/r/field-context.json",
         "utils"
       ],
       "files": [
+        {
+          "path": "registry/rabtx/ui/input-otp.tsx",
+          "type": "registry:ui"
+        },
         {
           "path": "registry/rabtx/ui/input.styles.ts",
           "type": "registry:ui"
@@ -1136,13 +1099,413 @@
           "path": "registry/rabtx/ui/input.tsx",
           "type": "registry:ui"
         }
-      ]
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-input-field": {
+            "--_h": "2.5rem",
+            "--_pad": "0.75rem",
+            "--_px": "var(--_pad)",
+            "--_icon": "16px",
+            "--_font": "0.875rem",
+            "--_r": "var(--radius-box)",
+            "--_bg": "var(--card)",
+            "position": "relative",
+            "box-sizing": "border-box",
+            "display": "flex",
+            "align-items": "center",
+            "gap": "0.5rem",
+            "width": "100%",
+            "min-width": "0",
+            "height": "var(--_h)",
+            "padding-inline": "var(--_px)",
+            "overflow": "clip",
+            "border": "1px solid var(--input)",
+            "border-radius": "var(--_r)",
+            "background-color": "var(--_bg)",
+            "color": "var(--card-foreground)",
+            "font-family": "var(--font-sans)",
+            "font-size": "var(--_font)",
+            "line-height": "1.25rem",
+            "letter-spacing": "-0.15px",
+            "cursor": "text",
+            "-webkit-tap-highlight-color": "transparent",
+            "transition": "border-color 150ms var(--motion-ease), box-shadow 150ms var(--motion-ease)"
+          },
+          "@media (hover: hover)": {
+            ".rx-input-field:hover": {
+              "border-color": "color-mix(in oklab, var(--foreground) 24%, var(--card))"
+            },
+            ".rx-input-action:hover": {
+              "background-color": "var(--accent)",
+              "color": "var(--accent-foreground)"
+            }
+          },
+          ".rx-input-field:has(.rx-input:focus-visible)": {
+            "border-color": "var(--ring)",
+            "box-shadow": "0 0 0 3px color-mix(in oklab, var(--ring) 20%, transparent)"
+          },
+          ".rx-input-field:has(.rx-input:is([aria-invalid=\"true\"], :user-invalid))": {
+            "border-color": "var(--destructive)",
+            "box-shadow": "0 0 0 3px color-mix(in oklab, var(--destructive) 12%, transparent)",
+            "animation": "rx-input-shake 400ms cubic-bezier(0.25, 1, 0.5, 1)"
+          },
+          ".rx-input-field:has(.rx-input:read-only:not(:disabled))": {
+            "--_bg": "color-mix(in oklab, var(--muted) 50%, var(--card))"
+          },
+          ".rx-input-field:has(.rx-input:disabled)": {
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          ".rx-input-sm": {
+            "--_h": "2rem",
+            "--_pad": "0.625rem",
+            "--_font": "0.8125rem"
+          },
+          ".rx-input-lg": {
+            "--_h": "3rem",
+            "--_pad": "1rem",
+            "--_icon": "18px",
+            "--_font": "1rem"
+          },
+          ".rx-input-pill": {
+            "--_r": "999px",
+            "--_px": "calc(var(--_pad) + 0.25rem)"
+          },
+          ".rx-input-filled": {
+            "--_bg": "var(--field)",
+            "border-color": "transparent",
+            "background": "linear-gradient(180deg, var(--field-shade), transparent 40%) padding-box, linear-gradient(var(--_bg), var(--_bg)) padding-box, linear-gradient(180deg, var(--field-edge-top), var(--field-edge-bottom)) border-box"
+          },
+          ".rx-input-filled:has(.rx-input:disabled)": {
+            "--_bg": "var(--field-disabled)"
+          },
+          "[data-depth=\"flat\"] .rx-input-filled": {
+            "border-color": "var(--input)",
+            "background": "var(--_bg)"
+          },
+          ".rx-input": {
+            "flex": "1 1 auto",
+            "align-self": "stretch",
+            "width": "0",
+            "min-width": "0",
+            "margin": "0",
+            "padding": "0",
+            "border": "0",
+            "background": "transparent",
+            "color": "inherit",
+            "font": "inherit",
+            "letter-spacing": "inherit",
+            "text-overflow": "ellipsis",
+            "outline": "none"
+          },
+          ".rx-input::placeholder": {
+            "color": "var(--subtle-foreground)",
+            "opacity": "1"
+          },
+          ".rx-input:disabled": {
+            "cursor": "not-allowed"
+          },
+          ".rx-input:autofill": {
+            "-webkit-text-fill-color": "var(--card-foreground)",
+            "box-shadow": "inset 0 0 0 100vmax var(--_bg)"
+          },
+          ".rx-input-field:has(.rx-input-clear) .rx-input::-webkit-search-cancel-button": {
+            "appearance": "none"
+          },
+          ".rx-input-icon": {
+            "display": "inline-flex",
+            "flex": "none",
+            "align-items": "center",
+            "color": "var(--muted-foreground)"
+          },
+          ".rx-input-icon svg": {
+            "width": "var(--_icon)",
+            "height": "var(--_icon)"
+          },
+          ".rx-input-addon": {
+            "display": "flex",
+            "flex": "none",
+            "align-items": "center",
+            "align-self": "stretch",
+            "padding-inline": "var(--_pad)",
+            "background-color": "var(--secondary)",
+            "color": "var(--muted-foreground)",
+            "white-space": "nowrap"
+          },
+          ".rx-input-addon:first-child": {
+            "margin-inline-start": "calc(var(--_px) * -1)",
+            "border-inline-end": "1px solid var(--input)"
+          },
+          ".rx-input-addon:last-child": {
+            "margin-inline-end": "calc(var(--_px) * -1)",
+            "border-inline-start": "1px solid var(--input)"
+          },
+          ".rx-input-action": {
+            "display": "inline-grid",
+            "flex": "none",
+            "place-items": "center",
+            "width": "calc(var(--_icon) + 0.5rem)",
+            "height": "calc(var(--_icon) + 0.5rem)",
+            "margin-inline": "-0.25rem",
+            "padding": "0",
+            "border": "0",
+            "border-radius": "var(--radius-item)",
+            "background": "transparent",
+            "color": "var(--muted-foreground)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms var(--motion-ease), color 150ms var(--motion-ease), opacity 150ms var(--motion-ease), visibility 150ms, scale var(--spring-swap-duration) var(--spring-swap)"
+          },
+          ".rx-input-action svg": {
+            "grid-area": "1 / 1",
+            "width": "var(--_icon)",
+            "height": "var(--_icon)"
+          },
+          ".rx-input-action:focus-visible": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "0"
+          },
+          ".rx-input-action:disabled": {
+            "pointer-events": "none"
+          },
+          ".rx-input-field:has(.rx-input:is(:placeholder-shown, :read-only)) .rx-input-clear": {
+            "visibility": "hidden",
+            "opacity": "0",
+            "scale": "0.5",
+            "transition-duration": "120ms"
+          },
+          ".rx-input-reveal svg": {
+            "transition": "opacity 300ms cubic-bezier(0.2, 0, 0, 1), scale 300ms cubic-bezier(0.2, 0, 0, 1), filter 300ms cubic-bezier(0.2, 0, 0, 1)"
+          },
+          ".rx-input-reveal[aria-pressed=\"true\"] > [data-when=\"hidden\"], .rx-input-reveal[aria-pressed=\"false\"] > [data-when=\"shown\"]": {
+            "opacity": "0",
+            "scale": "0.25",
+            "filter": "blur(4px)",
+            "transition-duration": "150ms"
+          },
+          ".rx-input-check": {
+            "color": "var(--success)"
+          },
+          ".rx-input-check path": {
+            "stroke-dasharray": "1",
+            "animation": "rx-input-draw 350ms cubic-bezier(0.16, 1, 0.3, 1) 60ms backwards"
+          },
+          ".rx-input-field:has(.rx-input-float)": {
+            "--_lift": "calc(var(--_h) / 4 - 0.125rem)"
+          },
+          ".rx-input-sm:has(.rx-input-float)": {
+            "--_h": "2.5rem"
+          },
+          ".rx-input-float": {
+            "position": "relative",
+            "display": "flex",
+            "flex": "1 1 auto",
+            "align-self": "stretch",
+            "min-width": "0"
+          },
+          ".rx-input-float > .rx-input": {
+            "padding-block-start": "var(--_lift)"
+          },
+          ".rx-input-float > .rx-input::placeholder": {
+            "color": "transparent",
+            "transition": "color 150ms var(--motion-ease)"
+          },
+          ".rx-input-float > .rx-input:focus::placeholder": {
+            "color": "var(--subtle-foreground)"
+          },
+          ".rx-input-label": {
+            "position": "absolute",
+            "inset-inline-start": "0",
+            "top": "50%",
+            "max-width": "100%",
+            "overflow": "hidden",
+            "color": "var(--subtle-foreground)",
+            "white-space": "nowrap",
+            "text-overflow": "ellipsis",
+            "pointer-events": "none",
+            "translate": "0 -50%",
+            "transform-origin": "0 50%",
+            "transition": "translate var(--spring-label-duration) var(--spring-label), scale var(--spring-label-duration) var(--spring-label), color 150ms var(--motion-ease)"
+          },
+          ".rx-input:is(:focus, :not(:placeholder-shown), :autofill) + .rx-input-label": {
+            "translate": "0 calc(-50% - var(--_lift))",
+            "scale": "0.8",
+            "color": "var(--muted-foreground)"
+          },
+          ".rx-input:focus + .rx-input-label": {
+            "color": "var(--ring)"
+          },
+          ".rx-input:is([aria-invalid=\"true\"], :user-invalid) + .rx-input-label": {
+            "color": "var(--destructive)"
+          },
+          ".rx-otp": {
+            "--_h": "2.5rem",
+            "--_w": "2.25rem",
+            "--_gap": "0.5rem",
+            "--_font": "1.125rem",
+            "--_r": "var(--radius-box)",
+            "position": "relative",
+            "display": "inline-flex",
+            "font-family": "var(--font-sans)"
+          },
+          ".rx-otp:has(.rx-otp-input:disabled)": {
+            "opacity": "0.5"
+          },
+          ".rx-otp-sm": {
+            "--_h": "2rem",
+            "--_w": "1.75rem",
+            "--_gap": "0.375rem",
+            "--_font": "0.9375rem"
+          },
+          ".rx-otp-lg": {
+            "--_h": "3rem",
+            "--_w": "2.75rem",
+            "--_gap": "0.625rem",
+            "--_font": "1.375rem"
+          },
+          ".rx-otp-input": {
+            "position": "absolute",
+            "inset": "0",
+            "z-index": "1",
+            "width": "100%",
+            "height": "100%",
+            "margin": "0",
+            "padding": "0",
+            "border": "0",
+            "background": "transparent",
+            "color": "transparent",
+            "caret-color": "transparent",
+            "font-size": "16px",
+            "-webkit-text-fill-color": "transparent",
+            "outline": "none",
+            "cursor": "text"
+          },
+          ".rx-otp-input::selection": {
+            "background": "transparent"
+          },
+          ".rx-otp-input:autofill": {
+            "transition": "background-color 600000s, color 600000s"
+          },
+          ".rx-otp-input:disabled": {
+            "cursor": "not-allowed"
+          },
+          ".rx-otp-slots": {
+            "display": "flex",
+            "gap": "var(--_gap)"
+          },
+          ".rx-otp-slot": {
+            "position": "relative",
+            "box-sizing": "border-box",
+            "display": "grid",
+            "place-items": "center",
+            "width": "var(--_w)",
+            "height": "var(--_h)",
+            "overflow": "clip",
+            "border": "1px solid var(--input)",
+            "border-radius": "var(--_r)",
+            "background-color": "var(--card)",
+            "color": "var(--card-foreground)",
+            "font-size": "var(--_font)",
+            "font-weight": "500",
+            "font-variant-numeric": "tabular-nums",
+            "line-height": "1",
+            "transition": "border-color 150ms var(--motion-ease)"
+          },
+          ".rx-otp-slot[data-filled]": {
+            "border-color": "color-mix(in oklab, var(--foreground) 24%, var(--card))"
+          },
+          ".rx-otp-char": {
+            "grid-area": "1 / 1",
+            "animation": "rx-otp-roll var(--spring-label-duration) var(--spring-label) backwards"
+          },
+          ".rx-otp-ring": {
+            "position": "absolute",
+            "top": "0",
+            "left": "0",
+            "box-sizing": "border-box",
+            "width": "var(--_w)",
+            "height": "var(--_h)",
+            "border": "1px solid var(--ring)",
+            "border-radius": "var(--_r)",
+            "box-shadow": "0 0 0 3px color-mix(in oklab, var(--ring) 20%, transparent)",
+            "opacity": "0",
+            "pointer-events": "none",
+            "translate": "calc(var(--_at, 0) * (var(--_w) + var(--_gap))) 0",
+            "transition": "translate var(--spring-swap-duration) var(--spring-swap), opacity 150ms var(--motion-ease)"
+          },
+          ".rx-otp:has(.rx-otp-input:focus-visible) .rx-otp-ring": {
+            "opacity": "1"
+          },
+          ".rx-otp:has(.rx-otp-input:focus-visible) .rx-otp-slot[data-active]:not([data-filled])::after": {
+            "content": "\"\"",
+            "grid-area": "1 / 1",
+            "width": "1px",
+            "height": "45%",
+            "background": "currentColor",
+            "animation": "rx-otp-blink 1.1s step-end infinite"
+          },
+          ".rx-otp:has(.rx-otp-input:is([aria-invalid=\"true\"], :user-invalid)) .rx-otp-slot": {
+            "border-color": "var(--destructive)"
+          },
+          ".rx-otp:has(.rx-otp-input:is([aria-invalid=\"true\"], :user-invalid)) .rx-otp-ring": {
+            "border-color": "var(--destructive)",
+            "box-shadow": "0 0 0 3px color-mix(in oklab, var(--destructive) 12%, transparent)"
+          },
+          ".rx-otp:has(.rx-otp-input:is([aria-invalid=\"true\"], :user-invalid)) .rx-otp-slots": {
+            "animation": "rx-input-shake 400ms cubic-bezier(0.25, 1, 0.5, 1)"
+          },
+          "@keyframes rx-input-shake": {
+            "15%": {
+              "translate": "-5px 0"
+            },
+            "30%": {
+              "translate": "4px 0"
+            },
+            "45%": {
+              "translate": "-3px 0"
+            },
+            "60%": {
+              "translate": "2px 0"
+            },
+            "75%": {
+              "translate": "-1px 0"
+            }
+          },
+          "@keyframes rx-input-draw": {
+            "from": {
+              "stroke-dashoffset": "1"
+            }
+          },
+          "@keyframes rx-otp-roll": {
+            "from": {
+              "translate": "0 60%",
+              "opacity": "0",
+              "filter": "blur(4px)"
+            }
+          },
+          "@keyframes rx-otp-blink": {
+            "50%": {
+              "opacity": "0"
+            }
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":is(.rx-input-field, .rx-input-field *, .rx-otp *)": {
+              "animation-name": "none !important",
+              "transition-duration": "0ms !important"
+            }
+          },
+          "[data-motion=\"off\"] :is(.rx-input-field, .rx-input-field *, .rx-otp *)": {
+            "animation": "none !important",
+            "transition-duration": "0ms !important"
+          }
+        }
+      }
     },
     {
       "name": "textarea",
       "type": "registry:ui",
       "title": "Textarea",
-      "description": "A recessed multi-line text field.",
+      "description": "A native textarea that grows with its text.",
       "registryDependencies": [
         "{{origin}}/r/rabtx.json",
         "{{origin}}/r/field-context.json",
@@ -1157,7 +1520,64 @@
           "path": "registry/rabtx/ui/textarea.tsx",
           "type": "registry:ui"
         }
-      ]
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-textarea": {
+            "box-sizing": "border-box",
+            "display": "block",
+            "width": "100%",
+            "min-height": "6rem",
+            "field-sizing": "content",
+            "margin": "0",
+            "padding": "0.5rem 0.75rem",
+            "border": "1px solid var(--input)",
+            "border-radius": "var(--radius-box)",
+            "background-color": "var(--card)",
+            "color": "var(--card-foreground)",
+            "font": "inherit",
+            "font-family": "var(--font-sans)",
+            "font-size": "0.875rem",
+            "line-height": "1.25rem",
+            "letter-spacing": "-0.15px",
+            "resize": "vertical",
+            "outline": "none",
+            "transition": "border-color 150ms var(--motion-ease), box-shadow 150ms var(--motion-ease)"
+          },
+          ".rx-textarea::placeholder": {
+            "color": "var(--subtle-foreground)",
+            "opacity": "1"
+          },
+          "@media (hover: hover)": {
+            ".rx-textarea:hover": {
+              "border-color": "color-mix(in oklab, var(--foreground) 24%, var(--card))"
+            }
+          },
+          ".rx-textarea:focus-visible": {
+            "border-color": "var(--ring)",
+            "box-shadow": "0 0 0 3px color-mix(in oklab, var(--ring) 20%, transparent)"
+          },
+          ".rx-textarea:is([aria-invalid=\"true\"], :user-invalid)": {
+            "border-color": "var(--destructive)",
+            "box-shadow": "0 0 0 3px color-mix(in oklab, var(--destructive) 12%, transparent)"
+          },
+          ".rx-textarea:read-only:not(:disabled)": {
+            "background-color": "color-mix(in oklab, var(--muted) 50%, var(--card))"
+          },
+          ".rx-textarea:disabled": {
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ".rx-textarea": {
+              "transition-duration": "0ms"
+            }
+          },
+          "[data-motion=\"off\"] .rx-textarea": {
+            "transition-duration": "0ms"
+          }
+        }
+      }
     },
     {
       "name": "field",
@@ -1183,9 +1603,10 @@
       "name": "checkbox",
       "type": "registry:ui",
       "title": "Checkbox",
-      "description": "A native checkbox with a springy tick and an indeterminate state.",
+      "description": "A native checkbox whose tick pops in and draws itself, an indeterminate dash and three sizes. CSS-only motion.",
       "registryDependencies": [
         "{{origin}}/r/rabtx.json",
+        "{{origin}}/r/field-context.json",
         "utils"
       ],
       "files": [
@@ -1200,55 +1621,331 @@
       ],
       "css": {
         "@layer components": {
-          ".rx-check": {
-            "--_box-fill": "var(--card)",
-            "--_box-edge": "var(--input)",
-            "background-color": "var(--_box-fill)",
-            "border-color": "var(--_box-edge)",
+          ".rx-checkbox": {
+            "--_size": "1.25rem",
+            "--_glyph": "0.75rem",
+            "--_edge-w": "2px",
+            "--_r": "calc(var(--radius-check) * 1.25)",
+            "--_edge": "color-mix(in oklab, var(--muted-foreground) 50%, transparent)",
+            "--_fill": "var(--background)",
+            "--_halo": "transparent",
+            "position": "relative",
+            "display": "inline-grid",
+            "flex": "none",
+            "place-items": "center",
+            "box-sizing": "border-box",
+            "width": "var(--_size)",
+            "height": "var(--_size)",
+            "border": "var(--_edge-w) solid var(--_edge)",
+            "border-radius": "var(--_r)",
+            "background-color": "var(--_fill)",
+            "box-shadow": "0 0 0 3px var(--_halo)",
             "color": "var(--primary-foreground)",
-            "transition": "background-color 150ms var(--motion-ease), border-color 150ms var(--motion-ease)"
+            "vertical-align": "middle",
+            "-webkit-tap-highlight-color": "transparent",
+            "transition": "background-color 200ms var(--motion-ease), border-color 200ms var(--motion-ease), box-shadow 200ms var(--motion-ease), scale var(--spring-press-duration) var(--spring-press)"
           },
-          ".rx-check:checked, .rx-check:indeterminate": {
-            "--_box-fill": "var(--primary)",
-            "--_box-edge": "transparent"
+          "@media (hover: hover)": {
+            ".rx-checkbox:hover:not(:has(> :disabled, > :checked, > :indeterminate))": {
+              "--_edge": "var(--muted-foreground)"
+            }
           },
-          ".rx-check:disabled": {
-            "--_box-fill": "var(--muted)",
-            "--_box-edge": "var(--border)",
-            "color": "var(--disabled-foreground)"
+          ".rx-checkbox:has(> :checked), .rx-checkbox:has(> :indeterminate)": {
+            "--_fill": "var(--primary)",
+            "--_edge": "var(--primary)"
           },
-          ".rx-check::before": {
-            "content": "\"\"",
+          ".rx-checkbox:has(> [aria-invalid=\"true\"]:not(:checked, :indeterminate))": {
+            "--_edge": "var(--destructive)",
+            "--_halo": "color-mix(in oklab, var(--destructive) 15%, transparent)"
+          },
+          ".rx-checkbox:has(> :focus-visible)": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "2px"
+          },
+          ".rx-checkbox:has(> [aria-invalid=\"true\"]:focus-visible)": {
+            "outline-color": "var(--destructive)"
+          },
+          ".rx-checkbox:has(> :active:not(:disabled))": {
+            "scale": "0.92"
+          },
+          ".rx-checkbox:has(> :disabled)": {
+            "opacity": "0.5"
+          },
+          ".rx-checkbox-sm": {
+            "--_size": "1rem",
+            "--_glyph": "0.625rem",
+            "--_edge-w": "1.5px",
+            "--_r": "var(--radius-check)"
+          },
+          ".rx-checkbox-lg": {
+            "--_size": "1.5rem",
+            "--_glyph": "0.875rem",
+            "--_r": "calc(var(--radius-check) * 1.5)"
+          },
+          ".rx-checkbox-input": {
             "position": "absolute",
-            "inset": "0",
-            "background": "currentColor",
-            "mask": "var(--_icon) center / var(--_size) no-repeat",
+            "top": "50%",
+            "left": "50%",
+            "width": "max(24px, var(--_size))",
+            "height": "max(24px, var(--_size))",
+            "translate": "-50% -50%",
+            "z-index": "1",
+            "margin": "0",
+            "appearance": "none",
+            "opacity": "0",
+            "cursor": "pointer"
+          },
+          ".rx-checkbox-input:disabled": {
+            "cursor": "not-allowed"
+          },
+          ".rx-checkbox-mark": {
+            "grid-area": "1 / 1",
+            "width": "var(--_glyph)",
+            "height": "var(--_glyph)",
+            "overflow": "visible",
+            "fill": "none",
+            "stroke": "currentColor",
+            "stroke-width": "3",
+            "stroke-linecap": "round",
+            "stroke-linejoin": "round",
+            "pointer-events": "none",
             "opacity": "0",
             "scale": "0.5",
-            "transition": "opacity 150ms var(--motion-ease), scale var(--spring-swap-duration) var(--spring-swap)"
+            "filter": "blur(4px)",
+            "transition": "opacity 160ms var(--motion-ease), scale 160ms var(--motion-ease), filter 160ms var(--motion-ease)"
           },
-          ".rx-check:checked::before": {
-            "--_icon": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 14L8.5 17.5L19 6.5'/%3E%3C/svg%3E\")",
-            "--_size": "12px",
+          ".rx-checkbox-mark path": {
+            "stroke-dasharray": "1",
+            "stroke-dashoffset": "1",
+            "transition": "stroke-dashoffset 0s 160ms"
+          },
+          ".rx-checkbox:has(> :checked:not(:indeterminate)) > .rx-checkbox-check, .rx-checkbox:has(> :indeterminate) > .rx-checkbox-dash": {
+            "--_draw": "var(--spring-check-duration)",
             "opacity": "1",
-            "scale": "1"
+            "scale": "1",
+            "filter": "blur(0)",
+            "transition": "opacity calc(var(--spring-check-duration) * 0.5) var(--spring-check), scale calc(var(--spring-check-duration) * 0.5) var(--spring-check), filter calc(var(--spring-check-duration) * 0.5) var(--spring-check)"
           },
-          ".rx-check:indeterminate::before": {
-            "--_icon": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.25' stroke-linecap='round'%3E%3Cpath d='M20 12L4 12'/%3E%3C/svg%3E\")",
-            "--_size": "16px",
-            "opacity": "1",
-            "scale": "1"
+          ".rx-checkbox:has(> :checked:not(:indeterminate)) > .rx-checkbox-check path, .rx-checkbox:has(> :indeterminate) > .rx-checkbox-dash path": {
+            "stroke-dashoffset": "0",
+            "transition": "stroke-dashoffset var(--_draw) var(--spring-check) 40ms"
           },
-          ".rx-check::after": {
+          ".rx-checkbox:has(> :indeterminate) > .rx-checkbox-dash": {
+            "--_draw": "calc(var(--spring-check-duration) * 0.66)"
+          },
+          ".rx-checkbox-label": {
+            "display": "inline-flex",
+            "align-items": "flex-start",
+            "gap": "0.75rem",
+            "color": "var(--foreground)",
+            "font-size": "0.875rem",
+            "line-height": "1.25rem",
+            "cursor": "pointer",
+            "user-select": "none",
+            "-webkit-tap-highlight-color": "transparent"
+          },
+          ".rx-checkbox-label > .rx-checkbox": {
+            "margin-block": "calc((1lh - var(--_size)) / 2)"
+          },
+          ".rx-checkbox-label:has(> .rx-checkbox-sm)": {
+            "gap": "0.5rem",
+            "font-size": "0.8125rem",
+            "letter-spacing": "-0.15px"
+          },
+          ".rx-checkbox-label:has(> .rx-checkbox-lg)": {
+            "font-size": "1rem",
+            "line-height": "1.5rem"
+          },
+          ".rx-checkbox-label:active:not(:has(:disabled)) > .rx-checkbox": {
+            "scale": "0.92"
+          },
+          ".rx-checkbox-label:has(:disabled)": {
+            "cursor": "not-allowed"
+          },
+          ".rx-checkbox-label:has(:disabled) > .rx-checkbox-text": {
+            "opacity": "0.5"
+          },
+          ".rx-checkbox-text": {
+            "display": "flex",
+            "min-width": "0",
+            "flex-direction": "column",
+            "gap": "0.125rem"
+          },
+          ".rx-checkbox-description": {
+            "color": "var(--muted-foreground)",
+            "font-size": "0.75rem",
+            "line-height": "1rem",
+            "letter-spacing": "0"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ".rx-checkbox": {
+              "scale": "none !important"
+            },
+            ".rx-checkbox-mark": {
+              "scale": "none !important",
+              "filter": "none !important",
+              "transition": "opacity 100ms var(--motion-ease) !important"
+            },
+            ".rx-checkbox-mark path": {
+              "stroke-dashoffset": "0 !important",
+              "transition": "none !important"
+            }
+          },
+          "[data-motion=\"off\"] .rx-checkbox, [data-motion=\"off\"] .rx-checkbox-mark, [data-motion=\"off\"] .rx-checkbox-mark path": {
+            "transition": "none !important"
+          }
+        }
+      }
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "A native checkbox drawn as a switch, with a thumb that stretches on press and springs across.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "{{origin}}/r/field-context.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/ui/switch.styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-switch": {
+            "--_w": "3rem",
+            "--_h": "1.75rem",
+            "--_pad": "4px",
+            "--_stretch": "4px",
+            "--_thumb": "calc(var(--_h) - var(--_pad) * 2)",
+            "--_travel": "calc(var(--_w) - var(--_h))",
+            "--_x": "0px",
+            "--_grow": "0px",
+            "--_squish": "1",
+            "--_fill": "color-mix(in oklab, var(--muted-foreground) 70%, var(--background))",
+            "--_edge-a": "var(--field-edge-top)",
+            "--_edge-b": "var(--field-edge-bottom)",
+            "--_sheen": "var(--field-shade)",
+            "--_knob": "var(--background)",
+            "--_knob-ring": "var(--surface-ring)",
+            "--_knob-sheen": "var(--surface-sheen)",
+            "--_knob-shade": "var(--surface-shade)",
+            "position": "relative",
+            "display": "inline-block",
+            "flex-shrink": "0",
+            "box-sizing": "border-box",
+            "width": "var(--_w)",
+            "height": "var(--_h)",
+            "margin": "0",
+            "appearance": "none",
+            "vertical-align": "middle",
+            "border": "1px solid transparent",
+            "border-radius": "var(--radius-button)",
+            "background": "linear-gradient(180deg, var(--_sheen), transparent 60%) padding-box, linear-gradient(var(--_fill), var(--_fill)) padding-box, linear-gradient(180deg, var(--_edge-a), var(--_edge-b)) border-box, linear-gradient(var(--_fill), var(--_fill)) border-box",
+            "cursor": "pointer",
+            "-webkit-tap-highlight-color": "transparent",
+            "transition": "--_fill 200ms var(--motion-ease), box-shadow 150ms var(--motion-ease), opacity 150ms var(--motion-ease)"
+          },
+          ".rx-switch::before": {
             "content": "\"\"",
             "position": "absolute",
-            "inset": "-4px"
+            "top": "calc(var(--_pad) - 1px)",
+            "inset-inline-start": "calc(var(--_pad) - 1px + var(--_x))",
+            "width": "calc(var(--_thumb) + var(--_grow))",
+            "height": "var(--_thumb)",
+            "border-radius": "max(1px, calc(var(--radius-button) - var(--_pad)))",
+            "background-color": "var(--_knob)",
+            "background-image": "linear-gradient( 180deg, var(--_knob-sheen), transparent 40%, transparent 60%, var(--_knob-shade) )",
+            "box-shadow": "0 0 0 1px var(--_knob-ring)",
+            "scale": "var(--_squish)",
+            "transition": "inset-inline-start var(--spring-switch-duration) var(--spring-switch), width var(--spring-switch-duration) var(--spring-switch), scale var(--spring-switch-duration) var(--spring-switch), background-color 200ms var(--motion-ease)"
           },
-          "[data-motion=\"off\"] .rx-check, [data-motion=\"off\"] .rx-check::before": {
+          ".rx-switch::after": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset": "calc(min(0px, (var(--_h) - 24px) / 2) - 1px)"
+          },
+          ".rx-switch:checked": {
+            "--_fill": "var(--primary)",
+            "--_knob": "var(--primary-foreground)",
+            "--_x": "var(--_travel)"
+          },
+          ".rx-switch:focus-visible": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "2px"
+          },
+          ".rx-switch:disabled": {
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "@media (hover: hover) and (pointer: fine)": {
+            ":is(.rx-switch:hover, .rx-switch-label:hover > .rx-switch):not(:disabled)": {
+              "--_fill": "color-mix(in oklab, var(--muted-foreground) 82%, var(--background))"
+            },
+            ":is(.rx-switch:hover, .rx-switch-label:hover > .rx-switch):checked:not(:disabled)": {
+              "--_fill": "color-mix(in oklab, var(--primary) 88%, var(--foreground))"
+            }
+          },
+          ":is(.rx-switch:active, .rx-switch-label:active > .rx-switch):not(:disabled)": {
+            "--_grow": "var(--_stretch)",
+            "--_squish": "0.9"
+          },
+          ":is(.rx-switch:active, .rx-switch-label:active > .rx-switch):checked:not(:disabled)": {
+            "--_x": "calc(var(--_travel) - var(--_stretch))"
+          },
+          ".rx-switch-sm": {
+            "--_w": "2.25rem",
+            "--_h": "1.25rem",
+            "--_pad": "3px",
+            "--_stretch": "3px"
+          },
+          ".rx-switch-lg": {
+            "--_w": "3.5rem",
+            "--_h": "2rem",
+            "--_pad": "4px",
+            "--_stretch": "5px"
+          },
+          "[data-depth=\"flat\"] .rx-switch": {
+            "--_edge-a": "transparent",
+            "--_edge-b": "transparent",
+            "--_sheen": "transparent",
+            "--_knob-ring": "transparent",
+            "--_knob-sheen": "transparent",
+            "--_knob-shade": "transparent"
+          },
+          ".rx-switch[aria-invalid=\"true\"]": {
+            "--_edge-a": "var(--destructive)",
+            "--_edge-b": "var(--destructive)",
+            "box-shadow": "0 0 0 3px color-mix(in oklab, var(--destructive) 15%, transparent)"
+          },
+          ".rx-switch-label": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "gap": "0.75rem",
+            "font-size": "13px",
+            "line-height": "20px",
+            "letter-spacing": "-0.15px",
+            "color": "var(--foreground)",
+            "cursor": "pointer",
+            "user-select": "none",
+            "-webkit-tap-highlight-color": "transparent"
+          },
+          ".rx-switch-label:has(> .rx-switch:disabled)": {
+            "color": "var(--disabled-foreground)",
+            "cursor": "not-allowed"
+          },
+          "[data-motion=\"off\"] .rx-switch, [data-motion=\"off\"] .rx-switch::before": {
             "transition": "none"
           },
           "@media (prefers-reduced-motion: reduce)": {
-            ".rx-check, .rx-check::before": {
+            ".rx-switch, .rx-switch::before": {
               "transition": "none"
             }
           }
@@ -1259,12 +1956,16 @@
       "name": "card",
       "type": "registry:ui",
       "title": "Card",
-      "description": "A raised surface with title, description and meta text styles.",
+      "description": "A raised surface with header, title, description, action, content and footer parts, plus tilt, spotlight, expandable and stacked cards. CSS-only motion.",
       "registryDependencies": [
         "{{origin}}/r/rabtx.json",
         "utils"
       ],
       "files": [
+        {
+          "path": "registry/rabtx/ui/card-stack.tsx",
+          "type": "registry:ui"
+        },
         {
           "path": "registry/rabtx/ui/card.styles.ts",
           "type": "registry:ui"
@@ -1272,8 +1973,377 @@
         {
           "path": "registry/rabtx/ui/card.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/expandable-card.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/pointer.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/spotlight-card.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/tilt-card.tsx",
+          "type": "registry:ui"
         }
-      ]
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-card": {
+            "--_pad": "15px",
+            "--_gap": "12px",
+            "position": "relative",
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "var(--_gap)",
+            "padding-block": "var(--_pad)",
+            "border-radius": "var(--radius-box)",
+            "transition": "--_fill 150ms var(--motion-ease), color 150ms var(--motion-ease), box-shadow 150ms var(--motion-ease), scale var(--spring-press-duration) var(--spring-press), transform var(--spring-magnetic-duration) var(--spring-magnetic)"
+          },
+          ".rx-card > *": {
+            "padding-inline": "var(--_pad)"
+          },
+          ".rx-card > :is(img, video, picture, iframe, [data-slot=\"card-media\"])": {
+            "padding-inline": "0"
+          },
+          ".rx-card > :is(img, video, picture, iframe, [data-slot=\"card-media\"]):first-child": {
+            "margin-block-start": "calc(var(--_pad) * -1)",
+            "border-start-start-radius": "calc(var(--radius-box) - 1px)",
+            "border-start-end-radius": "calc(var(--radius-box) - 1px)"
+          },
+          ".rx-card > :is(img, video, picture, iframe, [data-slot=\"card-media\"]):last-child": {
+            "margin-block-end": "calc(var(--_pad) * -1)",
+            "border-end-start-radius": "calc(var(--radius-box) - 1px)",
+            "border-end-end-radius": "calc(var(--radius-box) - 1px)"
+          },
+          ".rx-card-sm": {
+            "--_pad": "11px",
+            "--_gap": "10px"
+          },
+          ".rx-card-lg": {
+            "--_pad": "19px",
+            "--_gap": "16px"
+          },
+          ".rx-card-header": {
+            "container": "rx-card-header / inline-size",
+            "display": "grid",
+            "grid-auto-rows": "min-content",
+            "align-items": "start",
+            "row-gap": "2px"
+          },
+          ".rx-card-header:has(> .rx-card-action)": {
+            "grid-template-columns": "minmax(0, 1fr) auto"
+          },
+          ".rx-card-header > :not(.rx-card-action)": {
+            "grid-column": "1"
+          },
+          ".rx-card-title": {
+            "margin": "0",
+            "font-size": "13px",
+            "line-height": "20px",
+            "font-weight": "510",
+            "letter-spacing": "-0.15px",
+            "color": "var(--card-foreground)",
+            "text-wrap": "balance"
+          },
+          ".rx-card-description": {
+            "margin": "0",
+            "font-size": "13px",
+            "line-height": "20px",
+            "letter-spacing": "-0.15px",
+            "color": "var(--muted-foreground)",
+            "text-wrap": "pretty"
+          },
+          ".rx-card-action": {
+            "grid-column": "2",
+            "grid-row": "1 / span 2",
+            "align-self": "start",
+            "justify-self": "end",
+            "display": "flex",
+            "align-items": "center",
+            "margin-inline-start": "12px"
+          },
+          "@container rx-card-header (width < 15rem)": {
+            ".rx-card-action": {
+              "grid-column": "1",
+              "grid-row": "auto",
+              "justify-self": "start",
+              "margin-block-start": "6px",
+              "margin-inline-start": "0"
+            }
+          },
+          ".rx-card-content": {
+            "font-size": "13px",
+            "line-height": "20px"
+          },
+          ".rx-card-footer": {
+            "display": "flex",
+            "flex-wrap": "wrap",
+            "align-items": "center",
+            "gap": "8px"
+          },
+          ".rx-card-target": {
+            "color": "inherit",
+            "text-decoration": "none",
+            "cursor": "pointer"
+          },
+          ".rx-card-target::after": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset": "-1px",
+            "border-radius": "var(--radius-box)"
+          },
+          ".rx-card-target:focus-visible": {
+            "outline": "none"
+          },
+          ":where(.rx-card:has(.rx-card-target) :is(a, button, summary, input, textarea, [tabindex]):not(.rx-card-target, .rx-card-target *))": {
+            "position": "relative",
+            "z-index": "1"
+          },
+          "@media (hover: hover) and (pointer: fine)": {
+            ".rx-card:has(.rx-card-target):not(:has(.rx-card-target:is(:disabled, [aria-disabled=\"true\"]), .rx-card-target :disabled)):hover": {
+              "--_flat": "var(--input)",
+              "--_ring": "color-mix(in oklab, var(--surface-ring), var(--card-foreground) 12%)"
+            },
+            ".rx-card-expandable:has(> .rx-card-summary:hover)": {
+              "--_flat": "var(--input)",
+              "--_ring": "color-mix(in oklab, var(--surface-ring), var(--card-foreground) 12%)"
+            },
+            ".rx-card-stack:not([data-expanded]):hover": {
+              "--_peek": "14px"
+            }
+          },
+          ".rx-card:has(.rx-card-target):not(:has(.rx-card-target:is(:disabled, [aria-disabled=\"true\"]), .rx-card-target :disabled)):has(.rx-card-target:active)": {
+            "scale": "0.985"
+          },
+          ".rx-card:has(.rx-card-target):has(.rx-card-target:focus-visible)": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "2px"
+          },
+          ".rx-card:has(.rx-card-target):has(.rx-card-target:is(:disabled, [aria-disabled=\"true\"]), .rx-card-target :disabled)": {
+            "color": "var(--disabled-foreground)"
+          },
+          ".rx-card:has(.rx-card-target):has(.rx-card-target:is(:disabled, [aria-disabled=\"true\"]), .rx-card-target :disabled) :is(.rx-card-title, .rx-card-description)": {
+            "color": "inherit"
+          },
+          ".rx-card:has(.rx-card-target):has(.rx-card-target:is(:disabled, [aria-disabled=\"true\"]), .rx-card-target :disabled) .rx-card-target": {
+            "cursor": "not-allowed"
+          },
+          ".rx-card[data-selected], .rx-card:has(.rx-card-target :checked), .rx-card:has(.rx-card-target:is(:checked, [aria-pressed=\"true\"], [aria-selected=\"true\"])), .rx-card:has(.rx-card-target[aria-current]:not([aria-current=\"false\"]))": {
+            "--_flat": "var(--primary)",
+            "--_edge-a": "var(--primary)",
+            "--_edge-b": "var(--primary)",
+            "--_ring": "var(--primary)"
+          },
+          ".rx-card-tilt": {
+            "isolation": "isolate",
+            "transform": "perspective(800px) rotateX(var(--_tilt-x, 0deg)) rotateY(var(--_tilt-y, 0deg))"
+          },
+          ".rx-card-tilt[data-pointer]": {
+            "will-change": "transform"
+          },
+          ".rx-card-tilt[data-glare]::before": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset": "0",
+            "z-index": "-1",
+            "border-radius": "calc(var(--radius-box) - 1px)",
+            "background": "radial-gradient( circle at var(--_px, 50%) var(--_py, 50%), color-mix(in oklab, var(--card-foreground) 10%, transparent), transparent 55% )",
+            "opacity": "0",
+            "pointer-events": "none",
+            "transition": "opacity 300ms var(--motion-ease)"
+          },
+          ".rx-card-tilt[data-glare][data-pointer]::before": {
+            "opacity": "1"
+          },
+          ".rx-card-spotlight": {
+            "--_spot": "22rem",
+            "isolation": "isolate"
+          },
+          ".rx-card-spotlight::before, .rx-card-spotlight::after": {
+            "content": "\"\"",
+            "position": "absolute",
+            "pointer-events": "none",
+            "opacity": "0",
+            "transition": "opacity 300ms var(--motion-ease)"
+          },
+          ".rx-card-spotlight::before": {
+            "inset": "0",
+            "z-index": "-1",
+            "border-radius": "calc(var(--radius-box) - 1px)",
+            "background": "radial-gradient( var(--_spot) circle at var(--_px, 50%) var(--_py, 0%), color-mix(in oklab, var(--primary) 12%, transparent), transparent 70% )"
+          },
+          ".rx-card-spotlight::after": {
+            "inset": "-1px",
+            "padding": "1px",
+            "border-radius": "var(--radius-box)",
+            "background": "radial-gradient( calc(var(--_spot) * 0.6) circle at var(--_px, 50%) var(--_py, 0%), var(--primary), transparent 70% )",
+            "mask": "linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0)"
+          },
+          ".rx-card-spotlight:is([data-pointer], :has(:focus-visible))::before, .rx-card-spotlight:is([data-pointer], :has(:focus-visible))::after": {
+            "opacity": "1"
+          },
+          ".rx-card-expandable": {
+            "display": "block",
+            "padding-block": "0",
+            "interpolate-size": "allow-keywords"
+          },
+          ".rx-card-expandable::details-content": {
+            "block-size": "0",
+            "overflow": "clip",
+            "opacity": "0",
+            "transition": "block-size var(--spring-panel-duration) var(--spring-panel), opacity 200ms var(--motion-ease), content-visibility var(--spring-panel-duration) allow-discrete"
+          },
+          ".rx-card-expandable[open]::details-content": {
+            "block-size": "auto",
+            "opacity": "1"
+          },
+          ".rx-card-expandable > .rx-card-content": {
+            "padding-block-end": "var(--_pad)"
+          },
+          ".rx-card-expandable:has(> .rx-card-summary:focus-visible)": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "2px"
+          },
+          ".rx-card-summary": {
+            "display": "flex",
+            "align-items": "flex-start",
+            "gap": "12px",
+            "padding-block": "var(--_pad)",
+            "list-style": "none",
+            "cursor": "pointer",
+            "outline": "none",
+            "user-select": "none",
+            "-webkit-tap-highlight-color": "transparent"
+          },
+          ".rx-card-summary::-webkit-details-marker": {
+            "display": "none"
+          },
+          ".rx-card-summary > .rx-card-header": {
+            "flex": "1",
+            "min-width": "0"
+          },
+          ".rx-card-summary > .rx-card-chevron": {
+            "margin-block-start": "2px"
+          },
+          ".rx-card-chevron": {
+            "flex": "none",
+            "width": "16px",
+            "height": "16px",
+            "background": "currentColor",
+            "color": "var(--muted-foreground)",
+            "mask": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 9L12 15L6 9'/%3E%3C/svg%3E\") center / 16px no-repeat",
+            "transition": "rotate var(--spring-swap-duration) var(--spring-swap)"
+          },
+          ".rx-card-expandable[open] > .rx-card-summary > .rx-card-chevron, .rx-card-stack-toggle[aria-expanded=\"true\"] > .rx-card-chevron": {
+            "rotate": "180deg"
+          },
+          ".rx-card-stack": {
+            "--_peek": "10px",
+            "position": "relative",
+            "isolation": "isolate",
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "8px"
+          },
+          ".rx-card-stack-list": {
+            "display": "flex",
+            "flex-direction": "column",
+            "margin": "0",
+            "padding": "0",
+            "list-style": "none",
+            "interpolate-size": "allow-keywords"
+          },
+          ".rx-card-stack-item": {
+            "position": "relative",
+            "z-index": "calc(var(--_count, 1) - var(--_i, 0))",
+            "display": "grid",
+            "grid-template-rows": "minmax(0, 1fr)",
+            "align-items": "unsafe end",
+            "block-size": "auto",
+            "transition": "block-size var(--spring-panel-duration) var(--spring-panel), margin-block-start var(--spring-panel-duration) var(--spring-panel), opacity 200ms var(--motion-ease)"
+          },
+          ".rx-card-stack-item + .rx-card-stack-item": {
+            "margin-block-start": "12px"
+          },
+          ".rx-card-stack-item > *": {
+            "transform-origin": "50% 100%"
+          },
+          ".rx-card-stack:not([data-expanded]) .rx-card-stack-item + .rx-card-stack-item": {
+            "block-size": "var(--_peek)",
+            "margin-block-start": "0"
+          },
+          ".rx-card-stack:not([data-expanded]) .rx-card-stack-item > *": {
+            "scale": "calc(1 - var(--_i, 0) * 0.05)"
+          },
+          ".rx-card-stack:not([data-expanded]) .rx-card-stack-item[data-hidden]": {
+            "block-size": "0",
+            "opacity": "0"
+          },
+          ".rx-card-stack-toggle": {
+            "align-self": "flex-start",
+            "display": "inline-flex",
+            "align-items": "center",
+            "gap": "4px",
+            "padding": "2px 4px",
+            "margin-inline-start": "-4px",
+            "border": "0",
+            "border-radius": "var(--radius-item)",
+            "background": "none",
+            "font": "inherit",
+            "font-size": "13px",
+            "line-height": "20px",
+            "color": "var(--muted-foreground)",
+            "cursor": "pointer",
+            "transition": "color 150ms var(--motion-ease)"
+          },
+          "@media (hover: hover)": {
+            ".rx-card-stack-toggle:hover": {
+              "color": "var(--foreground)"
+            }
+          },
+          ".rx-card-stack-toggle:focus-visible": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "2px"
+          },
+          ".rx-card-stack:not([data-expanded]) .rx-card-stack-toggle::after": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset": "0",
+            "z-index": "calc(var(--_count, 1) + 1)"
+          },
+          "[data-motion=\"off\"] :is(.rx-card-tilt, .rx-card-stack), [data-motion=\"off\"] :is(.rx-card-tilt, .rx-card-stack) *": {
+            "transition-duration": "0ms !important"
+          },
+          "[data-motion=\"off\"] :is(.rx-card, .rx-card *, .rx-card::before, .rx-card::after)": {
+            "transition-duration": "0ms !important"
+          },
+          "[data-motion=\"off\"] .rx-card-expandable::details-content": {
+            "transition-duration": "0ms !important"
+          },
+          "[data-motion=\"off\"] .rx-card-tilt": {
+            "transform": "none"
+          },
+          "[data-motion=\"off\"] .rx-card-tilt::before": {
+            "display": "none"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ".rx-card, .rx-card *, .rx-card::before, .rx-card::after, .rx-card-expandable::details-content, .rx-card-stack *": {
+              "transition-duration": "0ms !important"
+            },
+            ".rx-card-tilt": {
+              "transform": "none"
+            },
+            ".rx-card-tilt::before": {
+              "display": "none"
+            }
+          }
+        }
+      }
     },
     {
       "name": "badge",
