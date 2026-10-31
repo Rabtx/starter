@@ -1,7 +1,8 @@
 "use client";
 
 import { type Ref, type TextareaHTMLAttributes, useContext } from "react";
-import { FieldContext } from "../field/context";
+import { FieldContext } from "../field/field-context";
+import { cn } from "../lib/utils";
 import { textareaClass } from "./textarea.styles";
 
 export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
@@ -21,7 +22,7 @@ export function Textarea({ className, ...rest }: TextareaProps) {
 			aria-describedby={field?.describedBy}
 			aria-invalid={field?.invalid || undefined}
 			{...rest}
-			className={`${textareaClass} ${className ?? ""}`}
+			className={cn(textareaClass, className)}
 		/>
 	);
 }

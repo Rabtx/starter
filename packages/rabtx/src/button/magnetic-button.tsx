@@ -3,6 +3,7 @@
 import type { PointerEvent } from "react";
 import { Button, type ButtonProps } from "./button";
 import { magneticOffset } from "./magnetic";
+import { cn } from "../lib/utils";
 
 export type MagneticButtonProps = ButtonProps & {
 	/** How strongly the button leans toward the pointer, 0 to 1. Default 0.25. */
@@ -48,7 +49,7 @@ export function MagneticButton({
 	return (
 		<Button
 			{...(rest as ButtonProps)}
-			className={`rx-btn-magnet${className ? ` ${className}` : ""}`}
+			className={cn("rx-btn-magnet", className)}
 			onPointerMove={follow}
 			onPointerLeave={release}
 		/>

@@ -9,6 +9,7 @@ import {
 	useState,
 } from "react";
 import { type ButtonSize, type ButtonVariant, buttonClass, buttonParts } from "./button.styles";
+import { cn } from "../lib/utils";
 
 export type ButtonLookProps = {
 	variant?: ButtonVariant;
@@ -79,7 +80,7 @@ export function useButtonLook<E extends HTMLElement>(
 	};
 
 	return {
-		className: `${buttonClass({ variant, size, look })}${className ? ` ${className}` : ""}`,
+		className: cn(buttonClass({ variant, size, look }), className),
 		style:
 			pressScale === undefined
 				? style

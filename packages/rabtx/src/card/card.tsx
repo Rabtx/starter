@@ -1,5 +1,6 @@
 import type { HTMLAttributes } from "react";
 import { type CardPadding, cardClass } from "./card.styles";
+import { cn } from "../lib/utils";
 
 export type CardProps = HTMLAttributes<HTMLElement> & {
 	/** The element to render, for correct semantics. Default `div`. */
@@ -10,5 +11,5 @@ export type CardProps = HTMLAttributes<HTMLElement> & {
 
 /** A container with the shared surface, the box radius and a vertical stack. */
 export function Card({ as: Tag = "div", padding, className, ...rest }: CardProps) {
-	return <Tag {...rest} className={`${cardClass(padding)} ${className ?? ""}`} />;
+	return <Tag {...rest} className={cn(cardClass(padding), className)} />;
 }

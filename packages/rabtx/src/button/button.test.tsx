@@ -3,7 +3,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import { Button, ButtonLink } from "./button";
 import { buttonClass, buttonParts, buttonSizes, buttonVariants } from "./button.styles";
-import { exitMs, splitLetters } from "./label";
+import { exitMs, splitLetters } from "./stateful-label";
 import { magneticOffset } from "./magnetic";
 import { MagneticButton } from "./magnetic-button";
 import { MetallicButton } from "./metallic-button";

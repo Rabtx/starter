@@ -11,7 +11,7 @@ import {
 } from "react";
 import { Button, type ButtonProps } from "./button";
 import { type ButtonState, buttonParts } from "./button.styles";
-import { exitMs, splitLetters } from "./label";
+import { exitMs, splitLetters } from "./stateful-label";
 
 export type StatefulButtonProps = ButtonProps & {
 	/** `loading` blocks clicks and marks the button busy; the others only change the label. */

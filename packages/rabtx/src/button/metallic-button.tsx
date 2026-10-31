@@ -2,6 +2,7 @@
 
 import { Button, type ButtonProps } from "./button";
 import { buttonParts } from "./button.styles";
+import { cn } from "../lib/utils";
 
 export type MetallicButtonProps = Omit<ButtonProps, "variant" | "ripple"> & {
 	/** Holds the chrome still; the rim keeps its polish. */
@@ -18,7 +19,7 @@ export function MetallicButton({ paused, children, className, ...rest }: Metalli
 		<Button
 			{...(rest as ButtonProps)}
 			variant="ghost"
-			className={`rx-btn-metal${className ? ` ${className}` : ""}`}
+			className={cn("rx-btn-metal", className)}
 			data-paused={paused ? "" : undefined}
 		>
 			<span className={buttonParts.metalRim} aria-hidden="true" />

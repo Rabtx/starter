@@ -35,6 +35,10 @@
 		"test": "vitest run",
 		"test:watch": "vitest"
 	},
+	"dependencies": {
+		"clsx": "^2.1.1",
+		"tailwind-merge": "^3.7.0"
+	},
 	"devDependencies": {
 		"@starter/typescript-config": "workspace:*",
 		"@types/node": "^26.6.6",
@@ -43,7 +47,10 @@
 		"react": "^19.3.0",
 		"react-dom": "^19.3.0",
 		"typescript": "^7.0.2",
-		"vitest": "^5.0.5"
+		"vitest": "^5.0.5",
+		"postcss": "^8.5.32",
+		"postcss-nested": "^7.0.2",
+		"shadcn": "^4.23.0"
 	},
 	"peerDependencies": {
 		"react": ">=19"
