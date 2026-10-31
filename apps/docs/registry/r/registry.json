@@ -18,6 +18,7 @@
           "color-field": "var(--field)",
           "ease-spring-press": "var(--spring-press)",
           "ease-spring-swap": "var(--spring-swap)",
+          "ease-spring-check": "var(--spring-check)",
           "ease-spring-label": "var(--spring-label)",
           "ease-spring-magnetic": "var(--spring-magnetic)",
           "ease-spring-unfold": "var(--spring-unfold)",
@@ -167,6 +168,7 @@
         "theme": {
           "ease-spring-press": "var(--spring-press)",
           "ease-spring-swap": "var(--spring-swap)",
+          "ease-spring-check": "var(--spring-check)",
           "ease-spring-label": "var(--spring-label)",
           "ease-spring-magnetic": "var(--spring-magnetic)",
           "ease-spring-unfold": "var(--spring-unfold)",
@@ -180,6 +182,8 @@
           "spring-press-duration": "279ms",
           "spring-swap": "linear(0, 0.021, 0.0756, 0.1529, 0.2439, 0.3414, 0.4399, 0.5351, 0.6241, 0.7049, 0.7765, 0.8384, 0.8906, 0.9336, 0.9681, 0.9949, 1.0149, 1.0291, 1.0384, 1.0438, 1.0461, 1.0459, 1.0439, 1.0407, 1.0367, 1.0323, 1.0277, 1.0232, 1.019, 1.0151, 1.0116, 1.0086, 1.006, 1.0038, 1.0021, 1.0007, 0.9996, 0.9989, 0.9984, 0.9981, 0.9979, 0.9979, 0.9979, 1)",
           "spring-swap-duration": "432ms",
+          "spring-check": "linear(0, 0.0174, 0.0612, 0.1212, 0.1901, 0.2629, 0.3358, 0.4064, 0.4731, 0.5352, 0.592, 0.6434, 0.6896, 0.7307, 0.7671, 0.7992, 0.8272, 0.8517, 0.873, 0.8914, 0.9073, 0.921, 0.9328, 0.9429, 0.9516, 0.9589, 0.9652, 0.9706, 0.9752, 0.979, 0.9823, 0.9851, 0.9874, 0.9894, 0.9911, 0.9925, 0.9937, 0.9947, 0.9956, 0.9963, 0.9969, 0.9974, 0.9978, 1)",
+          "spring-check-duration": "306ms",
           "spring-label": "linear(0, 0.0122, 0.0439, 0.0893, 0.1436, 0.2033, 0.2655, 0.3281, 0.3896, 0.4488, 0.505, 0.5577, 0.6066, 0.6515, 0.6925, 0.7298, 0.7633, 0.7934, 0.8203, 0.8441, 0.8653, 0.8839, 0.9002, 0.9145, 0.927, 0.9378, 0.9472, 0.9553, 0.9623, 0.9683, 0.9734, 0.9778, 0.9815, 0.9847, 0.9874, 0.9896, 0.9915, 0.9931, 0.9944, 0.9955, 0.9964, 0.9972, 0.9978, 1)",
           "spring-label-duration": "244ms",
           "spring-magnetic": "linear(0, 0.0145, 0.0516, 0.1037, 0.1649, 0.231, 0.2985, 0.3654, 0.4299, 0.491, 0.548, 0.6005, 0.6485, 0.692, 0.7311, 0.766, 0.797, 0.8245, 0.8486, 0.8698, 0.8883, 0.9044, 0.9184, 0.9305, 0.9409, 0.9499, 0.9576, 0.9641, 0.9698, 0.9746, 0.9787, 0.9821, 0.985, 0.9875, 0.9896, 0.9914, 0.9928, 0.9941, 0.9951, 0.996, 0.9967, 0.9973, 0.9978, 1)",
@@ -1183,9 +1187,10 @@
       "name": "checkbox",
       "type": "registry:ui",
       "title": "Checkbox",
-      "description": "A native checkbox with a springy tick and an indeterminate state.",
+      "description": "A native checkbox whose tick pops in and draws itself, an indeterminate dash and three sizes. CSS-only motion.",
       "registryDependencies": [
         "{{origin}}/r/rabtx.json",
+        "{{origin}}/r/field-context.json",
         "utils"
       ],
       "files": [
@@ -1200,57 +1205,178 @@
       ],
       "css": {
         "@layer components": {
-          ".rx-check": {
-            "--_box-fill": "var(--card)",
-            "--_box-edge": "var(--input)",
-            "background-color": "var(--_box-fill)",
-            "border-color": "var(--_box-edge)",
+          ".rx-checkbox": {
+            "--_size": "1.25rem",
+            "--_glyph": "0.75rem",
+            "--_edge-w": "2px",
+            "--_r": "calc(var(--radius-check) * 1.25)",
+            "--_edge": "color-mix(in oklab, var(--muted-foreground) 50%, transparent)",
+            "--_fill": "var(--background)",
+            "--_halo": "transparent",
+            "position": "relative",
+            "display": "inline-grid",
+            "flex": "none",
+            "place-items": "center",
+            "box-sizing": "border-box",
+            "width": "var(--_size)",
+            "height": "var(--_size)",
+            "border": "var(--_edge-w) solid var(--_edge)",
+            "border-radius": "var(--_r)",
+            "background-color": "var(--_fill)",
+            "box-shadow": "0 0 0 3px var(--_halo)",
             "color": "var(--primary-foreground)",
-            "transition": "background-color 150ms var(--motion-ease), border-color 150ms var(--motion-ease)"
+            "vertical-align": "middle",
+            "-webkit-tap-highlight-color": "transparent",
+            "transition": "background-color 200ms var(--motion-ease), border-color 200ms var(--motion-ease), box-shadow 200ms var(--motion-ease), scale var(--spring-press-duration) var(--spring-press)"
           },
-          ".rx-check:checked, .rx-check:indeterminate": {
-            "--_box-fill": "var(--primary)",
-            "--_box-edge": "transparent"
+          "@media (hover: hover)": {
+            ".rx-checkbox:hover:not(:has(> :disabled, > :checked, > :indeterminate))": {
+              "--_edge": "var(--muted-foreground)"
+            }
           },
-          ".rx-check:disabled": {
-            "--_box-fill": "var(--muted)",
-            "--_box-edge": "var(--border)",
-            "color": "var(--disabled-foreground)"
+          ".rx-checkbox:has(> :checked), .rx-checkbox:has(> :indeterminate)": {
+            "--_fill": "var(--primary)",
+            "--_edge": "var(--primary)"
           },
-          ".rx-check::before": {
-            "content": "\"\"",
+          ".rx-checkbox:has(> [aria-invalid=\"true\"]:not(:checked, :indeterminate))": {
+            "--_edge": "var(--destructive)",
+            "--_halo": "color-mix(in oklab, var(--destructive) 15%, transparent)"
+          },
+          ".rx-checkbox:has(> :focus-visible)": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "2px"
+          },
+          ".rx-checkbox:has(> [aria-invalid=\"true\"]:focus-visible)": {
+            "outline-color": "var(--destructive)"
+          },
+          ".rx-checkbox:has(> :active:not(:disabled))": {
+            "scale": "0.92"
+          },
+          ".rx-checkbox:has(> :disabled)": {
+            "opacity": "0.5"
+          },
+          ".rx-checkbox-sm": {
+            "--_size": "1rem",
+            "--_glyph": "0.625rem",
+            "--_edge-w": "1.5px",
+            "--_r": "var(--radius-check)"
+          },
+          ".rx-checkbox-lg": {
+            "--_size": "1.5rem",
+            "--_glyph": "0.875rem",
+            "--_r": "calc(var(--radius-check) * 1.5)"
+          },
+          ".rx-checkbox-input": {
             "position": "absolute",
-            "inset": "0",
-            "background": "currentColor",
-            "mask": "var(--_icon) center / var(--_size) no-repeat",
+            "top": "50%",
+            "left": "50%",
+            "width": "max(24px, var(--_size))",
+            "height": "max(24px, var(--_size))",
+            "translate": "-50% -50%",
+            "z-index": "1",
+            "margin": "0",
+            "appearance": "none",
+            "opacity": "0",
+            "cursor": "pointer"
+          },
+          ".rx-checkbox-input:disabled": {
+            "cursor": "not-allowed"
+          },
+          ".rx-checkbox-mark": {
+            "grid-area": "1 / 1",
+            "width": "var(--_glyph)",
+            "height": "var(--_glyph)",
+            "overflow": "visible",
+            "fill": "none",
+            "stroke": "currentColor",
+            "stroke-width": "3",
+            "stroke-linecap": "round",
+            "stroke-linejoin": "round",
+            "pointer-events": "none",
             "opacity": "0",
             "scale": "0.5",
-            "transition": "opacity 150ms var(--motion-ease), scale var(--spring-swap-duration) var(--spring-swap)"
+            "filter": "blur(4px)",
+            "transition": "opacity 160ms var(--motion-ease), scale 160ms var(--motion-ease), filter 160ms var(--motion-ease)"
           },
-          ".rx-check:checked::before": {
-            "--_icon": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 14L8.5 17.5L19 6.5'/%3E%3C/svg%3E\")",
-            "--_size": "12px",
+          ".rx-checkbox-mark path": {
+            "stroke-dasharray": "1",
+            "stroke-dashoffset": "1",
+            "transition": "stroke-dashoffset 0s 160ms"
+          },
+          ".rx-checkbox:has(> :checked:not(:indeterminate)) > .rx-checkbox-check, .rx-checkbox:has(> :indeterminate) > .rx-checkbox-dash": {
+            "--_draw": "var(--spring-check-duration)",
             "opacity": "1",
-            "scale": "1"
+            "scale": "1",
+            "filter": "blur(0)",
+            "transition": "opacity calc(var(--spring-check-duration) * 0.5) var(--spring-check), scale calc(var(--spring-check-duration) * 0.5) var(--spring-check), filter calc(var(--spring-check-duration) * 0.5) var(--spring-check)"
           },
-          ".rx-check:indeterminate::before": {
-            "--_icon": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.25' stroke-linecap='round'%3E%3Cpath d='M20 12L4 12'/%3E%3C/svg%3E\")",
-            "--_size": "16px",
-            "opacity": "1",
-            "scale": "1"
+          ".rx-checkbox:has(> :checked:not(:indeterminate)) > .rx-checkbox-check path, .rx-checkbox:has(> :indeterminate) > .rx-checkbox-dash path": {
+            "stroke-dashoffset": "0",
+            "transition": "stroke-dashoffset var(--_draw) var(--spring-check) 40ms"
           },
-          ".rx-check::after": {
-            "content": "\"\"",
-            "position": "absolute",
-            "inset": "-4px"
+          ".rx-checkbox:has(> :indeterminate) > .rx-checkbox-dash": {
+            "--_draw": "calc(var(--spring-check-duration) * 0.66)"
           },
-          "[data-motion=\"off\"] .rx-check, [data-motion=\"off\"] .rx-check::before": {
-            "transition": "none"
+          ".rx-checkbox-label": {
+            "display": "inline-flex",
+            "align-items": "flex-start",
+            "gap": "0.75rem",
+            "color": "var(--foreground)",
+            "font-size": "0.875rem",
+            "line-height": "1.25rem",
+            "cursor": "pointer",
+            "user-select": "none",
+            "-webkit-tap-highlight-color": "transparent"
+          },
+          ".rx-checkbox-label > .rx-checkbox": {
+            "margin-block": "calc((1lh - var(--_size)) / 2)"
+          },
+          ".rx-checkbox-label:has(> .rx-checkbox-sm)": {
+            "gap": "0.5rem",
+            "font-size": "0.8125rem",
+            "letter-spacing": "-0.15px"
+          },
+          ".rx-checkbox-label:has(> .rx-checkbox-lg)": {
+            "font-size": "1rem",
+            "line-height": "1.5rem"
+          },
+          ".rx-checkbox-label:active:not(:has(:disabled)) > .rx-checkbox": {
+            "scale": "0.92"
+          },
+          ".rx-checkbox-label:has(:disabled)": {
+            "cursor": "not-allowed"
+          },
+          ".rx-checkbox-label:has(:disabled) > .rx-checkbox-text": {
+            "opacity": "0.5"
+          },
+          ".rx-checkbox-text": {
+            "display": "flex",
+            "min-width": "0",
+            "flex-direction": "column",
+            "gap": "0.125rem"
+          },
+          ".rx-checkbox-description": {
+            "color": "var(--muted-foreground)",
+            "font-size": "0.75rem",
+            "line-height": "1rem",
+            "letter-spacing": "0"
           },
           "@media (prefers-reduced-motion: reduce)": {
-            ".rx-check, .rx-check::before": {
-              "transition": "none"
+            ".rx-checkbox": {
+              "scale": "none !important"
+            },
+            ".rx-checkbox-mark": {
+              "scale": "none !important",
+              "filter": "none !important",
+              "transition": "opacity 100ms var(--motion-ease) !important"
+            },
+            ".rx-checkbox-mark path": {
+              "stroke-dashoffset": "0 !important",
+              "transition": "none !important"
             }
+          },
+          "[data-motion=\"off\"] .rx-checkbox, [data-motion=\"off\"] .rx-checkbox-mark, [data-motion=\"off\"] .rx-checkbox-mark path": {
+            "transition": "none !important"
           }
         }
       }

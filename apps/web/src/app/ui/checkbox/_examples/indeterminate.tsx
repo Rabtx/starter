@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const teams = ["Design", "Engineering", "Growth"];
 
-export default function CheckboxMixed() {
+export default function CheckboxIndeterminate() {
 	const [picked, setPicked] = useState(["Design"]);
 	const all = picked.length === teams.length;
 
@@ -13,20 +13,18 @@ export default function CheckboxMixed() {
 		<div className="grid gap-3">
 			<Checkbox
 				checked={all}
-				mixed={!all && picked.length > 0}
-				onChange={() => setPicked(all ? [] : teams)}
+				indeterminate={!all && picked.length > 0}
+				onCheckedChange={() => setPicked(all ? [] : teams)}
 			>
 				All teams
 			</Checkbox>
-			<div className="grid gap-3 pl-6">
+			<div className="grid gap-3 pl-8">
 				{teams.map((team) => (
 					<Checkbox
 						key={team}
 						checked={picked.includes(team)}
-						onChange={() =>
-							setPicked((now) =>
-								now.includes(team) ? now.filter((t) => t !== team) : [...now, team],
-							)
+						onCheckedChange={(on) =>
+							setPicked((now) => (on ? [...now, team] : now.filter((t) => t !== team)))
 						}
 					>
 						{team}
