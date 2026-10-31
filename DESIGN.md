@@ -272,7 +272,14 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   `@rabtx/ui/input/styles`, `@rabtx/ui/field`, `@rabtx/ui/field/styles`, `@rabtx/ui/textarea`,
   `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/badge`, `@rabtx/ui/badge/styles`,
   `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/checkbox`, `@rabtx/ui/checkbox/styles`,
-  `@rabtx/ui/motion`, `@rabtx/ui/styles.css`.
+  `@rabtx/ui/motion`, `@rabtx/ui/styles.css`, `@rabtx/ui/theme.css`.
+- Theming: `src/styles/theme.css` is the only place a color, radius, shadow or easing is defined.
+  Components read the shadcn semantic tokens (and the documented Rabtx extras) and never define
+  their own override variables; private `--_*` variables are allowed for internal plumbing.
+- Registry: `packages/rabtx/scripts/build-registry.ts` turns the package into shadcn registry items
+  (`apps/docs/registry/r/*.json`, served at `/r/<name>.json`). Keep imports inside a component
+  folder relative, shared helpers in `src/lib` or `src/hooks`, and run `bun run registry` after
+  changing a component or its CSS; CI fails on a stale registry.
 - **Button**: four tones (primary, secondary, ghost, outline) and four sizes (sm 32, md 40, lg 48,
   all pill shaped; icon, a 32px square on the button radius tier), drawn by `src/styles/button.css`
   (plain CSS in the components layer, so `className` utilities still win). `buttonClass()` in

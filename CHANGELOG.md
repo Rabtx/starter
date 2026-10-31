@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `@rabtx/ui` shadcn registry: every component (`button`, `select`, `input`, `textarea`, `field`,
+  `checkbox`, `card`, `badge`) plus `theme`, the shared `rabtx` style, `springs`, `utils` and
+  `use-base-select` items, built by `bun run registry` (`shadcn build`) into
+  `apps/docs/registry/r` and served by the docs at `/r/<name>.json`. Install with
+  `npx shadcn@latest add @rabtx/button` (namespace) or by URL; files land in the project's own
+  `components/ui` through its aliases, use its `cn` and its shadcn theme, with no `@rabtx/ui`
+  dependency. `bun run registry:check` (in `ci:lint`) fails when the built registry is stale.
+- `apps/docs`: `/docs/ui/theming` (every token from `theme.css` with live light and dark swatches,
+  modes, how to customise) and an **Installation** block (CLI and Manual tabs, read from the
+  registry item) on each component page.
 - `@rabtx/ui` Select rebuilt on the native `<select>`: sizes `sm` (32), `md` (40), `lg` (48),
   `SelectItem` (optional `icon`), `SelectGroup`, `SelectSeparator`, `onValueChange`, `placeholder`
   and `leadingIcon`. Where `appearance: base-select` exists the list unfolds from the trigger,
@@ -38,6 +48,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Breaking (`@rabtx/ui` theming):** `tokens.css` and `springs.css` are replaced by one
+  shadcn-style file, `src/styles/theme.css` (also exported as `@rabtx/ui/theme.css`): shadcn token
+  names on `:root` and `.dark`, mapped into Tailwind with `@theme inline`, plus Rabtx extras
+  (`--subtle-foreground`, `--success`, `--field*`, `--surface-*`, `--radius-*` tiers, `--shadow-*`,
+  `--spring-*`). Every `--rx-*` token and the per-component `--rx-btn-*` / `--rx-select-*`
+  overrides are gone; components read only the semantic tokens. Dark mode is the `.dark` class
+  (`data-theme` is no longer read), and the class `rabtx` scopes the theme to a subtree.
 - **Breaking (`@rabtx/ui/select`):** heights are 32/40/48 (were 28/32/36) and the trigger is a
   bordered surface instead of the recessed field, so it no longer follows `data-depth` (Flat only
   drops the list shadow). Plain `<option>` children still work.

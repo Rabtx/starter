@@ -28,7 +28,7 @@
     "naming:check": "bash scripts/architecture/check-naming.sh",
     "registry": "bun --cwd=packages/rabtx run registry",
     "registry:check": "bun --cwd=packages/rabtx run registry:check",
-    "ci:lint": "bun run lint && bun run architecture:check",
+    "ci:lint": "bun run lint && bun run architecture:check && bun run registry:check",
     "ci:typecheck": "bun run typecheck",
     "ci:build": "bun run build",
     "ci:test": "bun run test:coverage",
