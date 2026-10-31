@@ -1,7 +1,6 @@
 "use client";
 
 import {
-	BubbleChatIcon,
 	ClipboardIcon,
 	DashboardSquare01Icon,
 	File01Icon,
@@ -52,7 +51,6 @@ const sections: NavSection[] = [
 		heading: "Main Menu",
 		items: [
 			{ id: "dashboard", label: "Dashboard", icon: DashboardSquare01Icon, href: "/admin" },
-			{ id: "ai-assist", label: "AI Assist", icon: BubbleChatIcon, href: "/admin/ai" },
 			{ id: "analytics", label: "Analytics", icon: ClipboardIcon },
 			{ id: "audit-logs", label: "Audit Logs", icon: File01Icon },
 			{ id: "announcements", label: "Announcements", icon: Megaphone01Icon },
@@ -114,9 +112,6 @@ function activeNavId(pathname: string): string {
 	}
 	if (pathname.startsWith("/admin/account/security")) {
 		return "account-security";
-	}
-	if (pathname.startsWith("/admin/ai")) {
-		return "ai-assist";
 	}
 	if (pathname === "/admin" || pathname === "/admin/") {
 		return "dashboard";
