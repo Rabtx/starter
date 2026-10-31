@@ -20,6 +20,8 @@
 		"./input": "./src/input/index.ts",
 		"./input/styles": "./src/input/input.styles.ts",
 		"./motion": "./src/motion/index.ts",
+		"./radio-group": "./src/radio-group/index.ts",
+		"./radio-group/styles": "./src/radio-group/radio-group.styles.ts",
 		"./select": "./src/select/index.ts",
 		"./select/styles": "./src/select/select.styles.ts",
 		"./styles.css": "./src/styles/index.css",
