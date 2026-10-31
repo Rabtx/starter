@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `@rabtx/ui` Card rebuilt on shadcn's parts (`Card`, `CardHeader`, `CardTitle`,
+  `CardDescription`, `CardAction`, `CardContent`, `CardFooter`, sizes `sm` / `default` / `lg`), with
+  CSS-only link and selectable cards (`cardParts.target` plus `:has()`), `TiltCard`,
+  `SpotlightCard`, `ExpandableCard` (`<details>`) and `CardStack`; `/docs/ui/card`, the `/ui/card`
+  playground and its e2e spec. Replaces `padding` and `cardParts.title/description/meta`.
 - `@rabtx/ui` shadcn registry: every component (`button`, `select`, `input`, `textarea`, `field`,
   `checkbox`, `card`, `badge`) plus `theme`, the shared `rabtx` style, `springs`, `utils` and
   `use-base-select` items, built by `bun run registry` (`shadcn build`) into
