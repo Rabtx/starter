@@ -10,6 +10,7 @@ export const NAV = [
 			{ href: "/ui/select", label: "Select" },
 			{ href: "/ui/checkbox", label: "Checkbox" },
 			{ href: "/ui/switch", label: "Switch" },
+			{ href: "/ui/radio-group", label: "Radio Group" },
 			{ href: "/ui/card", label: "Card" },
 			{ href: "/ui/badge", label: "Badge" },
 		],
