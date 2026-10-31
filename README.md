@@ -23,17 +23,18 @@ bun run prepare
 bun run dev
 ```
 
-`bun run dev` starts every workspace except Rust. Add it with `bun run dev:rust`, the AI service
-with `bun run dev:ai`, or run the lot with `bun run dev:all`.
+`bun run dev` starts every workspace except Rust (the AI API included). Add Rust with
+`bun run dev:rust`, run only the AI API with `bun run dev:ai`, or run the lot with `bun run dev:all`.
 
 | App | Dev URL |
 | --- | --- |
 | Web | http://localhost:3000 |
 | Nest API | http://localhost:4000 — `/api/v1/health`, `/api/docs` |
+| AI API | http://localhost:8000 — `/api/v1/health`, `/api/docs` |
 | Docs | http://localhost:3002/docs |
 
 To work on one app in isolation: `bun --cwd=apps/web run dev` (same pattern for `mobile`,
-`nest-api`, `docs`, `rust`).
+`nest-api`, `ai-api`, `docs`, `rust`).
 
 ## Layout
 
@@ -44,6 +45,7 @@ To work on one app in isolation: `bun --cwd=apps/web run dev` (same pattern for 
 | `apps/web` | Next.js 16 — admin, marketing, auth and billing; component playground at `/ui` |
 | `apps/mobile` | Expo SDK 58 — auth, billing via hosted checkout |
 | `apps/nest-api` | NestJS API spine, Drizzle over Postgres/Neon |
+| `apps/ai-api` | Bun + Hono AI API — RAG on pgvector, streaming tool-calling chat (AI SDK) |
 | `apps/docs` | Fumadocs site — project docs at `/docs` |
 | `apps/rust` | Optional Rust/Axum demo |
 
@@ -75,7 +77,7 @@ shown in the playground at `/ui` in `apps/web`.
 | Command | Does |
 | --- | --- |
 | `bun run dev` | All dev servers except Rust |
-| `bun run dev:all` / `dev:rust` | Everything / Rust only |
+| `bun run dev:all` / `dev:rust` / `dev:ai` | Everything / Rust only / AI API only |
 | `bun run build` | Build every app |
 | `bun run lint` / `lint:fix` | oxlint, plus ShellCheck over `scripts/` |
 | `bun run format` | Format TS/JS, shell and Rust |
@@ -100,7 +102,7 @@ cp env.docker.example .env
 docker compose up -d --build
 ```
 
-Web `:3000`, Nest `:4000`, Postgres on host `:5433`. Optional Rust profile:
+Web `:3000`, Nest `:4000`, AI API `:8000`, Postgres (pgvector) on host `:5433`. Optional Rust profile:
 `docker compose --profile rust up -d --build`.
 
 More in [docker/README.md](docker/README.md) and `/docs/docker`.
@@ -110,7 +112,7 @@ More in [docker/README.md](docker/README.md) and `/docs/docker`.
 | Piece | Host | Config |
 | --- | --- | --- |
 | Web + docs | [Vercel](https://vercel.com) | `apps/*/vercel.json` |
-| Nest API | [Render](https://render.com) | `render.yaml` |
+| Nest API + AI API | [Render](https://render.com) | `render.yaml` |
 | Database | [Neon](https://neon.tech) | `DATABASE_URL` |
 
 Walkthrough: `/docs/deploy` — [apps/docs/content/docs/deploy.mdx](apps/docs/content/docs/deploy.mdx).

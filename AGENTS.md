@@ -61,6 +61,7 @@ starter/
 │   ├── web/             # Next.js (React, Tailwind, shadcn-style UI)
 │   ├── mobile/          # Expo Router + Uniwind app (TypeScript)
 │   ├── nest-api/        # NestJS production API (PostgreSQL in later phases)
+│   ├── ai-api/          # Bun + Hono AI API: RAG (pgvector) + streaming tool chat; see /docs/ai-api
 │   ├── docs/            # Docs site (Fumadocs); source in apps/docs/content/docs/
 │   └── rust/            # Rust binary (Cargo, Axum)
 
