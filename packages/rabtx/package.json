@@ -33,7 +33,9 @@
 		"lint:fix": "oxlint --fix",
 		"typecheck": "tsc --noEmit",
 		"test": "vitest run",
-		"test:watch": "vitest"
+		"test:watch": "vitest",
+		"registry": "bun scripts/build-registry.ts",
+		"registry:check": "bun scripts/build-registry.ts --check"
 	},
 	"dependencies": {
 		"clsx": "^2.1.1",

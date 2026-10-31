@@ -18,8 +18,9 @@ type ButtonStyle = {
 };
 
 /**
- * The class list for a Button. The look lives in `styles/button.css` (tones, sizes, press, hover,
- * ripple, label swaps), so React, Solid and plain HTML all get the same button from these names:
+ * The class list for a Button. The look lives in `button.css` (your global CSS, when installed from
+ * the registry): tones, sizes, press, hover, ripple and label swaps. So React, Solid and plain HTML
+ * all get the same button from these names:
  *
  *   <button class="rx-btn rx-btn-primary rx-btn-md">Save</button>
  */

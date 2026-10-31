@@ -1,0 +1,1307 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "rabtx",
+  "homepage": "{{origin}}/docs/ui",
+  "items": [
+    {
+      "name": "theme",
+      "type": "registry:theme",
+      "title": "Rabtx theme",
+      "description": "The Rabtx colors, radius, depth, shadows and status tones as shadcn theme variables.",
+      "cssVars": {
+        "theme": {
+          "color-subtle-foreground": "var(--subtle-foreground)",
+          "color-disabled-foreground": "var(--disabled-foreground)",
+          "color-success": "var(--success)",
+          "color-warning": "var(--warning)",
+          "color-violet": "var(--violet)",
+          "color-field": "var(--field)",
+          "ease-spring-press": "var(--spring-press)",
+          "ease-spring-swap": "var(--spring-swap)",
+          "ease-spring-label": "var(--spring-label)",
+          "ease-spring-magnetic": "var(--spring-magnetic)",
+          "ease-spring-unfold": "var(--spring-unfold)",
+          "ease-spring-tabs": "var(--spring-tabs)",
+          "ease-spring-panel": "var(--spring-panel)",
+          "ease-spring-toast": "var(--spring-toast)",
+          "ease-spring-switch": "var(--spring-switch)"
+        },
+        "light": {
+          "radius": "0.5rem",
+          "background": "#ffffff",
+          "foreground": "#292929",
+          "card": "#ffffff",
+          "card-foreground": "#292929",
+          "popover": "#ffffff",
+          "popover-foreground": "#292929",
+          "primary": "#2d7cf6",
+          "primary-foreground": "#ffffff",
+          "secondary": "#f5f5f5",
+          "secondary-foreground": "#292929",
+          "muted": "#f2f2f2",
+          "muted-foreground": "#5d5d5d",
+          "accent": "rgb(41 41 41 / 0.06)",
+          "accent-foreground": "#292929",
+          "destructive": "#e5484d",
+          "border": "#f2f2f2",
+          "input": "#e3e3e3",
+          "ring": "#2d7cf6",
+          "chart-1": "#2d7cf6",
+          "chart-2": "#30a46c",
+          "chart-3": "#f0803c",
+          "chart-4": "#8e5cf0",
+          "chart-5": "#e5484d",
+          "sidebar": "#ffffff",
+          "sidebar-foreground": "#292929",
+          "sidebar-primary": "#2d7cf6",
+          "sidebar-primary-foreground": "#ffffff",
+          "sidebar-accent": "rgb(41 41 41 / 0.06)",
+          "sidebar-accent-foreground": "#292929",
+          "sidebar-border": "#f2f2f2",
+          "sidebar-ring": "#2d7cf6",
+          "subtle-foreground": "#9e9e9e",
+          "disabled-foreground": "#a3a3a3",
+          "success": "#30a46c",
+          "warning": "#f0803c",
+          "violet": "#8e5cf0",
+          "tint-ink": "#000000",
+          "field": "#f5f5f5",
+          "field-disabled": "#fafafa",
+          "field-edge-top": "rgb(0 0 0 / 0.14)",
+          "field-edge-bottom": "rgb(0 0 0 / 0.05)",
+          "field-shade": "rgb(0 0 0 / 0.04)",
+          "surface-ring": "rgb(0 0 0 / 0.1)",
+          "surface-edge-top": "#ffffff",
+          "surface-edge-bottom": "rgb(0 0 0 / 0.08)",
+          "surface-sheen": "rgb(255 255 255 / 0.5)",
+          "surface-shade": "rgb(0 0 0 / 0.03)",
+          "shadow-popover": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+          "shadow-raised": "0 8px 22px rgb(0 0 0 / 0.16)",
+          "radius-button": "999px",
+          "radius-item": "var(--radius)",
+          "radius-control": "var(--radius)",
+          "radius-box": "calc(var(--radius) * 1.5)",
+          "radius-badge": "calc(var(--radius) * 0.5)",
+          "radius-check": "calc(var(--radius) * 0.5)",
+          "motion-ease": "cubic-bezier(0.25, 1, 0.5, 1)"
+        },
+        "dark": {
+          "background": "#161616",
+          "foreground": "#ebebeb",
+          "card": "#212121",
+          "card-foreground": "#ebebeb",
+          "popover": "#212121",
+          "popover-foreground": "#ebebeb",
+          "primary": "#2d7cf6",
+          "primary-foreground": "#ffffff",
+          "secondary": "#1d1d1d",
+          "secondary-foreground": "#ebebeb",
+          "muted": "#303030",
+          "muted-foreground": "#a3a3a3",
+          "accent": "rgb(235 235 235 / 0.06)",
+          "accent-foreground": "#ebebeb",
+          "destructive": "#f0686d",
+          "border": "#303030",
+          "input": "#3d3d3d",
+          "ring": "#6aa4fa",
+          "chart-1": "#4a8ff7",
+          "chart-2": "#30a46c",
+          "chart-3": "#f0803c",
+          "chart-4": "#8e5cf0",
+          "chart-5": "#f0686d",
+          "sidebar": "#161616",
+          "sidebar-foreground": "#ebebeb",
+          "sidebar-primary": "#2d7cf6",
+          "sidebar-primary-foreground": "#ffffff",
+          "sidebar-accent": "rgb(235 235 235 / 0.06)",
+          "sidebar-accent-foreground": "#ebebeb",
+          "sidebar-border": "#303030",
+          "sidebar-ring": "#6aa4fa",
+          "subtle-foreground": "#7f7f7f",
+          "disabled-foreground": "#5f5f5f",
+          "success": "#30a46c",
+          "warning": "#f0803c",
+          "violet": "#8e5cf0",
+          "tint-ink": "#ffffff",
+          "field": "#1b1b1b",
+          "field-disabled": "#161616",
+          "field-edge-top": "rgb(0 0 0 / 0.55)",
+          "field-edge-bottom": "rgb(255 255 255 / 0.07)",
+          "field-shade": "rgb(0 0 0 / 0.25)",
+          "surface-ring": "rgb(0 0 0 / 0.6)",
+          "surface-edge-top": "rgb(255 255 255 / 0.14)",
+          "surface-edge-bottom": "rgb(0 0 0 / 0.4)",
+          "surface-sheen": "rgb(255 255 255 / 0.05)",
+          "surface-shade": "rgb(0 0 0 / 0.16)"
+        }
+      }
+    },
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "cn",
+      "description": "The class name helper the components import from @/lib/utils (clsx, then tailwind-merge). shadcn projects already have one; install this only if yours is missing.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "springs",
+      "type": "registry:lib",
+      "title": "Springs",
+      "description": "The spring solver and the solved spring easings (--spring-*) every Rabtx animation uses.",
+      "files": [
+        {
+          "path": "registry/rabtx/lib/springs.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "ease-spring-press": "var(--spring-press)",
+          "ease-spring-swap": "var(--spring-swap)",
+          "ease-spring-label": "var(--spring-label)",
+          "ease-spring-magnetic": "var(--spring-magnetic)",
+          "ease-spring-unfold": "var(--spring-unfold)",
+          "ease-spring-tabs": "var(--spring-tabs)",
+          "ease-spring-panel": "var(--spring-panel)",
+          "ease-spring-toast": "var(--spring-toast)",
+          "ease-spring-switch": "var(--spring-switch)"
+        },
+        "light": {
+          "spring-press": "linear(0, 0.0157, 0.0565, 0.1142, 0.1824, 0.256, 0.3316, 0.4061, 0.4777, 0.5451, 0.6074, 0.6642, 0.7153, 0.7607, 0.8007, 0.8356, 0.8657, 0.8915, 0.9134, 0.9318, 0.9471, 0.9598, 0.9702, 0.9785, 0.9852, 0.9905, 0.9946, 0.9978, 1.0001, 1.0018, 1.0029, 1.0037, 1.0041, 1.0043, 1.0043, 1.0042, 1.004, 1.0037, 1.0034, 1.0031, 1.0027, 1.0024, 1.0021, 1)",
+          "spring-press-duration": "279ms",
+          "spring-swap": "linear(0, 0.021, 0.0756, 0.1529, 0.2439, 0.3414, 0.4399, 0.5351, 0.6241, 0.7049, 0.7765, 0.8384, 0.8906, 0.9336, 0.9681, 0.9949, 1.0149, 1.0291, 1.0384, 1.0438, 1.0461, 1.0459, 1.0439, 1.0407, 1.0367, 1.0323, 1.0277, 1.0232, 1.019, 1.0151, 1.0116, 1.0086, 1.006, 1.0038, 1.0021, 1.0007, 0.9996, 0.9989, 0.9984, 0.9981, 0.9979, 0.9979, 0.9979, 1)",
+          "spring-swap-duration": "432ms",
+          "spring-label": "linear(0, 0.0122, 0.0439, 0.0893, 0.1436, 0.2033, 0.2655, 0.3281, 0.3896, 0.4488, 0.505, 0.5577, 0.6066, 0.6515, 0.6925, 0.7298, 0.7633, 0.7934, 0.8203, 0.8441, 0.8653, 0.8839, 0.9002, 0.9145, 0.927, 0.9378, 0.9472, 0.9553, 0.9623, 0.9683, 0.9734, 0.9778, 0.9815, 0.9847, 0.9874, 0.9896, 0.9915, 0.9931, 0.9944, 0.9955, 0.9964, 0.9972, 0.9978, 1)",
+          "spring-label-duration": "244ms",
+          "spring-magnetic": "linear(0, 0.0145, 0.0516, 0.1037, 0.1649, 0.231, 0.2985, 0.3654, 0.4299, 0.491, 0.548, 0.6005, 0.6485, 0.692, 0.7311, 0.766, 0.797, 0.8245, 0.8486, 0.8698, 0.8883, 0.9044, 0.9184, 0.9305, 0.9409, 0.9499, 0.9576, 0.9641, 0.9698, 0.9746, 0.9787, 0.9821, 0.985, 0.9875, 0.9896, 0.9914, 0.9928, 0.9941, 0.9951, 0.996, 0.9967, 0.9973, 0.9978, 1)",
+          "spring-magnetic-duration": "300ms",
+          "spring-unfold": "linear(0, 0.0149, 0.0535, 0.1083, 0.1732, 0.2437, 0.3163, 0.3882, 0.4578, 0.5236, 0.5848, 0.6409, 0.6919, 0.7375, 0.7781, 0.8138, 0.845, 0.872, 0.8953, 0.9151, 0.9319, 0.946, 0.9578, 0.9675, 0.9755, 0.982, 0.9872, 0.9914, 0.9946, 0.9971, 0.999, 1.0005, 1.0015, 1.0022, 1.0026, 1.0028, 1.0029, 1.0029, 1.0028, 1.0027, 1.0025, 1.0023, 1.0021, 1)",
+          "spring-unfold-duration": "249ms",
+          "spring-tabs": "linear(0, 0.0214, 0.0735, 0.1429, 0.2203, 0.2996, 0.377, 0.4501, 0.5177, 0.5791, 0.6342, 0.6832, 0.7264, 0.7643, 0.7973, 0.826, 0.8509, 0.8724, 0.8909, 0.9068, 0.9204, 0.9321, 0.9421, 0.9507, 0.958, 0.9642, 0.9695, 0.9741, 0.9779, 0.9812, 0.984, 0.9864, 0.9885, 0.9902, 0.9917, 0.9929, 0.994, 0.9949, 0.9956, 0.9963, 0.9969, 0.9973, 0.9977, 1)",
+          "spring-tabs-duration": "672ms",
+          "spring-panel": "linear(0, 0.0452, 0.1368, 0.2388, 0.3369, 0.4259, 0.5044, 0.5729, 0.6322, 0.6834, 0.7275, 0.7656, 0.7983, 0.8264, 0.8506, 0.8715, 0.8894, 0.9049, 0.9181, 0.9296, 0.9394, 0.9479, 0.9551, 0.9614, 0.9668, 0.9714, 0.9754, 0.9788, 0.9818, 0.9843, 0.9865, 0.9884, 0.99, 0.9914, 0.9926, 0.9936, 0.9945, 0.9953, 0.996, 0.9965, 0.997, 0.9974, 0.9978, 1)",
+          "spring-panel-duration": "520ms",
+          "spring-toast": "linear(0, 0.0135, 0.0483, 0.0975, 0.1559, 0.2193, 0.2847, 0.3498, 0.4132, 0.4736, 0.5303, 0.5831, 0.6315, 0.6757, 0.7156, 0.7515, 0.7836, 0.8122, 0.8375, 0.8597, 0.8793, 0.8964, 0.9113, 0.9243, 0.9355, 0.9452, 0.9536, 0.9608, 0.9669, 0.9722, 0.9767, 0.9805, 0.9837, 0.9864, 0.9887, 0.9907, 0.9923, 0.9937, 0.9948, 0.9958, 0.9966, 0.9972, 0.9978, 1)",
+          "spring-toast-duration": "315ms",
+          "spring-switch": "linear(0, 0.0138, 0.0509, 0.1051, 0.1713, 0.2451, 0.323, 0.4019, 0.4795, 0.5541, 0.6244, 0.6893, 0.7484, 0.8014, 0.8481, 0.8886, 0.9234, 0.9526, 0.9767, 0.9962, 1.0116, 1.0233, 1.0318, 1.0377, 1.0412, 1.0429, 1.0431, 1.0421, 1.0402, 1.0377, 1.0347, 1.0314, 1.028, 1.0246, 1.0213, 1.0181, 1.0152, 1.0125, 1.01, 1.0078, 1.0059, 1.0042, 1.0028, 1)",
+          "spring-switch-duration": "527ms"
+        }
+      }
+    },
+    {
+      "name": "rabtx",
+      "type": "registry:style",
+      "title": "Rabtx base",
+      "description": "Defaults for the Rabtx-only tokens (derived from your theme), the radius and depth modes, and the shared surface styles.",
+      "registryDependencies": [
+        "{{origin}}/r/springs.json"
+      ],
+      "css": {
+        "@layer base": {
+          ":root": {
+            "--subtle-foreground": "color-mix(in oklab, var(--muted-foreground) 65%, var(--background))",
+            "--disabled-foreground": "color-mix(in oklab, var(--foreground) 40%, var(--background))",
+            "--success": "#30a46c",
+            "--warning": "#f0803c",
+            "--violet": "#8e5cf0",
+            "--tint-ink": "#000000",
+            "--field": "color-mix(in oklab, var(--foreground) 4%, var(--background))",
+            "--field-disabled": "color-mix(in oklab, var(--foreground) 2%, var(--background))",
+            "--field-edge-top": "rgb(0 0 0 / 0.14)",
+            "--field-edge-bottom": "rgb(0 0 0 / 0.05)",
+            "--field-shade": "rgb(0 0 0 / 0.04)",
+            "--surface-ring": "rgb(0 0 0 / 0.1)",
+            "--surface-edge-top": "#ffffff",
+            "--surface-edge-bottom": "rgb(0 0 0 / 0.08)",
+            "--surface-sheen": "rgb(255 255 255 / 0.5)",
+            "--surface-shade": "rgb(0 0 0 / 0.03)",
+            "--shadow-popover": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+            "--shadow-raised": "0 8px 22px rgb(0 0 0 / 0.16)",
+            "--radius-button": "999px",
+            "--radius-item": "var(--radius)",
+            "--radius-control": "var(--radius)",
+            "--radius-box": "calc(var(--radius) * 1.5)",
+            "--radius-badge": "calc(var(--radius) * 0.5)",
+            "--radius-check": "calc(var(--radius) * 0.5)",
+            "--motion-ease": "cubic-bezier(0.25, 1, 0.5, 1)"
+          },
+          ".dark": {
+            "--tint-ink": "#ffffff",
+            "--field-edge-top": "rgb(0 0 0 / 0.55)",
+            "--field-edge-bottom": "rgb(255 255 255 / 0.07)",
+            "--field-shade": "rgb(0 0 0 / 0.25)",
+            "--surface-ring": "rgb(0 0 0 / 0.6)",
+            "--surface-edge-top": "rgb(255 255 255 / 0.14)",
+            "--surface-edge-bottom": "rgb(0 0 0 / 0.4)",
+            "--surface-sheen": "rgb(255 255 255 / 0.05)",
+            "--surface-shade": "rgb(0 0 0 / 0.16)"
+          }
+        },
+        "[data-radius=\"sharp\"]": {
+          "--radius-button": "2px",
+          "--radius-item": "2px",
+          "--radius-control": "2px",
+          "--radius-box": "4px",
+          "--radius-badge": "2px",
+          "--radius-check": "2px"
+        },
+        "[data-radius=\"round\"]": {
+          "--radius-button": "999px",
+          "--radius-item": "999px",
+          "--radius-control": "12px",
+          "--radius-box": "20px",
+          "--radius-badge": "999px",
+          "--radius-check": "6px"
+        },
+        "@property --_fill": {
+          "syntax": "\"<color>\"",
+          "inherits": "false",
+          "initial-value": "transparent"
+        },
+        "@property --_edge-a": {
+          "syntax": "\"<color>\"",
+          "inherits": "false",
+          "initial-value": "transparent"
+        },
+        "@property --_edge-b": {
+          "syntax": "\"<color>\"",
+          "inherits": "false",
+          "initial-value": "transparent"
+        },
+        "@property --_sheen": {
+          "syntax": "\"<color>\"",
+          "inherits": "false",
+          "initial-value": "transparent"
+        },
+        "@property --_shade": {
+          "syntax": "\"<color>\"",
+          "inherits": "false",
+          "initial-value": "transparent"
+        },
+        "@layer components": {
+          ".rx-surface, .rx-control": {
+            "border": "1px solid transparent",
+            "background": "linear-gradient(180deg, var(--_sheen), transparent 40%, transparent 60%, var(--_shade)) padding-box, linear-gradient(var(--_fill), var(--_fill)) padding-box, linear-gradient(180deg, var(--_edge-a), var(--_edge-b)) border-box",
+            "box-shadow": "0 0 0 1px var(--_ring), 0 0 0 4px var(--_halo, transparent)",
+            "-webkit-tap-highlight-color": "transparent",
+            "transition": "--_fill 150ms var(--motion-ease), color 150ms var(--motion-ease), box-shadow 150ms var(--motion-ease), scale var(--spring-press-duration) var(--spring-press)"
+          },
+          "@media (hover: hover)": {
+            ".rx-control:hover:not(:disabled, [aria-disabled=\"true\"])": {
+              "--_fill": "var(--_fill-hover)"
+            }
+          },
+          ".rx-control:active:not(:disabled, [aria-disabled=\"true\"])": {
+            "scale": "var(--_press, 0.93)"
+          },
+          ".rx-control:is(:disabled, [aria-disabled=\"true\"], :has(> :disabled))": {
+            "--_fill": "var(--_dis-fill, var(--muted))",
+            "--_flat": "var(--_dis-edge, var(--muted))",
+            "--_edge-a": "var(--_flat)",
+            "--_edge-b": "var(--_flat)",
+            "--_sheen": "transparent",
+            "--_shade": "transparent",
+            "--_ring": "transparent",
+            "color": "var(--disabled-foreground)",
+            "cursor": "not-allowed"
+          },
+          ".rx-field": {
+            "--_fill": "var(--field)",
+            "--_fill-hover": "var(--field)",
+            "--_flat": "var(--input)",
+            "--_dis-fill": "var(--field-disabled)",
+            "--_dis-edge": "var(--border)",
+            "--_press": "1",
+            "--_ring": "transparent",
+            "--_edge-a": "var(--field-edge-top)",
+            "--_edge-b": "var(--field-edge-bottom)",
+            "--_sheen": "var(--field-shade)",
+            "--_shade": "transparent",
+            "color": "var(--foreground)"
+          },
+          ".rx-field:focus-within": {
+            "--_flat": "var(--ring)",
+            "--_edge-a": "var(--ring)",
+            "--_edge-b": "var(--ring)",
+            "--_halo": "color-mix(in oklab, var(--ring) 20%, transparent)"
+          },
+          ".rx-field:is(:has([aria-invalid=\"true\"]), [aria-invalid=\"true\"])": {
+            "--_flat": "var(--destructive)",
+            "--_edge-a": "var(--destructive)",
+            "--_edge-b": "var(--destructive)",
+            "--_halo": "color-mix(in oklab, var(--destructive) 10%, transparent)"
+          },
+          ".rx-card": {
+            "--_fill": "var(--card)",
+            "--_flat": "var(--border)",
+            "--_ring": "var(--surface-ring)",
+            "--_edge-a": "var(--surface-edge-top)",
+            "--_edge-b": "var(--surface-edge-bottom)",
+            "--_sheen": "var(--surface-sheen)",
+            "--_shade": "var(--surface-shade)",
+            "color": "var(--card-foreground)"
+          },
+          "[data-depth=\"flat\"] :is(.rx-control, .rx-surface)": {
+            "--_edge-a": "var(--_flat)",
+            "--_edge-b": "var(--_flat)",
+            "--_sheen": "transparent",
+            "--_shade": "transparent",
+            "--_ring": "transparent"
+          },
+          "[data-motion=\"off\"] :is(.rx-surface, .rx-control, .rx-control *)": {
+            "transition-duration": "0ms !important",
+            "animation-duration": "2400ms !important"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ".rx-surface, .rx-control, .rx-control *": {
+              "transition-duration": "0ms !important",
+              "animation-duration": "2400ms !important"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "use-base-select",
+      "type": "registry:hook",
+      "title": "useBaseSelect",
+      "description": "Whether the browser draws a customizable select list (appearance: base-select).",
+      "files": [
+        {
+          "path": "registry/rabtx/hooks/use-base-select.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "field-context",
+      "type": "registry:ui",
+      "title": "Field context",
+      "description": "Shares a Field's id, hint and error with the control inside it.",
+      "files": [
+        {
+          "path": "registry/rabtx/ui/field-context.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "A pill button with spring press, ripple, stateful, magnetic and metallic variants. CSS-only motion.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/ui/button.styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/button.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/magnetic-button.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/magnetic.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/metallic-button.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/stateful-button.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/stateful-label.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/use-button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-btn": {
+            "--_bg": "transparent",
+            "--_bg-hover": "var(--_bg)",
+            "--_fg": "var(--foreground)",
+            "--_fg-hover": "var(--_fg)",
+            "--_edge": "transparent",
+            "--_icon": "16px",
+            "--_gap": "0.5rem",
+            "position": "relative",
+            "isolation": "isolate",
+            "display": "inline-flex",
+            "flex-shrink": "0",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "var(--_gap)",
+            "border": "1px solid var(--_edge)",
+            "border-radius": "var(--radius-button)",
+            "background-color": "var(--_bg)",
+            "color": "var(--_fg)",
+            "font": "inherit",
+            "font-family": "var(--font-sans)",
+            "font-weight": "500",
+            "white-space": "nowrap",
+            "text-decoration": "none",
+            "cursor": "pointer",
+            "user-select": "none",
+            "-webkit-tap-highlight-color": "transparent",
+            "translate": "var(--_btn-mx, 0px) var(--_btn-my, 0px)",
+            "transition": "background-color 150ms var(--motion-ease), border-color 150ms var(--motion-ease), color 150ms var(--motion-ease), box-shadow 150ms var(--motion-ease), opacity 150ms var(--motion-ease), scale var(--spring-press-duration) var(--spring-press), translate var(--spring-magnetic-duration) var(--spring-magnetic)"
+          },
+          ".rx-btn svg": {
+            "flex": "none",
+            "width": "var(--_icon)",
+            "height": "var(--_icon)"
+          },
+          ".rx-btn:focus-visible": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "2px"
+          },
+          "@media (hover: hover) and (pointer: fine)": {
+            ".rx-btn:hover": {
+              "background-color": "var(--_bg-hover)",
+              "color": "var(--_fg-hover)",
+              "scale": "1.02"
+            },
+            ".rx-btn-metal:hover > .rx-btn-metal-sheen": {
+              "translate": "310% 0"
+            }
+          },
+          ".rx-btn:active": {
+            "scale": "var(--_btn-press, 0.93)"
+          },
+          ".rx-btn:disabled, .rx-btn[aria-disabled=\"true\"]": {
+            "opacity": "0.5",
+            "pointer-events": "none"
+          },
+          ".rx-btn[aria-busy=\"true\"]": {
+            "pointer-events": "none"
+          },
+          ".rx-btn-primary": {
+            "--_bg": "var(--primary)",
+            "--_bg-hover": "color-mix(in oklab, var(--primary) 90%, transparent)",
+            "--_fg": "var(--primary-foreground)"
+          },
+          ".rx-btn-secondary": {
+            "--_bg": "var(--secondary)",
+            "--_bg-hover": "color-mix(in oklab, var(--secondary) 80%, transparent)",
+            "--_fg": "var(--secondary-foreground)",
+            "--_edge": "var(--input)"
+          },
+          ".rx-btn-ghost": {
+            "--_fg": "var(--muted-foreground)",
+            "--_fg-hover": "var(--accent-foreground)",
+            "--_bg-hover": "var(--accent)"
+          },
+          ".rx-btn-outline": {
+            "--_edge": "var(--input)",
+            "--_bg-hover": "var(--accent)"
+          },
+          ".rx-btn-sm": {
+            "--_gap": "0.375rem",
+            "--_icon": "14px",
+            "height": "2rem",
+            "padding-inline": "0.75rem",
+            "font-size": "0.75rem",
+            "line-height": "1rem"
+          },
+          ".rx-btn-md": {
+            "height": "2.5rem",
+            "padding-inline": "1.25rem",
+            "font-size": "0.875rem",
+            "line-height": "1.25rem"
+          },
+          ".rx-btn-lg": {
+            "--_icon": "18px",
+            "height": "3rem",
+            "padding-inline": "1.5rem",
+            "font-size": "1rem",
+            "line-height": "1.5rem"
+          },
+          ".rx-btn-icon": {
+            "width": "2rem",
+            "height": "2rem",
+            "padding": "0",
+            "border-radius": "var(--radius-item)"
+          },
+          ".rx-btn-ripples": {
+            "position": "absolute",
+            "inset": "-1px",
+            "z-index": "-1",
+            "overflow": "hidden",
+            "border-radius": "inherit",
+            "pointer-events": "none"
+          },
+          ".rx-btn-ripple": {
+            "position": "absolute",
+            "left": "var(--_ripple-x)",
+            "top": "var(--_ripple-y)",
+            "width": "var(--_ripple-d)",
+            "aspect-ratio": "1",
+            "border-radius": "50%",
+            "background": "currentColor",
+            "translate": "-50% -50%",
+            "opacity": "0",
+            "animation": "rx-btn-ripple 1.6s cubic-bezier(0.16, 1, 0.3, 1)"
+          },
+          "@keyframes rx-btn-ripple": {
+            "from": {
+              "scale": "0.05",
+              "opacity": "0.3"
+            },
+            "to": {
+              "scale": "1",
+              "opacity": "0"
+            }
+          },
+          ".rx-btn:has(> .rx-btn-text)": {
+            "gap": "0"
+          },
+          ".rx-btn-slot": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "flex-start",
+            "width": "0",
+            "height": "var(--_icon)",
+            "opacity": "0",
+            "scale": "0.7",
+            "filter": "blur(6px)",
+            "transition": "width 160ms cubic-bezier(0.16, 1, 0.3, 1), opacity 160ms cubic-bezier(0.16, 1, 0.3, 1), scale 160ms cubic-bezier(0.16, 1, 0.3, 1), filter 160ms cubic-bezier(0.16, 1, 0.3, 1)"
+          },
+          ".rx-btn-slot[data-shown]": {
+            "width": "calc(var(--_icon) + var(--_gap))",
+            "opacity": "1",
+            "scale": "1",
+            "filter": "blur(0)",
+            "transition": "width var(--spring-label-duration) var(--spring-label), opacity var(--spring-label-duration) var(--spring-label), scale var(--spring-label-duration) var(--spring-label), filter var(--spring-label-duration) var(--spring-label)"
+          },
+          ".rx-btn-text ~ .rx-btn-slot": {
+            "justify-content": "flex-end"
+          },
+          ".rx-btn-glyph": {
+            "flex": "none",
+            "width": "var(--_icon)",
+            "height": "var(--_icon)",
+            "background": "currentColor",
+            "mask": "var(--_glyph) center / contain no-repeat"
+          },
+          ".rx-btn-glyph[data-glyph=\"spinner\"]": {
+            "--_glyph": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M12 3a9 9 0 1 0 9 9'/%3E%3C/svg%3E\")",
+            "animation": "rx-btn-spin 0.8s linear infinite"
+          },
+          ".rx-btn-glyph[data-glyph=\"check\"]": {
+            "--_glyph": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E\")"
+          },
+          ".rx-btn-glyph[data-glyph=\"cross\"]": {
+            "--_glyph": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E\")"
+          },
+          "@keyframes rx-btn-spin": {
+            "to": {
+              "rotate": "1turn"
+            }
+          },
+          ".rx-btn-text": {
+            "position": "relative",
+            "display": "inline-flex",
+            "width": "var(--_btn-text-w, auto)",
+            "overflow": "clip",
+            "overflow-clip-margin": "2px",
+            "transition": "width var(--spring-label-duration) var(--spring-label)"
+          },
+          ".rx-btn-label": {
+            "display": "inline-flex",
+            "flex": "none",
+            "white-space": "pre"
+          },
+          ".rx-btn-label[data-exit]": {
+            "position": "absolute",
+            "inset-block": "0",
+            "inset-inline-start": "0"
+          },
+          ".rx-btn-letter": {
+            "display": "inline-block"
+          },
+          "[data-enter] > .rx-btn-letter": {
+            "animation": "rx-btn-roll-in var(--spring-label-duration) var(--spring-label) both",
+            "animation-delay": "calc(var(--_i, 0) * 25ms)"
+          },
+          "[data-exit] > .rx-btn-letter": {
+            "animation": "rx-btn-roll-out 160ms cubic-bezier(0.16, 1, 0.3, 1) both",
+            "animation-delay": "calc(var(--_i, 0) * 12.5ms)"
+          },
+          "@keyframes rx-btn-roll-in": {
+            "from": {
+              "translate": "0 105%",
+              "opacity": "0",
+              "filter": "blur(6px)"
+            }
+          },
+          "@keyframes rx-btn-roll-out": {
+            "to": {
+              "translate": "0 -105%",
+              "opacity": "0",
+              "filter": "blur(6px)"
+            }
+          },
+          ".rx-btn-sr": {
+            "position": "absolute",
+            "width": "1px",
+            "height": "1px",
+            "overflow": "hidden",
+            "clip-path": "inset(50%)",
+            "white-space": "nowrap"
+          },
+          ".rx-btn.rx-btn-metal": {
+            "--_bg": "transparent",
+            "--_bg-hover": "transparent",
+            "--_fg": "var(--foreground)",
+            "--_fg-hover": "var(--foreground)",
+            "--_edge": "transparent",
+            "border": "0",
+            "overflow": "hidden",
+            "box-shadow": "var(--shadow-raised)"
+          },
+          ".rx-btn.rx-btn-metal.rx-btn-icon": {
+            "border-radius": "var(--radius-button)"
+          },
+          ".rx-btn.rx-btn-metal > :is(.rx-btn-metal-rim, .rx-btn-metal-sheen, .rx-btn-metal-face, .rx-btn-metal-bevel)": {
+            "position": "absolute",
+            "pointer-events": "none"
+          },
+          ".rx-btn-metal-rim": {
+            "inset-block": "0",
+            "left": "-18%",
+            "width": "136%",
+            "z-index": "-4",
+            "border-radius": "inherit",
+            "background": "linear-gradient( 105deg, #141414 0%, #767676 13%, #f7f7f7 25%, #575757 37%, #0b0b0b 50%, #a6a6a6 63%, #ffffff 74%, #444444 86%, #141414 100% )",
+            "animation": "rx-btn-drift 8s cubic-bezier(0.77, 0, 0.175, 1) infinite"
+          },
+          "[data-paused] > .rx-btn-metal-rim": {
+            "animation-play-state": "paused"
+          },
+          "@keyframes rx-btn-drift": {
+            "50%": {
+              "translate": "13% 0"
+            }
+          },
+          ".rx-btn-metal-sheen": {
+            "inset-block": "0",
+            "left": "-58%",
+            "width": "52%",
+            "z-index": "-3",
+            "background": "linear-gradient(90deg, transparent, rgb(255 255 255 / 0.5) 48%, transparent)",
+            "opacity": "0.5",
+            "filter": "blur(3px)",
+            "mix-blend-mode": "screen",
+            "transform": "skewX(-12deg)",
+            "transition": "translate 2.4s cubic-bezier(0.77, 0, 0.175, 1)"
+          },
+          "[data-paused] > .rx-btn-metal-sheen": {
+            "transition": "none"
+          },
+          ".rx-btn-metal-face, .rx-btn-metal-bevel": {
+            "inset": "2px",
+            "border-radius": "inherit"
+          },
+          ".rx-btn-metal-face": {
+            "z-index": "-2",
+            "background": "var(--background)",
+            "transition": "background-color 150ms var(--motion-ease)"
+          },
+          ".rx-btn-metal:hover > .rx-btn-metal-face": {
+            "background": "color-mix(in oklab, var(--background) 94%, var(--foreground))"
+          },
+          ".rx-btn-metal-bevel": {
+            "z-index": "-1",
+            "box-shadow": "inset 0 1px 0 rgb(255 255 255 / 0.28), inset 0 -1px 0 rgb(0 0 0 / 0.16)"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ".rx-btn": {
+              "translate": "none"
+            },
+            ".rx-btn:hover:not(:active)": {
+              "scale": "none"
+            },
+            ".rx-btn-ripple": {
+              "display": "none"
+            },
+            ".rx-btn-metal-rim": {
+              "animation": "none"
+            },
+            ".rx-btn-metal-sheen": {
+              "transition": "none"
+            },
+            ".rx-btn-slot, .rx-btn-slot[data-shown], .rx-btn-text": {
+              "transition-property": "opacity",
+              "transition-duration": "150ms"
+            },
+            ".rx-btn-slot": {
+              "scale": "none",
+              "filter": "none"
+            },
+            "[data-enter] > .rx-btn-letter, [data-exit] > .rx-btn-letter": {
+              "animation-name": "rx-btn-fade",
+              "animation-duration": "150ms",
+              "animation-delay": "0ms"
+            },
+            "[data-exit] > .rx-btn-letter": {
+              "animation-direction": "reverse"
+            }
+          },
+          "@keyframes rx-btn-fade": {
+            "from": {
+              "opacity": "0"
+            }
+          },
+          "[data-motion=\"off\"] .rx-btn": {
+            "translate": "none",
+            "transition-duration": "0ms"
+          },
+          "[data-motion=\"off\"] .rx-btn:hover:not(:active)": {
+            "scale": "none"
+          },
+          "[data-motion=\"off\"] .rx-btn-slot, [data-motion=\"off\"] .rx-btn-slot[data-shown], [data-motion=\"off\"] .rx-btn-text": {
+            "transition": "none"
+          },
+          "[data-motion=\"off\"] .rx-btn-ripple, [data-motion=\"off\"] .rx-btn-label[data-exit]": {
+            "display": "none"
+          },
+          "[data-motion=\"off\"] .rx-btn-letter, [data-motion=\"off\"] .rx-btn-metal-rim": {
+            "animation": "none !important"
+          },
+          "[data-motion=\"off\"] .rx-btn-metal-sheen": {
+            "transition": "none"
+          }
+        }
+      }
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "A native select that unfolds a styled list where the customizable select is supported.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "{{origin}}/r/field-context.json",
+        "{{origin}}/r/use-base-select.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/ui/select.styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/select.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-select-field": {
+            "--_h": "2.5rem",
+            "--_pad": "0.75rem",
+            "--_icon": "16px",
+            "--_font": "0.875rem",
+            "--_row": "32px",
+            "--_r": "var(--radius-box)",
+            "position": "relative",
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "font-family": "var(--font-sans)"
+          },
+          ".rx-select-field:has(> .rx-select:disabled)": {
+            "opacity": "0.5"
+          },
+          ".rx-select-sm": {
+            "--_h": "2rem",
+            "--_pad": "0.625rem",
+            "--_font": "0.8125rem",
+            "--_row": "28px"
+          },
+          ".rx-select-lg": {
+            "--_h": "3rem",
+            "--_pad": "1rem",
+            "--_icon": "18px",
+            "--_font": "1rem",
+            "--_row": "36px"
+          },
+          ".rx-select": {
+            "--_pinch": "var(--_r) var(--_r) 0 0",
+            "appearance": "none",
+            "box-sizing": "border-box",
+            "width": "100%",
+            "height": "var(--_h)",
+            "padding-block": "0",
+            "padding-inline": "var(--_pad) calc(var(--_pad) + var(--_icon) + 0.5rem)",
+            "border": "1px solid var(--input)",
+            "border-radius": "var(--_r)",
+            "background-color": "var(--card)",
+            "color": "var(--card-foreground)",
+            "font": "inherit",
+            "font-size": "var(--_font)",
+            "line-height": "1.25rem",
+            "letter-spacing": "-0.15px",
+            "cursor": "pointer",
+            "outline": "none",
+            "-webkit-tap-highlight-color": "transparent",
+            "transition": "border-color 150ms var(--motion-ease), box-shadow 150ms var(--motion-ease)"
+          },
+          ".rx-select[data-leading]": {
+            "padding-inline-start": "calc(var(--_pad) + var(--_icon) + 0.5rem)"
+          },
+          ".rx-select[data-side=\"top\"]": {
+            "--_pinch": "0 0 var(--_r) var(--_r)"
+          },
+          "@media (hover: hover)": {
+            ".rx-select:hover": {
+              "border-color": "color-mix(in oklab, var(--foreground) 24%, var(--card))"
+            }
+          },
+          ".rx-select:focus-visible": {
+            "border-color": "var(--ring)",
+            "box-shadow": "0 0 0 3px color-mix(in oklab, var(--ring) 20%, transparent)"
+          },
+          ".rx-select[aria-invalid=\"true\"]": {
+            "border-color": "var(--destructive)",
+            "box-shadow": "0 0 0 3px color-mix(in oklab, var(--destructive) 12%, transparent)"
+          },
+          ".rx-select:has(option[value=\"\"]:checked)": {
+            "color": "var(--subtle-foreground)"
+          },
+          ".rx-select:disabled": {
+            "cursor": "not-allowed"
+          },
+          ".rx-select :is(option, optgroup)": {
+            "color": "var(--card-foreground)"
+          },
+          ".rx-select-chevron, .rx-select-leading": {
+            "position": "absolute",
+            "display": "inline-flex",
+            "width": "var(--_icon)",
+            "height": "var(--_icon)",
+            "color": "var(--muted-foreground)",
+            "pointer-events": "none"
+          },
+          ".rx-select-chevron svg, .rx-select-leading svg": {
+            "width": "100%",
+            "height": "100%"
+          },
+          ".rx-select-leading": {
+            "inset-inline-start": "var(--_pad)"
+          },
+          ".rx-select-chevron": {
+            "inset-inline-end": "var(--_pad)",
+            "background": "currentColor",
+            "mask": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 9C18 9 13.5811 15 12 15C10.4188 15 6 9 6 9'/%3E%3C/svg%3E\") center / contain no-repeat",
+            "transition": "rotate 200ms cubic-bezier(0.16, 1, 0.3, 1)"
+          },
+          ".rx-select-field:has(> .rx-select:open) > .rx-select-chevron": {
+            "rotate": "180deg",
+            "transition": "rotate var(--spring-unfold-duration) var(--spring-unfold)"
+          },
+          "@supports (appearance: base-select)": {
+            ".rx-select, .rx-select::picker(select)": {
+              "appearance": "base-select"
+            },
+            ".rx-select": {
+              "display": "flex",
+              "align-items": "center"
+            },
+            ".rx-select::picker-icon": {
+              "display": "none"
+            },
+            ".rx-select::picker(select)": {
+              "--_gap": "8px",
+              "--_lip": "8px",
+              "--_lift": "calc(var(--_gap) * -1)",
+              "--_near": "0 0 var(--_r) var(--_r)",
+              "--_clip-from": "inset(0 0 calc(100% - var(--_lip)) 0 round var(--_near))",
+              "box-sizing": "border-box",
+              "position-area": "block-end span-inline-end",
+              "position-try-fallbacks": "flip-inline",
+              "min-inline-size": "anchor-size(width)",
+              "margin": "var(--_gap) 0 0",
+              "padding": "4px",
+              "border": "1px solid var(--input)",
+              "border-radius": "var(--_r)",
+              "background": "var(--popover)",
+              "color": "var(--popover-foreground)",
+              "box-shadow": "var(--shadow-popover)",
+              "font-family": "var(--font-sans)",
+              "animation": "rx-select-fold 200ms cubic-bezier(0.16, 1, 0.3, 1) both",
+              "transition": "display 200ms allow-discrete, overlay 200ms allow-discrete"
+            },
+            ".rx-select[data-side=\"top\"]::picker(select)": {
+              "--_lift": "var(--_gap)",
+              "--_near": "var(--_r) var(--_r) 0 0",
+              "--_clip-from": "inset(calc(100% - var(--_lip)) 0 0 0 round var(--_near))",
+              "position-area": "block-start span-inline-end",
+              "margin": "0 0 var(--_gap)"
+            },
+            ".rx-select:open::picker(select)": {
+              "animation": "rx-select-reveal var(--spring-unfold-duration) var(--spring-unfold), rx-select-detach calc(var(--spring-unfold-duration) * 0.6) var(--spring-unfold) calc(var(--spring-unfold-duration) * 0.4) backwards, rx-select-appear 40ms linear backwards"
+            },
+            ".rx-select:open": {
+              "animation": "rx-select-pinch-open var(--spring-unfold-duration) linear"
+            },
+            ".rx-select[data-seen]:not(:open)": {
+              "animation": "rx-select-pinch-close 200ms linear"
+            },
+            ".rx-select option": {
+              "display": "flex",
+              "align-items": "center",
+              "gap": "0.5rem",
+              "min-block-size": "var(--_row)",
+              "padding": "0 0.625rem",
+              "border-radius": "var(--radius-item)",
+              "font-size": "var(--_font)",
+              "font-weight": "400",
+              "line-height": "1.25rem",
+              "color": "var(--muted-foreground)",
+              "outline": "none",
+              "transition": "background-color 150ms var(--motion-ease), color 150ms var(--motion-ease)"
+            },
+            ".rx-select option:is(:hover, :focus-visible, :checked)": {
+              "background-color": "var(--accent)",
+              "color": "var(--accent-foreground)"
+            },
+            ".rx-select option:disabled": {
+              "opacity": "0.5"
+            },
+            ".rx-select option::checkmark": {
+              "content": "\"\"",
+              "order": "1",
+              "flex": "none",
+              "margin-inline-start": "auto",
+              "inline-size": "14px",
+              "block-size": "14px",
+              "background": "currentColor",
+              "mask": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 14L8.5 17.5L19 6.5'/%3E%3C/svg%3E\") center / contain no-repeat"
+            },
+            ".rx-select:open option": {
+              "animation": "rx-select-row 120ms cubic-bezier(0.16, 1, 0.3, 1) backwards"
+            },
+            ".rx-select-item-icon": {
+              "display": "inline-flex",
+              "flex": "none",
+              "width": "var(--_icon)",
+              "height": "var(--_icon)"
+            },
+            ".rx-select-item-icon svg": {
+              "width": "100%",
+              "height": "100%"
+            },
+            ".rx-select optgroup": {
+              "padding-block-start": "0.25rem",
+              "font-size": "0.75rem",
+              "font-weight": "500",
+              "line-height": "1.5rem",
+              "color": "var(--subtle-foreground)"
+            },
+            ".rx-select hr, .rx-select .rx-select-separator": {
+              "margin": "4px -4px",
+              "border": "0",
+              "border-block-start": "1px solid var(--input)"
+            },
+            "[data-depth=\"flat\"] .rx-select::picker(select)": {
+              "box-shadow": "none"
+            }
+          },
+          "@keyframes rx-select-reveal": {
+            "from": {
+              "clip-path": "var(--_clip-from)"
+            },
+            "to": {
+              "clip-path": "inset(0 round var(--_r))"
+            }
+          },
+          "@keyframes rx-select-detach": {
+            "from": {
+              "translate": "0 var(--_lift)",
+              "border-radius": "var(--_near)"
+            }
+          },
+          "@keyframes rx-select-appear": {
+            "from": {
+              "opacity": "0"
+            }
+          },
+          "@keyframes rx-select-fold": {
+            "0%": {
+              "clip-path": "inset(0 round var(--_r))"
+            },
+            "40%": {
+              "translate": "0 var(--_lift)",
+              "border-radius": "var(--_near)"
+            },
+            "85%": {
+              "opacity": "1"
+            },
+            "100%": {
+              "clip-path": "var(--_clip-from)",
+              "translate": "0 var(--_lift)",
+              "border-radius": "var(--_near)",
+              "opacity": "0"
+            }
+          },
+          "@keyframes rx-select-pinch-open": {
+            "8%, 20%": {
+              "border-radius": "var(--_pinch)"
+            }
+          },
+          "@keyframes rx-select-pinch-close": {
+            "12%, 25%": {
+              "border-radius": "var(--_pinch)"
+            }
+          },
+          "@keyframes rx-select-row": {
+            "from": {
+              "opacity": "0",
+              "translate": "0 -4px"
+            }
+          },
+          "@keyframes rx-select-fade": {
+            "to": {
+              "opacity": "0"
+            }
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            "@supports (appearance: base-select)": {
+              ".rx-select::picker(select)": {
+                "animation": "rx-select-fade 120ms linear both",
+                "transition-duration": "120ms"
+              },
+              ".rx-select:open::picker(select)": {
+                "animation": "rx-select-appear 120ms linear backwards"
+              },
+              ".rx-select:open, .rx-select[data-seen]:not(:open), .rx-select:open option": {
+                "animation": "none"
+              }
+            },
+            ".rx-select-chevron, .rx-select-field:has(> .rx-select:open) > .rx-select-chevron": {
+              "transition": "none"
+            }
+          },
+          "[data-motion=\"off\"]": {},
+          "[data-motion=\"off\"] .rx-select::picker(select), [data-motion=\"off\"] .rx-select:open::picker(select), [data-motion=\"off\"] .rx-select:open, [data-motion=\"off\"] .rx-select[data-seen]:not(:open), [data-motion=\"off\"] .rx-select:open option": {
+            "animation": "none",
+            "transition": "none"
+          },
+          "[data-motion=\"off\"] .rx-select, [data-motion=\"off\"] .rx-select-chevron, [data-motion=\"off\"] .rx-select-field:has(> .rx-select:open) > .rx-select-chevron": {
+            "transition": "none"
+          }
+        }
+      }
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "A recessed text field with optional icons, in five sizes.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "{{origin}}/r/field-context.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/ui/input.styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "A recessed multi-line text field.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "{{origin}}/r/field-context.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/ui/textarea.styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "field",
+      "type": "registry:ui",
+      "title": "Field",
+      "description": "A label, a hint and an error wired to the control inside it.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/ui/field.styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/field.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "A native checkbox with a springy tick and an indeterminate state.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/ui/checkbox.styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-check": {
+            "--_box-fill": "var(--card)",
+            "--_box-edge": "var(--input)",
+            "background-color": "var(--_box-fill)",
+            "border-color": "var(--_box-edge)",
+            "color": "var(--primary-foreground)",
+            "transition": "background-color 150ms var(--motion-ease), border-color 150ms var(--motion-ease)"
+          },
+          ".rx-check:checked, .rx-check:indeterminate": {
+            "--_box-fill": "var(--primary)",
+            "--_box-edge": "transparent"
+          },
+          ".rx-check:disabled": {
+            "--_box-fill": "var(--muted)",
+            "--_box-edge": "var(--border)",
+            "color": "var(--disabled-foreground)"
+          },
+          ".rx-check::before": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset": "0",
+            "background": "currentColor",
+            "mask": "var(--_icon) center / var(--_size) no-repeat",
+            "opacity": "0",
+            "scale": "0.5",
+            "transition": "opacity 150ms var(--motion-ease), scale var(--spring-swap-duration) var(--spring-swap)"
+          },
+          ".rx-check:checked::before": {
+            "--_icon": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 14L8.5 17.5L19 6.5'/%3E%3C/svg%3E\")",
+            "--_size": "12px",
+            "opacity": "1",
+            "scale": "1"
+          },
+          ".rx-check:indeterminate::before": {
+            "--_icon": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.25' stroke-linecap='round'%3E%3Cpath d='M20 12L4 12'/%3E%3C/svg%3E\")",
+            "--_size": "16px",
+            "opacity": "1",
+            "scale": "1"
+          },
+          ".rx-check::after": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset": "-4px"
+          },
+          "[data-motion=\"off\"] .rx-check, [data-motion=\"off\"] .rx-check::before": {
+            "transition": "none"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ".rx-check, .rx-check::before": {
+              "transition": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "A raised surface with title, description and meta text styles.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/ui/card.styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "A small tinted label in six tones.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/ui/badge.styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/badge.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-tint": {
+            "background": "color-mix(in oklab, var(--_tone) 12%, var(--card))",
+            "color": "color-mix(in oklab, var(--_tone) var(--_ink-mix, 75%), var(--tint-ink))"
+          }
+        }
+      }
+    }
+  ]
+}

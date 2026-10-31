@@ -356,15 +356,14 @@
 	}
 	/* Motion off: every state still shows, at once. */
 	[data-motion="off"] {
-		@supports (appearance: base-select) {
-			& .rx-select::picker(select),
-			& .rx-select:open::picker(select),
-			& .rx-select:open,
-			& .rx-select[data-seen]:not(:open),
-			& .rx-select:open option {
-				animation: none;
-				transition: none;
-			}
+		/* The styled-list rules exist only under @supports above, so these need no @supports. */
+		& .rx-select::picker(select),
+		& .rx-select:open::picker(select),
+		& .rx-select:open,
+		& .rx-select[data-seen]:not(:open),
+		& .rx-select:open option {
+			animation: none;
+			transition: none;
 		}
 		& .rx-select,
 		& .rx-select-chevron,

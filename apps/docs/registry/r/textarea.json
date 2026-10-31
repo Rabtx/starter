@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "textarea",
+  "title": "Textarea",
+  "description": "A recessed multi-line text field.",
+  "registryDependencies": [
+    "{{origin}}/r/rabtx.json",
+    "{{origin}}/r/field-context.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/rabtx/ui/textarea.styles.ts",
+      "content": "/** The whole look of a Textarea as Tailwind classes. The element itself is the field. */\nexport const textareaClass =\n\t\"rx-control rx-field block min-h-24 w-full resize-y rounded-(--radius-control) px-[9px] py-[7px] text-[13px]/5 outline-none placeholder:text-(--subtle-foreground) disabled:placeholder:text-(--disabled-foreground)\";\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/rabtx/ui/textarea.tsx",
+      "content": "\"use client\";\n\nimport { type Ref, type TextareaHTMLAttributes, useContext } from \"react\";\nimport { FieldContext } from \"./field-context\";\nimport { cn } from \"@/lib/utils\";\nimport { textareaClass } from \"./textarea.styles\";\n\nexport type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {\n\tref?: Ref<HTMLTextAreaElement>;\n};\n\n/**\n * A native `<textarea>` drawn as a field. Put it in a `Field` to get a label, a hint and an error\n * wired up, or give it an `aria-label`. `aria-invalid` turns the edge red.\n */\nexport function Textarea({ className, ...rest }: TextareaProps) {\n\tconst field = useContext(FieldContext);\n\n\treturn (\n\t\t<textarea\n\t\t\tid={field?.id}\n\t\t\taria-describedby={field?.describedBy}\n\t\t\taria-invalid={field?.invalid || undefined}\n\t\t\t{...rest}\n\t\t\tclassName={cn(textareaClass, className)}\n\t\t/>\n\t);\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

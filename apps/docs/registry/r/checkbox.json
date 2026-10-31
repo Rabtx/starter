@@ -1,0 +1,79 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox",
+  "title": "Checkbox",
+  "description": "A native checkbox with a springy tick and an indeterminate state.",
+  "registryDependencies": [
+    "{{origin}}/r/rabtx.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/rabtx/ui/checkbox.styles.ts",
+      "content": "/** The box. Colors, the tick and the hit area live in `checkbox.css`. */\nexport const checkboxClass =\n\t\"rx-check relative size-4 shrink-0 cursor-pointer appearance-none rounded-(--radius-check) border focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed\";\n\n/** The label that wraps the box, so the whole row is clickable. */\nexport const checkboxLabelClass =\n\t\"inline-flex cursor-pointer items-center gap-2 text-[13px]/5 tracking-[-0.15px] text-foreground has-disabled:cursor-not-allowed has-disabled:text-(--disabled-foreground)\";\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/rabtx/ui/checkbox.tsx",
+      "content": "\"use client\";\n\nimport { type InputHTMLAttributes, type Ref, useEffect, useRef } from \"react\";\nimport { checkboxClass, checkboxLabelClass } from \"./checkbox.styles\";\nimport { cn } from \"@/lib/utils\";\n\nexport type CheckboxProps = Omit<InputHTMLAttributes<HTMLInputElement>, \"type\" | \"size\"> & {\n\t/** The partly-checked look, such as a \"select all\" with some children chosen. */\n\tmixed?: boolean;\n\tref?: Ref<HTMLInputElement>;\n};\n\n/**\n * A native checkbox. With children it renders a `<label>` around the box, so the text is the\n * accessible name and the whole row is clickable. Without children, give it an `aria-label`.\n * `mixed` is derived state: the browser clears it when the user clicks, so set it again from your\n * own state.\n */\nexport function Checkbox({ mixed, className, children, ref, ...rest }: CheckboxProps) {\n\tconst inner = useRef<HTMLInputElement>(null);\n\n\tuseEffect(() => {\n\t\tif (inner.current) inner.current.indeterminate = !!mixed;\n\t}, [mixed]);\n\n\tconst input = (\n\t\t<input\n\t\t\t{...rest}\n\t\t\ttype=\"checkbox\"\n\t\t\tref={(node) => {\n\t\t\t\tinner.current = node;\n\t\t\t\tif (typeof ref === \"function\") ref(node);\n\t\t\t\telse if (ref) ref.current = node;\n\t\t\t}}\n\t\t\tclassName={children ? checkboxClass : cn(checkboxClass, className)}\n\t\t/>\n\t);\n\n\tif (!children) return input;\n\treturn (\n\t\t<label className={cn(checkboxLabelClass, className)}>\n\t\t\t{input}\n\t\t\t{children}\n\t\t</label>\n\t);\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "css": {
+    "@layer components": {
+      ".rx-check": {
+        "--_box-fill": "var(--card)",
+        "--_box-edge": "var(--input)",
+        "background-color": "var(--_box-fill)",
+        "border-color": "var(--_box-edge)",
+        "color": "var(--primary-foreground)",
+        "transition": "background-color 150ms var(--motion-ease), border-color 150ms var(--motion-ease)"
+      },
+      ".rx-check:checked, .rx-check:indeterminate": {
+        "--_box-fill": "var(--primary)",
+        "--_box-edge": "transparent"
+      },
+      ".rx-check:disabled": {
+        "--_box-fill": "var(--muted)",
+        "--_box-edge": "var(--border)",
+        "color": "var(--disabled-foreground)"
+      },
+      ".rx-check::before": {
+        "content": "\"\"",
+        "position": "absolute",
+        "inset": "0",
+        "background": "currentColor",
+        "mask": "var(--_icon) center / var(--_size) no-repeat",
+        "opacity": "0",
+        "scale": "0.5",
+        "transition": "opacity 150ms var(--motion-ease), scale var(--spring-swap-duration) var(--spring-swap)"
+      },
+      ".rx-check:checked::before": {
+        "--_icon": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 14L8.5 17.5L19 6.5'/%3E%3C/svg%3E\")",
+        "--_size": "12px",
+        "opacity": "1",
+        "scale": "1"
+      },
+      ".rx-check:indeterminate::before": {
+        "--_icon": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.25' stroke-linecap='round'%3E%3Cpath d='M20 12L4 12'/%3E%3C/svg%3E\")",
+        "--_size": "16px",
+        "opacity": "1",
+        "scale": "1"
+      },
+      ".rx-check::after": {
+        "content": "\"\"",
+        "position": "absolute",
+        "inset": "-4px"
+      },
+      "[data-motion=\"off\"] .rx-check, [data-motion=\"off\"] .rx-check::before": {
+        "transition": "none"
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        ".rx-check, .rx-check::before": {
+          "transition": "none"
+        }
+      }
+    }
+  },
+  "type": "registry:ui"
+}
