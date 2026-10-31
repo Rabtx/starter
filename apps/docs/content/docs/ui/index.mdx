@@ -10,6 +10,35 @@ state or CSS variables. Icons are HugeIcons, passed in as children or props.
 
 ## Installation
 
+### In any shadcn project
+
+Every component is a [shadcn registry](https://ui.shadcn.com/docs/registry) item served by this
+site. Point a namespace at it once, then add components by name. The files are copied into your
+`components/ui` through your own `components.json` aliases, use your `cn` helper and are styled by
+your shadcn theme. Nothing depends on `@rabtx/ui`.
+
+```bash
+npx shadcn@latest registry add "@rabtx=https://<docs-domain>/r/{name}.json"
+npx shadcn@latest add @rabtx/button @rabtx/select
+```
+
+Or add one by URL, with no namespace: `npx shadcn@latest add https://<docs-domain>/r/button.json`.
+Locally the docs serve it at `http://localhost:3002/r/<name>.json`.
+
+| Item | Type | What it adds |
+| --- | --- | --- |
+| `theme` | `registry:theme` | The Rabtx colors, radius and extra tokens. Optional; without it components follow your theme. |
+| `rabtx` | `registry:style` | The shared depth, radius and motion CSS every component uses. Pulled in for you. |
+| `springs` | `registry:lib` | `lib/springs.ts` and the `--spring-*` easings. Pulled in for you. |
+| `utils` | `registry:lib` | The `cn` helper, for projects without one. |
+| `button` | `registry:ui` | Button, StatefulButton, MagneticButton and MetallicButton |
+| `select` | `registry:ui` | Select, SelectItem, SelectGroup and SelectSeparator |
+| `input`, `textarea`, `field`, `checkbox`, `card`, `badge` | `registry:ui` | The form and surface components |
+
+Each component page has the command and a manual copy of every file under **Installation**.
+
+### In this monorepo
+
 Add the workspace package to an app, then import its styles once after Tailwind. The styles scan
 the component classes themselves, so there is no `@source` line to add.
 
@@ -46,5 +75,6 @@ ancestor and everything inside follows.
 
 ## Components
 
+- [Theming](/docs/ui/theming)
 - [Button](/docs/ui/button)
 - [Select](/docs/ui/select)
