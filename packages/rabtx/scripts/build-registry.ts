@@ -474,6 +474,29 @@ function checkTokens(items: Item[]) {
 }
 
 // ---------------------------------------------------------------------------------------------
+// Check that motion preferences sit in the rx-motion layer. The shadcn CLI merges every item's
+// `@media (prefers-reduced-motion: reduce)` block into the first one in a project's CSS, which can
+// sit before the rules it overrides; a cascade layer declared after `components` wins wherever it is.
+
+const MOTION_LAYER = "@layer rx-motion";
+
+function checkMotionLayer(items: Item[]) {
+	const walk = (css: CssObject, path: string[], item: string) => {
+		for (const [key, value] of Object.entries(css)) {
+			if (typeof value !== "object") continue;
+			const motion =
+				key.startsWith("@media (prefers-reduced-motion") || key.includes('[data-motion="off"]');
+			if (motion && !path.includes(MOTION_LAYER))
+				throw new Error(
+					`${item} css: "${key}" belongs in ${MOTION_LAYER}, not ${path[0] ?? "the root"}`,
+				);
+			walk(value, [...path, key], item);
+		}
+	};
+	for (const item of items) if (item.css) walk(item.css, [], item.name);
+}
+
+// ---------------------------------------------------------------------------------------------
 
 function stage(items: Item[]): string {
 	const dir = mkdtempSync(join(tmpdir(), "rabtx-registry-"));
@@ -532,6 +555,7 @@ function build(out: string) {
 	const warnings: string[] = [];
 	const items = buildItems(warnings);
 	checkTokens(items);
+	checkMotionLayer(items);
 	const dir = stage(items);
 	rmSync(out, { recursive: true, force: true });
 	mkdirSync(out, { recursive: true });

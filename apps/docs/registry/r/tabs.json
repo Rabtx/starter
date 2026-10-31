@@ -353,21 +353,23 @@
       ".rx-tabs-content:focus-visible": {
         "outline": "2px solid var(--ring)",
         "outline-offset": "2px"
-      },
-      "[data-motion=\"off\"] :is(.rx-tabs-indicator, .rx-tabs-trigger, .rx-tabs-content), [data-motion=\"off\"] .rx-tabs-trigger::before, [data-motion=\"off\"] .rx-tabs-trigger .rx-tabs-text": {
-        "transition": "none !important"
-      },
+      }
+    },
+    "@layer rx-motion": {
       "@media (prefers-reduced-motion: reduce)": {
         ".rx-tabs-indicator, .rx-tabs-pill > .rx-tabs-trigger, .rx-tabs-expandable > .rx-tabs-trigger, .rx-tabs-expandable > .rx-tabs-trigger[aria-selected=\"true\"]": {
-          "transition": "color 100ms var(--motion-ease) !important"
+          "transition": "color 100ms var(--motion-ease)"
         },
         ".rx-tabs-trigger .rx-tabs-text": {
-          "filter": "none !important",
-          "transition": "opacity 100ms var(--motion-ease) !important"
+          "filter": "none",
+          "transition": "opacity 100ms var(--motion-ease)"
         },
         ".rx-tabs-content": {
-          "transition": "opacity 100ms var(--motion-ease) !important"
+          "transition": "opacity 100ms var(--motion-ease)"
         }
+      },
+      "[data-motion=\"off\"] :is(.rx-tabs-indicator, .rx-tabs-trigger, .rx-tabs-content), [data-motion=\"off\"] .rx-tabs-trigger::before, [data-motion=\"off\"] .rx-tabs-trigger .rx-tabs-text": {
+        "transition": "none"
       }
     }
   },

@@ -319,16 +319,18 @@
             "--_sheen": "transparent",
             "--_shade": "transparent",
             "--_ring": "transparent"
-          },
-          "[data-motion=\"off\"] .rx-surface": {
-            "transition-duration": "0ms !important",
-            "animation-duration": "2400ms !important"
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ".rx-surface": {
-              "transition-duration": "0ms !important",
-              "animation-duration": "2400ms !important"
+              "transition-duration": "0ms",
+              "animation-duration": "2400ms"
             }
+          },
+          "[data-motion=\"off\"] .rx-surface": {
+            "transition-duration": "0ms",
+            "animation-duration": "2400ms"
           }
         }
       }
@@ -700,6 +702,13 @@
             "z-index": "-1",
             "box-shadow": "inset 0 1px 0 rgb(255 255 255 / 0.28), inset 0 -1px 0 rgb(0 0 0 / 0.16)"
           },
+          "@keyframes rx-btn-fade": {
+            "from": {
+              "opacity": "0"
+            }
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ".rx-btn": {
               "translate": "none"
@@ -733,11 +742,6 @@
               "animation-direction": "reverse"
             }
           },
-          "@keyframes rx-btn-fade": {
-            "from": {
-              "opacity": "0"
-            }
-          },
           "[data-motion=\"off\"] .rx-btn": {
             "translate": "none",
             "transition-duration": "0ms"
@@ -752,7 +756,7 @@
             "display": "none"
           },
           "[data-motion=\"off\"] .rx-btn-letter, [data-motion=\"off\"] .rx-btn-metal-rim": {
-            "animation": "none !important"
+            "animation": "none"
           },
           "[data-motion=\"off\"] .rx-btn-metal-sheen": {
             "transition": "none"
@@ -1051,7 +1055,9 @@
             "to": {
               "opacity": "0"
             }
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             "@supports (appearance: base-select)": {
               ".rx-select::picker(select)": {
@@ -1491,16 +1497,18 @@
             "50%": {
               "opacity": "0"
             }
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ":is(.rx-input-field, .rx-input-field *, .rx-otp *)": {
-              "animation-name": "none !important",
-              "transition-duration": "0ms !important"
+              "animation-name": "none",
+              "transition-duration": "0ms"
             }
           },
           "[data-motion=\"off\"] :is(.rx-input-field, .rx-input-field *, .rx-otp *)": {
-            "animation": "none !important",
-            "transition-duration": "0ms !important"
+            "animation": "none",
+            "transition-duration": "0ms"
           }
         }
       }
@@ -1571,7 +1579,9 @@
           ".rx-textarea:disabled": {
             "opacity": "0.5",
             "cursor": "not-allowed"
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ".rx-textarea": {
               "transition-duration": "0ms"
@@ -1780,23 +1790,25 @@
             "font-size": "0.75rem",
             "line-height": "1rem",
             "letter-spacing": "0"
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ".rx-checkbox": {
-              "scale": "none !important"
+              "scale": "none"
             },
             ".rx-checkbox-mark": {
-              "scale": "none !important",
-              "filter": "none !important",
-              "transition": "opacity 100ms var(--motion-ease) !important"
+              "scale": "none",
+              "filter": "none",
+              "transition": "opacity 100ms var(--motion-ease)"
             },
             ".rx-checkbox-mark path": {
-              "stroke-dashoffset": "0 !important",
-              "transition": "none !important"
+              "stroke-dashoffset": "0",
+              "transition": "none"
             }
           },
           "[data-motion=\"off\"] .rx-checkbox, [data-motion=\"off\"] .rx-checkbox-mark, [data-motion=\"off\"] .rx-checkbox-mark path": {
-            "transition": "none !important"
+            "transition": "none"
           }
         }
       }
@@ -1944,14 +1956,16 @@
           ".rx-switch-label:has(> .rx-switch:disabled)": {
             "color": "var(--disabled-foreground)",
             "cursor": "not-allowed"
-          },
-          "[data-motion=\"off\"] .rx-switch, [data-motion=\"off\"] .rx-switch::before": {
-            "transition": "none"
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ".rx-switch, .rx-switch::before": {
               "transition": "none"
             }
+          },
+          "[data-motion=\"off\"] .rx-switch, [data-motion=\"off\"] .rx-switch::before": {
+            "transition": "none"
           }
         }
       }
@@ -2221,18 +2235,20 @@
             ".rx-radio::after": {
               "visibility": "hidden"
             }
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ".rx-radio, .rx-radio-group-card > .rx-radio-item": {
-              "scale": "none !important"
+              "scale": "none"
             },
             ".rx-radio::after, .rx-radio-group::after": {
-              "scale": "none !important",
-              "transition": "opacity 100ms var(--motion-ease) !important"
+              "scale": "none",
+              "transition": "opacity 100ms var(--motion-ease)"
             }
           },
           "[data-motion=\"off\"] .rx-radio, [data-motion=\"off\"] .rx-radio::after, [data-motion=\"off\"] .rx-radio-group::after, [data-motion=\"off\"] .rx-radio-group-card > .rx-radio-item": {
-            "transition": "none !important"
+            "transition": "none"
           }
         }
       }
@@ -2590,21 +2606,23 @@
           ".rx-tabs-content:focus-visible": {
             "outline": "2px solid var(--ring)",
             "outline-offset": "2px"
-          },
-          "[data-motion=\"off\"] :is(.rx-tabs-indicator, .rx-tabs-trigger, .rx-tabs-content), [data-motion=\"off\"] .rx-tabs-trigger::before, [data-motion=\"off\"] .rx-tabs-trigger .rx-tabs-text": {
-            "transition": "none !important"
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ".rx-tabs-indicator, .rx-tabs-pill > .rx-tabs-trigger, .rx-tabs-expandable > .rx-tabs-trigger, .rx-tabs-expandable > .rx-tabs-trigger[aria-selected=\"true\"]": {
-              "transition": "color 100ms var(--motion-ease) !important"
+              "transition": "color 100ms var(--motion-ease)"
             },
             ".rx-tabs-trigger .rx-tabs-text": {
-              "filter": "none !important",
-              "transition": "opacity 100ms var(--motion-ease) !important"
+              "filter": "none",
+              "transition": "opacity 100ms var(--motion-ease)"
             },
             ".rx-tabs-content": {
-              "transition": "opacity 100ms var(--motion-ease) !important"
+              "transition": "opacity 100ms var(--motion-ease)"
             }
+          },
+          "[data-motion=\"off\"] :is(.rx-tabs-indicator, .rx-tabs-trigger, .rx-tabs-content), [data-motion=\"off\"] .rx-tabs-trigger::before, [data-motion=\"off\"] .rx-tabs-trigger .rx-tabs-text": {
+            "transition": "none"
           }
         }
       }
@@ -2972,25 +2990,12 @@
             "position": "absolute",
             "inset": "0",
             "z-index": "calc(var(--_count, 1) + 1)"
-          },
-          "[data-motion=\"off\"] :is(.rx-card-tilt, .rx-card-stack), [data-motion=\"off\"] :is(.rx-card-tilt, .rx-card-stack) *": {
-            "transition-duration": "0ms !important"
-          },
-          "[data-motion=\"off\"] :is(.rx-card, .rx-card *, .rx-card::before, .rx-card::after)": {
-            "transition-duration": "0ms !important"
-          },
-          "[data-motion=\"off\"] .rx-card-expandable::details-content": {
-            "transition-duration": "0ms !important"
-          },
-          "[data-motion=\"off\"] .rx-card-tilt": {
-            "transform": "none"
-          },
-          "[data-motion=\"off\"] .rx-card-tilt::before": {
-            "display": "none"
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ".rx-card, .rx-card *, .rx-card::before, .rx-card::after, .rx-card-expandable::details-content, .rx-card-stack *": {
-              "transition-duration": "0ms !important"
+              "transition-duration": "0ms"
             },
             ".rx-card-tilt": {
               "transform": "none"
@@ -2998,6 +3003,21 @@
             ".rx-card-tilt::before": {
               "display": "none"
             }
+          },
+          "[data-motion=\"off\"] :is(.rx-card-tilt, .rx-card-stack), [data-motion=\"off\"] :is(.rx-card-tilt, .rx-card-stack) *": {
+            "transition-duration": "0ms"
+          },
+          "[data-motion=\"off\"] :is(.rx-card, .rx-card *, .rx-card::before, .rx-card::after)": {
+            "transition-duration": "0ms"
+          },
+          "[data-motion=\"off\"] .rx-card-expandable::details-content": {
+            "transition-duration": "0ms"
+          },
+          "[data-motion=\"off\"] .rx-card-tilt": {
+            "transform": "none"
+          },
+          "[data-motion=\"off\"] .rx-card-tilt::before": {
+            "display": "none"
           }
         }
       }
@@ -3248,16 +3268,18 @@
           },
           ":root:active-view-transition-type(rx-morph-close)::view-transition-new(*.rx-morph)": {
             "animation": "none"
-          },
-          "[data-motion=\"off\"] :is(.rx-dialog, .rx-dialog-close), [data-motion=\"off\"] .rx-dialog::backdrop": {
-            "transition-duration": "0ms !important",
-            "transition-delay": "0ms !important"
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ".rx-dialog, .rx-dialog::backdrop, .rx-dialog-close": {
-              "transition-duration": "0ms !important",
-              "transition-delay": "0ms !important"
+              "transition-duration": "0ms",
+              "transition-delay": "0ms"
             }
+          },
+          "[data-motion=\"off\"] :is(.rx-dialog, .rx-dialog-close), [data-motion=\"off\"] .rx-dialog::backdrop": {
+            "transition-duration": "0ms",
+            "transition-delay": "0ms"
           }
         }
       }
@@ -3570,10 +3592,12 @@
             "flex": "1",
             "height": "1px",
             "background-color": "var(--border)"
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ".rx-signup :is(.rx-signup-viewport, .rx-signup-panel, .rx-signup-progress-dot), .rx-signup .rx-signup-progress-dot *, .rx-signup .rx-signup-progress::after, .rx-signup .rx-signup-strength-bar::after": {
-              "transition": "none !important"
+              "transition": "none"
             },
             ".rx-signup .rx-signup-panel[data-leaving]": {
               "display": "none"
@@ -3583,7 +3607,7 @@
             }
           },
           "[data-motion=\"off\"] .rx-signup :is(.rx-signup-viewport, .rx-signup-panel, .rx-signup-progress-dot), [data-motion=\"off\"] .rx-signup .rx-signup-progress-dot *, [data-motion=\"off\"] .rx-signup .rx-signup-progress::after, [data-motion=\"off\"] .rx-signup .rx-signup-strength-bar::after": {
-            "transition": "none !important"
+            "transition": "none"
           },
           "[data-motion=\"off\"] .rx-signup .rx-signup-panel[data-leaving]": {
             "display": "none"

@@ -97,6 +97,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `@rabtx/ui` motion preferences: every component's reduced-motion and `data-motion="off"` rules
+  move out of `@layer components` into an `rx-motion` cascade layer declared after it, with off
+  after less motion. The shadcn CLI merges each item's `@media (prefers-reduced-motion: reduce)`
+  block into the first one in a project's CSS, ahead of the rules it overrides, so in installed
+  projects some overrides lost (the switch kept its transitions). The layer wins wherever the block
+  lands, so the `!important`s that stood in for it are gone, and `build-registry.ts` fails if a
+  motion rule is left outside the layer.
 - **Breaking (`@rabtx/ui` theming):** `tokens.css` and `springs.css` are replaced by one
   shadcn-style file, `src/styles/theme.css` (also exported as `@rabtx/ui/theme.css`): shadcn token
   names on `:root` and `.dark`, mapped into Tailwind with `@theme inline`, plus Rabtx extras

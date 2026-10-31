@@ -197,6 +197,9 @@ Motion is on by default, purposeful and restrained, and CSS only on the web. Pre
 responsive without moving surrounding layout. Respect reduced motion; a Motion off switch in the
 playground must also leave every state visible. Disabled controls must not activate or animate as
 enabled ones. Motion is never the only feedback channel.
+Reduced-motion and Motion off rules live in the `rx-motion` cascade layer, after
+`components` (less motion first, off after it), so they win without `!important` and whatever the
+order a shadcn project's CSS ends up in.
 
 - **Springs** are defined by stiffness, damping and mass, solved into a CSS `linear()` easing with
   the settle time as the duration. The same three numbers feed the native runtime. Values:

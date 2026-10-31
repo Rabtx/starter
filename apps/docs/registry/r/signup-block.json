@@ -284,10 +284,12 @@
         "flex": "1",
         "height": "1px",
         "background-color": "var(--border)"
-      },
+      }
+    },
+    "@layer rx-motion": {
       "@media (prefers-reduced-motion: reduce)": {
         ".rx-signup :is(.rx-signup-viewport, .rx-signup-panel, .rx-signup-progress-dot), .rx-signup .rx-signup-progress-dot *, .rx-signup .rx-signup-progress::after, .rx-signup .rx-signup-strength-bar::after": {
-          "transition": "none !important"
+          "transition": "none"
         },
         ".rx-signup .rx-signup-panel[data-leaving]": {
           "display": "none"
@@ -297,7 +299,7 @@
         }
       },
       "[data-motion=\"off\"] .rx-signup :is(.rx-signup-viewport, .rx-signup-panel, .rx-signup-progress-dot), [data-motion=\"off\"] .rx-signup .rx-signup-progress-dot *, [data-motion=\"off\"] .rx-signup .rx-signup-progress::after, [data-motion=\"off\"] .rx-signup .rx-signup-strength-bar::after": {
-        "transition": "none !important"
+        "transition": "none"
       },
       "[data-motion=\"off\"] .rx-signup .rx-signup-panel[data-leaving]": {
         "display": "none"

@@ -143,14 +143,16 @@
       ".rx-switch-label:has(> .rx-switch:disabled)": {
         "color": "var(--disabled-foreground)",
         "cursor": "not-allowed"
-      },
-      "[data-motion=\"off\"] .rx-switch, [data-motion=\"off\"] .rx-switch::before": {
-        "transition": "none"
-      },
+      }
+    },
+    "@layer rx-motion": {
       "@media (prefers-reduced-motion: reduce)": {
         ".rx-switch, .rx-switch::before": {
           "transition": "none"
         }
+      },
+      "[data-motion=\"off\"] .rx-switch, [data-motion=\"off\"] .rx-switch::before": {
+        "transition": "none"
       }
     }
   },

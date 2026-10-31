@@ -425,32 +425,32 @@
 			outline-offset: 2px;
 		}
 	}
-
-	/* Motion off: every state still changes, nothing travels or fades. */
-	[data-motion="off"] :is(.rx-tabs-indicator, .rx-tabs-trigger, .rx-tabs-content),
-	[data-motion="off"] .rx-tabs-trigger::before,
-	[data-motion="off"] .rx-tabs-trigger .rx-tabs-text {
-		transition: none !important;
-	}
+}
+/* Less motion and motion off: the rx-motion layer, explained in control.css. */
+@layer rx-motion {
 	/*
 	 * Less motion: nothing slides, grows, blurs or rises; colors and panels still fade quickly.
-	 * `!important` because the shadcn CLI merges every reduced-motion block into the first one in a
-	 * project's CSS, ahead of the rules these override.
 	 */
 	@media (prefers-reduced-motion: reduce) {
 		.rx-tabs-indicator,
 		.rx-tabs-pill > .rx-tabs-trigger,
 		.rx-tabs-expandable > .rx-tabs-trigger,
 		.rx-tabs-expandable > .rx-tabs-trigger[aria-selected="true"] {
-			transition: color 100ms var(--motion-ease) !important;
+			transition: color 100ms var(--motion-ease);
 		}
 		.rx-tabs-trigger .rx-tabs-text {
-			filter: none !important;
-			transition: opacity 100ms var(--motion-ease) !important;
+			filter: none;
+			transition: opacity 100ms var(--motion-ease);
 		}
 		/* Only opacity transitions, so the blur and the rise from @starting-style snap away. */
 		.rx-tabs-content {
-			transition: opacity 100ms var(--motion-ease) !important;
+			transition: opacity 100ms var(--motion-ease);
 		}
+	}
+	/* Motion off: every state still changes, nothing travels or fades. */
+	[data-motion="off"] :is(.rx-tabs-indicator, .rx-tabs-trigger, .rx-tabs-content),
+	[data-motion="off"] .rx-tabs-trigger::before,
+	[data-motion="off"] .rx-tabs-trigger .rx-tabs-text {
+		transition: none;
 	}
 }

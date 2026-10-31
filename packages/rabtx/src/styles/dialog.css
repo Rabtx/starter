@@ -299,19 +299,21 @@
 	:root:active-view-transition-type(rx-morph-close)::view-transition-new(*.rx-morph) {
 		animation: none;
 	}
-
-	/* Motion off, or the OS asks for less: the panel and backdrop appear and go at once. */
-	[data-motion="off"] :is(.rx-dialog, .rx-dialog-close),
-	[data-motion="off"] .rx-dialog::backdrop {
-		transition-duration: 0ms !important;
-		transition-delay: 0ms !important;
-	}
+}
+/* Less motion and motion off: the rx-motion layer, explained in control.css. */
+@layer rx-motion {
 	@media (prefers-reduced-motion: reduce) {
 		.rx-dialog,
 		.rx-dialog::backdrop,
 		.rx-dialog-close {
-			transition-duration: 0ms !important;
-			transition-delay: 0ms !important;
+			transition-duration: 0ms;
+			transition-delay: 0ms;
 		}
+	}
+	/* Motion off, or the OS asks for less: the panel and backdrop appear and go at once. */
+	[data-motion="off"] :is(.rx-dialog, .rx-dialog-close),
+	[data-motion="off"] .rx-dialog::backdrop {
+		transition-duration: 0ms;
+		transition-delay: 0ms;
 	}
 }

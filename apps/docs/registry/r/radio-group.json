@@ -265,18 +265,20 @@
         ".rx-radio::after": {
           "visibility": "hidden"
         }
-      },
+      }
+    },
+    "@layer rx-motion": {
       "@media (prefers-reduced-motion: reduce)": {
         ".rx-radio, .rx-radio-group-card > .rx-radio-item": {
-          "scale": "none !important"
+          "scale": "none"
         },
         ".rx-radio::after, .rx-radio-group::after": {
-          "scale": "none !important",
-          "transition": "opacity 100ms var(--motion-ease) !important"
+          "scale": "none",
+          "transition": "opacity 100ms var(--motion-ease)"
         }
       },
       "[data-motion=\"off\"] .rx-radio, [data-motion=\"off\"] .rx-radio::after, [data-motion=\"off\"] .rx-radio-group::after, [data-motion=\"off\"] .rx-radio-group-card > .rx-radio-item": {
-        "transition": "none !important"
+        "transition": "none"
       }
     }
   },

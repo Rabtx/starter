@@ -180,16 +180,18 @@
 			cursor: not-allowed;
 		}
 	}
-
-	/* Motion off, or the OS asks for less: the state still changes, nothing travels. */
-	[data-motion="off"] .rx-switch,
-	[data-motion="off"] .rx-switch::before {
-		transition: none;
-	}
+}
+/* Less motion and motion off: the rx-motion layer, explained in control.css. */
+@layer rx-motion {
 	@media (prefers-reduced-motion: reduce) {
 		.rx-switch,
 		.rx-switch::before {
 			transition: none;
 		}
+	}
+	/* Motion off, or the OS asks for less: the state still changes, nothing travels. */
+	[data-motion="off"] .rx-switch,
+	[data-motion="off"] .rx-switch::before {
+		transition: none;
 	}
 }

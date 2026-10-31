@@ -412,16 +412,18 @@
         "50%": {
           "opacity": "0"
         }
-      },
+      }
+    },
+    "@layer rx-motion": {
       "@media (prefers-reduced-motion: reduce)": {
         ":is(.rx-input-field, .rx-input-field *, .rx-otp *)": {
-          "animation-name": "none !important",
-          "transition-duration": "0ms !important"
+          "animation-name": "none",
+          "transition-duration": "0ms"
         }
       },
       "[data-motion=\"off\"] :is(.rx-input-field, .rx-input-field *, .rx-otp *)": {
-        "animation": "none !important",
-        "transition-duration": "0ms !important"
+        "animation": "none",
+        "transition-duration": "0ms"
       }
     }
   },

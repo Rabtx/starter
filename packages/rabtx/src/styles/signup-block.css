@@ -297,14 +297,16 @@
 			background-color: var(--border);
 		}
 	}
-
+}
+/* Less motion and motion off: the rx-motion layer, explained in control.css. */
+@layer rx-motion {
 	/* Less motion: steps switch at once and nothing slides, draws or grows. */
 	@media (prefers-reduced-motion: reduce) {
 		.rx-signup :is(.rx-signup-viewport, .rx-signup-panel, .rx-signup-progress-dot),
 		.rx-signup .rx-signup-progress-dot *,
 		.rx-signup .rx-signup-progress::after,
 		.rx-signup .rx-signup-strength-bar::after {
-			transition: none !important;
+			transition: none;
 		}
 		.rx-signup .rx-signup-panel[data-leaving] {
 			display: none;
@@ -317,7 +319,7 @@
 	[data-motion="off"] .rx-signup .rx-signup-progress-dot *,
 	[data-motion="off"] .rx-signup .rx-signup-progress::after,
 	[data-motion="off"] .rx-signup .rx-signup-strength-bar::after {
-		transition: none !important;
+		transition: none;
 	}
 	[data-motion="off"] .rx-signup .rx-signup-panel[data-leaving] {
 		display: none;

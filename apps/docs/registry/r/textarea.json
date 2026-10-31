@@ -66,7 +66,9 @@
       ".rx-textarea:disabled": {
         "opacity": "0.5",
         "cursor": "not-allowed"
-      },
+      }
+    },
+    "@layer rx-motion": {
       "@media (prefers-reduced-motion: reduce)": {
         ".rx-textarea": {
           "transition-duration": "0ms"

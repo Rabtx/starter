@@ -53,7 +53,9 @@
 			cursor: not-allowed;
 		}
 	}
-
+}
+/* Less motion and motion off: the rx-motion layer, explained in control.css. */
+@layer rx-motion {
 	@media (prefers-reduced-motion: reduce) {
 		.rx-textarea {
 			transition-duration: 0ms;

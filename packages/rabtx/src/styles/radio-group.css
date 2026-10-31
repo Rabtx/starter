@@ -350,20 +350,22 @@
 			visibility: hidden;
 		}
 	}
-
+}
+/* Less motion and motion off: the rx-motion layer, explained in control.css. */
+@layer rx-motion {
 	/*
 	 * Less motion: no press, no pop and no glide; the dot just fades. Motion off: every state still
-	 * shows, at once. `!important` because the state rules above are more specific.
+	 * shows, at once.
 	 */
 	@media (prefers-reduced-motion: reduce) {
 		.rx-radio,
 		.rx-radio-group-card > .rx-radio-item {
-			scale: none !important;
+			scale: none;
 		}
 		.rx-radio::after,
 		.rx-radio-group::after {
-			scale: none !important;
-			transition: opacity 100ms var(--motion-ease) !important;
+			scale: none;
+			transition: opacity 100ms var(--motion-ease);
 		}
 	}
 	[data-motion="off"] {
@@ -371,7 +373,7 @@
 		& .rx-radio::after,
 		& .rx-radio-group::after,
 		& .rx-radio-group-card > .rx-radio-item {
-			transition: none !important;
+			transition: none;
 		}
 	}
 }

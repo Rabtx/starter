@@ -368,25 +368,12 @@
         "position": "absolute",
         "inset": "0",
         "z-index": "calc(var(--_count, 1) + 1)"
-      },
-      "[data-motion=\"off\"] :is(.rx-card-tilt, .rx-card-stack), [data-motion=\"off\"] :is(.rx-card-tilt, .rx-card-stack) *": {
-        "transition-duration": "0ms !important"
-      },
-      "[data-motion=\"off\"] :is(.rx-card, .rx-card *, .rx-card::before, .rx-card::after)": {
-        "transition-duration": "0ms !important"
-      },
-      "[data-motion=\"off\"] .rx-card-expandable::details-content": {
-        "transition-duration": "0ms !important"
-      },
-      "[data-motion=\"off\"] .rx-card-tilt": {
-        "transform": "none"
-      },
-      "[data-motion=\"off\"] .rx-card-tilt::before": {
-        "display": "none"
-      },
+      }
+    },
+    "@layer rx-motion": {
       "@media (prefers-reduced-motion: reduce)": {
         ".rx-card, .rx-card *, .rx-card::before, .rx-card::after, .rx-card-expandable::details-content, .rx-card-stack *": {
-          "transition-duration": "0ms !important"
+          "transition-duration": "0ms"
         },
         ".rx-card-tilt": {
           "transform": "none"
@@ -394,6 +381,21 @@
         ".rx-card-tilt::before": {
           "display": "none"
         }
+      },
+      "[data-motion=\"off\"] :is(.rx-card-tilt, .rx-card-stack), [data-motion=\"off\"] :is(.rx-card-tilt, .rx-card-stack) *": {
+        "transition-duration": "0ms"
+      },
+      "[data-motion=\"off\"] :is(.rx-card, .rx-card *, .rx-card::before, .rx-card::after)": {
+        "transition-duration": "0ms"
+      },
+      "[data-motion=\"off\"] .rx-card-expandable::details-content": {
+        "transition-duration": "0ms"
+      },
+      "[data-motion=\"off\"] .rx-card-tilt": {
+        "transform": "none"
+      },
+      "[data-motion=\"off\"] .rx-card-tilt::before": {
+        "display": "none"
       }
     }
   },

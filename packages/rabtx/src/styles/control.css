@@ -74,16 +74,25 @@
 		--_shade: transparent;
 		--_ring: transparent;
 	}
-
-	/* Motion off, or the OS asks for less: every state is still visible, nothing travels. */
-	[data-motion="off"] .rx-surface {
-		transition-duration: 0ms !important;
-		animation-duration: 2400ms !important;
-	}
+}
+/*
+ * Motion preferences (the OS reduced-motion setting and `data-motion="off"`) live in the `rx-motion`
+ * cascade layer. It is declared after `components`, so its rules beat every component rule whatever
+ * their specificity, and wherever the shadcn CLI puts them: the CLI merges every item's
+ * `@media (prefers-reduced-motion: reduce)` block into the first one in a project's CSS, which can
+ * sit before the rules it overrides. Less motion comes first and off after it, so off wins when both
+ * apply. No `!important` is needed.
+ */
+@layer rx-motion {
 	@media (prefers-reduced-motion: reduce) {
 		.rx-surface {
-			transition-duration: 0ms !important;
-			animation-duration: 2400ms !important;
+			transition-duration: 0ms;
+			animation-duration: 2400ms;
 		}
+	}
+	/* Motion off, or the OS asks for less: every state is still visible, nothing travels. */
+	[data-motion="off"] .rx-surface {
+		transition-duration: 0ms;
+		animation-duration: 2400ms;
 	}
 }

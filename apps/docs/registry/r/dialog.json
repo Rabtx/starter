@@ -246,16 +246,18 @@
       },
       ":root:active-view-transition-type(rx-morph-close)::view-transition-new(*.rx-morph)": {
         "animation": "none"
-      },
-      "[data-motion=\"off\"] :is(.rx-dialog, .rx-dialog-close), [data-motion=\"off\"] .rx-dialog::backdrop": {
-        "transition-duration": "0ms !important",
-        "transition-delay": "0ms !important"
-      },
+      }
+    },
+    "@layer rx-motion": {
       "@media (prefers-reduced-motion: reduce)": {
         ".rx-dialog, .rx-dialog::backdrop, .rx-dialog-close": {
-          "transition-duration": "0ms !important",
-          "transition-delay": "0ms !important"
+          "transition-duration": "0ms",
+          "transition-delay": "0ms"
         }
+      },
+      "[data-motion=\"off\"] :is(.rx-dialog, .rx-dialog-close), [data-motion=\"off\"] .rx-dialog::backdrop": {
+        "transition-duration": "0ms",
+        "transition-delay": "0ms"
       }
     }
   },
