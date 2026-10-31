@@ -40,7 +40,10 @@
       "version": "0.0.0",
       "dependencies": {
         "@ai-sdk/react": "^4.0.163",
+        "@hugeicons/core-free-icons": "^4.4.0",
+        "@hugeicons/react": "^1.1.10",
         "@openrouter/ai-sdk-provider": "^3.1.0",
+        "@rabtx/ui": "workspace:*",
         "@radix-ui/react-presence": "^1.1.11",
         "ai": "^7.0.159",
         "class-variance-authority": "^0.7.1",

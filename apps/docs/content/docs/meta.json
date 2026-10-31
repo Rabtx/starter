@@ -9,6 +9,7 @@
 		"development-workflow",
 		"backend-api",
 		"ai-api",
+		"ui",
 		"---",
 		"docker",
 		"deploy",

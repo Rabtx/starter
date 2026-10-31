@@ -5,6 +5,9 @@
 /* Shared design tokens — same file the web and mobile apps use. */
 @import '../../../../packages/ui/src/styles/globals.css';
 
+/* @rabtx/ui: tokens, springs and component styles for the UI section's live examples. */
+@import '@rabtx/ui/styles.css';
+
 html {
   scrollbar-gutter: stable;
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
