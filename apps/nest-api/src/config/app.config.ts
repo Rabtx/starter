@@ -97,12 +97,18 @@ export function createAppConfig(env: Env = parseEnv()): AppConfig {
 		...(env.STRIPE_WEBHOOK_SECRET ? { stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET } : {}),
 		...(env.RAZORPAY_KEY_ID ? { razorpayKeyId: env.RAZORPAY_KEY_ID } : {}),
 		...(env.RAZORPAY_KEY_SECRET ? { razorpayKeySecret: env.RAZORPAY_KEY_SECRET } : {}),
-		...(env.RAZORPAY_WEBHOOK_SECRET ? { razorpayWebhookSecret: env.RAZORPAY_WEBHOOK_SECRET } : {}),
+		...(env.RAZORPAY_WEBHOOK_SECRET
+			? { razorpayWebhookSecret: env.RAZORPAY_WEBHOOK_SECRET }
+			: {}),
 		billingPrices: {
 			stripe: {
 				team: {
-					...(env.STRIPE_PRICE_TEAM_MONTHLY ? { monthly: env.STRIPE_PRICE_TEAM_MONTHLY } : {}),
-					...(env.STRIPE_PRICE_TEAM_YEARLY ? { yearly: env.STRIPE_PRICE_TEAM_YEARLY } : {}),
+					...(env.STRIPE_PRICE_TEAM_MONTHLY
+						? { monthly: env.STRIPE_PRICE_TEAM_MONTHLY }
+						: {}),
+					...(env.STRIPE_PRICE_TEAM_YEARLY
+						? { yearly: env.STRIPE_PRICE_TEAM_YEARLY }
+						: {}),
 				},
 				enterprise: {
 					...(env.STRIPE_PRICE_ENTERPRISE_MONTHLY
@@ -115,8 +121,12 @@ export function createAppConfig(env: Env = parseEnv()): AppConfig {
 			},
 			razorpay: {
 				team: {
-					...(env.RAZORPAY_PLAN_TEAM_MONTHLY ? { monthly: env.RAZORPAY_PLAN_TEAM_MONTHLY } : {}),
-					...(env.RAZORPAY_PLAN_TEAM_YEARLY ? { yearly: env.RAZORPAY_PLAN_TEAM_YEARLY } : {}),
+					...(env.RAZORPAY_PLAN_TEAM_MONTHLY
+						? { monthly: env.RAZORPAY_PLAN_TEAM_MONTHLY }
+						: {}),
+					...(env.RAZORPAY_PLAN_TEAM_YEARLY
+						? { yearly: env.RAZORPAY_PLAN_TEAM_YEARLY }
+						: {}),
 				},
 				enterprise: {
 					...(env.RAZORPAY_PLAN_ENTERPRISE_MONTHLY

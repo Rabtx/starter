@@ -29,7 +29,10 @@ export class AiClient {
 				body: JSON.stringify(body),
 			});
 		} catch (error) {
-			this.logger.error('AI API unreachable', error instanceof Error ? error.stack : undefined);
+			this.logger.error(
+				'AI API unreachable',
+				error instanceof Error ? error.stack : undefined,
+			);
 			throw new ServiceUnavailableException({
 				code: 'AI_UNAVAILABLE',
 				message: 'AI assistance service is unavailable',

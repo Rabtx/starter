@@ -39,7 +39,8 @@ export class SocialAuthService {
 		if (existingUser) {
 			throw new ConflictException({
 				code: 'SOCIAL_ACCOUNT_LINK_REQUIRED',
-				message: 'Sign in with your existing method, then connect Google in account security.',
+				message:
+					'Sign in with your existing method, then connect Google in account security.',
 			});
 		}
 

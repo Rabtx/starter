@@ -36,9 +36,12 @@ describe('EmailService', () => {
 		vi.stubGlobal(
 			'fetch',
 			vi.fn().mockResolvedValue(
-				new Response(JSON.stringify({ name: 'validation_error', message: 'Domain not verified' }), {
-					status: 403,
-				}),
+				new Response(
+					JSON.stringify({ name: 'validation_error', message: 'Domain not verified' }),
+					{
+						status: 403,
+					},
+				),
 			),
 		);
 		const service = new EmailService(config());
@@ -48,7 +51,8 @@ describe('EmailService', () => {
 		).rejects.toMatchObject<ServiceUnavailableException>({
 			response: {
 				code: 'EMAIL_DELIVERY_FAILED',
-				message: 'The email sender is not authorized. Verify the AUTH_EMAIL_FROM domain in Resend.',
+				message:
+					'The email sender is not authorized. Verify the AUTH_EMAIL_FROM domain in Resend.',
 			},
 		});
 	});
