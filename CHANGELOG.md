@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `@rabtx/ui` Switch: a native checkbox with `role="switch"` and the `switch` attribute, sizes
+  `sm` (36x20), `md` (48x28) and `lg` (56x32), `checked` / `defaultChecked` / `onCheckedChange`,
+  a label row via children and `Field` wiring. The thumb stretches toward its destination and
+  squishes on press, then springs across on the `switch` spring, all in CSS. Registry item
+  `@rabtx/switch`, `/docs/ui/switch`, the `/ui/switch` playground page and `ui-switch.spec.ts`.
 - `@rabtx/ui` shadcn registry: every component (`button`, `select`, `input`, `textarea`, `field`,
   `checkbox`, `card`, `badge`) plus `theme`, the shared `rabtx` style, `springs`, `utils` and
   `use-base-select` items, built by `bun run registry` (`shadcn build`) into
