@@ -27,7 +27,7 @@ export function CtaSection() {
 		<section id="deploy" className="w-full px-4 py-20 sm:px-8">
 			<div className="relative mx-auto flex w-full max-w-3xl flex-col items-center text-center">
 				<FadeIn>
-					<span className="inline-flex items-center rounded-full border border-border bg-card/70 px-3 py-1 font-medium text-muted-foreground text-xs backdrop-blur">
+					<span className="inline-flex items-center rounded-full border border-border bg-card/70 px-3 py-1 font-medium text-muted-foreground text-xs">
 						Up in minutes
 					</span>
 				</FadeIn>

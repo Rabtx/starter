@@ -9,7 +9,6 @@ type FadeInProps = {
 	className?: string;
 	delay?: number;
 	y?: number;
-	blur?: number;
 	duration?: number;
 	once?: boolean;
 };
@@ -19,7 +18,6 @@ export function FadeIn({
 	className,
 	delay = 0,
 	y = 24,
-	blur = 8,
 	duration = 0.7,
 	once = true,
 }: FadeInProps) {
@@ -32,8 +30,8 @@ export function FadeIn({
 	return (
 		<motion.div
 			className={className}
-			initial={{ opacity: 0, y, filter: `blur(${blur}px)` }}
-			whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+			initial={{ opacity: 0, y }}
+			whileInView={{ opacity: 1, y: 0 }}
 			viewport={{ once, margin: "-80px" }}
 			transition={{ duration, delay, ease: ATLAS_EASE }}
 		>
