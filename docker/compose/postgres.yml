@@ -1,7 +1,7 @@
 # Postgres service — included from root docker-compose.yml
 services:
   postgres:
-    image: postgres:16-alpine
+    image: postgres:18-alpine
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-starter}
@@ -10,7 +10,10 @@ services:
     ports:
       - "${POSTGRES_PORT:-5433}:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      # Postgres 18+ images keep PGDATA under /var/lib/postgresql/18/docker, so mount the parent dir.
+      # New volume name: the old postgres_data volume holds a Postgres 16 cluster and is not
+      # compatible. See docker/README.md "Upgrading from Postgres 16" to migrate existing data.
+      - postgres18_data:/var/lib/postgresql
     healthcheck:
       test:
         [
@@ -23,4 +26,4 @@ services:
       start_period: 10s
 
 volumes:
-  postgres_data:
+  postgres18_data:

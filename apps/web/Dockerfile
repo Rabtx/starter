@@ -31,7 +31,7 @@ COPY packages/typescript-config ./packages/typescript-config
 WORKDIR /app/apps/web
 RUN bun run build
 
-FROM node:22-alpine AS runner
+FROM node:26-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
