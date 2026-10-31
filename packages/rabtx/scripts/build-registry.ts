@@ -264,6 +264,13 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 		css: "switch.css",
 	},
 	{
+		name: "tabs",
+		title: "Tabs",
+		description:
+			"WAI-ARIA tabs in segmented, pill, underline and expandable variants, with an indicator that slides by CSS anchor positioning. CSS-only motion.",
+		css: "tabs.css",
+	},
+	{
 		name: "card",
 		title: "Card",
 		description:
