@@ -249,6 +249,13 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 		css: "checkbox.css",
 	},
 	{
+		name: "switch",
+		title: "Switch",
+		description:
+			"A native checkbox drawn as a switch, with a thumb that stretches on press and springs across.",
+		css: "switch.css",
+	},
+	{
 		name: "card",
 		title: "Card",
 		description: "A raised surface with title, description and meta text styles.",
