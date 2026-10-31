@@ -25,7 +25,8 @@
           "ease-spring-tabs": "var(--spring-tabs)",
           "ease-spring-panel": "var(--spring-panel)",
           "ease-spring-toast": "var(--spring-toast)",
-          "ease-spring-switch": "var(--spring-switch)"
+          "ease-spring-switch": "var(--spring-switch)",
+          "ease-spring-glide": "var(--spring-glide)"
         },
         "light": {
           "radius": "0.5rem",
@@ -175,7 +176,8 @@
           "ease-spring-tabs": "var(--spring-tabs)",
           "ease-spring-panel": "var(--spring-panel)",
           "ease-spring-toast": "var(--spring-toast)",
-          "ease-spring-switch": "var(--spring-switch)"
+          "ease-spring-switch": "var(--spring-switch)",
+          "ease-spring-glide": "var(--spring-glide)"
         },
         "light": {
           "spring-press": "linear(0, 0.0157, 0.0565, 0.1142, 0.1824, 0.256, 0.3316, 0.4061, 0.4777, 0.5451, 0.6074, 0.6642, 0.7153, 0.7607, 0.8007, 0.8356, 0.8657, 0.8915, 0.9134, 0.9318, 0.9471, 0.9598, 0.9702, 0.9785, 0.9852, 0.9905, 0.9946, 0.9978, 1.0001, 1.0018, 1.0029, 1.0037, 1.0041, 1.0043, 1.0043, 1.0042, 1.004, 1.0037, 1.0034, 1.0031, 1.0027, 1.0024, 1.0021, 1)",
@@ -197,7 +199,9 @@
           "spring-toast": "linear(0, 0.0135, 0.0483, 0.0975, 0.1559, 0.2193, 0.2847, 0.3498, 0.4132, 0.4736, 0.5303, 0.5831, 0.6315, 0.6757, 0.7156, 0.7515, 0.7836, 0.8122, 0.8375, 0.8597, 0.8793, 0.8964, 0.9113, 0.9243, 0.9355, 0.9452, 0.9536, 0.9608, 0.9669, 0.9722, 0.9767, 0.9805, 0.9837, 0.9864, 0.9887, 0.9907, 0.9923, 0.9937, 0.9948, 0.9958, 0.9966, 0.9972, 0.9978, 1)",
           "spring-toast-duration": "315ms",
           "spring-switch": "linear(0, 0.0138, 0.0509, 0.1051, 0.1713, 0.2451, 0.323, 0.4019, 0.4795, 0.5541, 0.6244, 0.6893, 0.7484, 0.8014, 0.8481, 0.8886, 0.9234, 0.9526, 0.9767, 0.9962, 1.0116, 1.0233, 1.0318, 1.0377, 1.0412, 1.0429, 1.0431, 1.0421, 1.0402, 1.0377, 1.0347, 1.0314, 1.028, 1.0246, 1.0213, 1.0181, 1.0152, 1.0125, 1.01, 1.0078, 1.0059, 1.0042, 1.0028, 1)",
-          "spring-switch-duration": "527ms"
+          "spring-switch-duration": "527ms",
+          "spring-glide": "linear(0, 0.0245, 0.0831, 0.1591, 0.242, 0.3252, 0.4048, 0.4788, 0.546, 0.6062, 0.6596, 0.7065, 0.7475, 0.7831, 0.814, 0.8406, 0.8635, 0.8833, 0.9002, 0.9147, 0.9271, 0.9377, 0.9468, 0.9546, 0.9613, 0.9669, 0.9718, 0.9759, 0.9795, 0.9825, 0.985, 0.9872, 0.9891, 0.9907, 0.9921, 0.9932, 0.9942, 0.9951, 0.9958, 0.9964, 0.9969, 0.9974, 0.9978, 1)",
+          "spring-glide-duration": "424ms"
         }
       }
     },
@@ -1948,6 +1952,287 @@
             ".rx-switch, .rx-switch::before": {
               "transition": "none"
             }
+          }
+        }
+      }
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "Native radios in a radiogroup fieldset, three sizes and choice cards, with a dot that glides to the chosen option. CSS-only motion.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "{{origin}}/r/field-context.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/ui/radio-group.styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-radio-group": {
+            "--_size": "1.25rem",
+            "--_dot": "0.5rem",
+            "--_edge-w": "2px",
+            "position": "relative",
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "0.75rem",
+            "min-inline-size": "0",
+            "margin": "0",
+            "padding": "0",
+            "border": "0"
+          },
+          ".rx-radio-group[data-orientation=\"horizontal\"]": {
+            "flex-flow": "row wrap",
+            "gap": "0.75rem 1.5rem"
+          },
+          ".rx-radio-group-sm": {
+            "--_size": "1rem",
+            "--_dot": "0.375rem",
+            "--_edge-w": "1.5px",
+            "gap": "0.5rem"
+          },
+          ".rx-radio-group-lg": {
+            "--_size": "1.5rem",
+            "--_dot": "0.625rem"
+          },
+          ".rx-radio": {
+            "--_edge": "color-mix(in oklab, var(--muted-foreground) 50%, transparent)",
+            "--_halo": "transparent",
+            "position": "relative",
+            "display": "inline-grid",
+            "flex": "none",
+            "place-items": "center",
+            "box-sizing": "border-box",
+            "width": "var(--_size)",
+            "height": "var(--_size)",
+            "border": "var(--_edge-w) solid var(--_edge)",
+            "border-radius": "50%",
+            "background-color": "var(--background)",
+            "box-shadow": "0 0 0 3px var(--_halo)",
+            "-webkit-tap-highlight-color": "transparent",
+            "transition": "border-color 200ms var(--motion-ease), box-shadow 200ms var(--motion-ease), scale var(--spring-press-duration) var(--spring-press)"
+          },
+          ".rx-radio::after": {
+            "content": "\"\"",
+            "grid-area": "1 / 1",
+            "width": "var(--_dot)",
+            "height": "var(--_dot)",
+            "border-radius": "50%",
+            "background-color": "var(--primary)",
+            "pointer-events": "none",
+            "opacity": "0",
+            "scale": "0",
+            "transition": "opacity 160ms var(--motion-ease), scale 160ms var(--motion-ease)"
+          },
+          ".rx-radio:has(> :checked)": {
+            "--_edge": "var(--primary)"
+          },
+          ".rx-radio:has(> :checked)::after": {
+            "opacity": "1",
+            "scale": "1",
+            "transition": "opacity calc(var(--spring-swap-duration) * 0.5) var(--motion-ease), scale var(--spring-swap-duration) var(--spring-swap)"
+          },
+          ".rx-radio:has(> :focus-visible)": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "2px"
+          },
+          ".rx-radio:has(> :active:not(:disabled))": {
+            "scale": "0.92"
+          },
+          ".rx-radio:has(> :disabled)": {
+            "opacity": "0.5"
+          },
+          "@media (hover: hover)": {
+            ".rx-radio-item:hover > .rx-radio:not(:has(> :disabled, > :checked))": {
+              "--_edge": "var(--muted-foreground)"
+            },
+            ".rx-radio-group-card > .rx-radio-item:hover:not(:has(:disabled, :checked))": {
+              "--_card-edge": "color-mix(in oklab, var(--muted-foreground) 50%, transparent)"
+            }
+          },
+          ".rx-radio-group[aria-invalid=\"true\"]:not(:has(:checked)) .rx-radio": {
+            "--_edge": "var(--destructive)",
+            "--_halo": "color-mix(in oklab, var(--destructive) 15%, transparent)",
+            "outline-color": "var(--destructive)"
+          },
+          ".rx-radio-input": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "width": "max(24px, var(--_size))",
+            "height": "max(24px, var(--_size))",
+            "translate": "-50% -50%",
+            "z-index": "1",
+            "margin": "0",
+            "appearance": "none",
+            "opacity": "0",
+            "cursor": "pointer"
+          },
+          ".rx-radio-input:disabled": {
+            "cursor": "not-allowed"
+          },
+          ".rx-radio-item": {
+            "display": "inline-flex",
+            "align-items": "flex-start",
+            "gap": "0.75rem",
+            "color": "var(--foreground)",
+            "font-size": "0.875rem",
+            "line-height": "1.25rem",
+            "cursor": "pointer",
+            "user-select": "none",
+            "-webkit-tap-highlight-color": "transparent"
+          },
+          ".rx-radio-item > .rx-radio": {
+            "margin-block": "calc((1lh - var(--_size)) / 2)"
+          },
+          ".rx-radio-group-sm > .rx-radio-item": {
+            "gap": "0.5rem",
+            "font-size": "0.8125rem",
+            "letter-spacing": "-0.15px"
+          },
+          ".rx-radio-group-lg > .rx-radio-item": {
+            "font-size": "1rem",
+            "line-height": "1.5rem"
+          },
+          ".rx-radio-item:active:not(:has(:disabled)) > .rx-radio": {
+            "scale": "0.92"
+          },
+          ".rx-radio-item:has(:disabled)": {
+            "cursor": "not-allowed"
+          },
+          ".rx-radio-item:has(:disabled) > .rx-radio-text": {
+            "opacity": "0.5"
+          },
+          ".rx-radio-text": {
+            "display": "flex",
+            "min-width": "0",
+            "flex-direction": "column",
+            "gap": "0.125rem"
+          },
+          ".rx-radio-description": {
+            "color": "var(--muted-foreground)",
+            "font-size": "0.75rem",
+            "line-height": "1rem",
+            "letter-spacing": "0"
+          },
+          ".rx-radio-group-card": {
+            "gap": "0.5rem"
+          },
+          ".rx-radio-group-card[data-orientation=\"horizontal\"]": {
+            "gap": "0.5rem"
+          },
+          ".rx-radio-group-card[data-orientation=\"horizontal\"] > .rx-radio-item": {
+            "flex": "1 1 10rem"
+          },
+          ".rx-radio-group-card > .rx-radio-item": {
+            "--_card-edge": "var(--input)",
+            "--_card-fill": "var(--card)",
+            "position": "relative",
+            "display": "flex",
+            "padding": "0.75rem 1rem",
+            "border": "1px solid var(--_card-edge)",
+            "border-radius": "var(--radius-control)",
+            "background-color": "var(--_card-fill)",
+            "box-shadow": "0 0 0 1px transparent",
+            "transition": "border-color 150ms var(--motion-ease), background-color 150ms var(--motion-ease), box-shadow 150ms var(--motion-ease), scale var(--spring-press-duration) var(--spring-press)"
+          },
+          ".rx-radio-group-card > .rx-radio-item > .rx-radio": {
+            "order": "1"
+          },
+          ".rx-radio-group-card > .rx-radio-item > .rx-radio-text": {
+            "flex": "1"
+          },
+          ".rx-radio-group-card > .rx-radio-item:has(:checked)": {
+            "--_card-edge": "var(--primary)",
+            "--_card-fill": "color-mix(in oklab, var(--primary) 6%, var(--card))",
+            "box-shadow": "0 0 0 1px var(--primary)"
+          },
+          ".rx-radio-group-card > .rx-radio-item:has(:focus-visible)": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "2px"
+          },
+          ".rx-radio-group-card > .rx-radio-item:has(:focus-visible) > .rx-radio": {
+            "outline": "none"
+          },
+          ".rx-radio-group-card > .rx-radio-item:active:not(:has(:disabled))": {
+            "scale": "0.985"
+          },
+          ".rx-radio-group-card > .rx-radio-item:active:not(:has(:disabled)) > .rx-radio": {
+            "scale": "none"
+          },
+          ".rx-radio-group-card > .rx-radio-item:has(:disabled)": {
+            "opacity": "0.5"
+          },
+          ".rx-radio-group-card > .rx-radio-item:has(:disabled) > .rx-radio, .rx-radio-group-card > .rx-radio-item:has(:disabled) > .rx-radio-text": {
+            "opacity": "1"
+          },
+          ".rx-radio-group-card.rx-radio-group-sm > .rx-radio-item": {
+            "padding": "0.5rem 0.75rem"
+          },
+          ".rx-radio-group-card.rx-radio-group-lg > .rx-radio-item": {
+            "padding": "1rem 1.25rem"
+          },
+          ".rx-radio-group-card[aria-invalid=\"true\"]:not(:has(:checked)) > .rx-radio-item": {
+            "--_card-edge": "var(--destructive)"
+          },
+          "@supports (anchor-name: --a) and (anchor-scope: all)": {
+            ".rx-radio-group": {
+              "anchor-scope": "--_radio-chosen"
+            },
+            ".rx-radio-group::after": {
+              "content": "\"\"",
+              "position": "absolute",
+              "position-anchor": "--_radio-chosen",
+              "top": "anchor(center)",
+              "left": "anchor(center)",
+              "z-index": "2",
+              "width": "var(--_dot)",
+              "height": "var(--_dot)",
+              "border-radius": "50%",
+              "background-color": "var(--primary)",
+              "pointer-events": "none",
+              "translate": "-50% -50%",
+              "transition": "top var(--spring-glide-duration) var(--spring-glide), left var(--spring-glide-duration) var(--spring-glide), opacity calc(var(--spring-swap-duration) * 0.5) var(--motion-ease), scale var(--spring-swap-duration) var(--spring-swap)"
+            },
+            ".rx-radio-group:not(:has(.rx-radio-input:checked))::after": {
+              "opacity": "0",
+              "scale": "0",
+              "transition": "opacity 160ms var(--motion-ease), scale 160ms var(--motion-ease)"
+            },
+            ".rx-radio-group:has(.rx-radio-input:checked:disabled)::after": {
+              "opacity": "0.5"
+            },
+            ".rx-radio-group:has(.rx-radio-item:active .rx-radio-input:checked:not(:disabled))::after": {
+              "scale": "0.92"
+            },
+            ".rx-radio:has(> :checked), .rx-radio-group:not(:has(.rx-radio-input:checked)) > .rx-radio-item:first-of-type > .rx-radio": {
+              "anchor-name": "--_radio-chosen"
+            },
+            ".rx-radio::after": {
+              "visibility": "hidden"
+            }
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ".rx-radio, .rx-radio-group-card > .rx-radio-item": {
+              "scale": "none !important"
+            },
+            ".rx-radio::after, .rx-radio-group::after": {
+              "scale": "none !important",
+              "transition": "opacity 100ms var(--motion-ease) !important"
+            }
+          },
+          "[data-motion=\"off\"] .rx-radio, [data-motion=\"off\"] .rx-radio::after, [data-motion=\"off\"] .rx-radio-group::after, [data-motion=\"off\"] .rx-radio-group-card > .rx-radio-item": {
+            "transition": "none !important"
           }
         }
       }

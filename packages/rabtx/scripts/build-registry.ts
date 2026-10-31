@@ -264,6 +264,13 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 		css: "switch.css",
 	},
 	{
+		name: "radio-group",
+		title: "Radio Group",
+		description:
+			"Native radios in a radiogroup fieldset, three sizes and choice cards, with a dot that glides to the chosen option. CSS-only motion.",
+		css: "radio-group.css",
+	},
+	{
 		name: "card",
 		title: "Card",
 		description:

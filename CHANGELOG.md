@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `@rabtx/ui` RadioGroup: native radios sharing one name in a `<fieldset role="radiogroup">`,
+  sizes `sm` (16), `md` (20), `lg` (24), `orientation`, a `card` variant (choice cards), shadcn API
+  (`value` / `defaultValue` / `onValueChange`, `RadioGroupItem` with `description`) and Field
+  wiring. The dot glides to the chosen option with CSS anchor positioning on a new `glide` spring
+  (each circle pops its own dot where anchors are missing). Registry item `@rabtx/radio-group`,
+  `/docs/ui/radio-group`, the `/ui/radio-group` playground page and `ui-radio-group.spec.ts`.
 - `@rabtx/ui` Checkbox rebuilt on a native checkbox laid over a box styled with `:has()`: sizes
   `sm` (16), `md` (20, default), `lg` (24); shadcn API (`checked` incl. `"indeterminate"`,
   `defaultChecked`, `onCheckedChange`) plus `indeterminate` and `description`; Field and

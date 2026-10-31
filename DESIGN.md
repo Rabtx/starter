@@ -410,6 +410,22 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   `#e3e3e3` edge and pressed-fill disabled. No CheckboxGroup: a list of checkboxes is a `fieldset`
   of Checkboxes; add a group when a design needs one. The Figma `Task Check` (6:78, a priority
   circle) is a separate component.
+- **Radio Group** (Figma Radio `66:794` and Option Card `26:400` not yet read; built 2026-11-01):
+  native `<input type="radio">`s sharing one `name` (generated with `useId` when left out) inside a
+  `<fieldset role="radiogroup">`, so arrow keys, wrapping, skipping disabled options, the single tab
+  stop and form submission are the browser's; `disabled` on the group is the fieldset's own. Each
+  input is invisible over a drawn circle that reads it with `:has()`, at least 24px, like the
+  Checkbox. Sizes 16 / 20 / 24 (set on the group; dot 6 / 8 / 10). Off is `--background` with a
+  2px `--muted-foreground` 50% edge (full on hover); on is a `--primary` edge and dot (not a filled
+  circle); error (Field or `aria-invalid` on the group) turns the circles `--destructive` with a 15%
+  halo until something is chosen; disabled is 50%. Motion: where anchor positioning and
+  `anchor-scope` exist the dot is the group's `::after`, anchored to the checked circle, and its
+  `top` / `left` transition on the new `glide` spring (360 / 32 / 0.6, overdamped, about 420ms), so
+  it travels to the new choice; elsewhere each circle's own `::after` pops in on the swap spring.
+  Press springs the circle to 0.92. `variant="card"` draws choice cards (`--card` fill, `--input`
+  edge, `--radius-control`, circle at the end; chosen is a `--primary` edge plus a 6% tint, with a
+  card-level focus ring and a 0.985 press). The Field label now has an id (`<id>-label`) so a group
+  is named by it with `aria-labelledby` (a `<label for>` cannot name a fieldset).
 - Other frameworks: a Solid component is another thin wrapper over `button.styles.ts` plus the same
   CSS, not a clone or a rewrite. Not built yet; add it as a separate package or export with
   `solid-js` as a peer dependency, and test it with a real Solid render.
