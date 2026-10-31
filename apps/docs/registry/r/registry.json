@@ -314,32 +314,6 @@
             "color": "var(--disabled-foreground)",
             "cursor": "not-allowed"
           },
-          ".rx-field": {
-            "--_fill": "var(--field)",
-            "--_fill-hover": "var(--field)",
-            "--_flat": "var(--input)",
-            "--_dis-fill": "var(--field-disabled)",
-            "--_dis-edge": "var(--border)",
-            "--_press": "1",
-            "--_ring": "transparent",
-            "--_edge-a": "var(--field-edge-top)",
-            "--_edge-b": "var(--field-edge-bottom)",
-            "--_sheen": "var(--field-shade)",
-            "--_shade": "transparent",
-            "color": "var(--foreground)"
-          },
-          ".rx-field:focus-within": {
-            "--_flat": "var(--ring)",
-            "--_edge-a": "var(--ring)",
-            "--_edge-b": "var(--ring)",
-            "--_halo": "color-mix(in oklab, var(--ring) 20%, transparent)"
-          },
-          ".rx-field:is(:has([aria-invalid=\"true\"]), [aria-invalid=\"true\"])": {
-            "--_flat": "var(--destructive)",
-            "--_edge-a": "var(--destructive)",
-            "--_edge-b": "var(--destructive)",
-            "--_halo": "color-mix(in oklab, var(--destructive) 10%, transparent)"
-          },
           ".rx-card": {
             "--_fill": "var(--card)",
             "--_flat": "var(--border)",
@@ -1121,13 +1095,17 @@
       "name": "input",
       "type": "registry:ui",
       "title": "Input",
-      "description": "A recessed text field with optional icons, in five sizes.",
+      "description": "A native text input in three sizes with icons, addons, a floating label, clear and password buttons, plus a one-time code. CSS-only motion.",
       "registryDependencies": [
         "{{origin}}/r/rabtx.json",
         "{{origin}}/r/field-context.json",
         "utils"
       ],
       "files": [
+        {
+          "path": "registry/rabtx/ui/input-otp.tsx",
+          "type": "registry:ui"
+        },
         {
           "path": "registry/rabtx/ui/input.styles.ts",
           "type": "registry:ui"
@@ -1136,13 +1114,413 @@
           "path": "registry/rabtx/ui/input.tsx",
           "type": "registry:ui"
         }
-      ]
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-input-field": {
+            "--_h": "2.5rem",
+            "--_pad": "0.75rem",
+            "--_px": "var(--_pad)",
+            "--_icon": "16px",
+            "--_font": "0.875rem",
+            "--_r": "var(--radius-box)",
+            "--_bg": "var(--card)",
+            "position": "relative",
+            "box-sizing": "border-box",
+            "display": "flex",
+            "align-items": "center",
+            "gap": "0.5rem",
+            "width": "100%",
+            "min-width": "0",
+            "height": "var(--_h)",
+            "padding-inline": "var(--_px)",
+            "overflow": "clip",
+            "border": "1px solid var(--input)",
+            "border-radius": "var(--_r)",
+            "background-color": "var(--_bg)",
+            "color": "var(--card-foreground)",
+            "font-family": "var(--font-sans)",
+            "font-size": "var(--_font)",
+            "line-height": "1.25rem",
+            "letter-spacing": "-0.15px",
+            "cursor": "text",
+            "-webkit-tap-highlight-color": "transparent",
+            "transition": "border-color 150ms var(--motion-ease), box-shadow 150ms var(--motion-ease)"
+          },
+          "@media (hover: hover)": {
+            ".rx-input-field:hover": {
+              "border-color": "color-mix(in oklab, var(--foreground) 24%, var(--card))"
+            },
+            ".rx-input-action:hover": {
+              "background-color": "var(--accent)",
+              "color": "var(--accent-foreground)"
+            }
+          },
+          ".rx-input-field:has(.rx-input:focus-visible)": {
+            "border-color": "var(--ring)",
+            "box-shadow": "0 0 0 3px color-mix(in oklab, var(--ring) 20%, transparent)"
+          },
+          ".rx-input-field:has(.rx-input:is([aria-invalid=\"true\"], :user-invalid))": {
+            "border-color": "var(--destructive)",
+            "box-shadow": "0 0 0 3px color-mix(in oklab, var(--destructive) 12%, transparent)",
+            "animation": "rx-input-shake 400ms cubic-bezier(0.25, 1, 0.5, 1)"
+          },
+          ".rx-input-field:has(.rx-input:read-only:not(:disabled))": {
+            "--_bg": "color-mix(in oklab, var(--muted) 50%, var(--card))"
+          },
+          ".rx-input-field:has(.rx-input:disabled)": {
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          ".rx-input-sm": {
+            "--_h": "2rem",
+            "--_pad": "0.625rem",
+            "--_font": "0.8125rem"
+          },
+          ".rx-input-lg": {
+            "--_h": "3rem",
+            "--_pad": "1rem",
+            "--_icon": "18px",
+            "--_font": "1rem"
+          },
+          ".rx-input-pill": {
+            "--_r": "999px",
+            "--_px": "calc(var(--_pad) + 0.25rem)"
+          },
+          ".rx-input-filled": {
+            "--_bg": "var(--field)",
+            "border-color": "transparent",
+            "background": "linear-gradient(180deg, var(--field-shade), transparent 40%) padding-box, linear-gradient(var(--_bg), var(--_bg)) padding-box, linear-gradient(180deg, var(--field-edge-top), var(--field-edge-bottom)) border-box"
+          },
+          ".rx-input-filled:has(.rx-input:disabled)": {
+            "--_bg": "var(--field-disabled)"
+          },
+          "[data-depth=\"flat\"] .rx-input-filled": {
+            "border-color": "var(--input)",
+            "background": "var(--_bg)"
+          },
+          ".rx-input": {
+            "flex": "1 1 auto",
+            "align-self": "stretch",
+            "width": "0",
+            "min-width": "0",
+            "margin": "0",
+            "padding": "0",
+            "border": "0",
+            "background": "transparent",
+            "color": "inherit",
+            "font": "inherit",
+            "letter-spacing": "inherit",
+            "text-overflow": "ellipsis",
+            "outline": "none"
+          },
+          ".rx-input::placeholder": {
+            "color": "var(--subtle-foreground)",
+            "opacity": "1"
+          },
+          ".rx-input:disabled": {
+            "cursor": "not-allowed"
+          },
+          ".rx-input:autofill": {
+            "-webkit-text-fill-color": "var(--card-foreground)",
+            "box-shadow": "inset 0 0 0 100vmax var(--_bg)"
+          },
+          ".rx-input-field:has(.rx-input-clear) .rx-input::-webkit-search-cancel-button": {
+            "appearance": "none"
+          },
+          ".rx-input-icon": {
+            "display": "inline-flex",
+            "flex": "none",
+            "align-items": "center",
+            "color": "var(--muted-foreground)"
+          },
+          ".rx-input-icon svg": {
+            "width": "var(--_icon)",
+            "height": "var(--_icon)"
+          },
+          ".rx-input-addon": {
+            "display": "flex",
+            "flex": "none",
+            "align-items": "center",
+            "align-self": "stretch",
+            "padding-inline": "var(--_pad)",
+            "background-color": "var(--secondary)",
+            "color": "var(--muted-foreground)",
+            "white-space": "nowrap"
+          },
+          ".rx-input-addon:first-child": {
+            "margin-inline-start": "calc(var(--_px) * -1)",
+            "border-inline-end": "1px solid var(--input)"
+          },
+          ".rx-input-addon:last-child": {
+            "margin-inline-end": "calc(var(--_px) * -1)",
+            "border-inline-start": "1px solid var(--input)"
+          },
+          ".rx-input-action": {
+            "display": "inline-grid",
+            "flex": "none",
+            "place-items": "center",
+            "width": "calc(var(--_icon) + 0.5rem)",
+            "height": "calc(var(--_icon) + 0.5rem)",
+            "margin-inline": "-0.25rem",
+            "padding": "0",
+            "border": "0",
+            "border-radius": "var(--radius-item)",
+            "background": "transparent",
+            "color": "var(--muted-foreground)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms var(--motion-ease), color 150ms var(--motion-ease), opacity 150ms var(--motion-ease), visibility 150ms, scale var(--spring-swap-duration) var(--spring-swap)"
+          },
+          ".rx-input-action svg": {
+            "grid-area": "1 / 1",
+            "width": "var(--_icon)",
+            "height": "var(--_icon)"
+          },
+          ".rx-input-action:focus-visible": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "0"
+          },
+          ".rx-input-action:disabled": {
+            "pointer-events": "none"
+          },
+          ".rx-input-field:has(.rx-input:is(:placeholder-shown, :read-only)) .rx-input-clear": {
+            "visibility": "hidden",
+            "opacity": "0",
+            "scale": "0.5",
+            "transition-duration": "120ms"
+          },
+          ".rx-input-reveal svg": {
+            "transition": "opacity 300ms cubic-bezier(0.2, 0, 0, 1), scale 300ms cubic-bezier(0.2, 0, 0, 1), filter 300ms cubic-bezier(0.2, 0, 0, 1)"
+          },
+          ".rx-input-reveal[aria-pressed=\"true\"] > [data-when=\"hidden\"], .rx-input-reveal[aria-pressed=\"false\"] > [data-when=\"shown\"]": {
+            "opacity": "0",
+            "scale": "0.25",
+            "filter": "blur(4px)",
+            "transition-duration": "150ms"
+          },
+          ".rx-input-check": {
+            "color": "var(--success)"
+          },
+          ".rx-input-check path": {
+            "stroke-dasharray": "1",
+            "animation": "rx-input-draw 350ms cubic-bezier(0.16, 1, 0.3, 1) 60ms backwards"
+          },
+          ".rx-input-field:has(.rx-input-float)": {
+            "--_lift": "calc(var(--_h) / 4 - 0.125rem)"
+          },
+          ".rx-input-sm:has(.rx-input-float)": {
+            "--_h": "2.5rem"
+          },
+          ".rx-input-float": {
+            "position": "relative",
+            "display": "flex",
+            "flex": "1 1 auto",
+            "align-self": "stretch",
+            "min-width": "0"
+          },
+          ".rx-input-float > .rx-input": {
+            "padding-block-start": "var(--_lift)"
+          },
+          ".rx-input-float > .rx-input::placeholder": {
+            "color": "transparent",
+            "transition": "color 150ms var(--motion-ease)"
+          },
+          ".rx-input-float > .rx-input:focus::placeholder": {
+            "color": "var(--subtle-foreground)"
+          },
+          ".rx-input-label": {
+            "position": "absolute",
+            "inset-inline-start": "0",
+            "top": "50%",
+            "max-width": "100%",
+            "overflow": "hidden",
+            "color": "var(--subtle-foreground)",
+            "white-space": "nowrap",
+            "text-overflow": "ellipsis",
+            "pointer-events": "none",
+            "translate": "0 -50%",
+            "transform-origin": "0 50%",
+            "transition": "translate var(--spring-label-duration) var(--spring-label), scale var(--spring-label-duration) var(--spring-label), color 150ms var(--motion-ease)"
+          },
+          ".rx-input:is(:focus, :not(:placeholder-shown), :autofill) + .rx-input-label": {
+            "translate": "0 calc(-50% - var(--_lift))",
+            "scale": "0.8",
+            "color": "var(--muted-foreground)"
+          },
+          ".rx-input:focus + .rx-input-label": {
+            "color": "var(--ring)"
+          },
+          ".rx-input:is([aria-invalid=\"true\"], :user-invalid) + .rx-input-label": {
+            "color": "var(--destructive)"
+          },
+          ".rx-otp": {
+            "--_h": "2.5rem",
+            "--_w": "2.25rem",
+            "--_gap": "0.5rem",
+            "--_font": "1.125rem",
+            "--_r": "var(--radius-box)",
+            "position": "relative",
+            "display": "inline-flex",
+            "font-family": "var(--font-sans)"
+          },
+          ".rx-otp:has(.rx-otp-input:disabled)": {
+            "opacity": "0.5"
+          },
+          ".rx-otp-sm": {
+            "--_h": "2rem",
+            "--_w": "1.75rem",
+            "--_gap": "0.375rem",
+            "--_font": "0.9375rem"
+          },
+          ".rx-otp-lg": {
+            "--_h": "3rem",
+            "--_w": "2.75rem",
+            "--_gap": "0.625rem",
+            "--_font": "1.375rem"
+          },
+          ".rx-otp-input": {
+            "position": "absolute",
+            "inset": "0",
+            "z-index": "1",
+            "width": "100%",
+            "height": "100%",
+            "margin": "0",
+            "padding": "0",
+            "border": "0",
+            "background": "transparent",
+            "color": "transparent",
+            "caret-color": "transparent",
+            "font-size": "16px",
+            "-webkit-text-fill-color": "transparent",
+            "outline": "none",
+            "cursor": "text"
+          },
+          ".rx-otp-input::selection": {
+            "background": "transparent"
+          },
+          ".rx-otp-input:autofill": {
+            "transition": "background-color 600000s, color 600000s"
+          },
+          ".rx-otp-input:disabled": {
+            "cursor": "not-allowed"
+          },
+          ".rx-otp-slots": {
+            "display": "flex",
+            "gap": "var(--_gap)"
+          },
+          ".rx-otp-slot": {
+            "position": "relative",
+            "box-sizing": "border-box",
+            "display": "grid",
+            "place-items": "center",
+            "width": "var(--_w)",
+            "height": "var(--_h)",
+            "overflow": "clip",
+            "border": "1px solid var(--input)",
+            "border-radius": "var(--_r)",
+            "background-color": "var(--card)",
+            "color": "var(--card-foreground)",
+            "font-size": "var(--_font)",
+            "font-weight": "500",
+            "font-variant-numeric": "tabular-nums",
+            "line-height": "1",
+            "transition": "border-color 150ms var(--motion-ease)"
+          },
+          ".rx-otp-slot[data-filled]": {
+            "border-color": "color-mix(in oklab, var(--foreground) 24%, var(--card))"
+          },
+          ".rx-otp-char": {
+            "grid-area": "1 / 1",
+            "animation": "rx-otp-roll var(--spring-label-duration) var(--spring-label) backwards"
+          },
+          ".rx-otp-ring": {
+            "position": "absolute",
+            "top": "0",
+            "left": "0",
+            "box-sizing": "border-box",
+            "width": "var(--_w)",
+            "height": "var(--_h)",
+            "border": "1px solid var(--ring)",
+            "border-radius": "var(--_r)",
+            "box-shadow": "0 0 0 3px color-mix(in oklab, var(--ring) 20%, transparent)",
+            "opacity": "0",
+            "pointer-events": "none",
+            "translate": "calc(var(--_at, 0) * (var(--_w) + var(--_gap))) 0",
+            "transition": "translate var(--spring-swap-duration) var(--spring-swap), opacity 150ms var(--motion-ease)"
+          },
+          ".rx-otp:has(.rx-otp-input:focus-visible) .rx-otp-ring": {
+            "opacity": "1"
+          },
+          ".rx-otp:has(.rx-otp-input:focus-visible) .rx-otp-slot[data-active]:not([data-filled])::after": {
+            "content": "\"\"",
+            "grid-area": "1 / 1",
+            "width": "1px",
+            "height": "45%",
+            "background": "currentColor",
+            "animation": "rx-otp-blink 1.1s step-end infinite"
+          },
+          ".rx-otp:has(.rx-otp-input:is([aria-invalid=\"true\"], :user-invalid)) .rx-otp-slot": {
+            "border-color": "var(--destructive)"
+          },
+          ".rx-otp:has(.rx-otp-input:is([aria-invalid=\"true\"], :user-invalid)) .rx-otp-ring": {
+            "border-color": "var(--destructive)",
+            "box-shadow": "0 0 0 3px color-mix(in oklab, var(--destructive) 12%, transparent)"
+          },
+          ".rx-otp:has(.rx-otp-input:is([aria-invalid=\"true\"], :user-invalid)) .rx-otp-slots": {
+            "animation": "rx-input-shake 400ms cubic-bezier(0.25, 1, 0.5, 1)"
+          },
+          "@keyframes rx-input-shake": {
+            "15%": {
+              "translate": "-5px 0"
+            },
+            "30%": {
+              "translate": "4px 0"
+            },
+            "45%": {
+              "translate": "-3px 0"
+            },
+            "60%": {
+              "translate": "2px 0"
+            },
+            "75%": {
+              "translate": "-1px 0"
+            }
+          },
+          "@keyframes rx-input-draw": {
+            "from": {
+              "stroke-dashoffset": "1"
+            }
+          },
+          "@keyframes rx-otp-roll": {
+            "from": {
+              "translate": "0 60%",
+              "opacity": "0",
+              "filter": "blur(4px)"
+            }
+          },
+          "@keyframes rx-otp-blink": {
+            "50%": {
+              "opacity": "0"
+            }
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":is(.rx-input-field, .rx-input-field *, .rx-otp *)": {
+              "animation-name": "none !important",
+              "transition-duration": "0ms !important"
+            }
+          },
+          "[data-motion=\"off\"] :is(.rx-input-field, .rx-input-field *, .rx-otp *)": {
+            "animation": "none !important",
+            "transition-duration": "0ms !important"
+          }
+        }
+      }
     },
     {
       "name": "textarea",
       "type": "registry:ui",
       "title": "Textarea",
-      "description": "A recessed multi-line text field.",
+      "description": "A native textarea that grows with its text.",
       "registryDependencies": [
         "{{origin}}/r/rabtx.json",
         "{{origin}}/r/field-context.json",
@@ -1157,7 +1535,64 @@
           "path": "registry/rabtx/ui/textarea.tsx",
           "type": "registry:ui"
         }
-      ]
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-textarea": {
+            "box-sizing": "border-box",
+            "display": "block",
+            "width": "100%",
+            "min-height": "6rem",
+            "field-sizing": "content",
+            "margin": "0",
+            "padding": "0.5rem 0.75rem",
+            "border": "1px solid var(--input)",
+            "border-radius": "var(--radius-box)",
+            "background-color": "var(--card)",
+            "color": "var(--card-foreground)",
+            "font": "inherit",
+            "font-family": "var(--font-sans)",
+            "font-size": "0.875rem",
+            "line-height": "1.25rem",
+            "letter-spacing": "-0.15px",
+            "resize": "vertical",
+            "outline": "none",
+            "transition": "border-color 150ms var(--motion-ease), box-shadow 150ms var(--motion-ease)"
+          },
+          ".rx-textarea::placeholder": {
+            "color": "var(--subtle-foreground)",
+            "opacity": "1"
+          },
+          "@media (hover: hover)": {
+            ".rx-textarea:hover": {
+              "border-color": "color-mix(in oklab, var(--foreground) 24%, var(--card))"
+            }
+          },
+          ".rx-textarea:focus-visible": {
+            "border-color": "var(--ring)",
+            "box-shadow": "0 0 0 3px color-mix(in oklab, var(--ring) 20%, transparent)"
+          },
+          ".rx-textarea:is([aria-invalid=\"true\"], :user-invalid)": {
+            "border-color": "var(--destructive)",
+            "box-shadow": "0 0 0 3px color-mix(in oklab, var(--destructive) 12%, transparent)"
+          },
+          ".rx-textarea:read-only:not(:disabled)": {
+            "background-color": "color-mix(in oklab, var(--muted) 50%, var(--card))"
+          },
+          ".rx-textarea:disabled": {
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ".rx-textarea": {
+              "transition-duration": "0ms"
+            }
+          },
+          "[data-motion=\"off\"] .rx-textarea": {
+            "transition-duration": "0ms"
+          }
+        }
+      }
     },
     {
       "name": "field",

@@ -234,9 +234,16 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 	{
 		name: "input",
 		title: "Input",
-		description: "A recessed text field with optional icons, in five sizes.",
+		description:
+			"A native text input in three sizes with icons, addons, a floating label, clear and password buttons, plus a one-time code. CSS-only motion.",
+		css: "input.css",
 	},
-	{ name: "textarea", title: "Textarea", description: "A recessed multi-line text field." },
+	{
+		name: "textarea",
+		title: "Textarea",
+		description: "A native textarea that grows with its text.",
+		css: "textarea.css",
+	},
 	{
 		name: "field",
 		title: "Field",

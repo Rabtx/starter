@@ -115,32 +115,6 @@
         "color": "var(--disabled-foreground)",
         "cursor": "not-allowed"
       },
-      ".rx-field": {
-        "--_fill": "var(--field)",
-        "--_fill-hover": "var(--field)",
-        "--_flat": "var(--input)",
-        "--_dis-fill": "var(--field-disabled)",
-        "--_dis-edge": "var(--border)",
-        "--_press": "1",
-        "--_ring": "transparent",
-        "--_edge-a": "var(--field-edge-top)",
-        "--_edge-b": "var(--field-edge-bottom)",
-        "--_sheen": "var(--field-shade)",
-        "--_shade": "transparent",
-        "color": "var(--foreground)"
-      },
-      ".rx-field:focus-within": {
-        "--_flat": "var(--ring)",
-        "--_edge-a": "var(--ring)",
-        "--_edge-b": "var(--ring)",
-        "--_halo": "color-mix(in oklab, var(--ring) 20%, transparent)"
-      },
-      ".rx-field:is(:has([aria-invalid=\"true\"]), [aria-invalid=\"true\"])": {
-        "--_flat": "var(--destructive)",
-        "--_edge-a": "var(--destructive)",
-        "--_edge-b": "var(--destructive)",
-        "--_halo": "color-mix(in oklab, var(--destructive) 10%, transparent)"
-      },
       ".rx-card": {
         "--_fill": "var(--card)",
         "--_flat": "var(--border)",

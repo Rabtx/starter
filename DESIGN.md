@@ -266,7 +266,7 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   (one shadcn-style theme file, `src/styles/theme.css`), the spring solver (`src/motion`, generating
   the `--spring-*` tokens in `theme.css`) and **Button**.
   Styling is Tailwind first: `src/styles/control.css` holds the shared depth recipe (`rx-control`,
-  `rx-surface`, `rx-field`, `rx-card`) and the flat and motion-off rules for fields and cards.
+  `rx-surface`, `rx-card`) and the flat and motion-off rules for cards.
   Exports: `@rabtx/ui/button`, `@rabtx/ui/button/styles`, `@rabtx/ui/input`,
   `@rabtx/ui/input/styles`, `@rabtx/ui/field`, `@rabtx/ui/field/styles`, `@rabtx/ui/textarea`,
   `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/badge`, `@rabtx/ui/badge/styles`,
@@ -297,26 +297,36 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   so the Figma values are dropped into `theme.css`, not into the component. **Deviation from Figma:** this look (blue primary, pill sizes, no depth
   modes) replaces Figma's black primary, accent and danger tones and the 24 to 48 size matrix; the
   Button ignores `data-depth`. Reconcile when the Figma design system is shared.
-- **Input** (Figma `6:14`): a wrapper draws the field (`rx-control rx-field`) around a native
-  `<input>`. Heights 28, 32 (default), 36, 44, 48. Depth: Flat is one 1px border; Floating is a
-  recess (dark top edge fading to a light bottom edge plus a faint top shade), which replaces
-  Figma's inner shadow because depth has no cast or inset shadows. Focus is a blue edge plus a 3px
-  halo; error (`aria-invalid`) is red the same way. Pill is a per-input `pill` prop (Figma's Shape
-  property), independent of the Round radius mode, so text is never clipped. Dark field values and
-  the 20% / 18% halo strengths are derived, not read from Figma. Figma's placeholder color
-  (`#9e9e9e` on `#f5f5f5`) is below 4.5:1; kept as specified, flagged for the design owner.
+- **Input** (Figma `6:14`): a native `<input>` inside a wrapper (`rx-input-field`, drawn by
+  `src/styles/input.css`) that holds icons, addons, a floating label and small buttons. **Deviation
+  from Figma, like the Select:** the default `outline` look is the Select trigger's (sizes 32, 40
+  and 48, `--card` fill, `--input` edge, `--radius-box`, the same hover, focus and error), so an
+  Input, a Select and a Button of one size line up; Figma's recessed 28 to 48 field survives as
+  `variant="filled"` (the `--field*` tokens; Flat makes it one border). The platform carries the
+  state and CSS reads it with `:has()`: focus is `:focus-visible`; an error is `aria-invalid` (from
+  Field) or `:user-invalid` (native constraints, only after editing), and the error rule also sets
+  a one-shot shake keyframe; emptiness is `:placeholder-shown` (the component always sets a
+  placeholder), which shows the clear button and floats the label. Extras: `leadingIcon` /
+  `trailingIcon` (decorative, hidden), `startAddon` / `endAddon` (divided segments), `pill`,
+  `clearable` (empties the input through the native value setter so controlled inputs get
+  `onChange`), `success` (a tick drawn with `stroke-dashoffset`), a floating `label` (on the label
+  spring; md and lg only), `action` (your own trailing button), `PasswordInput` (an eye with
+  `aria-pressed`, glyphs cross-fading with blur) and `InputOTP` (one real input with
+  `autocomplete="one-time-code"` over aria-hidden slots; the ring glides on the swap spring and
+  characters roll in). No animation library. Figma's placeholder color (`#9e9e9e` on white) is
+  below 4.5:1; kept as specified, flagged for the design owner.
 - **Field** (Figma `26:436`): a label (13/20 medium), one control and an optional 12/16 hint, 6px
   apart. It owns the wiring: a generated `id` for the label, the hint or error linked with
   `aria-describedby`, `aria-invalid` on an error, and a polite live region for the message. The
   control reads this from a React context, so Textarea and Select can join it later. The context is
   internal (not exported) so server files can import `@rabtx/ui/field`. The hint (`#9e9e9e`) and
   error (`#e5484d`) text colors are as specified and are below 4.5:1 on white; flagged.
-- **Textarea** (Figma `66:783`): the `<textarea>` itself is the field (`rx-control rx-field`, no
-  wrapper), 96px minimum height, 13/20 text, vertical resize, and it reads Field's context like
-  Input. **Open inconsistency in Figma:** Textarea is drawn white with a plain border and no recess,
-  while Input is `#f5f5f5` with a recess. Textarea follows Input so a form does not mix two field
-  looks; if the owner wants it white, change its fill token only. Its focus (`#d3e4fd`) and error
-  (`#fdecec`) halos are measured from Figma; Input's error halo was corrected to match (10%).
+- **Textarea** (Figma `66:783`): the `<textarea>` itself is the field (`rx-textarea`, drawn by
+  `src/styles/textarea.css`), in the Input's outline look so a form does not mix two field looks:
+  `--card` fill, `--input` edge, `--radius-box`, the same focus and error (`aria-invalid` or
+  `:user-invalid`), 14/20 text. It grows with its text (`field-sizing: content`) from a 96px
+  minimum and still resizes vertically by hand. Figma draws it white with a plain border, which this
+  now matches.
 - **Card**: Figma has no generic Card section, so this is the container shared by its Kanban (12px
   padding), Option (16) and Stat (20) cards: surface fill, 1px `#f2f2f2` border, the box radius tier
   (12 Default, 20 Round, 4 Sharp), a vertical stack. One component, `padding` sm, md (default) or

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "textarea",
   "title": "Textarea",
-  "description": "A recessed multi-line text field.",
+  "description": "A native textarea that grows with its text.",
   "registryDependencies": [
     "{{origin}}/r/rabtx.json",
     "{{origin}}/r/field-context.json",
@@ -11,7 +11,7 @@
   "files": [
     {
       "path": "registry/rabtx/ui/textarea.styles.ts",
-      "content": "/** The whole look of a Textarea as Tailwind classes. The element itself is the field. */\nexport const textareaClass =\n\t\"rx-control rx-field block min-h-24 w-full resize-y rounded-(--radius-control) px-[9px] py-[7px] text-[13px]/5 outline-none placeholder:text-(--subtle-foreground) disabled:placeholder:text-(--disabled-foreground)\";\n",
+      "content": "/**\n * The class for a Textarea. The look lives in `textarea.css` (your global CSS, when installed from\n * the registry), so plain HTML gets the same field: `<textarea class=\"rx-textarea\"></textarea>`.\n */\nexport const textareaClass = \"rx-textarea\";\n",
       "type": "registry:ui"
     },
     {
@@ -20,5 +20,62 @@
       "type": "registry:ui"
     }
   ],
+  "css": {
+    "@layer components": {
+      ".rx-textarea": {
+        "box-sizing": "border-box",
+        "display": "block",
+        "width": "100%",
+        "min-height": "6rem",
+        "field-sizing": "content",
+        "margin": "0",
+        "padding": "0.5rem 0.75rem",
+        "border": "1px solid var(--input)",
+        "border-radius": "var(--radius-box)",
+        "background-color": "var(--card)",
+        "color": "var(--card-foreground)",
+        "font": "inherit",
+        "font-family": "var(--font-sans)",
+        "font-size": "0.875rem",
+        "line-height": "1.25rem",
+        "letter-spacing": "-0.15px",
+        "resize": "vertical",
+        "outline": "none",
+        "transition": "border-color 150ms var(--motion-ease), box-shadow 150ms var(--motion-ease)"
+      },
+      ".rx-textarea::placeholder": {
+        "color": "var(--subtle-foreground)",
+        "opacity": "1"
+      },
+      "@media (hover: hover)": {
+        ".rx-textarea:hover": {
+          "border-color": "color-mix(in oklab, var(--foreground) 24%, var(--card))"
+        }
+      },
+      ".rx-textarea:focus-visible": {
+        "border-color": "var(--ring)",
+        "box-shadow": "0 0 0 3px color-mix(in oklab, var(--ring) 20%, transparent)"
+      },
+      ".rx-textarea:is([aria-invalid=\"true\"], :user-invalid)": {
+        "border-color": "var(--destructive)",
+        "box-shadow": "0 0 0 3px color-mix(in oklab, var(--destructive) 12%, transparent)"
+      },
+      ".rx-textarea:read-only:not(:disabled)": {
+        "background-color": "color-mix(in oklab, var(--muted) 50%, var(--card))"
+      },
+      ".rx-textarea:disabled": {
+        "opacity": "0.5",
+        "cursor": "not-allowed"
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        ".rx-textarea": {
+          "transition-duration": "0ms"
+        }
+      },
+      "[data-motion=\"off\"] .rx-textarea": {
+        "transition-duration": "0ms"
+      }
+    }
+  },
   "type": "registry:ui"
 }
