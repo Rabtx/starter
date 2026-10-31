@@ -1,18 +1,15 @@
-# Dev container: Bun, Rust, Python (scripts), Bash tooling.
+# Dev container: Bun, Rust, Bash tooling.
 FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
 
 ARG BUN_VERSION=1.4.4
 ARG RUST_CHANNEL=stable
 
-# Shell/Python tooling used by repo scripts (no C/Lua toolchain).
+# Shell tooling used by repo scripts (no C/Lua toolchain).
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	curl \
 	git \
 	ca-certificates \
 	shellcheck \
-	python3 \
-	python3-pip \
-	python3-venv \
 	&& rm -rf /var/lib/apt/lists/*
 
 USER vscode
@@ -29,9 +26,6 @@ ENV BUN_INSTALL="/home/vscode/.bun" \
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain "${RUST_CHANNEL}" --profile minimal \
 	&& . "${HOME}/.cargo/env" \
 	&& rustup component add rustfmt clippy
-
-# Ruff for scripts/python
-RUN pip install --user ruff 2>/dev/null || true
 
 # shfmt for bash scripts
 RUN set -e; \

@@ -86,14 +86,6 @@ apps/c/build/
 .just-*
 
 # scripts – build/cache
-# python
-__pycache__/
-*.py[cod]
-.venv/
-venv/
-.mypy_cache/
-.ruff_cache/
-.pytest_cache/
 # lua (if any)
 *.luac
 

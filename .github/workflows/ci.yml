@@ -121,11 +121,6 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Setup uv
-        uses: astral-sh/setup-uv@v10.3.3
-        with:
-          enable-cache: true
-
       - name: Test
         run: bun run ci:test
         env:
