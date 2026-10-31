@@ -30,6 +30,8 @@ export const SPRINGS = {
 	toast: { stiffness: 420, damping: 34, mass: 0.75 },
 	/** Switch thumb. Heavy, squishes to 0.9. */
 	switch: { stiffness: 800, damping: 80, mass: 4 },
+	/** A radio dot gliding to the chosen option. Slightly overdamped, no overshoot, about 420ms. */
+	glide: { stiffness: 360, damping: 32, mass: 0.6 },
 } as const satisfies Record<string, Spring>;
 
 export type SpringName = keyof typeof SPRINGS;

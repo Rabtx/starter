@@ -41,6 +41,14 @@ describe("springs", () => {
 		expect(solved.settleMs).toBeLessThan(330);
 	});
 
+	it("glide is slightly overdamped and settles in about 420ms", () => {
+		expect(dampingRatio(SPRINGS.glide)).toBeGreaterThan(1);
+		const solved = solveSpring(SPRINGS.glide);
+		expect(solved.overshootPercent).toBe(0);
+		expect(solved.settleMs).toBeGreaterThan(380);
+		expect(solved.settleMs).toBeLessThan(460);
+	});
+
 	it("emits a valid linear() easing of fixed length", () => {
 		const { easing } = solveSpring(SPRINGS.press);
 		expect(easing.startsWith("linear(0, ")).toBe(true);
