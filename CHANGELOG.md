@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `@rabtx/ui` Input rebuilt on the native `<input>` in the Select trigger's look: sizes `sm` (32),
+  `md` (40), `lg` (48), `outline` and `filled` (the recessed field) variants, `pill`, icons,
+  `startAddon` / `endAddon`, `clearable`, `success`, a floating `label`, `action`, plus
+  `PasswordInput` and `InputOTP` (one input with `one-time-code` autofill shown as slots). State is
+  read in CSS (`:has()`, `:focus-visible`, `:user-invalid`, `:placeholder-shown`); the shake, label
+  float, eye swap, tick draw, ring glide and character roll are CSS only. Textarea moved to the same
+  look and grows with its text (`field-sizing: content`). `/docs/ui/input` added. **Breaking:**
+  Input sizes `xl` and `2xl` are gone and `md` is now 40px.
 - `@rabtx/ui` shadcn registry: every component (`button`, `select`, `input`, `textarea`, `field`,
   `checkbox`, `card`, `badge`) plus `theme`, the shared `rabtx` style, `springs`, `utils` and
   `use-base-select` items, built by `bun run registry` (`shadcn build`) into
