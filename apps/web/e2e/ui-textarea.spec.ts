@@ -24,30 +24,24 @@ test.describe("rabtx docs: textarea", () => {
 	test("focus turns the edge blue", async ({ page }) => {
 		const textarea = page.getByLabel("Description");
 		await textarea.focus();
-		await expect(textarea).toHaveCSS("--_edge-a", "rgb(45, 124, 246)");
+		await expect(textarea).toHaveCSS("border-top-color", "rgb(45, 124, 246)");
 	});
 
 	test("an error turns the edge red and a disabled one is disabled", async ({ page }) => {
 		const invalid = page.getByLabel("Notes", { exact: true });
 		await expect(invalid).toHaveAttribute("aria-invalid", "true");
 		await expect(invalid).toHaveAccessibleDescription("Notes can be at most 200 characters.");
-		await expect(invalid).toHaveCSS("--_edge-a", "rgb(229, 72, 77)");
+		await expect(invalid).toHaveCSS("border-top-color", "rgb(229, 72, 77)");
 		await expect(page.getByLabel("Archived notes")).toBeDisabled();
 	});
 
-	test("Flat is one border color and does not move the layout", async ({ page }) => {
+	test("it grows with its text and keeps the look in Flat", async ({ page }) => {
 		const textarea = page.getByLabel("Description");
-		const edges = () =>
-			textarea.evaluate((el) => {
-				const style = getComputedStyle(el);
-				return [style.getPropertyValue("--_edge-a"), style.getPropertyValue("--_edge-b")];
-			});
 		const before = await textarea.boundingBox();
-		const [floatingA, floatingB] = await edges();
-		expect(floatingA).not.toBe(floatingB);
+		await textarea.fill(Array.from({ length: 8 }, (_, i) => `Line ${i + 1}`).join("\n"));
+		expect((await textarea.boundingBox())?.height).toBeGreaterThan(before?.height ?? 0);
+		await textarea.fill("");
 		await mode(page, "flat").click();
-		const [flatA, flatB] = await edges();
-		expect(flatA).toBe(flatB);
 		expect(await textarea.boundingBox()).toEqual(before);
 	});
 });

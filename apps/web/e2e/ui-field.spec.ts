@@ -19,7 +19,7 @@ test.describe("rabtx docs: field", () => {
 		const input = page.getByLabel("Work email");
 		await expect(input).toHaveAttribute("aria-invalid", "true");
 		await expect(input).toHaveAccessibleDescription("Enter a valid email address.");
-		await expect(input.locator("xpath=..")).toHaveCSS("--_edge-a", "rgb(229, 72, 77)");
+		await expect(input.locator("xpath=..")).toHaveCSS("border-top-color", "rgb(229, 72, 77)");
 	});
 
 	test("each field gets its own id", async ({ page }) => {

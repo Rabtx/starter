@@ -16,6 +16,17 @@ import CheckboxIndeterminate from "./examples/checkbox/indeterminate";
 import CheckboxModes from "./examples/checkbox/modes";
 import CheckboxSizes from "./examples/checkbox/sizes";
 import CheckboxStates from "./examples/checkbox/states";
+import InputAddons from "./examples/input/addons";
+import InputAlignment from "./examples/input/alignment";
+import InputDefault from "./examples/input/default";
+import InputFloating from "./examples/input/floating";
+import InputIcons from "./examples/input/icons";
+import InputOtp from "./examples/input/otp";
+import InputPassword from "./examples/input/password";
+import InputSearch from "./examples/input/search";
+import InputSizes from "./examples/input/sizes";
+import InputStates from "./examples/input/states";
+import InputVariants from "./examples/input/variants";
 import SelectControlled from "./examples/select/controlled";
 import SelectDefault from "./examples/select/default";
 import SelectGroups from "./examples/select/groups";
@@ -52,6 +63,17 @@ export const examples = {
 	"checkbox/states": CheckboxStates,
 	"checkbox/controlled": CheckboxControlled,
 	"checkbox/modes": CheckboxModes,
+	"input/default": InputDefault,
+	"input/sizes": InputSizes,
+	"input/alignment": InputAlignment,
+	"input/variants": InputVariants,
+	"input/icons": InputIcons,
+	"input/addons": InputAddons,
+	"input/search": InputSearch,
+	"input/password": InputPassword,
+	"input/floating": InputFloating,
+	"input/states": InputStates,
+	"input/otp": InputOtp,
 	"select/default": SelectDefault,
 	"select/sizes": SelectSizes,
 	"select/icons": SelectIcons,

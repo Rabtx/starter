@@ -6,6 +6,7 @@
 		"button",
 		"select",
 		"checkbox",
-		"switch"
+		"switch",
+		"input"
 	]
 }
