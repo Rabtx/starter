@@ -1,10 +1,10 @@
 /*
  * The surface everything shares (DESIGN.md, "depth"): a real 1px gradient edge, a hairline ring
  * and a faint sheen/shade, all driven by variables. Tones set the variables, the depth mode swaps
- * them, and Tailwind classes (see button/button.styles.ts) do everything else. A control adds
- * hover, press and disabled on top; a card is just the surface.
+ * them, and Tailwind classes (see input/input.styles.ts) do everything else. A control adds
+ * hover, press and disabled on top; a card is just the surface. The Button has its own look in
+ * button.css.
  */
-@source "../button";
 @source "../card";
 @source "../field";
 @source "../input";
@@ -32,11 +32,11 @@
 	@apply rx-surface;
 
 	@media (hover: hover) {
-		&:hover:not(:disabled, [aria-disabled="true"], [data-loading]) {
+		&:hover:not(:disabled, [aria-disabled="true"]) {
 			--rx-fill: var(--rx-fill-hover);
 		}
 	}
-	&:active:not(:disabled, [aria-disabled="true"], [data-loading], [data-static]) {
+	&:active:not(:disabled, [aria-disabled="true"]) {
 		scale: var(--rx-press, 0.93);
 	}
 	&:disabled,
@@ -52,66 +52,6 @@
 		color: var(--rx-text-disabled);
 		cursor: not-allowed;
 	}
-}
-
-/* Tones. `--rx-flat` is the single border color used when depth is Flat. */
-@utility rx-primary {
-	--rx-fill: var(--rx-inverse);
-	--rx-fill-hover: var(--rx-inverse-hover);
-	--rx-flat: var(--rx-fill);
-	--rx-ring: var(--rx-primary-ring);
-	--rx-edge-a: var(--rx-primary-edge-a);
-	--rx-edge-b: var(--rx-primary-edge-b);
-	--rx-sheen: var(--rx-solid-sheen);
-	--rx-shade: var(--rx-solid-shade);
-	color: var(--rx-text-inverse);
-}
-@utility rx-accent {
-	--rx-fill: var(--rx-accent);
-	--rx-fill-hover: var(--rx-accent-hover);
-	--rx-flat: var(--rx-fill);
-	--rx-ring: color-mix(in oklab, var(--rx-accent) 50%, black);
-	--rx-edge-a: var(--rx-solid-edge-a);
-	--rx-edge-b: var(--rx-solid-edge-b);
-	--rx-sheen: var(--rx-solid-sheen);
-	--rx-shade: var(--rx-solid-shade);
-	color: #fff;
-}
-@utility rx-danger {
-	--rx-fill: var(--rx-danger);
-	--rx-fill-hover: color-mix(in oklab, var(--rx-danger) 92%, black);
-	--rx-flat: var(--rx-fill);
-	--rx-ring: color-mix(in oklab, var(--rx-danger) 50%, black);
-	--rx-edge-a: var(--rx-solid-edge-a);
-	--rx-edge-b: var(--rx-solid-edge-b);
-	--rx-sheen: var(--rx-solid-sheen);
-	--rx-shade: var(--rx-solid-shade);
-	color: #fff;
-}
-@utility rx-secondary {
-	--rx-fill: var(--rx-surface);
-	--rx-fill-hover: var(--rx-selected);
-	--rx-flat: var(--rx-border-strong);
-	--rx-dis-edge: var(--rx-border);
-	--rx-ring: var(--rx-surface-ring);
-	--rx-edge-a: var(--rx-surface-edge-a);
-	--rx-edge-b: var(--rx-surface-edge-b);
-	--rx-sheen: var(--rx-surface-sheen);
-	--rx-shade: var(--rx-surface-shade);
-	color: var(--rx-text);
-}
-@utility rx-ghost {
-	--rx-fill: transparent;
-	--rx-fill-hover: var(--rx-selected);
-	--rx-flat: transparent;
-	--rx-dis-fill: transparent;
-	--rx-dis-edge: transparent;
-	--rx-ring: transparent;
-	--rx-edge-a: transparent;
-	--rx-edge-b: transparent;
-	--rx-sheen: transparent;
-	--rx-shade: transparent;
-	color: var(--rx-text);
 }
 
 /* A text field: recessed instead of raised, never scales, and shows focus and error on its own edge. */

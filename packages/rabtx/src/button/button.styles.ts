@@ -1,39 +1,52 @@
-export type ButtonVariant = "primary" | "secondary" | "ghost" | "accent" | "danger";
-export type ButtonSize = "sm" | "md" | "lg" | "xl" | "2xl";
+export type ButtonVariant = "primary" | "secondary" | "ghost" | "outline";
+export type ButtonSize = "sm" | "md" | "lg" | "icon";
+export type ButtonState = "idle" | "loading" | "success" | "error";
 
-/** The whole look of a Button as Tailwind classes. React, Solid and plain HTML all use these. */
-const base =
-	"group rx-control relative inline-flex shrink-0 cursor-pointer select-none items-center justify-center whitespace-nowrap rounded-(--rx-r-btn) font-[510] tracking-[-0.15px] [--icon:16px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--rx-focus)";
+export const buttonVariants = [
+	"primary",
+	"secondary",
+	"ghost",
+	"outline",
+] as const satisfies readonly ButtonVariant[];
+export const buttonSizes = ["sm", "md", "lg", "icon"] as const satisfies readonly ButtonSize[];
 
-const variants: Record<ButtonVariant, string> = {
-	primary: "rx-primary",
-	secondary: "rx-secondary",
-	ghost: "rx-ghost",
-	accent: "rx-accent",
-	danger: "rx-danger",
+type ButtonStyle = {
+	variant?: ButtonVariant;
+	size?: ButtonSize;
+	/** One of the special looks. `metallic` ignores `variant`. */
+	look?: "magnetic" | "metallic";
 };
 
-// Padding is one pixel less than the Figma value because the 1px edge is a real border.
-const sizes: Record<ButtonSize, string> = {
-	sm: "h-6 gap-1 px-[7px] text-xs/4 rounded-(--rx-r-btn-sm)",
-	md: "h-7 gap-1.5 px-[9px] text-[13px]/5",
-	lg: "h-9 gap-1.5 px-[11px] text-sm/5",
-	xl: "h-11 gap-2 px-[15px] text-sm/5 [--rx-press:0.95]",
-	"2xl": "h-12 gap-2 px-[19px] text-sm/5 [--icon:20px] [--rx-press:0.95]",
-};
-
-type ButtonStyle = { variant?: ButtonVariant; size?: ButtonSize; iconOnly?: boolean };
-
-export function buttonClass({ variant = "primary", size = "md", iconOnly }: ButtonStyle = {}) {
-	return `${base} ${variants[variant]} ${sizes[size]}${iconOnly ? " aspect-square px-0!" : ""}`;
+/**
+ * The class list for a Button. The look lives in `styles/button.css` (tones, sizes, press, hover,
+ * ripple, label swaps), so React, Solid and plain HTML all get the same button from these names:
+ *
+ *   <button class="rx-btn rx-btn-primary rx-btn-md">Save</button>
+ */
+export function buttonClass({ variant = "primary", size = "md", look }: ButtonStyle = {}) {
+	const tone = look === "metallic" ? "rx-btn-metal" : `rx-btn-${variant}`;
+	return `rx-btn ${tone} rx-btn-${size}${look === "magnetic" ? " rx-btn-magnet" : ""}`;
 }
 
-/** Classes for the parts inside a Button. Loading cross-fades the content to the spinner. */
+/** Class names for the parts inside a Button, for markup written by hand. */
 export const buttonParts = {
-	content:
-		"inline-flex min-w-0 items-center justify-center gap-[inherit] transition-[opacity,filter,scale] duration-300 ease-(--rx-ease-swap) group-data-loading:scale-96 group-data-loading:opacity-0 group-data-loading:blur-xs",
-	icon: "inline-flex size-(--icon) shrink-0 [&>svg]:size-full",
-	label: "truncate",
-	spinner:
-		"pointer-events-none absolute inset-0 m-auto size-(--icon) scale-25 animate-spin rounded-full border-[1.5px] border-current border-r-transparent opacity-0 blur-xs transition-[opacity,filter,scale] duration-300 ease-(--rx-ease-swap) [animation-play-state:paused] group-data-loading:scale-100 group-data-loading:opacity-100 group-data-loading:blur-none group-data-loading:[animation-play-state:running]",
-};
+	/** Holds the ripples; clipped to the button's shape. */
+	ripples: "rx-btn-ripples",
+	ripple: "rx-btn-ripple",
+	/** An icon that widens in and out next to the label. Shown with `data-shown`. */
+	slot: "rx-btn-slot",
+	/** The built-in status glyphs: add `data-glyph="spinner" | "check" | "cross"`. */
+	glyph: "rx-btn-glyph",
+	/** The label box. Its width follows `--rx-btn-text-w` so a label swap resizes smoothly. */
+	text: "rx-btn-text",
+	/** One label. `data-enter` rolls it in letter by letter, `data-exit` rolls it out. */
+	label: "rx-btn-label",
+	letter: "rx-btn-letter",
+	srOnly: "rx-btn-sr",
+	/** The chrome rim, its sweeping highlight, the face over them and the face's bevel. */
+	metalRim: "rx-btn-metal-rim",
+	metalSheen: "rx-btn-metal-sheen",
+	metalFace: "rx-btn-metal-face",
+	metalBevel: "rx-btn-metal-bevel",
+	content: "rx-btn-content",
+} as const;

@@ -1,0 +1,45 @@
+---
+title: UI
+description: "@rabtx/ui, the component library: native HTML and CSS, Tailwind, no animation library."
+---
+
+`packages/rabtx` (`@rabtx/ui`) is the component library for the apps. Components are native elements
+with semantic HTML, styled with Tailwind and modern CSS. Every animation is CSS (transitions,
+`@keyframes`, `@starting-style` and springs solved into `linear()` easings); JavaScript only sets
+state or CSS variables. Icons are HugeIcons, passed in as children or props.
+
+## Installation
+
+Add the workspace package to an app, then import its styles once after Tailwind. The styles scan
+the component classes themselves, so there is no `@source` line to add.
+
+```bash
+bun add @rabtx/ui@workspace:*
+```
+
+```css
+@import "tailwindcss";
+@import "@rabtx/ui/styles.css";
+```
+
+Next.js apps also list it in `transpilePackages`, because the package ships TypeScript source.
+
+## Modes
+
+Components never take a prop for theme, radius or motion. Set an attribute on any ancestor and
+everything inside follows.
+
+- `data-theme`: `light` or `dark` (a `.dark` class works too, which is how this site switches)
+- `data-depth`: `flat` or `floating`, for fields and cards
+- `data-radius`: `sharp`, `default` or `round`
+- `data-motion`: `on` or `off`. Reduced motion in the OS turns motion down as well.
+
+## Tokens
+
+Colors, radius and motion are CSS variables (`--rx-*`), and each component reads its own
+`--rx-<component>-*` variables first, falling back to the shared ones. Swapping in a new design
+system means changing variables, not components.
+
+## Components
+
+- [Button](/docs/ui/button)

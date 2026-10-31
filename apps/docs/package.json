@@ -32,7 +32,10 @@
     "remark-gfm": "^4.0.1",
     "remark-rehype": "^11.1.2",
     "hast-util-to-jsx-runtime": "^2.3.7",
-    "unist-util-visit": "^5.2.0"
+    "unist-util-visit": "^5.2.0",
+    "@rabtx/ui": "workspace:*",
+    "@hugeicons/core-free-icons": "^4.4.0",
+    "@hugeicons/react": "^1.1.10"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
