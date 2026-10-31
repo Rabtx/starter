@@ -27,7 +27,7 @@ export function Field({ label, hint, error, className, children }: FieldProps) {
 			value={{ id, describedBy: message ? `${id}-message` : undefined, invalid: !!error }}
 		>
 			<div className={cn(root, className)}>
-				<label htmlFor={id} className={labelClass}>
+				<label id={`${id}-label`} htmlFor={id} className={labelClass}>
 					{label}
 				</label>
 				{children}
