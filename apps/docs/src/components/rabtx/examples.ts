@@ -24,6 +24,14 @@ import SelectNative from "./examples/select/native";
 import SelectPlacement from "./examples/select/placement";
 import SelectSizes from "./examples/select/sizes";
 import SelectStates from "./examples/select/states";
+import SwitchControlled from "./examples/switch/controlled";
+import SwitchDefault from "./examples/switch/default";
+import SwitchField from "./examples/switch/field";
+import SwitchModes from "./examples/switch/modes";
+import SwitchRows from "./examples/switch/rows";
+import SwitchRtl from "./examples/switch/rtl";
+import SwitchSizes from "./examples/switch/sizes";
+import SwitchStates from "./examples/switch/states";
 
 /** Every live example, by the path of its file under `examples/` without the extension. */
 export const examples = {
@@ -52,6 +60,14 @@ export const examples = {
 	"select/controlled": SelectControlled,
 	"select/native": SelectNative,
 	"select/placement": SelectPlacement,
+	"switch/default": SwitchDefault,
+	"switch/sizes": SwitchSizes,
+	"switch/states": SwitchStates,
+	"switch/field": SwitchField,
+	"switch/controlled": SwitchControlled,
+	"switch/rows": SwitchRows,
+	"switch/rtl": SwitchRtl,
+	"switch/modes": SwitchModes,
 } satisfies Record<string, ComponentType>;
 
 export type ExampleName = keyof typeof examples;

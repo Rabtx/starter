@@ -5,6 +5,7 @@
 		"theming",
 		"button",
 		"select",
-		"checkbox"
+		"checkbox",
+		"switch"
 	]
 }

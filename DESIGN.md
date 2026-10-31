@@ -335,6 +335,19 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   white in dark). Measured: light 4.86 (warning) to 6.8, dark 5.07 to 6.6, asserted in
   `ui-badge.spec.ts`. Success, warning and violet reuse the same base color in dark; their dark
   values are not in Figma. Tag (outlined, `42:441`) and Chip (interactive, `6:139`) are separate.
+- **Switch** (Figma Toggle `6:103` not yet read): a native `<input type="checkbox" role="switch">`
+  with the HTML `switch` attribute (Safari 17.4+ treats it as a native switch; elsewhere it is
+  ignored) and `appearance: none`. The input is the track and `::before` the thumb. Tracks 36x20,
+  48x28 (default) and 56x32, thumb inset 3, 4 and 4px. Off track is `--muted-foreground` 70% over
+  `--background` (60% measured 2.7:1 against the white thumb, so it was darkened to pass 3:1),
+  on track `--primary`; thumb `--background` off and `--primary-foreground` on. Floating recesses
+  the track (field edge and shade) and gives the thumb the surface ring and sheen; Flat drops both.
+  Corners follow `--radius-button`. Motion: `:active` (switch or label) widens the thumb by 4px
+  toward its destination and scales it to 0.9; `:checked` moves `inset-inline-start` across; all
+  on the existing `switch` spring (800 / 80 / 4). Logical insets mirror it in RTL with no
+  `:dir()` (Lightning CSS drops a nested `:dir()` rule). Disabled is 50% opacity and never moves.
+  `Field` supplies the id, description and `aria-invalid` (red edge, soft halo). Space toggles; the
+  checked state is native, so there is no `aria-checked`.
 - **Select**: a native `<select>` that draws its own trigger (`rx-select`, inside an
   `rx-select-field` wrapper that holds the chevron and an optional leading icon), sizes 32, 40
   (default) and 48, the box radius tier, a 1px border that darkens on hover, the shared blue focus
