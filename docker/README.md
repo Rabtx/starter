@@ -6,8 +6,9 @@ Compose is split into **fragments** under `compose/` and merged by the root
 
 | File | Role |
 |------|------|
-| `compose/postgres.yml` | Postgres 18, volume, healthcheck |
+| `compose/postgres.yml` | Postgres 18 + pgvector (`pgvector/pgvector:0.8.7-pg18-trixie`), volume, healthcheck |
 | `compose/nest-api.yml` | NestJS API image (Bun multi-stage build) |
+| `compose/ai-api.yml` | Bun + Hono AI API (RAG on pgvector, streaming chat). Needs `AI_API_KEY` in `.env` |
 | `compose/web.yml` | Next.js web image (standalone output) |
 | `compose/rust-api.yml` | Optional Rust API (`--profile rust`) |
 
@@ -22,6 +23,7 @@ docker compose up -d --build
 |---------|---------------------|
 | Postgres | 5433 → 5432 |
 | Nest API | 4000 |
+| AI API | 8000 (`/api/docs` for the API reference) |
 | Web | 3000 |
 | Rust API (profile) | 3002 |
 
@@ -62,3 +64,21 @@ docker compose exec -T postgres pg_dumpall -U starter > starter-pg16.sql
 docker compose up -d postgres
 docker compose exec -T postgres psql -U starter -d postgres < starter-pg16.sql
 ```
+
+## Switching to the pgvector image
+
+`apps/ai-api` stores embeddings in a `vector(1536)` column, so the compose Postgres now runs
+`pgvector/pgvector:0.8.7-pg18-trixie` (official Postgres 18 Debian image + the extension) instead of
+`postgres:18-alpine`. It is the same major version and the same `postgres18_data` volume, so existing data opens as is.
+The extension itself is created by the ai-api migration (`CREATE EXTENSION IF NOT EXISTS vector`).
+
+Alpine (musl) and Debian (glibc) sort text differently, so rebuild text indexes once after the switch:
+
+```bash
+docker compose up -d postgres
+docker compose exec postgres psql -U starter -d starter -c 'REINDEX DATABASE starter;'
+docker compose exec postgres psql -U starter -d starter -c 'ALTER DATABASE starter REFRESH COLLATION VERSION;'
+```
+
+Hosted Postgres: Neon supports `vector` out of the box. Elsewhere, make sure the extension is installable
+(`select * from pg_available_extensions where name = 'vector';`) before deploying ai-api.
