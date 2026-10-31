@@ -270,7 +270,7 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   `rx-card`) and the flat and motion-off rules for cards.
   Exports: `@rabtx/ui/button`, `@rabtx/ui/button/styles`, `@rabtx/ui/input`,
   `@rabtx/ui/input/styles`, `@rabtx/ui/field`, `@rabtx/ui/field/styles`, `@rabtx/ui/textarea`,
-  `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/badge`, `@rabtx/ui/badge/styles`,
+  `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/dialog`, `@rabtx/ui/dialog/styles`, `@rabtx/ui/badge`, `@rabtx/ui/badge/styles`,
   `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/checkbox`, `@rabtx/ui/checkbox/styles`,
   `@rabtx/ui/motion`, `@rabtx/ui/styles.css`, `@rabtx/ui/theme.css`.
 - Theming: `src/styles/theme.css` is the only place a color, radius, shadow or easing is defined.
@@ -346,6 +346,21 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   secondary gray (passes 4.5:1) where Figma's Option Card uses the tertiary gray; flagged. Option
   Card (selectable) and Stat Card are separate Figma components; the selectable card covers the
   former's behaviour until it is drawn.
+- **Dialog** (Figma `8:162` not yet read): a native `<dialog>` opened with `showModal()`, so the
+  top layer, the inert page, the focus move and return, Escape and (with `closedby="any"`) light
+  dismiss come from the browser; a click handler covers light dismiss where `closedby` is missing.
+  shadcn's parts and `data-slot` names (`Dialog` with `open` / `defaultOpen` / `onOpenChange`,
+  `modal` and `morph`; `DialogTrigger` and `DialogClose` with `asChild`; `DialogContent` with
+  `size` sm, md or lg (24, 32, 42rem), `side` center, right or bottom, `showClose`, `closeLabel` and
+  `dismissible`; `DialogHeader`, `DialogTitle`, `DialogDescription`, `DialogFooter`), with
+  `aria-labelledby` / `aria-describedby` wired by context. The panel is the raised surface in
+  `--popover` with the box radius; no cast shadow (the overlay rule above), the backdrop is
+  `--background` pulled toward black at 45% with a 2px blur. Motion is CSS: `@starting-style` and
+  the panel spring in, a shorter eased exit with `display` / `overlay` `allow-discrete`; sheets slide
+  from their edge. `morph` is a View Transition between the trigger and the panel (typed
+  `rx-morph-open` / `rx-morph-close`, the box on the panel spring, each picture clipped by it) and
+  falls back to the scale and fade. Before hydration the trigger carries `command="show-modal"`
+  (Invoker Commands). Scroll lock is `:root:has(.rx-dialog:modal) { overflow: hidden }`.
 - **Badge** (Figma `6:116`): 20px, 12/16 medium, a pale tint with colored text, six tones (neutral,
   accent, success, warning, danger, violet), optional 6px dot. Radius is its own tier,
   `--radius-badge`: 4px Default (Figma), 2px Sharp, fully round in Round. One `--_tone` color per

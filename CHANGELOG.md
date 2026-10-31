@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `@rabtx/ui` Dialog on the native `<dialog>` (`showModal()`, `closedby="any"`, `::backdrop`) in
+  shadcn's parts, sizes `sm` / `md` / `lg`, right and bottom sheets, a View Transition `morph` from
+  the trigger and CSS-only enter and exit (`@starting-style`, `allow-discrete`, panel spring).
+  Registry item `@rabtx/dialog`, `/docs/ui/dialog`, the `/ui/dialog` playground and
+  `ui-dialog.spec.ts`.
 - `@rabtx/ui` Checkbox rebuilt on a native checkbox laid over a box styled with `:has()`: sizes
   `sm` (16), `md` (20, default), `lg` (24); shadcn API (`checked` incl. `"indeterminate"`,
   `defaultChecked`, `onCheckedChange`) plus `indeterminate` and `description`; Field and
