@@ -55,7 +55,6 @@ shadcn and it does not inherit `@starter/ui`'s components.
   modes, and each `kind` is a ready-made set of classes applied only when selected.
 - **Playground:** `apps/web` at `/ui` is the playground that showcases `@rabtx/ui`. It is rebuilt
   fresh; the earlier shadcn lab and the docs `/rabtx` preview pages are deleted.
-- **Animation reference:** beUI (`https://beui.dev`; MCP server `https://mcp.beui.dev/mcp`).
 
 ### Figma source
 

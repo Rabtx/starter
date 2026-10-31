@@ -1,5 +1,4 @@
 "use client";
-// beui.dev/components/motion/tabs
 
 import { EASE_OUT } from "@starter/ui/lib/ease";
 import { cn } from "@starter/ui/lib/utils";
