@@ -251,7 +251,9 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 	{
 		name: "card",
 		title: "Card",
-		description: "A raised surface with title, description and meta text styles.",
+		description:
+			"A raised surface with header, title, description, action, content and footer parts, plus tilt, spotlight, expandable and stacked cards. CSS-only motion.",
+		css: "card.css",
 	},
 	{
 		name: "badge",
