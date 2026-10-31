@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `apps/ai-api`: Bun + Hono + TypeScript AI service. Zod-validated env, nest-api JWT auth (HS256,
+  shared `JWT_SECRET`), RAG on Postgres + pgvector via Drizzle (`rag_documents` / `rag_chunks`,
+  HNSW cosine index, ingest + top-k query + grounded answer), streaming tool-calling chat with the
+  AI SDK (`searchDocuments`, `currentTime` tools) over any OpenAI-compatible provider (OpenRouter by
+  default), OpenAPI 3.1 at `/api/openapi.json` with a Scalar reference at `/api/docs`, `bun test`
+  suite with mocked LLM/embeddings plus an opt-in pgvector integration test, Dockerfile, compose
+  fragment, Render service, `bun run dev:ai` and a CI job. Docs: `/docs/ai-api`.
 - NestJS auth API (`/api/v1/auth/*`) with JWT login/register/me for the web app.
 - Shared UI auth components via shadcn (`alert`, `spinner`, `input-group`) in `@starter/ui`.
 - Web login/register flows that call Nest only (no multi-backend API switcher).
@@ -17,6 +24,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Compose Postgres image is now `pgvector/pgvector:0.8.7-pg18-trixie` (Postgres 18 + pgvector) for
+  `apps/ai-api`; see docker/README.md "Switching to the pgvector image".
 - `apps/rust/Dockerfile` builds from the monorepo root context (it copied a non-existent root
   `Cargo.toml`).
 - Documentation lives only in `apps/docs` (Fumadocs). Removed the root `docs/` pointer folder.

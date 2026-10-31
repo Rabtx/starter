@@ -22,6 +22,7 @@ starter/
 │   ├── web/                  # Next.js app
 │   ├── mobile/               # Expo Router + Uniwind app
 │   ├── nest-api/             # NestJS production API
+│   ├── ai-api/               # Bun + Hono AI API (RAG on pgvector, streaming chat)
 │   ├── docs/                 # Documentation app (Next.js + Fumadocs)
 │   └── rust/                 # Rust binary app (Cargo)
 ├── packages/
@@ -50,6 +51,7 @@ There is no root `docs/` directory.
 | `apps/web` | Next.js 16, React 19, Tailwind 4 | Includes unit/integration and Playwright e2e flow |
 | `apps/mobile` | Expo SDK 57, Expo Router, React Native, Uniwind | Mobile-first file-based routing |
 | `apps/nest-api` | NestJS 11, Zod, Jest | Production API spine |
+| `apps/ai-api` | Bun, Hono, @hono/zod-openapi, AI SDK, Drizzle + pgvector, bun test | RAG + streaming tool chat; verifies nest-api JWTs |
 | `apps/docs` | Next.js + Fumadocs + MDX | Project docs site |
 | `apps/rust` | Cargo, clippy, rustfmt | Rust application template |
 
@@ -94,6 +96,7 @@ Examples:
 - `bun --cwd=apps/web run dev`
 - `bun --cwd=apps/mobile run start`
 - `bun --cwd=apps/nest-api run dev`
+- `bun --cwd=apps/ai-api run dev` (or `bun run dev:ai`)
 - `bun --cwd=apps/docs run dev`
 - `bun --cwd=apps/rust run dev`
 

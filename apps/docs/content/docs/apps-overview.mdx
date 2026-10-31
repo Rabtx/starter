@@ -19,6 +19,11 @@ Fumadocs-powered documentation site for onboarding, architecture, and workflows.
 
 NestJS production API: auth, tenancy, users, billing, MFA and passkeys, backed by PostgreSQL through Drizzle ORM.
 
+## `apps/ai-api`
+
+Bun + Hono AI service: RAG over Postgres + pgvector (ingest, top-k query, grounded answers) and a streaming,
+tool-calling chat endpoint built on the Vercel AI SDK. It verifies `apps/nest-api` access tokens. See [AI API](/docs/ai-api).
+
 ## `apps/rust`
 
 Rust (Axum) service for performance-sensitive or systems-level workloads.

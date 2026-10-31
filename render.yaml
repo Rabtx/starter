@@ -1,4 +1,4 @@
-# Render Blueprint — Nest API + Neon (external).
+# Render Blueprint — Nest API + AI API + Neon (external).
 # https://render.com/docs/blueprint-spec
 #
 # Neon: create a project at https://console.neon.tech, copy the pooled
@@ -53,4 +53,45 @@ services:
       - key: WEBAUTHN_RP_ID
         sync: false
       - key: WEBAUTHN_ORIGIN
+        sync: false
+
+  # Bun + Hono AI API (apps/ai-api). Uses the same Neon database (needs the `vector` extension,
+  # which Neon supports; the migration runs CREATE EXTENSION) and the nest-api JWT_SECRET.
+  - type: web
+    name: starter-ai-api
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./apps/ai-api/Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: RUN_MIGRATIONS
+        value: "true"
+      - key: DATABASE_POOL_MAX
+        value: "5"
+      - key: AI_BASE_URL
+        value: https://openrouter.ai/api/v1
+      - key: AI_PROVIDER_NAME
+        value: openrouter
+      - key: AI_CHAT_MODEL
+        value: openai/gpt-4o-mini
+      - key: AI_EMBEDDING_MODEL
+        value: openai/text-embedding-3-small
+      # Same Neon pooled URL as starter-nest-api.
+      - key: DATABASE_URL
+        sync: false
+      # Must equal starter-nest-api's JWT_SECRET so nest access tokens verify here.
+      - key: JWT_SECRET
+        fromService:
+          type: web
+          name: starter-nest-api
+          envVarKey: JWT_SECRET
+      # OpenRouter (or other OpenAI-compatible) key. Set in the dashboard; never commit it.
+      - key: AI_API_KEY
+        sync: false
+      # Set after Vercel web is live, e.g. https://starter.vercel.app
+      - key: CORS_ORIGIN
         sync: false
