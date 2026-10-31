@@ -266,8 +266,8 @@ State as of 2026-10-07. Verify against the repo before relying on it.
 - `packages/rabtx` (`@rabtx/ui`): the rebuild target. Built so far: the tokens and modes
   (one shadcn-style theme file, `src/styles/theme.css`), the spring solver (`src/motion`, generating
   the `--spring-*` tokens in `theme.css`) and **Button**.
-  Styling is Tailwind first: `src/styles/control.css` holds the shared depth recipe (`rx-control`,
-  `rx-surface`, `rx-card`) and the flat and motion-off rules for cards.
+  Styling is Tailwind first: `src/styles/control.css` holds the shared depth recipe (`rx-surface`,
+  `rx-card`) and the flat and motion-off rules for cards.
   Exports: `@rabtx/ui/button`, `@rabtx/ui/button/styles`, `@rabtx/ui/input`,
   `@rabtx/ui/input/styles`, `@rabtx/ui/field`, `@rabtx/ui/field/styles`, `@rabtx/ui/textarea`,
   `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/badge`, `@rabtx/ui/badge/styles`,
