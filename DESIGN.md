@@ -200,13 +200,15 @@ playground must also leave every state visible. Disabled controls must not activ
 enabled ones. Motion is never the only feedback channel.
 
 - **Springs** are defined by stiffness, damping and mass, solved into a CSS `linear()` easing with
-  the settle time as the duration. The same three numbers feed the native runtime. beUI values:
+  the settle time as the duration. The same three numbers feed the native runtime. Values:
 
   | Use | Stiffness / damping / mass | Notes |
   | --- | --- | --- |
   | Press | 500 / 30 / 0.6 | scale 0.93 on press, about 280ms |
   | Tabs indicator | 245 / 36 / 1.2 | no overshoot, about 670ms |
   | Swap (icon, label, morph) | 460 / 30 / 1 | about 5% overshoot |
+  | Button label (letters, status icons, width) | 460 / 30 / 0.55 | about 245ms, no visible overshoot |
+  | Magnetic (follow the pointer) | 200 / 15 / 0.3 | about 300ms |
   | Switch thumb | 800 / 80 / 4 | squish to 0.9 |
   | Toast | 420 / 34 / 0.75 | in: y 22, scale 0.96, blur 10 |
   | Panel (dialog, sheet) | 420 / 40 / 0.5 | exit shorter than enter |
@@ -262,15 +264,31 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   thing being replaced, not the foundation to extend.
 - `packages/rabtx` (`@rabtx/ui`): the rebuild target. Built so far: the tokens and modes
   (`src/styles/tokens.css`), the spring solver (`src/motion`, generated `springs.css`) and **Button**.
-  Styling is Tailwind first: `src/styles/control.css` holds the shared depth recipe (`rx-control`),
-  the five tones (`rx-primary`, `rx-secondary`, `rx-ghost`, `rx-accent`, `rx-danger`) and the flat
-  and motion-off rules; `src/button/button.styles.ts` holds the Button as Tailwind class strings
-  (`buttonClass`, `buttonParts`) with no framework code; `button.tsx` is a thin React wrapper.
+  Styling is Tailwind first: `src/styles/control.css` holds the shared depth recipe (`rx-control`,
+  `rx-surface`, `rx-field`, `rx-card`) and the flat and motion-off rules for fields and cards.
   Exports: `@rabtx/ui/button`, `@rabtx/ui/button/styles`, `@rabtx/ui/input`,
   `@rabtx/ui/input/styles`, `@rabtx/ui/field`, `@rabtx/ui/field/styles`, `@rabtx/ui/textarea`,
   `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/badge`, `@rabtx/ui/badge/styles`,
   `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/checkbox`, `@rabtx/ui/checkbox/styles`,
   `@rabtx/ui/motion`, `@rabtx/ui/styles.css`.
+- **Button**: four tones (primary, secondary, ghost, outline) and four sizes (sm 32, md 40, lg 48,
+  all pill shaped; icon, a 32px square on the button radius tier), drawn by `src/styles/button.css`
+  (plain CSS in the components layer, so `className` utilities still win). `buttonClass()` in
+  `button.styles.ts` returns the class names (`rx-btn rx-btn-primary rx-btn-md`) with no framework
+  code. Hover grows to 1.02 only under `(hover: hover) and (pointer: fine)`; press springs to
+  `pressScale` (0.93) on the press spring; disabled is 50% opacity with no pointer events; focus is
+  the shared 2px ring. Extras, all in the same export: `ripple` (a disc of the text color spawned at
+  the press, keyframes 0.05 to 1 scale over 1.6s), `ButtonLink` (an `<a>`), `StatefulButton` (idle,
+  loading, success, error: status icons are always in the DOM and widen in or fold away with
+  transitions; the label rolls over letter by letter with staggered keyframes; the label box eases
+  to the measured width), `MagneticButton` (the pointer writes `--rx-btn-mx` / `--rx-btn-my`, a
+  `translate` transition on the magnetic spring follows) and `MetallicButton` (a chrome gradient
+  rim drifting on an 8s loop, a hover sweep, a face inset 2px). JavaScript only sets state: ripple
+  position, magnetic offset, label width and which label is leaving. Colors, radius and scales are
+  `--rx-btn-*` variables that fall back to the shared tokens, so the Figma values can be dropped in
+  without new classes. **Deviation from Figma:** this look (blue primary, pill sizes, no depth
+  modes) replaces Figma's black primary, accent and danger tones and the 24 to 48 size matrix; the
+  Button ignores `data-depth`. Reconcile when the Figma design system is shared.
 - **Input** (Figma `6:14`): a wrapper draws the field (`rx-control rx-field`) around a native
   `<input>`. Heights 28, 32 (default), 36, 44, 48. Depth: Flat is one 1px border; Floating is a
   recess (dark top edge fading to a light bottom edge plus a faint top shade), which replaces
@@ -339,11 +357,13 @@ State as of 2026-10-07. Verify against the repo before relying on it.
 - Other frameworks: a Solid component is another thin wrapper over `button.styles.ts` plus the same
   CSS, not a clone or a rewrite. Not built yet; add it as a separate package or export with
   `solid-js` as a peer dependency, and test it with a real Solid render.
-- Docs: `apps/web` at `/ui`, in the style of shadcn and beUI: one page per component with a short
+- Docs: `apps/web` at `/ui`, in the style of shadcn: one page per component with a short
   intro, a few important live examples (each one's source is read from its file, so it cannot
   drift), an API table and accessibility notes. A header toggle sets `data-theme`, `data-depth`,
   `data-radius` and `data-motion`. Add examples only when they teach something new. E2E:
-  `apps/web/e2e/ui-button.spec.ts`. One component at a time; the owner picks the next.
+  `apps/web/e2e/ui-button.spec.ts`. One component at a time; the owner picks the next. The
+  Fumadocs site (`apps/docs`) has a UI section too (`content/docs/ui`), with the same live examples
+  and their source for the components built so far (Button).
 - Icons: HugeIcons is the target, but 44 files still import `lucide` and 93 import HugeIcons.
   Migrating the remaining lucide usage is part of the rebuild.
 - Glass: the earlier web implementation was translucency plus backdrop blur and the native one was

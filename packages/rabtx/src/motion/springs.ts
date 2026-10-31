@@ -9,12 +9,16 @@ export type Spring = {
 	mass: number;
 };
 
-/** beUI values, kept as the reference feel. */
+/** The reference feel. Every web easing in `springs.css` is solved from these. */
 export const SPRINGS = {
 	/** Press feedback: scale 0.93, settles in about 280ms. */
 	press: { stiffness: 500, damping: 30, mass: 0.6 },
 	/** Icon, label and shape swaps. About 5% overshoot. */
 	swap: { stiffness: 460, damping: 30, mass: 1 },
+	/** A button's label, status icons and width trading places. Quick, with no visible overshoot. */
+	label: { stiffness: 460, damping: 30, mass: 0.55 },
+	/** A magnetic button chasing the pointer. Soft, just under critical damping. */
+	magnetic: { stiffness: 200, damping: 15, mass: 0.3 },
 	/** Sliding indicator. Slightly overdamped, no overshoot. */
 	tabs: { stiffness: 245, damping: 36, mass: 1.2 },
 	/** Dialogs and sheets. */
