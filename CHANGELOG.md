@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `@rabtx/ui` Select rebuilt on the native `<select>`: sizes `sm` (32), `md` (40), `lg` (48),
+  `SelectItem` (optional `icon`), `SelectGroup`, `SelectSeparator`, `onValueChange`, `placeholder`
+  and `leadingIcon`. Where `appearance: base-select` exists the list unfolds from the trigger,
+  pulls away into its gap, pinches the trigger's corners and fades its rows in, all in CSS, and
+  opens above when there is no room below. `--rx-select-*` tokens; a new `unfold` spring.
+- `apps/docs`: `/docs/ui/select` with live examples and their source.
 - `@rabtx/ui` Button rebuilt with CSS-only motion: `primary`, `secondary`, `ghost` and `outline`;
   sizes `sm` (32), `md` (40), `lg` (48) and `icon` (32 square, `aria-label` required by type);
   hover growth on fine pointers, spring press (`pressScale`), optional `ripple`, plus `ButtonLink`,
@@ -32,6 +38,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Breaking (`@rabtx/ui/select`):** heights are 32/40/48 (were 28/32/36) and the trigger is a
+  bordered surface instead of the recessed field, so it no longer follows `data-depth` (Flat only
+  drops the list shadow). Plain `<option>` children still work.
 - **Breaking (`@rabtx/ui/button`):** variants `accent` and `danger`, sizes `xl` and `2xl`, and the
   `loading`, `static`, `iconOnly`, `leadingIcon` and `trailingIcon` props are gone. Use
   `StatefulButton` for loading, `size="icon"` for icon-only, and put icons in the children. The

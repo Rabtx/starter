@@ -209,6 +209,7 @@ enabled ones. Motion is never the only feedback channel.
   | Swap (icon, label, morph) | 460 / 30 / 1 | about 5% overshoot |
   | Button label (letters, status icons, width) | 460 / 30 / 0.55 | about 245ms, no visible overshoot |
   | Magnetic (follow the pointer) | 200 / 15 / 0.3 | about 300ms |
+  | Unfold (a list from its trigger) | 987 / 55.3 / 1 | about 250ms, a hint of bounce |
   | Switch thumb | 800 / 80 / 4 | squish to 0.9 |
   | Toast | 420 / 34 / 0.75 | in: y 22, scale 0.96, blur 10 |
   | Panel (dialog, sheet) | 420 / 40 / 0.5 | exit shorter than enter |
@@ -326,20 +327,26 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   white in dark). Measured: light 4.86 (warning) to 6.8, dark 5.07 to 6.6, asserted in
   `ui-badge.spec.ts`. Success, warning and violet reuse the same base color in dark; their dark
   values are not in Figma. Tag (outlined, `42:441`) and Chip (interactive, `6:139`) are separate.
-- **Select** (Figma `66:770`, the trigger; the list follows Menu `7:91` and Menu Item `7:60`): a
-  native `<select>` inside a field wrapper (`rx-control rx-field`), sizes 28, 32 (default), 36, 13/20
-  text, optional leading icon, a `placeholder` (a hidden first option) and the same focus, error and
-  disabled treatment as Input. The platform does the hard parts: keyboard, typeahead, screen readers,
-  mobile pickers. Where `appearance: base-select` exists (Chromium) the list is styled to Menu: surface
-  fill, hairline border, box radius, 28px rows, item radius, hover on `--rx-selected`, a blue tick on
-  the chosen row, and a 150ms fade (off with Motion off). Elsewhere the OS list opens and the closed
-  field looks the same. Floating uses a hairline ring on the list instead of Menu's cast shadow.
-  **Notes:** Figma draws the Select trigger white and plain, like Textarea; it follows Input
-  (see Textarea, same open question). Figma's `Value` text is the primary color even for "Select an
-  option"; an unchosen placeholder is the tertiary gray here, as in Input. The chevron is HugeIcons'
-  unfold-more glyph (MIT) inlined, so the package needs no icon set. Menu itself (a general popover
-  menu, not tied to a select) is a separate component. Lightning CSS rejects
-  `::picker(select):popover-open`; use `:open::picker(select)`.
+- **Select**: a native `<select>` that draws its own trigger (`rx-select`, inside an
+  `rx-select-field` wrapper that holds the chevron and an optional leading icon), sizes 32, 40
+  (default) and 48, the box radius tier, a 1px border that darkens on hover, the shared blue focus
+  edge and halo, and the red error edge from Field. API: `Select` (`placeholder`, `leadingIcon`,
+  `onValueChange`, everything a native select takes), `SelectItem` (an `<option>`, optional `icon`),
+  `SelectGroup` (`<optgroup>`) and `SelectSeparator` (`<hr>`). The platform does the hard parts:
+  keyboard, typeahead, form value, screen readers, phone pickers. Where `appearance: base-select`
+  exists (Chromium) `select.css` draws the list (surface, border, 12px radius, 4px padding, 32px rows,
+  muted hover and chosen fill, a tick on the chosen row, a soft cast shadow that Flat removes) and
+  animates it in CSS only: the list unfolds from an 8px lip at the trigger's edge with a
+  `clip-path` keyframe on the new `unfold` spring, pulls away into its 8px gap while its near
+  corners round off, the trigger's facing corners pinch square and back, the rows fade down 4px,
+  the chevron turns over (`:open`), and closing folds back in 200ms while `display` and `overlay`
+  transitions keep the list rendered. JavaScript only sets `data-side` (below, or above when the
+  list would not fit and there is more room) just before opening, so the motion starts from the
+  right edge. Item icons render only after hydration and only where the styled list exists, so
+  every browser hydrates the same options. Elsewhere the system list opens and the trigger looks
+  the same. **Deviation from Figma:** the trigger follows the Button's look (surface fill, plain
+  border, 32/40/48) instead of Input's recessed 28/32/36 field, and the Select ignores `data-depth`
+  except for the list's shadow. Reconcile when the Figma design system is shared.
 - **Checkbox** (Figma `6:59`): a native `<input type="checkbox">` with `appearance: none`, 16px, off
   (surface fill, strong border), on (accent fill, white tick) and mixed (accent fill, white minus),
   plus disabled (pressed fill, default border, gray glyph). With children it wraps the box in a

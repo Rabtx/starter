@@ -9,6 +9,14 @@ import ButtonRipple from "./examples/button/ripple";
 import ButtonSizes from "./examples/button/sizes";
 import ButtonStates from "./examples/button/states";
 import ButtonVariants from "./examples/button/variants";
+import SelectControlled from "./examples/select/controlled";
+import SelectDefault from "./examples/select/default";
+import SelectGroups from "./examples/select/groups";
+import SelectIcons from "./examples/select/icons";
+import SelectNative from "./examples/select/native";
+import SelectPlacement from "./examples/select/placement";
+import SelectSizes from "./examples/select/sizes";
+import SelectStates from "./examples/select/states";
 
 /** Every live example, by the path of its file under `examples/` without the extension. */
 export const examples = {
@@ -22,6 +30,14 @@ export const examples = {
 	"button/magnetic": ButtonMagnetic,
 	"button/metallic": ButtonMetallic,
 	"button/modes": ButtonModes,
+	"select/default": SelectDefault,
+	"select/sizes": SelectSizes,
+	"select/icons": SelectIcons,
+	"select/groups": SelectGroups,
+	"select/states": SelectStates,
+	"select/controlled": SelectControlled,
+	"select/native": SelectNative,
+	"select/placement": SelectPlacement,
 } satisfies Record<string, ComponentType>;
 
 export type ExampleName = keyof typeof examples;

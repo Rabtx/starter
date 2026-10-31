@@ -1,23 +1,74 @@
 export type SelectSize = "sm" | "md" | "lg";
 
-const heights: Record<SelectSize, string> = { sm: "h-7", md: "h-8", lg: "h-9" };
+export const selectSizes = ["sm", "md", "lg"] as const satisfies readonly SelectSize[];
 
-/** The field that draws the edge. The native select covers all of it, so the whole box is clickable. */
+/**
+ * The class list for a Select's wrapper. The look lives in `styles/select.css`, so React and plain
+ * HTML get the same control from these names:
+ *
+ *   <div class="rx-select-field rx-select-md">
+ *     <select class="rx-select">…</select>
+ *     <span class="rx-select-chevron" aria-hidden="true"></span>
+ *   </div>
+ */
 export function selectClass(size: SelectSize = "md") {
-	return `rx-control rx-field relative flex w-full items-center rounded-(--rx-r-ctl) text-[13px]/5 [--icon:16px] ${heights[size]}`;
+	return `rx-select-field rx-select-${size}`;
+}
+
+/** Class names for the parts of a Select, for markup written by hand. */
+export const selectParts = {
+	/** The native `<select>`. It draws the trigger and, where supported, the styled list. */
+	select: "rx-select",
+	/** The arrow on the trailing edge. It turns over while the list is open. */
+	chevron: "rx-select-chevron",
+	/** An icon before the value. Add `data-leading` to the select so the text makes room. */
+	leading: "rx-select-leading",
+	/** An icon inside one option, shown only in the styled list. */
+	itemIcon: "rx-select-item-icon",
+	separator: "rx-select-separator",
+} as const;
+
+/** Where the list opens. Set on the select as `data-side` just before it opens. */
+export type SelectSide = "bottom" | "top";
+
+/**
+ * Below unless the list would not fit there and there is more room above. `height` is the list's
+ * expected height and `margin` the space it keeps from the viewport edge.
+ */
+export function chooseSide({
+	above,
+	below,
+	height,
+	margin = 16,
+}: {
+	above: number;
+	below: number;
+	height: number;
+	margin?: number;
+}): SelectSide {
+	return below < height + margin && above > below ? "top" : "bottom";
 }
 
 /**
- * The native select. `rx-select` is the hook for the platform picker styles in `select.css`; where
- * the browser has no customizable select the OS list is used and everything else still applies.
- * Padding leaves room for the icons, which sit on top and ignore the pointer.
+ * The list's expected height before it opens, from what it will show: visible options, group
+ * labels and separators, plus the list's padding and border.
  */
-export function selectFieldClass(leadingIcon?: boolean) {
-	return `rx-select absolute inset-0 flex size-full cursor-pointer appearance-none items-center bg-transparent pr-[33px] outline-none disabled:cursor-not-allowed has-[option[value='']:checked]:text-(--rx-text-tertiary) ${leadingIcon ? "pl-[33px]" : "pl-[9px]"}`;
+export function estimateListHeight({
+	options,
+	groups = 0,
+	separators = 0,
+	row = 32,
+	groupLabel = 28,
+	separator = 9,
+	chrome = 10,
+}: {
+	options: number;
+	groups?: number;
+	separators?: number;
+	row?: number;
+	groupLabel?: number;
+	separator?: number;
+	chrome?: number;
+}) {
+	return options * row + groups * groupLabel + separators * separator + chrome;
 }
-
-export const selectParts = {
-	icon: "pointer-events-none absolute top-1/2 inline-flex size-(--icon) -translate-y-1/2 text-(--rx-text-tertiary) [&>svg]:size-full",
-	leading: "left-[9px]",
-	trailing: "right-[9px]",
-};

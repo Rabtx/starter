@@ -19,6 +19,8 @@ export const SPRINGS = {
 	label: { stiffness: 460, damping: 30, mass: 0.55 },
 	/** A magnetic button chasing the pointer. Soft, just under critical damping. */
 	magnetic: { stiffness: 200, damping: 15, mass: 0.3 },
+	/** A dropdown list unfolding from its trigger: about 0.2s perceived, a hint of bounce. */
+	unfold: { stiffness: 987, damping: 55.3, mass: 1 },
 	/** Sliding indicator. Slightly overdamped, no overshoot. */
 	tabs: { stiffness: 245, damping: 36, mass: 1.2 },
 	/** Dialogs and sheets. */
