@@ -14,4 +14,5 @@ export const NAV = [
 			{ href: "/ui/badge", label: "Badge" },
 		],
 	},
+	{ title: "Blocks", links: [{ href: "/ui/blocks/signup", label: "Sign-up" }] },
 ];
