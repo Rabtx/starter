@@ -1,4 +1,4 @@
-FROM rust:1.83-slim-bookworm as builder
+FROM rust:1.99-slim-bookworm as builder
 
 WORKDIR /usr/src/app
 
