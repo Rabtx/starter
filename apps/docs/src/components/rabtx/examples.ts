@@ -1,4 +1,6 @@
 import type { ComponentType } from "react";
+import SigninBlockExample from "./examples/blocks/signin";
+import SignupBlockExample from "./examples/blocks/signup";
 import ButtonDisabled from "./examples/button/disabled";
 import ButtonIcons from "./examples/button/icons";
 import ButtonLinkExample from "./examples/button/link";
@@ -110,6 +112,8 @@ export const examples = {
 	"card/expandable": CardExpandable,
 	"card/stack": CardStackExample,
 	"card/modes": CardModes,
+	"blocks/signup": SignupBlockExample,
+	"blocks/signin": SigninBlockExample,
 } satisfies Record<string, ComponentType>;
 
 export type ExampleName = keyof typeof examples;
