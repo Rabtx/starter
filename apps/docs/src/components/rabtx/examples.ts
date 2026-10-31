@@ -27,6 +27,16 @@ import InputSearch from "./examples/input/search";
 import InputSizes from "./examples/input/sizes";
 import InputStates from "./examples/input/states";
 import InputVariants from "./examples/input/variants";
+import CardDefault from "./examples/card/default";
+import CardExpandable from "./examples/card/expandable";
+import CardLink from "./examples/card/link";
+import CardMedia from "./examples/card/media";
+import CardModes from "./examples/card/modes";
+import CardSelectable from "./examples/card/selectable";
+import CardSizes from "./examples/card/sizes";
+import CardSpotlight from "./examples/card/spotlight";
+import CardStackExample from "./examples/card/stack";
+import CardTilt from "./examples/card/tilt";
 import SelectControlled from "./examples/select/controlled";
 import SelectDefault from "./examples/select/default";
 import SelectGroups from "./examples/select/groups";
@@ -90,6 +100,16 @@ export const examples = {
 	"switch/rows": SwitchRows,
 	"switch/rtl": SwitchRtl,
 	"switch/modes": SwitchModes,
+	"card/default": CardDefault,
+	"card/sizes": CardSizes,
+	"card/media": CardMedia,
+	"card/link": CardLink,
+	"card/selectable": CardSelectable,
+	"card/tilt": CardTilt,
+	"card/spotlight": CardSpotlight,
+	"card/expandable": CardExpandable,
+	"card/stack": CardStackExample,
+	"card/modes": CardModes,
 } satisfies Record<string, ComponentType>;
 
 export type ExampleName = keyof typeof examples;

@@ -330,12 +330,22 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   now matches.
 - **Card**: Figma has no generic Card section, so this is the container shared by its Kanban (12px
   padding), Option (16) and Stat (20) cards: surface fill, 1px `#f2f2f2` border, the box radius tier
-  (12 Default, 20 Round, 4 Sharp), a vertical stack. One component, `padding` sm, md (default) or
-  lg, an `as` tag for semantics, and `cardParts` text styles instead of header and footer parts.
-  Floating uses the raised-surface edge and ring (as the secondary Button); Figma's cast shadow is
-  dropped. `rx-surface` was split out of `rx-control` so a card is the plain surface with no hover or
-  press. Deviation: the description uses the secondary gray (passes 4.5:1) where Figma's Option Card
-  uses the tertiary gray; flagged. Option Card (selectable) and Stat Card are separate components.
+  (12 Default, 20 Round, 4 Sharp). Floating uses the raised-surface edge and ring (as the secondary
+  Button); Figma's cast shadow is dropped. `rx-surface` was split out of `rx-control` so a card is the
+  plain surface with no hover or press. API follows shadcn's parts and `data-slot` names (`Card`
+  with `size` sm, default or lg and an `as` tag, `CardHeader`, `CardTitle`, `CardDescription`,
+  `CardAction`, `CardContent`, `CardFooter`); each part pads itself, media placed directly inside
+  runs edge to edge, and the header is a container so a narrow card drops its action under the
+  title. `card.css` draws the rest, CSS only: a link, button or label with `cardParts.target`
+  stretches over the card and the card derives hover, a 0.985 press, the focus ring and a `--primary`
+  selected edge (a checked input) through `:has()`; `TiltCard` (3D lean on the magnetic spring with a
+  glare, pointer written as `--_tilt-*` / `--_px` / `--_py`), `SpotlightCard` (a radial light and a
+  masked 1px lit edge in `--primary`), `ExpandableCard` (`<details>` with `::details-content` and
+  `interpolate-size` on the panel spring) and `CardStack` (items `interpolate-size` between a 10px
+  peek and `auto`, inert while hidden, a real toggle button). Deviation: the description uses the
+  secondary gray (passes 4.5:1) where Figma's Option Card uses the tertiary gray; flagged. Option
+  Card (selectable) and Stat Card are separate Figma components; the selectable card covers the
+  former's behaviour until it is drawn.
 - **Badge** (Figma `6:116`): 20px, 12/16 medium, a pale tint with colored text, six tones (neutral,
   accent, success, warning, danger, violet), optional 6px dot. Radius is its own tier,
   `--radius-badge`: 4px Default (Figma), 2px Sharp, fully round in Round. One `--_tone` color per

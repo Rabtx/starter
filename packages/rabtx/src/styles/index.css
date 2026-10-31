@@ -11,5 +11,6 @@
 @import "./textarea.css";
 @import "./checkbox.css";
 @import "./switch.css";
+@import "./card.css";
 
 @source "..";
