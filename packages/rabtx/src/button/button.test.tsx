@@ -46,9 +46,9 @@ describe("buttonClass", () => {
 
 describe("button.css", () => {
 	it("animates only with CSS springs and keyframes, and honours both motion switches", () => {
-		expect(css).toContain("var(--rx-spring-press)");
-		expect(css).toContain("var(--rx-spring-label)");
-		expect(css).toContain("var(--rx-spring-magnetic)");
+		expect(css).toContain("var(--spring-press)");
+		expect(css).toContain("var(--spring-label)");
+		expect(css).toContain("var(--spring-magnetic)");
 		expect(css).toContain("@keyframes rx-btn-ripple");
 		expect(css).toContain("@keyframes rx-btn-roll-in");
 		expect(css).toContain("@media (prefers-reduced-motion: reduce)");
@@ -80,7 +80,7 @@ describe("Button", () => {
 		);
 		expect(markup).toContain('type="submit"');
 		expect(markup).toContain('class="rx-btn rx-btn-ghost rx-btn-lg w-full"');
-		expect(markup).toContain('style="--rx-btn-press:0.97"');
+		expect(markup).toContain('style="--_btn-press:0.97"');
 	});
 
 	it("needs an accessible name when it is icon only", () => {

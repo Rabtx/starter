@@ -19,12 +19,15 @@ export default function IntroductionPage() {
 
 			<h2>Modes</h2>
 			<p>
-				Components never take a prop for theme, depth, radius or motion. Set an attribute on any
-				ancestor instead, and everything inside follows. Use the toggles above to try them.
+				Components never take a prop for theme, depth, radius or motion. Set a class or an attribute
+				on any ancestor instead, and everything inside follows. Use the toggles above to try them.
+				Every color, radius, shadow and spring is a token in one file,{" "}
+				<code>packages/rabtx/src/styles/theme.css</code>.
 			</p>
 			<ul className="mt-2">
 				<li>
-					<code>data-theme</code>: <code>light</code> or <code>dark</code>
+					<code>class="dark"</code>: dark colors. <code>class="rabtx"</code> applies the theme to
+					one subtree inside an app that has its own.
 				</li>
 				<li>
 					<code>data-depth</code>: <code>flat</code> (one 1px border) or <code>floating</code> (the

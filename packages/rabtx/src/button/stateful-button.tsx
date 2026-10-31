@@ -117,7 +117,7 @@ function LabelSwap({ id, children }: { id: string; children: ReactNode }) {
 	return (
 		<span
 			className={buttonParts.text}
-			style={width ? ({ "--rx-btn-text-w": `${width}px` } as CSSProperties) : undefined}
+			style={width ? ({ "--_btn-text-w": `${width}px` } as CSSProperties) : undefined}
 		>
 			{typeof children === "string" ? <span className={buttonParts.srOnly}>{children}</span> : null}
 			<Label key={shown.id} ref={current} node={children} enter={shown.enter} />
@@ -159,7 +159,7 @@ function Label({
 						// oxlint-disable-next-line react/no-array-index-key
 						key={index}
 						className={buttonParts.letter}
-						style={{ "--i": index } as CSSProperties}
+						style={{ "--_i": index } as CSSProperties}
 					>
 						{letter}
 					</span>

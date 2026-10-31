@@ -11,12 +11,12 @@ test.describe("rabtx docs: button", () => {
 	});
 
 	test("the toggles set the modes on the wrapper", async ({ page }) => {
-		const wrapper = page.locator("[data-theme]");
+		const wrapper = page.locator(".rabtx");
 		await mode(page, "dark").click();
 		await mode(page, "flat").click();
 		await mode(page, "round").click();
 		await mode(page, "off").click();
-		await expect(wrapper).toHaveAttribute("data-theme", "dark");
+		await expect(wrapper).toHaveClass(/\bdark\b/);
 		await expect(wrapper).toHaveAttribute("data-depth", "flat");
 		await expect(wrapper).toHaveAttribute("data-radius", "round");
 		await expect(wrapper).toHaveAttribute("data-motion", "off");

@@ -16,16 +16,14 @@ export async function Example({
 }) {
 	const code = (await readFile(join(process.cwd(), "src/app/ui", file), "utf8")).trim();
 	return (
-		<figure className="my-4 overflow-hidden rounded-xl border border-(--rx-border-strong)">
+		<figure className="my-4 overflow-hidden rounded-[14px] border border-input">
 			<div
-				className={`flex min-h-32 flex-wrap items-center justify-center gap-3 p-6 ${muted ? "bg-(--rx-pressed)" : ""}`}
+				className={`flex min-h-32 flex-wrap items-center justify-center gap-3 p-6 ${muted ? "bg-muted" : ""}`}
 			>
 				{children}
 			</div>
-			<details className="border-t border-(--rx-border-strong) bg-(--rx-pressed)">
-				<summary className="cursor-pointer px-4 py-2 text-xs text-(--rx-text-secondary)">
-					Code
-				</summary>
+			<details className="border-t border-input bg-muted">
+				<summary className="cursor-pointer px-4 py-2 text-xs text-muted-foreground">Code</summary>
 				<div className="relative">
 					<pre className="overflow-x-auto p-4 font-mono text-xs/5">{code}</pre>
 					<CopyButton code={code} />

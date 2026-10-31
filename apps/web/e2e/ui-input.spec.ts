@@ -20,12 +20,12 @@ test.describe("rabtx docs: input", () => {
 		await input.locator("xpath=preceding-sibling::span").click();
 		await expect(input).toBeFocused();
 		const wrapper = input.locator("xpath=..");
-		await expect(wrapper).toHaveCSS("--rx-edge-a", "rgb(45, 124, 246)");
+		await expect(wrapper).toHaveCSS("--_edge-a", "rgb(45, 124, 246)");
 	});
 
 	test("an invalid input turns the edge red and a disabled one is disabled", async ({ page }) => {
 		const invalid = page.locator('input[aria-invalid="true"]');
-		await expect(invalid.locator("xpath=..")).toHaveCSS("--rx-edge-a", "rgb(229, 72, 77)");
+		await expect(invalid.locator("xpath=..")).toHaveCSS("--_edge-a", "rgb(229, 72, 77)");
 		await expect(page.getByRole("textbox", { name: "Workspace" })).toBeDisabled();
 	});
 
@@ -34,7 +34,7 @@ test.describe("rabtx docs: input", () => {
 		const edges = () =>
 			wrapper.evaluate((el) => {
 				const style = getComputedStyle(el);
-				return [style.getPropertyValue("--rx-edge-a"), style.getPropertyValue("--rx-edge-b")];
+				return [style.getPropertyValue("--_edge-a"), style.getPropertyValue("--_edge-b")];
 			});
 		const before = await wrapper.boundingBox();
 		const [floatingA, floatingB] = await edges();

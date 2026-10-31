@@ -9,12 +9,12 @@ const paddings: Record<CardPadding, string> = {
 
 /** The whole look of a Card as Tailwind classes. React, Solid and plain HTML all use these. */
 export function cardClass(padding: CardPadding = "md") {
-	return `rx-surface rx-card flex flex-col rounded-(--rx-r-box) ${paddings[padding]}`;
+	return `rx-surface rx-card flex flex-col rounded-(--radius-box) ${paddings[padding]}`;
 }
 
 /** Text styles for the inside of a card. Put them on any element, such as an `h3` or a `p`. */
 export const cardParts = {
-	title: "text-[13px]/5 font-[510] tracking-[-0.15px] text-(--rx-text)",
-	description: "text-[13px]/5 tracking-[-0.15px] text-(--rx-text-secondary)",
-	meta: "text-xs/4 tracking-[-0.15px] text-(--rx-text-tertiary)",
+	title: "text-[13px]/5 font-[510] tracking-[-0.15px] text-foreground",
+	description: "text-[13px]/5 tracking-[-0.15px] text-muted-foreground",
+	meta: "text-xs/4 tracking-[-0.15px] text-(--subtle-foreground)",
 };

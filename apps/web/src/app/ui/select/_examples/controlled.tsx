@@ -13,7 +13,7 @@ export default function SelectControlled() {
 				<SelectItem value="doing">In progress</SelectItem>
 				<SelectItem value="done">Done</SelectItem>
 			</Select>
-			<p className="text-xs text-(--rx-text-secondary)">
+			<p className="text-xs text-muted-foreground">
 				Value: <code>{status}</code>
 			</p>
 		</div>

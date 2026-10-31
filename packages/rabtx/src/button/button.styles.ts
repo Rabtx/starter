@@ -37,7 +37,7 @@ export const buttonParts = {
 	slot: "rx-btn-slot",
 	/** The built-in status glyphs: add `data-glyph="spinner" | "check" | "cross"`. */
 	glyph: "rx-btn-glyph",
-	/** The label box. Its width follows `--rx-btn-text-w` so a label swap resizes smoothly. */
+	/** The label box. Its width follows `--_btn-text-w` so a label swap resizes smoothly. */
 	text: "rx-btn-text",
 	/** One label. `data-enter` rolls it in letter by letter, `data-exit` rolls it out. */
 	label: "rx-btn-label",

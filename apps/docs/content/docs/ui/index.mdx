@@ -24,21 +24,25 @@ bun add @rabtx/ui@workspace:*
 
 Next.js apps also list it in `transpilePackages`, because the package ships TypeScript source.
 
+## Theming
+
+One file themes everything: `packages/rabtx/src/styles/theme.css`. It uses shadcn/ui's token names
+(`--background`, `--primary`, `--muted-foreground`, `--border`, `--ring`, `--radius` and the rest)
+on `:root` and `.dark`, maps them into Tailwind with `@theme inline`, and adds a few Rabtx tokens
+for status tones, depth, radius tiers, shadows and springs. Components read nothing else, so
+changing a value there restyles the web app, these docs and every component installed from the
+registry. See [Theming](/docs/ui/theming) for every token.
+
 ## Modes
 
-Components never take a prop for theme, radius or motion. Set an attribute on any ancestor and
-everything inside follows.
+Components never take a prop for theme, radius or motion. Set a class or an attribute on any
+ancestor and everything inside follows.
 
-- `data-theme`: `light` or `dark` (a `.dark` class works too, which is how this site switches)
+- `class="dark"`: dark colors. `class="rabtx"` applies the theme to one subtree only, which is how
+  this site and the web app embed it next to their own themes.
 - `data-depth`: `flat` or `floating`, for fields and cards
 - `data-radius`: `sharp`, `default` or `round`
 - `data-motion`: `on` or `off`. Reduced motion in the OS turns motion down as well.
-
-## Tokens
-
-Colors, radius and motion are CSS variables (`--rx-*`), and each component reads its own
-`--rx-<component>-*` variables first, falling back to the shared ones. Swapping in a new design
-system means changing variables, not components.
 
 ## Components
 

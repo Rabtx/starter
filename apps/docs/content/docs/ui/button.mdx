@@ -134,29 +134,31 @@ Outside React, `buttonClass()` from `@rabtx/ui/button/styles` returns the class 
 
 ## Theming
 
-Every color, the radius and the scales are CSS variables. Set them on any ancestor; each falls
-back to the shared tokens, so light and dark still switch them.
+The Button reads only the [theme tokens](/docs/ui/theming), so it follows your theme with nothing
+to configure.
 
-```css
-.checkout {
-  --rx-btn-primary: #0f766e;
-  --rx-btn-primary-text: #fff;
-  --rx-btn-radius: 10px;
-  --rx-btn-press: 0.96;
-}
+| Part | Tokens |
+| --- | --- |
+| Primary | `--primary`, `--primary-foreground` |
+| Secondary | `--secondary`, `--secondary-foreground`, edge `--input` |
+| Ghost and outline | text `--muted-foreground`, hover `--accent` / `--accent-foreground`, outline edge `--input` |
+| Metallic | face `--background`, shadow `--shadow-raised` |
+| Focus | `--ring` |
+| Corners | `--radius-button` (pill), `--radius-item` (icon button) |
+| Font | `--font-sans` |
+| Motion | `--spring-press`, `--spring-label`, `--spring-magnetic` |
+
+To restyle one button, set a token on it or on an ancestor, or pass Tailwind classes (they win over
+the component styles):
+
+```tsx
+<div className="[--primary:var(--success)]">
+  <Button>Approve</Button>
+</div>
+<Button className="rounded-md">Square-ish</Button>
 ```
 
-| Variable | Used for |
-| --- | --- |
-| `--rx-btn-primary`, `--rx-btn-primary-text` | primary fill and text |
-| `--rx-btn-secondary`, `--rx-btn-secondary-text` | secondary fill and text |
-| `--rx-btn-border` | secondary and outline edge |
-| `--rx-btn-muted` | ghost and outline hover fill |
-| `--rx-btn-ghost-text` | ghost text at rest |
-| `--rx-btn-radius`, `--rx-btn-icon-radius` | corners |
-| `--rx-btn-press`, `--rx-btn-hover` | press and hover scale |
-| `--rx-btn-weight` | label weight |
-| `--rx-btn-metal-face` | the metallic button's face |
+`pressScale` changes how far a press scales (default `0.93`).
 
 ## How the motion works
 
@@ -167,7 +169,7 @@ back to the shared tokens, so light and dark still switch them.
 | Status icons | always in the DOM; `data-shown` transitions width, opacity, scale and blur (in on a spring, out in 160ms) |
 | Letter roll | each letter is an inline-block with `--i`; `@keyframes` from 105% below with blur, `animation-delay: calc(var(--i) * 25ms)`; the leaving label rolls up and out |
 | Width | the label box transitions `width` to the incoming label's measured width |
-| Magnetic | the pointer sets `--rx-btn-mx` and `--rx-btn-my`; `translate` transitions on the magnetic spring |
+| Magnetic | the pointer sets `--_btn-mx` and `--_btn-my`; `translate` transitions on the magnetic spring |
 | Metallic | a gradient wider than the button drifts with an 8s `@keyframes` loop; hover transitions a skewed highlight across |
 
 ## Accessibility

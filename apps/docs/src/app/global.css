@@ -2,11 +2,14 @@
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
 
+/*
+ * @rabtx/ui: the theme and component styles for the UI section's live examples. Imported before the
+ * site tokens so the site keeps its own colors; each example sits in a `.rabtx` scope.
+ */
+@import '@rabtx/ui/styles.css';
+
 /* Shared design tokens — same file the web and mobile apps use. */
 @import '../../../../packages/ui/src/styles/globals.css';
-
-/* @rabtx/ui: tokens, springs and component styles for the UI section's live examples. */
-@import '@rabtx/ui/styles.css';
 
 html {
   scrollbar-gutter: stable;
