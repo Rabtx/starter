@@ -2346,6 +2346,266 @@
       }
     },
     {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "A native modal dialog with header, title, description, footer and close parts, three sizes, right and bottom sheets and a morph from its trigger. CSS-only motion.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/ui/dialog.styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-dialog": {
+            "--_fill": "var(--popover)",
+            "--_flat": "var(--border)",
+            "--_ring": "var(--surface-ring)",
+            "--_edge-a": "var(--surface-edge-top)",
+            "--_edge-b": "var(--surface-edge-bottom)",
+            "--_sheen": "var(--surface-sheen)",
+            "--_shade": "var(--surface-shade)",
+            "--_w": "32rem",
+            "--_pad": "19px",
+            "--_exit": "160ms",
+            "--_from-scale": "0.96",
+            "--_from-x": "0px",
+            "--_from-y": "8px",
+            "container": "rx-dialog / inline-size",
+            "position": "fixed",
+            "inset": "0",
+            "box-sizing": "border-box",
+            "width": "min(calc(100% - 2rem), var(--_w))",
+            "max-width": "none",
+            "height": "fit-content",
+            "max-height": "calc(100dvh - 2rem)",
+            "margin": "auto",
+            "padding": "var(--_pad)",
+            "overflow-y": "auto",
+            "overscroll-behavior": "contain",
+            "border-radius": "var(--radius-box)",
+            "color": "var(--popover-foreground)",
+            "font-size": "13px",
+            "line-height": "20px",
+            "letter-spacing": "-0.15px",
+            "outline": "none",
+            "view-transition-class": "rx-morph",
+            "opacity": "0",
+            "scale": "var(--_from-scale)",
+            "translate": "var(--_from-x) var(--_from-y)",
+            "transition": "opacity var(--_exit) var(--motion-ease), scale var(--_exit) var(--motion-ease), translate var(--_exit) var(--motion-ease), display var(--_exit) allow-discrete, overlay var(--_exit) allow-discrete"
+          },
+          ".rx-dialog[open]": {
+            "display": "grid",
+            "align-content": "start",
+            "gap": "16px",
+            "opacity": "1",
+            "scale": "1",
+            "translate": "0 0",
+            "transition": "opacity 200ms var(--motion-ease), scale var(--spring-panel-duration) var(--spring-panel), translate var(--spring-panel-duration) var(--spring-panel), display var(--spring-panel-duration) allow-discrete, overlay var(--spring-panel-duration) allow-discrete"
+          },
+          ".rx-dialog::backdrop": {
+            "background-color": "transparent",
+            "backdrop-filter": "blur(0)",
+            "transition": "background-color var(--_exit) var(--motion-ease), backdrop-filter var(--_exit) var(--motion-ease), display var(--_exit) allow-discrete, overlay var(--_exit) allow-discrete"
+          },
+          ".rx-dialog[open]::backdrop": {
+            "background-color": "oklch(from var(--background) calc(l * 0.25) c h / 0.45)",
+            "backdrop-filter": "blur(2px)",
+            "transition-duration": "240ms"
+          },
+          ".rx-dialog-sm": {
+            "--_w": "24rem"
+          },
+          ".rx-dialog-md": {
+            "--_w": "32rem"
+          },
+          ".rx-dialog-lg": {
+            "--_w": "42rem"
+          },
+          ".rx-dialog-right": {
+            "--_from-scale": "1",
+            "--_from-x": "100%",
+            "--_from-y": "0px",
+            "--_exit": "220ms",
+            "width": "min(calc(100% - 3rem), calc(var(--_w) * 0.75))",
+            "height": "100dvh",
+            "max-height": "100dvh",
+            "margin": "0",
+            "margin-inline-start": "auto",
+            "border-start-end-radius": "0",
+            "border-end-end-radius": "0",
+            "opacity": "1"
+          },
+          ".rx-dialog-right[open]": {
+            "grid-template-rows": "auto 1fr auto"
+          },
+          ".rx-dialog-bottom": {
+            "--_from-scale": "1",
+            "--_from-y": "100%",
+            "--_exit": "220ms",
+            "width": "min(100%, calc(var(--_w) * 1.25))",
+            "max-height": "85dvh",
+            "margin-block-end": "0",
+            "padding-block-end": "calc(var(--_pad) + env(safe-area-inset-bottom, 0px))",
+            "border-end-start-radius": "0",
+            "border-end-end-radius": "0",
+            "opacity": "1"
+          },
+          ".rx-dialog-header": {
+            "display": "grid",
+            "gap": "4px"
+          },
+          ".rx-dialog:has(> .rx-dialog-close) > .rx-dialog-header": {
+            "padding-inline-end": "28px"
+          },
+          ".rx-dialog-title": {
+            "margin": "0",
+            "font-size": "14px",
+            "line-height": "20px",
+            "font-weight": "510",
+            "letter-spacing": "-0.15px",
+            "color": "var(--popover-foreground)",
+            "text-wrap": "balance"
+          },
+          ".rx-dialog-description": {
+            "margin": "0",
+            "font-size": "13px",
+            "line-height": "20px",
+            "letter-spacing": "-0.15px",
+            "color": "var(--muted-foreground)",
+            "text-wrap": "pretty"
+          },
+          ".rx-dialog-footer": {
+            "display": "flex",
+            "flex-wrap": "wrap",
+            "justify-content": "flex-end",
+            "gap": "8px"
+          },
+          "@container rx-dialog (width < 20rem)": {
+            ".rx-dialog-footer": {
+              "flex-direction": "column-reverse",
+              "align-items": "stretch"
+            }
+          },
+          ".rx-dialog-close": {
+            "position": "absolute",
+            "inset-block-start": "11px",
+            "inset-inline-end": "11px",
+            "display": "grid",
+            "place-items": "center",
+            "width": "28px",
+            "height": "28px",
+            "padding": "0",
+            "border": "0",
+            "border-radius": "var(--radius-item)",
+            "background-color": "transparent",
+            "color": "var(--muted-foreground)",
+            "cursor": "pointer",
+            "-webkit-tap-highlight-color": "transparent",
+            "transition": "background-color 150ms var(--motion-ease), color 150ms var(--motion-ease), opacity 200ms var(--motion-ease) 120ms, scale var(--spring-press-duration) var(--spring-press) 120ms"
+          },
+          ".rx-dialog-close::before, .rx-dialog-close::after": {
+            "content": "\"\"",
+            "grid-area": "1 / 1",
+            "width": "14px",
+            "height": "1.5px",
+            "border-radius": "1px",
+            "background-color": "currentColor",
+            "rotate": "45deg"
+          },
+          ".rx-dialog-close::after": {
+            "rotate": "-45deg"
+          },
+          "@media (hover: hover) and (pointer: fine)": {
+            ".rx-dialog-close:hover": {
+              "background-color": "var(--accent)",
+              "color": "var(--accent-foreground)"
+            }
+          },
+          ".rx-dialog-close:active": {
+            "scale": "0.9",
+            "transition-delay": "0ms"
+          },
+          ".rx-dialog-close:focus-visible": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "1px"
+          },
+          "@starting-style ": {
+            ".rx-dialog[open]": {
+              "opacity": "0",
+              "scale": "var(--_from-scale)",
+              "translate": "var(--_from-x) var(--_from-y)"
+            },
+            ".rx-dialog[open]::backdrop": {
+              "background-color": "transparent",
+              "backdrop-filter": "blur(0)"
+            },
+            ".rx-dialog[open] .rx-dialog-close": {
+              "opacity": "0",
+              "scale": "0.8"
+            }
+          },
+          ":root:has(.rx-dialog:modal)": {
+            "overflow": "hidden"
+          },
+          "[data-slot=\"dialog-trigger\"][data-morph]": {
+            "view-transition-class": "rx-morph"
+          },
+          "[data-slot=\"dialog-trigger\"][data-morph][aria-expanded=\"true\"]": {
+            "opacity": "0"
+          },
+          ".rx-dialog[data-morphing], .rx-dialog[data-morphing]::backdrop": {
+            "transition": "none"
+          },
+          "::view-transition-group(*.rx-morph)": {
+            "animation-duration": "var(--spring-panel-duration)",
+            "animation-timing-function": "var(--spring-panel)"
+          },
+          "::view-transition-image-pair(*.rx-morph)": {
+            "overflow": "clip",
+            "border-radius": "var(--radius-box)"
+          },
+          "::view-transition-old(*.rx-morph), ::view-transition-new(*.rx-morph)": {
+            "inset": "50% auto auto 50%",
+            "inline-size": "auto",
+            "block-size": "auto",
+            "translate": "-50% -50%",
+            "animation-duration": "200ms",
+            "animation-timing-function": "var(--motion-ease)"
+          },
+          ":root:active-view-transition-type(rx-morph-open, rx-morph-close)::view-transition-old(*.rx-morph), :root:active-view-transition-type(rx-morph-open, rx-morph-close)::view-transition-new(*.rx-morph)": {
+            "mix-blend-mode": "normal"
+          },
+          ":root:active-view-transition-type(rx-morph-open)::view-transition-new(*.rx-morph)": {
+            "animation-duration": "100ms"
+          },
+          ":root:active-view-transition-type(rx-morph-close)::view-transition-new(*.rx-morph)": {
+            "animation": "none"
+          },
+          "[data-motion=\"off\"] :is(.rx-dialog, .rx-dialog-close), [data-motion=\"off\"] .rx-dialog::backdrop": {
+            "transition-duration": "0ms !important",
+            "transition-delay": "0ms !important"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ".rx-dialog, .rx-dialog::backdrop, .rx-dialog-close": {
+              "transition-duration": "0ms !important",
+              "transition-delay": "0ms !important"
+            }
+          }
+        }
+      }
+    },
+    {
       "name": "badge",
       "type": "registry:ui",
       "title": "Badge",
