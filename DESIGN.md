@@ -207,6 +207,7 @@ enabled ones. Motion is never the only feedback channel.
   | Tabs indicator | 245 / 36 / 1.2 | no overshoot, about 670ms |
   | Swap (icon, label, morph) | 460 / 30 / 1 | about 5% overshoot |
   | Button label (letters, status icons, width) | 460 / 30 / 0.55 | about 245ms, no visible overshoot |
+  | Check (tick and dash draw, glyph pop) | 784 / 56 / 1 | critically damped, about 306ms |
   | Magnetic (follow the pointer) | 200 / 15 / 0.3 | about 300ms |
   | Unfold (a list from its trigger) | 987 / 55.3 / 1 | about 250ms, a hint of bounce |
   | Switch thumb | 800 / 80 / 4 | squish to 0.9 |
@@ -354,20 +355,28 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   the same. **Deviation from Figma:** the trigger follows the Button's look (surface fill, plain
   border, 32/40/48) instead of Input's recessed 28/32/36 field, and the Select ignores `data-depth`
   except for the list's shadow. Reconcile when the Figma design system is shared.
-- **Checkbox** (Figma `6:59`): a native `<input type="checkbox">` with `appearance: none`, 16px, off
-  (surface fill, strong border), on (accent fill, white tick) and mixed (accent fill, white minus),
-  plus disabled (pressed fill, default border, gray glyph). With children it wraps the box in a
-  `<label>` so the text names it and the row is clickable. `mixed` sets `indeterminate` (derived
-  state: the browser clears it on click). The tick and minus are CSS masks on `::before` (so they
-  take the text color), with a pop on the swap spring, off with Motion off. A 24px hit area comes
-  from an invisible `::after`, since 16px is below the 24px target size. Radius is its own tier,
-  `--radius-check`: 4px Default (Figma), 2px Sharp, **6px in Round** so a checkbox stays a square
-  and is never mistaken for a radio. Figma has no hover, error or focus state and no depth
-  variants, so none were invented (focus uses the shared 2px ring). **Flagged:** the off box's
-  border (`#e3e3e3` on white, about 1.3:1) is below the 3:1 non-text contrast WCAG asks for; it is
-  the same border token Input, Select and Textarea use, so one darker control-border token would fix
-  all of them. The Figma `Task Check` (6:78, a priority circle) is a separate component.
-  Dark values are derived from the dark Sidebar and are not yet confirmed in Figma.
+- **Checkbox** (Figma `6:59`, rebuilt 2026-11-01): a native `<input type="checkbox">`, invisible
+  (`appearance: none`, opacity 0) and laid over a drawn box that reads its state with `:has()`
+  (`:checked`, `:indeterminate`, `:disabled`, `:focus-visible`, `:active`, `aria-invalid`). The
+  input is at least 24px, centered, so it is also the hit area. Sizes 16 (`sm`, Figma), 20 (`md`,
+  default) and 24 (`lg`). Off is `--background` with a 2px `--muted-foreground` 50% edge (full on
+  hover, only while empty); on and indeterminate fill `--primary` with a `--primary-foreground`
+  glyph; disabled is 50% opacity; error (Field or `aria-invalid`) is a `--destructive` edge and 15%
+  halo; focus the shared 2px ring. The tick and the dash are two inline SVGs with `pathLength="1"`:
+  checking pops the glyph in (opacity, scale 0.5 to 1, 4px blur clearing, half the `check` spring)
+  and draws the stroke with `stroke-dashoffset` 1 to 0 on the new `check` spring (784 / 56 / 1,
+  critically damped, about 306ms) 40ms later; the dash draws a third quicker; unchecking fades,
+  shrinks and blurs out in 160ms. Pressing the box or its label springs it to 0.92 on the press
+  spring. Reduced motion keeps only a 100ms fade; Motion off is instant. API is shadcn's
+  (`checked` incl. `"indeterminate"`, `defaultChecked`, `onCheckedChange`) plus `indeterminate`,
+  `size` and `description`; children wrap it in a `<label>`, a description is linked with
+  `aria-describedby` and the name comes from the label text alone. Radius is `--radius-check`
+  (4px Default, 2px Sharp, 6px Round) scaled with the box (1, 1.25, 1.5). **Deviations from Figma:**
+  20px default and the 2px muted edge (which also clears the 3:1 non-text contrast the old `--input`
+  edge failed), a hover state, an error state and 50% disabled replace Figma's 16px box with the
+  `#e3e3e3` edge and pressed-fill disabled. No CheckboxGroup: a list of checkboxes is a `fieldset`
+  of Checkboxes; add a group when a design needs one. The Figma `Task Check` (6:78, a priority
+  circle) is a separate component.
 - Other frameworks: a Solid component is another thin wrapper over `button.styles.ts` plus the same
   CSS, not a clone or a rewrite. Not built yet; add it as a separate package or export with
   `solid-js` as a peer dependency, and test it with a real Solid render.
