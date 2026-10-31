@@ -1,5 +1,5 @@
 [tools]
-bun = "1.4.2"
+bun = "1.4.4"
 
 # The script gates call these directly. mise shims them, so without a version pinned here
 # `bun run lint` and `bun run format` fail with "No version is set for shim".

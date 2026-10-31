@@ -12,7 +12,7 @@ Dual-licensed **MIT OR Apache-2.0**.
 
 **Prerequisites**
 
-- [Bun](https://bun.sh) `1.4.2` (pinned via `packageManager`)
+- [Bun](https://bun.sh) `1.4.4` (pinned via `packageManager`)
 - Optional: Docker Compose `v2.20+`, Rust toolchain (`apps/rust`), Python 3 (`apps/ai-api`, script tests)
 
 ```bash

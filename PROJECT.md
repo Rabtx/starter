@@ -101,7 +101,7 @@ Examples:
 
 ### Monorepo and package management
 
-- **Bun** is the only package manager (`bun@1.3.11`)
+- **Bun** is the only package manager (`bun@1.4.4`)
 - Workspaces: `apps/*` and `packages/*`
 - **Turborepo** orchestrates shared tasks (`turbo.json`)
 
