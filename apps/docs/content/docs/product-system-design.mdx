@@ -52,11 +52,11 @@ Primary personas:
 +----------------+     +--------+---------+      +------------------+
                                 |
                +----------------+----------------+
-               |                |                |
-       +-------v--------+ +-----v----------+ +---v--------------+
-       | Postgres       | | apps/ai-api    | | apps/rust        |
-       | Source of truth| | FastAPI Assist | | Axum Performance |
-       +-------+--------+ +----------------+ +------------------+
+               |                                 |
+       +-------v--------+                  +-----v------------+
+       | Postgres       |                  | apps/rust        |
+       | Source of truth|                  | Axum Performance |
+       +-------+--------+                  +------------------+
                |
        +-------v--------+
        | Redis          |
@@ -74,8 +74,7 @@ Primary personas:
 | --- | --- | --- | --- |
 | **Web Console** | `apps/web` | Public landing, admin dashboard, user settings, billing | Next.js, React, Tailwind CSS |
 | **Mobile App** | `apps/mobile` | Cross-platform mobile client | Expo Router, Uniwind |
-| **API Spine** | `apps/nest-api` | Auth, tenancy, users, billing, MFA, passkeys, AI proxy | NestJS, Drizzle ORM, Zod |
-| **AI Assist** | `apps/ai-api` | LLM orchestration, structured assist pipelines | FastAPI, Python 3, uv |
+| **API Spine** | `apps/nest-api` | Auth, tenancy, users, billing, MFA, passkeys | NestJS, Drizzle ORM, Zod |
 | **Performance Service** | `apps/rust` | High-throughput data processing & micro-benchmarks | Rust, Axum, Tokio |
 | **Documentation** | `apps/docs` | Technical documentation and architecture guides | Fumadocs, MDX |
 

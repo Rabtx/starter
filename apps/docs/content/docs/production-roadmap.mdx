@@ -57,7 +57,6 @@ Turborepo
 Next.js web app (apps/web)
 Expo mobile app (apps/mobile)
 NestJS API app (apps/nest-api)
-FastAPI AI service (apps/ai-api)
 Rust service (apps/rust)
 Docs app (apps/docs)
 Shared packages (@starter/ui, @starter/logger, @starter/typescript-config)
@@ -89,7 +88,6 @@ Validation: Zod
 API style first: REST
 Frontend: Next.js
 Mobile: Expo / React Native
-AI Assist: FastAPI (apps/ai-api)
 Performance service: Rust (apps/rust)
 Docs: Fumadocs
 ```
@@ -467,10 +465,9 @@ apps/nest-api/src/
 - Step execution with timeout and retry capabilities
 - Execution history with full audit trail
 
-### Phase 11 — AI Assist Integration (Completed)
-- AI client in NestJS proxying requests to `apps/ai-api`
-- Prompt orchestration with role, context, and guardrails
-- Secure token-based service authentication
+### Phase 11 — AI Assist Integration (Removed)
+- The NestJS AI proxy was removed together with the separate AI service it called
+- Prompt orchestration with role, context, and guardrails is open for a future implementation
 
 ### Phase 12 — Web Admin Console Integration (Completed)
 - Modern Next.js admin dashboard

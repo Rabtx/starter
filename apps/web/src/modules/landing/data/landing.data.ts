@@ -312,7 +312,7 @@ export const STATS: Stat[] = [
 		suffix: "+",
 		prefix: "",
 		label: "Languages wired",
-		detail: "TS · Rust · Bash · Python",
+		detail: "TS · Rust · Bash",
 	},
 ];
 

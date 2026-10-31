@@ -28,7 +28,7 @@ starter/
 │   ├── logger/               # Shared logger (TypeScript + Rust)
 │   ├── typescript-config/    # Shared TS config bases
 │   └── ui/                   # Shared web UI primitives + design tokens
-├── scripts/                  # Bash, Python scripts and tests
+├── scripts/                  # Bash scripts, architecture checks and tests
 ├── docker/                   # Docker Compose fragments
 ├── .github/workflows/        # CI/CD/security workflows
 ├── .devcontainer/            # Reproducible development environment
@@ -72,7 +72,7 @@ Run commands from repo root:
 | `bun run start` | Start runtime targets |
 | `bun run lint` | Lint workspace + scripts |
 | `bun run lint:fix` | Apply lint autofixes |
-| `bun run format` | Format TS/JS + shell/Python + Rust |
+| `bun run format` | Format TS/JS + shell + Rust |
 | `bun run typecheck` | TypeScript type checking |
 | `bun run test` | Run tests in workspace + scripts |
 | `bun run test:coverage` | Run full coverage-oriented pass |
@@ -114,7 +114,6 @@ Examples:
 ### Language-specific tools
 
 - **Bash:** `shellcheck`, `shfmt`
-- **Python:** `ruff`, `pytest`
 - **Rust:** `cargo fmt`, `cargo clippy`, `cargo test`
 
 ### Git hooks
@@ -160,7 +159,7 @@ More details: docs app `/docs/docker` and `docker/README.md`.
 
 ## Dev Container workflow
 
-`.devcontainer/` provides a reproducible setup with Bun, Rust, C, Python, Lua, and related tools.
+`.devcontainer/` provides a reproducible setup with Bun, Rust, and the Bash lint/format tools.
 
 - Open in VS Code/Cursor and choose **Reopen in Container**
 - See `.devcontainer/README.md` for exact toolchain and post-create steps
