@@ -291,7 +291,9 @@
         "to": {
           "opacity": "0"
         }
-      },
+      }
+    },
+    "@layer rx-motion": {
       "@media (prefers-reduced-motion: reduce)": {
         "@supports (appearance: base-select)": {
           ".rx-select::picker(select)": {

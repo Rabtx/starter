@@ -9,6 +9,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `@rabtx/ui` RadioGroup: native radios sharing one name in a `<fieldset role="radiogroup">`,
+  sizes `sm` (16), `md` (20), `lg` (24), `orientation`, a `card` variant (choice cards), shadcn API
+  (`value` / `defaultValue` / `onValueChange`, `RadioGroupItem` with `description`) and Field
+  wiring. The dot glides to the chosen option with CSS anchor positioning on a new `glide` spring
+  (each circle pops its own dot where anchors are missing). Registry item `@rabtx/radio-group`,
+  `/docs/ui/radio-group`, the `/ui/radio-group` playground page and `ui-radio-group.spec.ts`.
+- `@rabtx/ui` Tabs: WAI-ARIA tabs (`Tabs`, `TabsList`, `TabsTrigger`, `TabsContent`, shadcn API
+  with `orientation` and `activationMode`) in `segmented`, `pill`, `underline` and `expandable`
+  variants and sizes `sm` / `md` / `lg` (32 / 40 / 48). The indicator follows the selected tab by
+  CSS anchor positioning on the `tabs` spring (the tab paints its own highlight where
+  `anchor-scope` is missing), expandable labels open with a `0fr` to `1fr` grid column, panels fade
+  in with `@starting-style`. Registry item `@rabtx/tabs`, `/docs/ui/tabs`, the `/ui/tabs`
+  playground and `ui-tabs.spec.ts`.
+- `@rabtx/ui` Dialog on the native `<dialog>` (`showModal()`, `closedby="any"`, `::backdrop`) in
+  shadcn's parts, sizes `sm` / `md` / `lg`, right and bottom sheets, a View Transition `morph` from
+  the trigger and CSS-only enter and exit (`@starting-style`, `allow-discrete`, panel spring).
+  Registry item `@rabtx/dialog`, `/docs/ui/dialog`, the `/ui/dialog` playground and
+  `ui-dialog.spec.ts`.
+- `@rabtx/ui` Blocks, starting with a sign-up block (`@rabtx/ui/blocks/signup`, registry item
+  `@rabtx/signup-block` as a `registry:block` installing to `components/blocks/signup`): a
+  three-step Card (details, emailed code with resend countdown, done) built only from Input,
+  PasswordInput, InputOTP, Select, Checkbox, Switch, Field and StatefulButton, with native
+  constraint validation, CSS step transitions and focus moved to each step's heading, plus a
+  compact `SigninBlock`. `/docs/ui/blocks/signup`, the `/ui/blocks/signup` playground and
+  `ui-signup-block.spec.ts`.
 - `@rabtx/ui` Checkbox rebuilt on a native checkbox laid over a box styled with `:has()`: sizes
   `sm` (16), `md` (20, default), `lg` (24); shadcn API (`checked` incl. `"indeterminate"`,
   `defaultChecked`, `onCheckedChange`) plus `indeterminate` and `description`; Field and
@@ -72,6 +97,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `@rabtx/ui` motion preferences: every component's reduced-motion and `data-motion="off"` rules
+  move out of `@layer components` into an `rx-motion` cascade layer declared after it, with off
+  after less motion. The shadcn CLI merges each item's `@media (prefers-reduced-motion: reduce)`
+  block into the first one in a project's CSS, ahead of the rules it overrides, so in installed
+  projects some overrides lost (the switch kept its transitions). The layer wins wherever the block
+  lands, so the `!important`s that stood in for it are gone, and `build-registry.ts` fails if a
+  motion rule is left outside the layer.
 - **Breaking (`@rabtx/ui` theming):** `tokens.css` and `springs.css` are replaced by one
   shadcn-style file, `src/styles/theme.css` (also exported as `@rabtx/ui/theme.css`): shadcn token
   names on `:root` and `.dark`, mapped into Tailwind with `@theme inline`, plus Rabtx extras

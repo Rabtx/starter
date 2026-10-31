@@ -39,7 +39,17 @@ export async function Installation({ name }: { name: string }) {
 						</p>
 						<ServerCodeBlock code={url} lang="bash" />
 						<p className="mt-3 text-sm text-fd-muted-foreground">
-							The files land in your <code>components/ui</code> and are styled by your own theme.
+							{item.type === "registry:block" ? (
+								<>
+									The block lands in <code>components/blocks</code> and the components it uses in
+									your <code>components/ui</code>, styled by your own theme.
+								</>
+							) : (
+								<>
+									The files land in your <code>components/ui</code> and are styled by your own
+									theme.
+								</>
+							)}{" "}
 							Add <code>--overwrite</code> to replace a shadcn component with the same name.
 						</p>
 					</Step>

@@ -478,17 +478,19 @@
 			opacity: 0;
 		}
 	}
-
+}
+/* Less motion and motion off: the rx-motion layer, explained in control.css. */
+@layer rx-motion {
 	/* Less motion: no shake, roll, glide or float; colors still change and the caret still blinks. */
 	@media (prefers-reduced-motion: reduce) {
 		:is(.rx-input-field, .rx-input-field *, .rx-otp *) {
-			animation-name: none !important;
-			transition-duration: 0ms !important;
+			animation-name: none;
+			transition-duration: 0ms;
 		}
 	}
 	/* Motion off: every state still shows, at once. */
 	[data-motion="off"] :is(.rx-input-field, .rx-input-field *, .rx-otp *) {
-		animation: none !important;
-		transition-duration: 0ms !important;
+		animation: none;
+		transition-duration: 0ms;
 	}
 }

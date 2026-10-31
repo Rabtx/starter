@@ -25,7 +25,8 @@
           "ease-spring-tabs": "var(--spring-tabs)",
           "ease-spring-panel": "var(--spring-panel)",
           "ease-spring-toast": "var(--spring-toast)",
-          "ease-spring-switch": "var(--spring-switch)"
+          "ease-spring-switch": "var(--spring-switch)",
+          "ease-spring-glide": "var(--spring-glide)"
         },
         "light": {
           "radius": "0.5rem",
@@ -175,7 +176,8 @@
           "ease-spring-tabs": "var(--spring-tabs)",
           "ease-spring-panel": "var(--spring-panel)",
           "ease-spring-toast": "var(--spring-toast)",
-          "ease-spring-switch": "var(--spring-switch)"
+          "ease-spring-switch": "var(--spring-switch)",
+          "ease-spring-glide": "var(--spring-glide)"
         },
         "light": {
           "spring-press": "linear(0, 0.0157, 0.0565, 0.1142, 0.1824, 0.256, 0.3316, 0.4061, 0.4777, 0.5451, 0.6074, 0.6642, 0.7153, 0.7607, 0.8007, 0.8356, 0.8657, 0.8915, 0.9134, 0.9318, 0.9471, 0.9598, 0.9702, 0.9785, 0.9852, 0.9905, 0.9946, 0.9978, 1.0001, 1.0018, 1.0029, 1.0037, 1.0041, 1.0043, 1.0043, 1.0042, 1.004, 1.0037, 1.0034, 1.0031, 1.0027, 1.0024, 1.0021, 1)",
@@ -197,7 +199,9 @@
           "spring-toast": "linear(0, 0.0135, 0.0483, 0.0975, 0.1559, 0.2193, 0.2847, 0.3498, 0.4132, 0.4736, 0.5303, 0.5831, 0.6315, 0.6757, 0.7156, 0.7515, 0.7836, 0.8122, 0.8375, 0.8597, 0.8793, 0.8964, 0.9113, 0.9243, 0.9355, 0.9452, 0.9536, 0.9608, 0.9669, 0.9722, 0.9767, 0.9805, 0.9837, 0.9864, 0.9887, 0.9907, 0.9923, 0.9937, 0.9948, 0.9958, 0.9966, 0.9972, 0.9978, 1)",
           "spring-toast-duration": "315ms",
           "spring-switch": "linear(0, 0.0138, 0.0509, 0.1051, 0.1713, 0.2451, 0.323, 0.4019, 0.4795, 0.5541, 0.6244, 0.6893, 0.7484, 0.8014, 0.8481, 0.8886, 0.9234, 0.9526, 0.9767, 0.9962, 1.0116, 1.0233, 1.0318, 1.0377, 1.0412, 1.0429, 1.0431, 1.0421, 1.0402, 1.0377, 1.0347, 1.0314, 1.028, 1.0246, 1.0213, 1.0181, 1.0152, 1.0125, 1.01, 1.0078, 1.0059, 1.0042, 1.0028, 1)",
-          "spring-switch-duration": "527ms"
+          "spring-switch-duration": "527ms",
+          "spring-glide": "linear(0, 0.0245, 0.0831, 0.1591, 0.242, 0.3252, 0.4048, 0.4788, 0.546, 0.6062, 0.6596, 0.7065, 0.7475, 0.7831, 0.814, 0.8406, 0.8635, 0.8833, 0.9002, 0.9147, 0.9271, 0.9377, 0.9468, 0.9546, 0.9613, 0.9669, 0.9718, 0.9759, 0.9795, 0.9825, 0.985, 0.9872, 0.9891, 0.9907, 0.9921, 0.9932, 0.9942, 0.9951, 0.9958, 0.9964, 0.9969, 0.9974, 0.9978, 1)",
+          "spring-glide-duration": "424ms"
         }
       }
     },
@@ -315,16 +319,18 @@
             "--_sheen": "transparent",
             "--_shade": "transparent",
             "--_ring": "transparent"
-          },
-          "[data-motion=\"off\"] .rx-surface": {
-            "transition-duration": "0ms !important",
-            "animation-duration": "2400ms !important"
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ".rx-surface": {
-              "transition-duration": "0ms !important",
-              "animation-duration": "2400ms !important"
+              "transition-duration": "0ms",
+              "animation-duration": "2400ms"
             }
+          },
+          "[data-motion=\"off\"] .rx-surface": {
+            "transition-duration": "0ms",
+            "animation-duration": "2400ms"
           }
         }
       }
@@ -696,6 +702,13 @@
             "z-index": "-1",
             "box-shadow": "inset 0 1px 0 rgb(255 255 255 / 0.28), inset 0 -1px 0 rgb(0 0 0 / 0.16)"
           },
+          "@keyframes rx-btn-fade": {
+            "from": {
+              "opacity": "0"
+            }
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ".rx-btn": {
               "translate": "none"
@@ -729,11 +742,6 @@
               "animation-direction": "reverse"
             }
           },
-          "@keyframes rx-btn-fade": {
-            "from": {
-              "opacity": "0"
-            }
-          },
           "[data-motion=\"off\"] .rx-btn": {
             "translate": "none",
             "transition-duration": "0ms"
@@ -748,7 +756,7 @@
             "display": "none"
           },
           "[data-motion=\"off\"] .rx-btn-letter, [data-motion=\"off\"] .rx-btn-metal-rim": {
-            "animation": "none !important"
+            "animation": "none"
           },
           "[data-motion=\"off\"] .rx-btn-metal-sheen": {
             "transition": "none"
@@ -1047,7 +1055,9 @@
             "to": {
               "opacity": "0"
             }
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             "@supports (appearance: base-select)": {
               ".rx-select::picker(select)": {
@@ -1487,16 +1497,18 @@
             "50%": {
               "opacity": "0"
             }
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ":is(.rx-input-field, .rx-input-field *, .rx-otp *)": {
-              "animation-name": "none !important",
-              "transition-duration": "0ms !important"
+              "animation-name": "none",
+              "transition-duration": "0ms"
             }
           },
           "[data-motion=\"off\"] :is(.rx-input-field, .rx-input-field *, .rx-otp *)": {
-            "animation": "none !important",
-            "transition-duration": "0ms !important"
+            "animation": "none",
+            "transition-duration": "0ms"
           }
         }
       }
@@ -1567,7 +1579,9 @@
           ".rx-textarea:disabled": {
             "opacity": "0.5",
             "cursor": "not-allowed"
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ".rx-textarea": {
               "transition-duration": "0ms"
@@ -1776,23 +1790,25 @@
             "font-size": "0.75rem",
             "line-height": "1rem",
             "letter-spacing": "0"
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ".rx-checkbox": {
-              "scale": "none !important"
+              "scale": "none"
             },
             ".rx-checkbox-mark": {
-              "scale": "none !important",
-              "filter": "none !important",
-              "transition": "opacity 100ms var(--motion-ease) !important"
+              "scale": "none",
+              "filter": "none",
+              "transition": "opacity 100ms var(--motion-ease)"
             },
             ".rx-checkbox-mark path": {
-              "stroke-dashoffset": "0 !important",
-              "transition": "none !important"
+              "stroke-dashoffset": "0",
+              "transition": "none"
             }
           },
           "[data-motion=\"off\"] .rx-checkbox, [data-motion=\"off\"] .rx-checkbox-mark, [data-motion=\"off\"] .rx-checkbox-mark path": {
-            "transition": "none !important"
+            "transition": "none"
           }
         }
       }
@@ -1940,14 +1956,673 @@
           ".rx-switch-label:has(> .rx-switch:disabled)": {
             "color": "var(--disabled-foreground)",
             "cursor": "not-allowed"
-          },
-          "[data-motion=\"off\"] .rx-switch, [data-motion=\"off\"] .rx-switch::before": {
-            "transition": "none"
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ".rx-switch, .rx-switch::before": {
               "transition": "none"
             }
+          },
+          "[data-motion=\"off\"] .rx-switch, [data-motion=\"off\"] .rx-switch::before": {
+            "transition": "none"
+          }
+        }
+      }
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "Native radios in a radiogroup fieldset, three sizes and choice cards, with a dot that glides to the chosen option. CSS-only motion.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "{{origin}}/r/field-context.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/ui/radio-group.styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-radio-group": {
+            "--_size": "1.25rem",
+            "--_dot": "0.5rem",
+            "--_edge-w": "2px",
+            "position": "relative",
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "0.75rem",
+            "min-inline-size": "0",
+            "margin": "0",
+            "padding": "0",
+            "border": "0"
+          },
+          ".rx-radio-group[data-orientation=\"horizontal\"]": {
+            "flex-flow": "row wrap",
+            "gap": "0.75rem 1.5rem"
+          },
+          ".rx-radio-group-sm": {
+            "--_size": "1rem",
+            "--_dot": "0.375rem",
+            "--_edge-w": "1.5px",
+            "gap": "0.5rem"
+          },
+          ".rx-radio-group-lg": {
+            "--_size": "1.5rem",
+            "--_dot": "0.625rem"
+          },
+          ".rx-radio": {
+            "--_edge": "color-mix(in oklab, var(--muted-foreground) 50%, transparent)",
+            "--_halo": "transparent",
+            "position": "relative",
+            "display": "inline-grid",
+            "flex": "none",
+            "place-items": "center",
+            "box-sizing": "border-box",
+            "width": "var(--_size)",
+            "height": "var(--_size)",
+            "border": "var(--_edge-w) solid var(--_edge)",
+            "border-radius": "50%",
+            "background-color": "var(--background)",
+            "box-shadow": "0 0 0 3px var(--_halo)",
+            "-webkit-tap-highlight-color": "transparent",
+            "transition": "border-color 200ms var(--motion-ease), box-shadow 200ms var(--motion-ease), scale var(--spring-press-duration) var(--spring-press)"
+          },
+          ".rx-radio::after": {
+            "content": "\"\"",
+            "grid-area": "1 / 1",
+            "width": "var(--_dot)",
+            "height": "var(--_dot)",
+            "border-radius": "50%",
+            "background-color": "var(--primary)",
+            "pointer-events": "none",
+            "opacity": "0",
+            "scale": "0",
+            "transition": "opacity 160ms var(--motion-ease), scale 160ms var(--motion-ease)"
+          },
+          ".rx-radio:has(> :checked)": {
+            "--_edge": "var(--primary)"
+          },
+          ".rx-radio:has(> :checked)::after": {
+            "opacity": "1",
+            "scale": "1",
+            "transition": "opacity calc(var(--spring-swap-duration) * 0.5) var(--motion-ease), scale var(--spring-swap-duration) var(--spring-swap)"
+          },
+          ".rx-radio:has(> :focus-visible)": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "2px"
+          },
+          ".rx-radio:has(> :active:not(:disabled))": {
+            "scale": "0.92"
+          },
+          ".rx-radio:has(> :disabled)": {
+            "opacity": "0.5"
+          },
+          "@media (hover: hover)": {
+            ".rx-radio-item:hover > .rx-radio:not(:has(> :disabled, > :checked))": {
+              "--_edge": "var(--muted-foreground)"
+            },
+            ".rx-radio-group-card > .rx-radio-item:hover:not(:has(:disabled, :checked))": {
+              "--_card-edge": "color-mix(in oklab, var(--muted-foreground) 50%, transparent)"
+            }
+          },
+          ".rx-radio-group[aria-invalid=\"true\"]:not(:has(:checked)) .rx-radio": {
+            "--_edge": "var(--destructive)",
+            "--_halo": "color-mix(in oklab, var(--destructive) 15%, transparent)",
+            "outline-color": "var(--destructive)"
+          },
+          ".rx-radio-input": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "width": "max(24px, var(--_size))",
+            "height": "max(24px, var(--_size))",
+            "translate": "-50% -50%",
+            "z-index": "1",
+            "margin": "0",
+            "appearance": "none",
+            "opacity": "0",
+            "cursor": "pointer"
+          },
+          ".rx-radio-input:disabled": {
+            "cursor": "not-allowed"
+          },
+          ".rx-radio-item": {
+            "display": "inline-flex",
+            "align-items": "flex-start",
+            "gap": "0.75rem",
+            "color": "var(--foreground)",
+            "font-size": "0.875rem",
+            "line-height": "1.25rem",
+            "cursor": "pointer",
+            "user-select": "none",
+            "-webkit-tap-highlight-color": "transparent"
+          },
+          ".rx-radio-item > .rx-radio": {
+            "margin-block": "calc((1lh - var(--_size)) / 2)"
+          },
+          ".rx-radio-group-sm > .rx-radio-item": {
+            "gap": "0.5rem",
+            "font-size": "0.8125rem",
+            "letter-spacing": "-0.15px"
+          },
+          ".rx-radio-group-lg > .rx-radio-item": {
+            "font-size": "1rem",
+            "line-height": "1.5rem"
+          },
+          ".rx-radio-item:active:not(:has(:disabled)) > .rx-radio": {
+            "scale": "0.92"
+          },
+          ".rx-radio-item:has(:disabled)": {
+            "cursor": "not-allowed"
+          },
+          ".rx-radio-item:has(:disabled) > .rx-radio-text": {
+            "opacity": "0.5"
+          },
+          ".rx-radio-text": {
+            "display": "flex",
+            "min-width": "0",
+            "flex-direction": "column",
+            "gap": "0.125rem"
+          },
+          ".rx-radio-description": {
+            "color": "var(--muted-foreground)",
+            "font-size": "0.75rem",
+            "line-height": "1rem",
+            "letter-spacing": "0"
+          },
+          ".rx-radio-group-card": {
+            "gap": "0.5rem"
+          },
+          ".rx-radio-group-card[data-orientation=\"horizontal\"]": {
+            "gap": "0.5rem"
+          },
+          ".rx-radio-group-card[data-orientation=\"horizontal\"] > .rx-radio-item": {
+            "flex": "1 1 10rem"
+          },
+          ".rx-radio-group-card > .rx-radio-item": {
+            "--_card-edge": "var(--input)",
+            "--_card-fill": "var(--card)",
+            "position": "relative",
+            "display": "flex",
+            "padding": "0.75rem 1rem",
+            "border": "1px solid var(--_card-edge)",
+            "border-radius": "var(--radius-control)",
+            "background-color": "var(--_card-fill)",
+            "box-shadow": "0 0 0 1px transparent",
+            "transition": "border-color 150ms var(--motion-ease), background-color 150ms var(--motion-ease), box-shadow 150ms var(--motion-ease), scale var(--spring-press-duration) var(--spring-press)"
+          },
+          ".rx-radio-group-card > .rx-radio-item > .rx-radio": {
+            "order": "1"
+          },
+          ".rx-radio-group-card > .rx-radio-item > .rx-radio-text": {
+            "flex": "1"
+          },
+          ".rx-radio-group-card > .rx-radio-item:has(:checked)": {
+            "--_card-edge": "var(--primary)",
+            "--_card-fill": "color-mix(in oklab, var(--primary) 6%, var(--card))",
+            "box-shadow": "0 0 0 1px var(--primary)"
+          },
+          ".rx-radio-group-card > .rx-radio-item:has(:focus-visible)": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "2px"
+          },
+          ".rx-radio-group-card > .rx-radio-item:has(:focus-visible) > .rx-radio": {
+            "outline": "none"
+          },
+          ".rx-radio-group-card > .rx-radio-item:active:not(:has(:disabled))": {
+            "scale": "0.985"
+          },
+          ".rx-radio-group-card > .rx-radio-item:active:not(:has(:disabled)) > .rx-radio": {
+            "scale": "none"
+          },
+          ".rx-radio-group-card > .rx-radio-item:has(:disabled)": {
+            "opacity": "0.5"
+          },
+          ".rx-radio-group-card > .rx-radio-item:has(:disabled) > .rx-radio, .rx-radio-group-card > .rx-radio-item:has(:disabled) > .rx-radio-text": {
+            "opacity": "1"
+          },
+          ".rx-radio-group-card.rx-radio-group-sm > .rx-radio-item": {
+            "padding": "0.5rem 0.75rem"
+          },
+          ".rx-radio-group-card.rx-radio-group-lg > .rx-radio-item": {
+            "padding": "1rem 1.25rem"
+          },
+          ".rx-radio-group-card[aria-invalid=\"true\"]:not(:has(:checked)) > .rx-radio-item": {
+            "--_card-edge": "var(--destructive)"
+          },
+          "@supports (anchor-name: --a) and (anchor-scope: all)": {
+            ".rx-radio-group": {
+              "anchor-scope": "--_radio-chosen"
+            },
+            ".rx-radio-group::after": {
+              "content": "\"\"",
+              "position": "absolute",
+              "position-anchor": "--_radio-chosen",
+              "top": "anchor(center)",
+              "left": "anchor(center)",
+              "z-index": "2",
+              "width": "var(--_dot)",
+              "height": "var(--_dot)",
+              "border-radius": "50%",
+              "background-color": "var(--primary)",
+              "pointer-events": "none",
+              "translate": "-50% -50%",
+              "transition": "top var(--spring-glide-duration) var(--spring-glide), left var(--spring-glide-duration) var(--spring-glide), opacity calc(var(--spring-swap-duration) * 0.5) var(--motion-ease), scale var(--spring-swap-duration) var(--spring-swap)"
+            },
+            ".rx-radio-group:not(:has(.rx-radio-input:checked))::after": {
+              "opacity": "0",
+              "scale": "0",
+              "transition": "opacity 160ms var(--motion-ease), scale 160ms var(--motion-ease)"
+            },
+            ".rx-radio-group:has(.rx-radio-input:checked:disabled)::after": {
+              "opacity": "0.5"
+            },
+            ".rx-radio-group:has(.rx-radio-item:active .rx-radio-input:checked:not(:disabled))::after": {
+              "scale": "0.92"
+            },
+            ".rx-radio:has(> :checked), .rx-radio-group:not(:has(.rx-radio-input:checked)) > .rx-radio-item:first-of-type > .rx-radio": {
+              "anchor-name": "--_radio-chosen"
+            },
+            ".rx-radio::after": {
+              "visibility": "hidden"
+            }
+          }
+        },
+        "@layer rx-motion": {
+          "@media (prefers-reduced-motion: reduce)": {
+            ".rx-radio, .rx-radio-group-card > .rx-radio-item": {
+              "scale": "none"
+            },
+            ".rx-radio::after, .rx-radio-group::after": {
+              "scale": "none",
+              "transition": "opacity 100ms var(--motion-ease)"
+            }
+          },
+          "[data-motion=\"off\"] .rx-radio, [data-motion=\"off\"] .rx-radio::after, [data-motion=\"off\"] .rx-radio-group::after, [data-motion=\"off\"] .rx-radio-group-card > .rx-radio-item": {
+            "transition": "none"
+          }
+        }
+      }
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "WAI-ARIA tabs in segmented, pill, underline and expandable variants, with an indicator that slides by CSS anchor positioning. CSS-only motion.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/ui/tabs.styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-tabs": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "0.75rem"
+          },
+          ".rx-tabs[data-orientation=\"vertical\"]": {
+            "flex-direction": "row",
+            "align-items": "flex-start"
+          },
+          ".rx-tabs-list": {
+            "--_h": "2.5rem",
+            "--_pad": "4px",
+            "--_bw": "1px",
+            "--_px": "0.75rem",
+            "--_icon": "16px",
+            "--_gap": "0.375rem",
+            "--_fs": "0.875rem",
+            "--_lh": "1.25rem",
+            "--_th": "calc(var(--_h) - var(--_pad) * 2 - var(--_bw) * 2)",
+            "--_track": "transparent",
+            "--_track-a": "transparent",
+            "--_track-b": "transparent",
+            "--_track-ring": "transparent",
+            "--_track-radius": "var(--radius-control)",
+            "--_ind": "var(--card)",
+            "--_ind-a": "var(--_ind)",
+            "--_ind-b": "var(--_ind)",
+            "--_ind-ring": "transparent",
+            "--_ind-radius": "max(2px, calc(var(--_track-radius) - var(--_pad) - var(--_bw)))",
+            "--_off": "var(--muted-foreground)",
+            "--_on": "var(--foreground)",
+            "position": "relative",
+            "isolation": "isolate",
+            "display": "inline-flex",
+            "align-self": "flex-start",
+            "align-items": "center",
+            "gap": "2px",
+            "box-sizing": "border-box",
+            "max-inline-size": "100%",
+            "padding": "var(--_pad)",
+            "border": "var(--_bw) solid transparent",
+            "border-radius": "var(--_track-radius)",
+            "background": "linear-gradient(var(--_track), var(--_track)) padding-box, linear-gradient(180deg, var(--_track-a), var(--_track-b)) border-box",
+            "box-shadow": "0 0 0 1px var(--_track-ring)",
+            "font-family": "var(--font-sans)",
+            "font-size": "var(--_fs)",
+            "line-height": "var(--_lh)",
+            "letter-spacing": "-0.15px"
+          },
+          ".rx-tabs-list[data-orientation=\"horizontal\"]": {
+            "overflow-x": "auto",
+            "overflow-y": "hidden",
+            "scrollbar-width": "none"
+          },
+          ".rx-tabs-list[data-orientation=\"vertical\"]": {
+            "flex-direction": "column",
+            "align-items": "stretch"
+          },
+          ".rx-tabs-trigger": {
+            "position": "relative",
+            "isolation": "isolate",
+            "display": "inline-flex",
+            "flex": "1 0 auto",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "var(--_gap)",
+            "box-sizing": "border-box",
+            "height": "var(--_th)",
+            "margin": "0",
+            "padding": "0 var(--_px)",
+            "border": "0",
+            "border-radius": "var(--_ind-radius)",
+            "background": "none",
+            "color": "var(--_off)",
+            "font": "inherit",
+            "font-weight": "500",
+            "white-space": "nowrap",
+            "cursor": "pointer",
+            "user-select": "none",
+            "-webkit-tap-highlight-color": "transparent",
+            "transition": "color 150ms var(--motion-ease)"
+          },
+          ".rx-tabs-trigger[aria-selected=\"true\"]": {
+            "color": "var(--_on)"
+          },
+          ".rx-tabs-trigger::before": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset": "0",
+            "z-index": "-1",
+            "box-sizing": "border-box",
+            "border": "1px solid transparent",
+            "border-radius": "inherit",
+            "background": "linear-gradient(var(--_ind), var(--_ind)) padding-box, linear-gradient(180deg, var(--_ind-a), var(--_ind-b)) border-box",
+            "box-shadow": "0 0 0 1px var(--_ind-ring)",
+            "opacity": "0",
+            "transition": "opacity 150ms var(--motion-ease)"
+          },
+          ".rx-tabs-trigger:focus-visible": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "1px"
+          },
+          ".rx-tabs-trigger:disabled": {
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          ".rx-tabs-trigger svg": {
+            "flex": "none",
+            "width": "var(--_icon)",
+            "height": "var(--_icon)"
+          },
+          "[data-orientation=\"vertical\"] > .rx-tabs-trigger": {
+            "flex": "none",
+            "justify-content": "flex-start"
+          },
+          "@media (hover: hover) and (pointer: fine)": {
+            ".rx-tabs-trigger:hover:not(:disabled, [aria-selected=\"true\"])": {
+              "color": "var(--foreground)"
+            }
+          },
+          ".rx-tabs-icon": {
+            "display": "inline-flex",
+            "flex": "none"
+          },
+          ".rx-tabs-label": {
+            "display": "block",
+            "min-width": "0"
+          },
+          ".rx-tabs-indicator": {
+            "display": "none"
+          },
+          "@supports (anchor-scope: all)": {
+            ".rx-tabs-list": {
+              "anchor-scope": "--_tab"
+            },
+            ".rx-tabs-trigger[aria-selected=\"true\"]": {
+              "anchor-name": "--_tab"
+            },
+            ".rx-tabs-indicator": {
+              "position": "absolute",
+              "position-anchor": "--_tab",
+              "top": "anchor(top)",
+              "right": "anchor(right)",
+              "bottom": "anchor(bottom)",
+              "left": "anchor(left)",
+              "z-index": "-1",
+              "display": "block",
+              "box-sizing": "border-box",
+              "border": "1px solid transparent",
+              "border-radius": "var(--_ind-radius)",
+              "background": "linear-gradient(var(--_ind), var(--_ind)) padding-box, linear-gradient(180deg, var(--_ind-a), var(--_ind-b)) border-box",
+              "box-shadow": "0 0 0 1px var(--_ind-ring)",
+              "pointer-events": "none",
+              "transition": "top var(--spring-tabs-duration) var(--spring-tabs), right var(--spring-tabs-duration) var(--spring-tabs), bottom var(--spring-tabs-duration) var(--spring-tabs), left var(--spring-tabs-duration) var(--spring-tabs)"
+            },
+            ".rx-tabs-list:not(:has(> [aria-selected=\"true\"])) > .rx-tabs-indicator": {
+              "display": "none"
+            }
+          },
+          "@supports not (anchor-scope: all)": {
+            ".rx-tabs-trigger[aria-selected=\"true\"]::before": {
+              "opacity": "1"
+            }
+          },
+          ".rx-tabs-segmented": {
+            "--_track": "var(--secondary)",
+            "--_track-a": "var(--field-edge-top)",
+            "--_track-b": "var(--field-edge-bottom)",
+            "--_ind": "var(--card)",
+            "--_ind-a": "var(--surface-edge-top)",
+            "--_ind-b": "var(--surface-edge-bottom)",
+            "--_ind-ring": "var(--surface-ring)"
+          },
+          "[data-depth=\"flat\"] .rx-tabs-segmented": {
+            "--_track-a": "var(--_track)",
+            "--_track-b": "var(--_track)",
+            "--_ind-a": "var(--input)",
+            "--_ind-b": "var(--input)",
+            "--_ind-ring": "transparent"
+          },
+          ".rx-tabs-pill, .rx-tabs-expandable": {
+            "--_track": "var(--card)",
+            "--_track-a": "var(--surface-edge-top)",
+            "--_track-b": "var(--surface-edge-bottom)",
+            "--_track-ring": "var(--surface-ring)",
+            "--_track-radius": "var(--radius-button)"
+          },
+          ".rx-tabs-pill": {
+            "--_ind": "var(--primary)",
+            "--_on": "var(--primary-foreground)"
+          },
+          ".rx-tabs-pill > .rx-tabs-trigger": {
+            "transition": "color var(--spring-tabs-duration) var(--spring-tabs)"
+          },
+          "[data-depth=\"flat\"] :is(.rx-tabs-pill, .rx-tabs-expandable)": {
+            "--_track-a": "var(--border)",
+            "--_track-b": "var(--border)",
+            "--_track-ring": "transparent"
+          },
+          ".rx-tabs-underline": {
+            "--_pad": "0px",
+            "--_bw": "0px",
+            "--_ind": "var(--primary)",
+            "--_track-radius": "0px",
+            "--_ind-radius": "0px",
+            "align-self": "stretch",
+            "gap": "0.25rem",
+            "box-shadow": "inset 0 -1px var(--border)"
+          },
+          ".rx-tabs-underline > .rx-tabs-trigger": {
+            "flex": "none",
+            "border-radius": "var(--radius-item)"
+          },
+          ".rx-tabs-underline > .rx-tabs-trigger::before": {
+            "inset": "auto 0 0",
+            "height": "2px",
+            "border": "0",
+            "border-radius": "0"
+          },
+          ".rx-tabs-underline > .rx-tabs-trigger:focus-visible": {
+            "outline-offset": "-2px"
+          },
+          ".rx-tabs-underline > .rx-tabs-indicator": {
+            "top": "auto",
+            "height": "2px",
+            "border": "0"
+          },
+          ".rx-tabs-underline[data-orientation=\"vertical\"]": {
+            "align-self": "flex-start",
+            "box-shadow": "none",
+            "border-inline-start": "1px solid var(--border)",
+            "padding-inline-start": "0.25rem"
+          },
+          ".rx-tabs-underline[data-orientation=\"vertical\"] > .rx-tabs-trigger::before": {
+            "inset": "0 auto 0 calc(-0.25rem - 1px)",
+            "width": "2px",
+            "height": "auto"
+          },
+          ".rx-tabs-underline[data-orientation=\"vertical\"] > .rx-tabs-indicator": {
+            "top": "anchor(top)",
+            "bottom": "anchor(bottom)",
+            "right": "auto",
+            "left": "auto",
+            "inset-inline-start": "-1px",
+            "width": "2px",
+            "height": "auto"
+          },
+          ".rx-tabs-expandable": {
+            "--_ind": "color-mix(in oklab, var(--foreground) 9%, transparent)",
+            "--_px": "calc((var(--_th) - var(--_icon)) / 2)"
+          },
+          ".rx-tabs-expandable > .rx-tabs-trigger": {
+            "display": "inline-grid",
+            "flex": "none",
+            "grid-template-columns": "auto 0fr",
+            "gap": "0",
+            "transition": "color 150ms var(--motion-ease), grid-template-columns 160ms var(--motion-ease), padding 160ms var(--motion-ease)"
+          },
+          ".rx-tabs-expandable > .rx-tabs-trigger::before": {
+            "transition": "opacity 120ms var(--motion-ease)"
+          },
+          ".rx-tabs-expandable > .rx-tabs-trigger .rx-tabs-label": {
+            "overflow": "hidden"
+          },
+          ".rx-tabs-expandable > .rx-tabs-trigger .rx-tabs-text": {
+            "display": "block",
+            "padding-inline-start": "var(--_gap)",
+            "opacity": "0",
+            "filter": "blur(3px)",
+            "transition": "opacity 120ms var(--motion-ease), filter 120ms var(--motion-ease)"
+          },
+          ".rx-tabs-expandable > .rx-tabs-trigger[aria-selected=\"true\"]": {
+            "grid-template-columns": "auto 1fr",
+            "padding-inline-end": "calc(var(--_px) + 0.25rem)",
+            "transition": "color 150ms var(--motion-ease), grid-template-columns var(--spring-swap-duration) var(--spring-swap), padding var(--spring-swap-duration) var(--spring-swap)"
+          },
+          ".rx-tabs-expandable > .rx-tabs-trigger[aria-selected=\"true\"]::before": {
+            "opacity": "1",
+            "transition-duration": "200ms"
+          },
+          ".rx-tabs-expandable > .rx-tabs-trigger[aria-selected=\"true\"] .rx-tabs-text": {
+            "opacity": "1",
+            "filter": "blur(0)",
+            "transition": "opacity 200ms var(--motion-ease) 60ms, filter 200ms var(--motion-ease) 60ms"
+          },
+          ".rx-tabs-expandable > .rx-tabs-trigger:not(:has(> .rx-tabs-icon))": {
+            "grid-template-columns": "0px 1fr"
+          },
+          ".rx-tabs-expandable > .rx-tabs-trigger:not(:has(> .rx-tabs-icon)) .rx-tabs-text": {
+            "padding-inline-start": "0",
+            "opacity": "1",
+            "filter": "none"
+          },
+          ".rx-tabs-sm": {
+            "--_h": "2rem",
+            "--_pad": "3px",
+            "--_px": "0.625rem",
+            "--_icon": "14px",
+            "--_gap": "0.25rem",
+            "--_fs": "0.8125rem",
+            "--_lh": "1.25rem"
+          },
+          ".rx-tabs-lg": {
+            "--_h": "3rem",
+            "--_px": "1rem",
+            "--_icon": "18px",
+            "--_gap": "0.5rem",
+            "--_fs": "1rem",
+            "--_lh": "1.5rem"
+          },
+          ".rx-tabs-underline:is(.rx-tabs-sm, .rx-tabs-lg)": {
+            "--_pad": "0px"
+          },
+          ".rx-tabs-expandable:is(.rx-tabs-sm, .rx-tabs-lg)": {
+            "--_px": "calc((var(--_th) - var(--_icon)) / 2)"
+          },
+          ".rx-tabs-content": {
+            "flex": "1",
+            "min-width": "0",
+            "border-radius": "var(--radius-control)",
+            "transition": "opacity 200ms var(--motion-ease), filter 200ms var(--motion-ease), translate var(--spring-panel-duration) var(--spring-panel)"
+          },
+          "@starting-style ": {
+            ".rx-tabs-content": {
+              "opacity": "0",
+              "filter": "blur(4px)",
+              "translate": "0 4px"
+            }
+          },
+          ".rx-tabs-content:focus-visible": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "2px"
+          }
+        },
+        "@layer rx-motion": {
+          "@media (prefers-reduced-motion: reduce)": {
+            ".rx-tabs-indicator, .rx-tabs-pill > .rx-tabs-trigger, .rx-tabs-expandable > .rx-tabs-trigger, .rx-tabs-expandable > .rx-tabs-trigger[aria-selected=\"true\"]": {
+              "transition": "color 100ms var(--motion-ease)"
+            },
+            ".rx-tabs-trigger .rx-tabs-text": {
+              "filter": "none",
+              "transition": "opacity 100ms var(--motion-ease)"
+            },
+            ".rx-tabs-content": {
+              "transition": "opacity 100ms var(--motion-ease)"
+            }
+          },
+          "[data-motion=\"off\"] :is(.rx-tabs-indicator, .rx-tabs-trigger, .rx-tabs-content), [data-motion=\"off\"] .rx-tabs-trigger::before, [data-motion=\"off\"] .rx-tabs-trigger .rx-tabs-text": {
+            "transition": "none"
           }
         }
       }
@@ -2315,25 +2990,12 @@
             "position": "absolute",
             "inset": "0",
             "z-index": "calc(var(--_count, 1) + 1)"
-          },
-          "[data-motion=\"off\"] :is(.rx-card-tilt, .rx-card-stack), [data-motion=\"off\"] :is(.rx-card-tilt, .rx-card-stack) *": {
-            "transition-duration": "0ms !important"
-          },
-          "[data-motion=\"off\"] :is(.rx-card, .rx-card *, .rx-card::before, .rx-card::after)": {
-            "transition-duration": "0ms !important"
-          },
-          "[data-motion=\"off\"] .rx-card-expandable::details-content": {
-            "transition-duration": "0ms !important"
-          },
-          "[data-motion=\"off\"] .rx-card-tilt": {
-            "transform": "none"
-          },
-          "[data-motion=\"off\"] .rx-card-tilt::before": {
-            "display": "none"
-          },
+          }
+        },
+        "@layer rx-motion": {
           "@media (prefers-reduced-motion: reduce)": {
             ".rx-card, .rx-card *, .rx-card::before, .rx-card::after, .rx-card-expandable::details-content, .rx-card-stack *": {
-              "transition-duration": "0ms !important"
+              "transition-duration": "0ms"
             },
             ".rx-card-tilt": {
               "transform": "none"
@@ -2341,6 +3003,283 @@
             ".rx-card-tilt::before": {
               "display": "none"
             }
+          },
+          "[data-motion=\"off\"] :is(.rx-card-tilt, .rx-card-stack), [data-motion=\"off\"] :is(.rx-card-tilt, .rx-card-stack) *": {
+            "transition-duration": "0ms"
+          },
+          "[data-motion=\"off\"] :is(.rx-card, .rx-card *, .rx-card::before, .rx-card::after)": {
+            "transition-duration": "0ms"
+          },
+          "[data-motion=\"off\"] .rx-card-expandable::details-content": {
+            "transition-duration": "0ms"
+          },
+          "[data-motion=\"off\"] .rx-card-tilt": {
+            "transform": "none"
+          },
+          "[data-motion=\"off\"] .rx-card-tilt::before": {
+            "display": "none"
+          }
+        }
+      }
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "A native modal dialog with header, title, description, footer and close parts, three sizes, right and bottom sheets and a morph from its trigger. CSS-only motion.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/ui/dialog.styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-dialog": {
+            "--_fill": "var(--popover)",
+            "--_flat": "var(--border)",
+            "--_ring": "var(--surface-ring)",
+            "--_edge-a": "var(--surface-edge-top)",
+            "--_edge-b": "var(--surface-edge-bottom)",
+            "--_sheen": "var(--surface-sheen)",
+            "--_shade": "var(--surface-shade)",
+            "--_w": "32rem",
+            "--_pad": "19px",
+            "--_exit": "160ms",
+            "--_from-scale": "0.96",
+            "--_from-x": "0px",
+            "--_from-y": "8px",
+            "container": "rx-dialog / inline-size",
+            "position": "fixed",
+            "inset": "0",
+            "box-sizing": "border-box",
+            "width": "min(calc(100% - 2rem), var(--_w))",
+            "max-width": "none",
+            "height": "fit-content",
+            "max-height": "calc(100dvh - 2rem)",
+            "margin": "auto",
+            "padding": "var(--_pad)",
+            "overflow-y": "auto",
+            "overscroll-behavior": "contain",
+            "border-radius": "var(--radius-box)",
+            "color": "var(--popover-foreground)",
+            "font-size": "13px",
+            "line-height": "20px",
+            "letter-spacing": "-0.15px",
+            "outline": "none",
+            "view-transition-class": "rx-morph",
+            "opacity": "0",
+            "scale": "var(--_from-scale)",
+            "translate": "var(--_from-x) var(--_from-y)",
+            "transition": "opacity var(--_exit) var(--motion-ease), scale var(--_exit) var(--motion-ease), translate var(--_exit) var(--motion-ease), display var(--_exit) allow-discrete, overlay var(--_exit) allow-discrete"
+          },
+          ".rx-dialog[open]": {
+            "display": "grid",
+            "align-content": "start",
+            "gap": "16px",
+            "opacity": "1",
+            "scale": "1",
+            "translate": "0 0",
+            "transition": "opacity 200ms var(--motion-ease), scale var(--spring-panel-duration) var(--spring-panel), translate var(--spring-panel-duration) var(--spring-panel), display var(--spring-panel-duration) allow-discrete, overlay var(--spring-panel-duration) allow-discrete"
+          },
+          ".rx-dialog::backdrop": {
+            "background-color": "transparent",
+            "backdrop-filter": "blur(0)",
+            "transition": "background-color var(--_exit) var(--motion-ease), backdrop-filter var(--_exit) var(--motion-ease), display var(--_exit) allow-discrete, overlay var(--_exit) allow-discrete"
+          },
+          ".rx-dialog[open]::backdrop": {
+            "background-color": "oklch(from var(--background) calc(l * 0.25) c h / 0.45)",
+            "backdrop-filter": "blur(2px)",
+            "transition-duration": "240ms"
+          },
+          ".rx-dialog-sm": {
+            "--_w": "24rem"
+          },
+          ".rx-dialog-md": {
+            "--_w": "32rem"
+          },
+          ".rx-dialog-lg": {
+            "--_w": "42rem"
+          },
+          ".rx-dialog-right": {
+            "--_from-scale": "1",
+            "--_from-x": "100%",
+            "--_from-y": "0px",
+            "--_exit": "220ms",
+            "width": "min(calc(100% - 3rem), calc(var(--_w) * 0.75))",
+            "height": "100dvh",
+            "max-height": "100dvh",
+            "margin": "0",
+            "margin-inline-start": "auto",
+            "border-start-end-radius": "0",
+            "border-end-end-radius": "0",
+            "opacity": "1"
+          },
+          ".rx-dialog-right[open]": {
+            "grid-template-rows": "auto 1fr auto"
+          },
+          ".rx-dialog-bottom": {
+            "--_from-scale": "1",
+            "--_from-y": "100%",
+            "--_exit": "220ms",
+            "width": "min(100%, calc(var(--_w) * 1.25))",
+            "max-height": "85dvh",
+            "margin-block-end": "0",
+            "padding-block-end": "calc(var(--_pad) + env(safe-area-inset-bottom, 0px))",
+            "border-end-start-radius": "0",
+            "border-end-end-radius": "0",
+            "opacity": "1"
+          },
+          ".rx-dialog-header": {
+            "display": "grid",
+            "gap": "4px"
+          },
+          ".rx-dialog:has(> .rx-dialog-close) > .rx-dialog-header": {
+            "padding-inline-end": "28px"
+          },
+          ".rx-dialog-title": {
+            "margin": "0",
+            "font-size": "14px",
+            "line-height": "20px",
+            "font-weight": "510",
+            "letter-spacing": "-0.15px",
+            "color": "var(--popover-foreground)",
+            "text-wrap": "balance"
+          },
+          ".rx-dialog-description": {
+            "margin": "0",
+            "font-size": "13px",
+            "line-height": "20px",
+            "letter-spacing": "-0.15px",
+            "color": "var(--muted-foreground)",
+            "text-wrap": "pretty"
+          },
+          ".rx-dialog-footer": {
+            "display": "flex",
+            "flex-wrap": "wrap",
+            "justify-content": "flex-end",
+            "gap": "8px"
+          },
+          "@container rx-dialog (width < 20rem)": {
+            ".rx-dialog-footer": {
+              "flex-direction": "column-reverse",
+              "align-items": "stretch"
+            }
+          },
+          ".rx-dialog-close": {
+            "position": "absolute",
+            "inset-block-start": "11px",
+            "inset-inline-end": "11px",
+            "display": "grid",
+            "place-items": "center",
+            "width": "28px",
+            "height": "28px",
+            "padding": "0",
+            "border": "0",
+            "border-radius": "var(--radius-item)",
+            "background-color": "transparent",
+            "color": "var(--muted-foreground)",
+            "cursor": "pointer",
+            "-webkit-tap-highlight-color": "transparent",
+            "transition": "background-color 150ms var(--motion-ease), color 150ms var(--motion-ease), opacity 200ms var(--motion-ease) 120ms, scale var(--spring-press-duration) var(--spring-press) 120ms"
+          },
+          ".rx-dialog-close::before, .rx-dialog-close::after": {
+            "content": "\"\"",
+            "grid-area": "1 / 1",
+            "width": "14px",
+            "height": "1.5px",
+            "border-radius": "1px",
+            "background-color": "currentColor",
+            "rotate": "45deg"
+          },
+          ".rx-dialog-close::after": {
+            "rotate": "-45deg"
+          },
+          "@media (hover: hover) and (pointer: fine)": {
+            ".rx-dialog-close:hover": {
+              "background-color": "var(--accent)",
+              "color": "var(--accent-foreground)"
+            }
+          },
+          ".rx-dialog-close:active": {
+            "scale": "0.9",
+            "transition-delay": "0ms"
+          },
+          ".rx-dialog-close:focus-visible": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "1px"
+          },
+          "@starting-style ": {
+            ".rx-dialog[open]": {
+              "opacity": "0",
+              "scale": "var(--_from-scale)",
+              "translate": "var(--_from-x) var(--_from-y)"
+            },
+            ".rx-dialog[open]::backdrop": {
+              "background-color": "transparent",
+              "backdrop-filter": "blur(0)"
+            },
+            ".rx-dialog[open] .rx-dialog-close": {
+              "opacity": "0",
+              "scale": "0.8"
+            }
+          },
+          ":root:has(.rx-dialog:modal)": {
+            "overflow": "hidden"
+          },
+          "[data-slot=\"dialog-trigger\"][data-morph]": {
+            "view-transition-class": "rx-morph"
+          },
+          "[data-slot=\"dialog-trigger\"][data-morph][aria-expanded=\"true\"]": {
+            "opacity": "0"
+          },
+          ".rx-dialog[data-morphing], .rx-dialog[data-morphing]::backdrop": {
+            "transition": "none"
+          },
+          "::view-transition-group(*.rx-morph)": {
+            "animation-duration": "var(--spring-panel-duration)",
+            "animation-timing-function": "var(--spring-panel)"
+          },
+          "::view-transition-image-pair(*.rx-morph)": {
+            "overflow": "clip",
+            "border-radius": "var(--radius-box)"
+          },
+          "::view-transition-old(*.rx-morph), ::view-transition-new(*.rx-morph)": {
+            "inset": "50% auto auto 50%",
+            "inline-size": "auto",
+            "block-size": "auto",
+            "translate": "-50% -50%",
+            "animation-duration": "200ms",
+            "animation-timing-function": "var(--motion-ease)"
+          },
+          ":root:active-view-transition-type(rx-morph-open, rx-morph-close)::view-transition-old(*.rx-morph), :root:active-view-transition-type(rx-morph-open, rx-morph-close)::view-transition-new(*.rx-morph)": {
+            "mix-blend-mode": "normal"
+          },
+          ":root:active-view-transition-type(rx-morph-open)::view-transition-new(*.rx-morph)": {
+            "animation-duration": "100ms"
+          },
+          ":root:active-view-transition-type(rx-morph-close)::view-transition-new(*.rx-morph)": {
+            "animation": "none"
+          }
+        },
+        "@layer rx-motion": {
+          "@media (prefers-reduced-motion: reduce)": {
+            ".rx-dialog, .rx-dialog::backdrop, .rx-dialog-close": {
+              "transition-duration": "0ms",
+              "transition-delay": "0ms"
+            }
+          },
+          "[data-motion=\"off\"] :is(.rx-dialog, .rx-dialog-close), [data-motion=\"off\"] .rx-dialog::backdrop": {
+            "transition-duration": "0ms",
+            "transition-delay": "0ms"
           }
         }
       }
@@ -2372,6 +3311,315 @@
           }
         }
       }
+    },
+    {
+      "name": "signup-block",
+      "type": "registry:block",
+      "title": "Sign-up block",
+      "description": "A three-step sign-up card (details with a password meter, an emailed code with a resend countdown, a drawn tick) and a compact sign-in card, made of the Rabtx components. CSS-only motion.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "{{origin}}/r/button.json",
+        "{{origin}}/r/card.json",
+        "{{origin}}/r/checkbox.json",
+        "{{origin}}/r/field.json",
+        "{{origin}}/r/input.json",
+        "utils",
+        "{{origin}}/r/select.json",
+        "{{origin}}/r/switch.json"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/blocks/signup/icons.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/signup/icons.tsx"
+        },
+        {
+          "path": "registry/rabtx/blocks/signup/password-strength.ts",
+          "type": "registry:component",
+          "target": "components/blocks/signup/password-strength.ts"
+        },
+        {
+          "path": "registry/rabtx/blocks/signup/signin-block.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/signup/signin-block.tsx"
+        },
+        {
+          "path": "registry/rabtx/blocks/signup/signup-block.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/signup/signup-block.tsx"
+        },
+        {
+          "path": "registry/rabtx/blocks/signup/signup.styles.ts",
+          "type": "registry:component",
+          "target": "components/blocks/signup/signup.styles.ts"
+        },
+        {
+          "path": "registry/rabtx/blocks/signup/validity.ts",
+          "type": "registry:component",
+          "target": "components/blocks/signup/validity.ts"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-signup-heading": {
+            "margin": "0",
+            "font-size": "15px",
+            "line-height": "22px",
+            "font-weight": "590",
+            "letter-spacing": "-0.2px",
+            "color": "var(--card-foreground)",
+            "outline": "none",
+            "scroll-margin-block": "4rem"
+          },
+          ".rx-signup-progress": {
+            "--_dot": "1.5rem",
+            "position": "relative",
+            "display": "grid",
+            "grid-template-columns": "repeat(3, minmax(0, 1fr))",
+            "margin": "0",
+            "padding-block": "0",
+            "list-style": "none"
+          },
+          ".rx-signup-progress::before, .rx-signup-progress::after": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset-block-start": "calc(var(--_dot) / 2 - 1px)",
+            "inset-inline": "calc(100% / 6 + var(--_pad, 0px) * 2 / 3)",
+            "height": "2px",
+            "border-radius": "999px",
+            "background-color": "var(--muted)"
+          },
+          ".rx-signup-progress::after": {
+            "background-color": "var(--primary)",
+            "transform-origin": "left center",
+            "scale": "var(--_progress, 0) 1",
+            "transition": "scale var(--spring-panel-duration) var(--spring-panel)"
+          },
+          ".rx-signup-progress:dir(rtl)::after": {
+            "transform-origin": "right center"
+          },
+          ".rx-signup-progress-step": {
+            "position": "relative",
+            "z-index": "1",
+            "display": "grid",
+            "justify-items": "center",
+            "gap": "6px"
+          },
+          ".rx-signup-progress-dot": {
+            "display": "grid",
+            "place-items": "center",
+            "width": "var(--_dot)",
+            "height": "var(--_dot)",
+            "border": "2px solid var(--input)",
+            "border-radius": "999px",
+            "background-color": "var(--card)",
+            "color": "var(--muted-foreground)",
+            "font-size": "11px",
+            "line-height": "1",
+            "font-weight": "590",
+            "font-variant-numeric": "tabular-nums",
+            "transition": "background-color 200ms var(--motion-ease), border-color 200ms var(--motion-ease), color 200ms var(--motion-ease), box-shadow 200ms var(--motion-ease)"
+          },
+          ".rx-signup-progress-dot > *": {
+            "grid-area": "1 / 1",
+            "transition": "opacity 160ms var(--motion-ease), scale var(--spring-check-duration) var(--spring-check)"
+          },
+          ".rx-signup-progress-dot svg": {
+            "width": "0.75rem",
+            "height": "0.75rem",
+            "opacity": "0",
+            "scale": "0.5"
+          },
+          ".rx-signup-progress-dot svg path": {
+            "stroke-dasharray": "1",
+            "stroke-dashoffset": "1",
+            "transition": "stroke-dashoffset var(--spring-check-duration) var(--spring-check) 80ms"
+          },
+          ".rx-signup-progress-label": {
+            "font-size": "12px",
+            "line-height": "16px",
+            "letter-spacing": "-0.1px",
+            "color": "var(--muted-foreground)",
+            "transition": "color 200ms var(--motion-ease)"
+          },
+          ".rx-signup-progress-step[data-state=\"current\"] .rx-signup-progress-dot": {
+            "border-color": "var(--primary)",
+            "color": "var(--primary)",
+            "box-shadow": "0 0 0 4px color-mix(in oklab, var(--primary) 15%, transparent)"
+          },
+          ".rx-signup-progress-step[data-state=\"current\"] .rx-signup-progress-label": {
+            "color": "var(--foreground)",
+            "font-weight": "510"
+          },
+          ".rx-signup-progress-step[data-state=\"complete\"] .rx-signup-progress-dot": {
+            "border-color": "var(--primary)",
+            "background-color": "var(--primary)",
+            "color": "var(--primary-foreground)"
+          },
+          ".rx-signup-progress-step[data-state=\"complete\"] .rx-signup-progress-dot > span": {
+            "opacity": "0",
+            "scale": "0.5"
+          },
+          ".rx-signup-progress-step[data-state=\"complete\"] .rx-signup-progress-dot svg": {
+            "opacity": "1",
+            "scale": "1"
+          },
+          ".rx-signup-progress-step[data-state=\"complete\"] .rx-signup-progress-dot svg path": {
+            "stroke-dashoffset": "0"
+          },
+          ".rx-signup-progress-step[data-state=\"complete\"] .rx-signup-progress-label": {
+            "color": "var(--foreground)"
+          },
+          ".rx-signup-viewport": {
+            "display": "grid",
+            "height": "var(--_h, auto)",
+            "overflow": "clip",
+            "overflow-clip-margin": "8px",
+            "transition": "height var(--spring-panel-duration) var(--spring-panel)"
+          },
+          ".rx-signup-panel": {
+            "--_flip": "1",
+            "grid-area": "1 / 1",
+            "align-self": "start",
+            "min-width": "0"
+          },
+          ".rx-signup-panel:dir(rtl)": {
+            "--_flip": "-1"
+          },
+          ".rx-signup[data-moved] .rx-signup-panel[data-current]": {
+            "transition": "opacity 220ms var(--motion-ease) 40ms, translate var(--spring-panel-duration) var(--spring-panel), filter 220ms var(--motion-ease) 40ms"
+          },
+          "@starting-style ": {
+            ".rx-signup[data-moved] .rx-signup-panel[data-current]": {
+              "opacity": "0",
+              "translate": "calc(var(--_dir, 1) * var(--_flip) * 2rem) 0",
+              "filter": "blur(4px)"
+            }
+          },
+          ".rx-signup-panel[data-leaving]": {
+            "pointer-events": "none",
+            "animation": "rx-signup-leave 200ms var(--motion-ease) forwards"
+          },
+          "@keyframes rx-signup-leave": {
+            "to": {
+              "opacity": "0",
+              "translate": "calc(var(--_dir, 1) * var(--_flip) * -2rem) 0",
+              "filter": "blur(4px)"
+            }
+          },
+          ".rx-signup-strength": {
+            "--_tone": "var(--muted-foreground)",
+            "display": "grid",
+            "grid-template-columns": "repeat(4, minmax(0, 1fr))",
+            "gap": "4px",
+            "margin-block-start": "2px"
+          },
+          ".rx-signup-strength[data-score=\"1\"]": {
+            "--_tone": "var(--destructive)"
+          },
+          ".rx-signup-strength[data-score=\"2\"]": {
+            "--_tone": "var(--warning)"
+          },
+          ".rx-signup-strength[data-score=\"3\"]": {
+            "--_tone": "var(--primary)"
+          },
+          ".rx-signup-strength[data-score=\"4\"]": {
+            "--_tone": "var(--success)"
+          },
+          ".rx-signup-strength-bar": {
+            "position": "relative",
+            "height": "4px",
+            "overflow": "hidden",
+            "border-radius": "999px",
+            "background-color": "var(--muted)"
+          },
+          ".rx-signup-strength-bar::after": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset": "0",
+            "border-radius": "inherit",
+            "background-color": "var(--_tone)",
+            "transform-origin": "left center",
+            "scale": "0 1",
+            "transition": "scale var(--spring-swap-duration) var(--spring-swap), background-color 200ms var(--motion-ease)"
+          },
+          ".rx-signup-strength-bar[data-filled]::after": {
+            "scale": "1 1"
+          },
+          ".rx-signup-strength-bar:dir(rtl)::after": {
+            "transform-origin": "right center"
+          },
+          ".rx-signup-done-mark": {
+            "width": "3.5rem",
+            "height": "3.5rem",
+            "border-radius": "999px",
+            "background-color": "color-mix(in oklab, var(--success) 12%, transparent)",
+            "fill": "none",
+            "stroke": "var(--success)",
+            "stroke-width": "2.5",
+            "stroke-linecap": "round",
+            "stroke-linejoin": "round"
+          },
+          ".rx-signup-done-mark :is(circle, path)": {
+            "stroke-dasharray": "1",
+            "stroke-dashoffset": "0"
+          },
+          ".rx-signup-done-mark circle": {
+            "rotate": "-90deg",
+            "transform-origin": "center",
+            "animation": "rx-signup-draw 520ms var(--motion-ease) both"
+          },
+          ".rx-signup-done-mark path": {
+            "animation": "rx-signup-draw var(--spring-check-duration) var(--spring-check) 360ms both"
+          },
+          "@keyframes rx-signup-draw": {
+            "from": {
+              "stroke-dashoffset": "1"
+            }
+          },
+          ".rx-signup-divider": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px",
+            "margin": "0",
+            "font-size": "12px",
+            "line-height": "16px",
+            "color": "var(--muted-foreground)"
+          },
+          ".rx-signup-divider::before, .rx-signup-divider::after": {
+            "content": "\"\"",
+            "flex": "1",
+            "height": "1px",
+            "background-color": "var(--border)"
+          }
+        },
+        "@layer rx-motion": {
+          "@media (prefers-reduced-motion: reduce)": {
+            ".rx-signup :is(.rx-signup-viewport, .rx-signup-panel, .rx-signup-progress-dot), .rx-signup .rx-signup-progress-dot *, .rx-signup .rx-signup-progress::after, .rx-signup .rx-signup-strength-bar::after": {
+              "transition": "none"
+            },
+            ".rx-signup .rx-signup-panel[data-leaving]": {
+              "display": "none"
+            },
+            ".rx-signup .rx-signup-done-mark :is(circle, path)": {
+              "animation": "none"
+            }
+          },
+          "[data-motion=\"off\"] .rx-signup :is(.rx-signup-viewport, .rx-signup-panel, .rx-signup-progress-dot), [data-motion=\"off\"] .rx-signup .rx-signup-progress-dot *, [data-motion=\"off\"] .rx-signup .rx-signup-progress::after, [data-motion=\"off\"] .rx-signup .rx-signup-strength-bar::after": {
+            "transition": "none"
+          },
+          "[data-motion=\"off\"] .rx-signup .rx-signup-panel[data-leaving]": {
+            "display": "none"
+          },
+          "[data-motion=\"off\"] .rx-signup .rx-signup-done-mark :is(circle, path)": {
+            "animation": "none"
+          }
+        }
+      },
+      "categories": [
+        "authentication"
+      ]
     }
   ]
 }

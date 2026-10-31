@@ -10,8 +10,12 @@ export const NAV = [
 			{ href: "/ui/select", label: "Select" },
 			{ href: "/ui/checkbox", label: "Checkbox" },
 			{ href: "/ui/switch", label: "Switch" },
+			{ href: "/ui/radio-group", label: "Radio Group" },
+			{ href: "/ui/tabs", label: "Tabs" },
 			{ href: "/ui/card", label: "Card" },
+			{ href: "/ui/dialog", label: "Dialog" },
 			{ href: "/ui/badge", label: "Badge" },
 		],
 	},
+	{ title: "Blocks", links: [{ href: "/ui/blocks/signup", label: "Sign-up" }] },
 ];

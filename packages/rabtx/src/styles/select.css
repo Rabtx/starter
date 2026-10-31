@@ -332,7 +332,9 @@
 			opacity: 0;
 		}
 	}
-
+}
+/* Less motion and motion off: the rx-motion layer, explained in control.css. */
+@layer rx-motion {
 	/* Less motion: the list only fades, the trigger and chevron hold still. */
 	@media (prefers-reduced-motion: reduce) {
 		@supports (appearance: base-select) {

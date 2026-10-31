@@ -383,7 +383,14 @@
 			inset 0 1px 0 rgb(255 255 255 / 0.28),
 			inset 0 -1px 0 rgb(0 0 0 / 0.16);
 	}
-
+	@keyframes rx-btn-fade {
+		from {
+			opacity: 0;
+		}
+	}
+}
+/* Less motion and motion off: the rx-motion layer, explained in control.css. */
+@layer rx-motion {
 	/*
 	 * Motion off, or the OS asks for less. Hover no longer grows, the button no longer chases the
 	 * pointer, the chrome holds still and labels cross-fade (less motion) or simply swap (off).
@@ -425,11 +432,6 @@
 			animation-direction: reverse;
 		}
 	}
-	@keyframes rx-btn-fade {
-		from {
-			opacity: 0;
-		}
-	}
 	[data-motion="off"] {
 		& .rx-btn {
 			translate: none;
@@ -449,7 +451,7 @@
 		}
 		& .rx-btn-letter,
 		& .rx-btn-metal-rim {
-			animation: none !important;
+			animation: none;
 		}
 		& .rx-btn-metal-sheen {
 			transition: none;

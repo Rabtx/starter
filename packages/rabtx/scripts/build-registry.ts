@@ -23,7 +23,7 @@ import {
 	writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { basename, join } from "node:path";
+import { basename, dirname, join } from "node:path";
 import postcss, {
 	type AtRule,
 	type ChildNode,
@@ -42,7 +42,13 @@ const ORIGIN = "{{origin}}";
 const SHADCN = join(PKG, "node_modules/.bin/shadcn");
 
 type CssObject = { [key: string]: string | CssObject };
-type File = { from: string; type: "registry:ui" | "registry:lib" | "registry:hook"; name?: string };
+type File = {
+	from: string;
+	type: "registry:ui" | "registry:lib" | "registry:hook" | "registry:component";
+	name?: string;
+	/** Where the CLI writes it in a project, for block files (`components/blocks/...`). */
+	target?: string;
+};
 type Item = {
 	name: string;
 	type: string;
@@ -186,6 +192,16 @@ const REWRITES: [
 	(match: RegExpMatchArray) => { to: string; dependency?: string; builtin?: string },
 ][] = [
 	[/^\.\.\/lib\/utils$/, () => ({ to: "@/lib/utils", builtin: "utils" })],
+	// Blocks sit two levels down and import component files by path (never a folder's index).
+	[/^\.\.\/\.\.\/lib\/utils$/, () => ({ to: "@/lib/utils", builtin: "utils" })],
+	[
+		/^\.\.\/\.\.\/([\w-]+)\/([\w.-]+)$/,
+		(m) => {
+			if (!COMPONENTS.some((component) => component.name === m[1]))
+				throw new Error(`blocks may only import registry components, not "${m[1]}"`);
+			return { to: `@/components/ui/${m[2]}`, dependency: m[1] };
+		},
+	],
 	[/^\.\.\/hooks\/([\w-]+)$/, (m) => ({ to: `@/hooks/${m[1]}`, dependency: m[1] })],
 	[/^\.\.\/field\/field-context$/, () => ({ to: "./field-context", dependency: "field-context" })],
 	[/^\.\/([\w.-]+)$/, (m) => ({ to: `./${m[1]}` })],
@@ -264,11 +280,32 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 		css: "switch.css",
 	},
 	{
+		name: "radio-group",
+		title: "Radio Group",
+		description:
+			"Native radios in a radiogroup fieldset, three sizes and choice cards, with a dot that glides to the chosen option. CSS-only motion.",
+		css: "radio-group.css",
+	},
+	{
+		name: "tabs",
+		title: "Tabs",
+		description:
+			"WAI-ARIA tabs in segmented, pill, underline and expandable variants, with an indicator that slides by CSS anchor positioning. CSS-only motion.",
+		css: "tabs.css",
+	},
+	{
 		name: "card",
 		title: "Card",
 		description:
 			"A raised surface with header, title, description, action, content and footer parts, plus tilt, spotlight, expandable and stacked cards. CSS-only motion.",
 		css: "card.css",
+	},
+	{
+		name: "dialog",
+		title: "Dialog",
+		description:
+			"A native modal dialog with header, title, description, footer and close parts, three sizes, right and bottom sheets and a morph from its trigger. CSS-only motion.",
+		css: "dialog.css",
 	},
 	{
 		name: "badge",
@@ -277,6 +314,22 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 		css: "badge.css",
 	},
 ];
+
+/**
+ * Blocks: whole screens composed of the components above, from `src/blocks/<folder>`. Their files
+ * install to `components/blocks/<folder>` and their component imports become registry dependencies.
+ */
+const BLOCKS: { name: string; folder: string; title: string; description: string; css?: string }[] =
+	[
+		{
+			name: "signup-block",
+			folder: "signup",
+			title: "Sign-up block",
+			description:
+				"A three-step sign-up card (details with a password meter, an emailed code with a resend countdown, a drawn tick) and a compact sign-in card, made of the Rabtx components. CSS-only motion.",
+			css: "signup-block.css",
+		},
+	];
 
 /** A link to another item of this registry; the docs route fills in the origin. */
 const dep = (name: string) => `${ORIGIN}/r/${name}.json`;
@@ -375,6 +428,23 @@ function buildItems(warnings: string[]): Item[] {
 			css: component.css ? cssObject(readStyle(component.css), component.css, warnings) : undefined,
 		});
 	}
+	for (const block of BLOCKS) {
+		const dir = `blocks/${block.folder}`;
+		items.push({
+			name: block.name,
+			type: "registry:block",
+			title: block.title,
+			description: block.description,
+			files: componentFiles(dir).map(({ from }) => ({
+				from,
+				type: "registry:component" as const,
+				target: `components/${dir}/${basename(from)}`,
+			})),
+			registryDependencies: [dep("rabtx")],
+			css: block.css ? cssObject(readStyle(block.css), block.css, warnings) : undefined,
+			categories: ["authentication"],
+		});
+	}
 	return items;
 }
 
@@ -404,6 +474,29 @@ function checkTokens(items: Item[]) {
 }
 
 // ---------------------------------------------------------------------------------------------
+// Check that motion preferences sit in the rx-motion layer. The shadcn CLI merges every item's
+// `@media (prefers-reduced-motion: reduce)` block into the first one in a project's CSS, which can
+// sit before the rules it overrides; a cascade layer declared after `components` wins wherever it is.
+
+const MOTION_LAYER = "@layer rx-motion";
+
+function checkMotionLayer(items: Item[]) {
+	const walk = (css: CssObject, path: string[], item: string) => {
+		for (const [key, value] of Object.entries(css)) {
+			if (typeof value !== "object") continue;
+			const motion =
+				key.startsWith("@media (prefers-reduced-motion") || key.includes('[data-motion="off"]');
+			if (motion && !path.includes(MOTION_LAYER))
+				throw new Error(
+					`${item} css: "${key}" belongs in ${MOTION_LAYER}, not ${path[0] ?? "the root"}`,
+				);
+			walk(value, [...path, key], item);
+		}
+	};
+	for (const item of items) if (item.css) walk(item.css, [], item.name);
+}
+
+// ---------------------------------------------------------------------------------------------
 
 function stage(items: Item[]): string {
 	const dir = mkdtempSync(join(tmpdir(), "rabtx-registry-"));
@@ -411,12 +504,20 @@ function stage(items: Item[]): string {
 		const dependencies = new Set<string>();
 		const files = (item.files ?? []).map((file) => {
 			const folder =
-				file.type === "registry:lib" ? "lib" : file.type === "registry:hook" ? "hooks" : "ui";
+				file.type === "registry:lib"
+					? "lib"
+					: file.type === "registry:hook"
+						? "hooks"
+						: file.type === "registry:component"
+							? dirname(file.from)
+							: "ui";
 			const path = `registry/rabtx/${folder}/${basename(file.from)}`;
 			mkdirSync(join(dir, `registry/rabtx/${folder}`), { recursive: true });
 			const code = rewrite(file.from, readFileSync(join(SRC, file.from), "utf8"), dependencies);
 			writeFileSync(join(dir, path), code);
-			return { path, type: file.type };
+			return file.target
+				? { path, type: file.type, target: file.target }
+				: { path, type: file.type };
 		});
 		const registryDependencies = [...(item.registryDependencies ?? []), ...dependencies];
 		return {
@@ -431,6 +532,7 @@ function stage(items: Item[]): string {
 			...(files.length && { files }),
 			...(item.cssVars && { cssVars: item.cssVars }),
 			...(item.css && { css: item.css }),
+			...(item.categories && { categories: item.categories }),
 		};
 	});
 	writeFileSync(
@@ -453,6 +555,7 @@ function build(out: string) {
 	const warnings: string[] = [];
 	const items = buildItems(warnings);
 	checkTokens(items);
+	checkMotionLayer(items);
 	const dir = stage(items);
 	rmSync(out, { recursive: true, force: true });
 	mkdirSync(out, { recursive: true });

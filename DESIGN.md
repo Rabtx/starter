@@ -197,6 +197,9 @@ Motion is on by default, purposeful and restrained, and CSS only on the web. Pre
 responsive without moving surrounding layout. Respect reduced motion; a Motion off switch in the
 playground must also leave every state visible. Disabled controls must not activate or animate as
 enabled ones. Motion is never the only feedback channel.
+Reduced-motion and Motion off rules live in the `rx-motion` cascade layer, after
+`components` (less motion first, off after it), so they win without `!important` and whatever the
+order a shadcn project's CSS ends up in.
 
 - **Springs** are defined by stiffness, damping and mass, solved into a CSS `linear()` easing with
   the settle time as the duration. The same three numbers feed the native runtime. Values:
@@ -270,9 +273,9 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   `rx-card`) and the flat and motion-off rules for cards.
   Exports: `@rabtx/ui/button`, `@rabtx/ui/button/styles`, `@rabtx/ui/input`,
   `@rabtx/ui/input/styles`, `@rabtx/ui/field`, `@rabtx/ui/field/styles`, `@rabtx/ui/textarea`,
-  `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/badge`, `@rabtx/ui/badge/styles`,
+  `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/dialog`, `@rabtx/ui/dialog/styles`, `@rabtx/ui/badge`, `@rabtx/ui/badge/styles`,
   `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/checkbox`, `@rabtx/ui/checkbox/styles`,
-  `@rabtx/ui/motion`, `@rabtx/ui/styles.css`, `@rabtx/ui/theme.css`.
+  `@rabtx/ui/motion`, `@rabtx/ui/blocks/signup`, `@rabtx/ui/styles.css`, `@rabtx/ui/theme.css`.
 - Theming: `src/styles/theme.css` is the only place a color, radius, shadow or easing is defined.
   Components read the shadcn semantic tokens (and the documented Rabtx extras) and never define
   their own override variables; private `--_*` variables are allowed for internal plumbing.
@@ -346,6 +349,21 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   secondary gray (passes 4.5:1) where Figma's Option Card uses the tertiary gray; flagged. Option
   Card (selectable) and Stat Card are separate Figma components; the selectable card covers the
   former's behaviour until it is drawn.
+- **Dialog** (Figma `8:162` not yet read): a native `<dialog>` opened with `showModal()`, so the
+  top layer, the inert page, the focus move and return, Escape and (with `closedby="any"`) light
+  dismiss come from the browser; a click handler covers light dismiss where `closedby` is missing.
+  shadcn's parts and `data-slot` names (`Dialog` with `open` / `defaultOpen` / `onOpenChange`,
+  `modal` and `morph`; `DialogTrigger` and `DialogClose` with `asChild`; `DialogContent` with
+  `size` sm, md or lg (24, 32, 42rem), `side` center, right or bottom, `showClose`, `closeLabel` and
+  `dismissible`; `DialogHeader`, `DialogTitle`, `DialogDescription`, `DialogFooter`), with
+  `aria-labelledby` / `aria-describedby` wired by context. The panel is the raised surface in
+  `--popover` with the box radius; no cast shadow (the overlay rule above), the backdrop is
+  `--background` pulled toward black at 45% with a 2px blur. Motion is CSS: `@starting-style` and
+  the panel spring in, a shorter eased exit with `display` / `overlay` `allow-discrete`; sheets slide
+  from their edge. `morph` is a View Transition between the trigger and the panel (typed
+  `rx-morph-open` / `rx-morph-close`, the box on the panel spring, each picture clipped by it) and
+  falls back to the scale and fade. Before hydration the trigger carries `command="show-modal"`
+  (Invoker Commands). Scroll lock is `:root:has(.rx-dialog:modal) { overflow: hidden }`.
 - **Badge** (Figma `6:116`): 20px, 12/16 medium, a pale tint with colored text, six tones (neutral,
   accent, success, warning, danger, violet), optional 6px dot. Radius is its own tier,
   `--radius-badge`: 4px Default (Figma), 2px Sharp, fully round in Round. One `--_tone` color per
@@ -410,6 +428,55 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   `#e3e3e3` edge and pressed-fill disabled. No CheckboxGroup: a list of checkboxes is a `fieldset`
   of Checkboxes; add a group when a design needs one. The Figma `Task Check` (6:78, a priority
   circle) is a separate component.
+- **Radio Group** (Figma Radio `66:794` and Option Card `26:400` not yet read; built 2026-11-01):
+  native `<input type="radio">`s sharing one `name` (generated with `useId` when left out) inside a
+  `<fieldset role="radiogroup">`, so arrow keys, wrapping, skipping disabled options, the single tab
+  stop and form submission are the browser's; `disabled` on the group is the fieldset's own. Each
+  input is invisible over a drawn circle that reads it with `:has()`, at least 24px, like the
+  Checkbox. Sizes 16 / 20 / 24 (set on the group; dot 6 / 8 / 10). Off is `--background` with a
+  2px `--muted-foreground` 50% edge (full on hover); on is a `--primary` edge and dot (not a filled
+  circle); error (Field or `aria-invalid` on the group) turns the circles `--destructive` with a 15%
+  halo until something is chosen; disabled is 50%. Motion: where anchor positioning and
+  `anchor-scope` exist the dot is the group's `::after`, anchored to the checked circle, and its
+  `top` / `left` transition on the new `glide` spring (360 / 32 / 0.6, overdamped, about 420ms), so
+  it travels to the new choice; elsewhere each circle's own `::after` pops in on the swap spring.
+  Press springs the circle to 0.92. `variant="card"` draws choice cards (`--card` fill, `--input`
+  edge, `--radius-control`, circle at the end; chosen is a `--primary` edge plus a 6% tint, with a
+  card-level focus ring and a 0.985 press). The Field label now has an id (`<id>-label`) so a group
+  is named by it with `aria-labelledby` (a `<label for>` cannot name a fieldset).
+- **Tabs** (Figma Tab `7:202` and Segmented Control `66:846` not yet read): WAI-ARIA tabs with
+  shadcn's API (`Tabs` with `value` / `defaultValue` / `onValueChange`, `orientation` and
+  `activationMode`; `TabsList` with `variant` and `size`; `TabsTrigger` with `icon`; `TabsContent`).
+  `<button role="tab">`s with `aria-selected` and `aria-controls`, one roving tab stop (the
+  selected tab, or the first enabled one), arrows that wrap and skip disabled tabs (left and right
+  swap in RTL; up and down when vertical), Home and End, automatic or manual activation. Panels stay
+  mounted and `hidden`, focusable, labelled by their tab; `aria-controls` is dropped after
+  hydration for a list with no panels. Variants: `segmented` (default; `--secondary` track with the
+  recessed field edge, a `--card` thumb with the raised surface edge and ring), `pill` (a `--card`
+  capsule track, `--primary` fill, the label's color on the same spring as the fill so it never
+  sits light on the track), `underline` (a `--border` rule, a 2px `--primary` line) and
+  `expandable` (icon tabs; the selected one's label opens in a `0fr` to `1fr` grid column on the
+  swap spring and fades out of a 3px blur). Sizes 32, 40 and 48 like the Button; segmented follows
+  `--radius-control`, pill and expandable `--radius-button`. Motion: `aria-selected` sets
+  `anchor-name: --_tab`, the list sets `anchor-scope`, and the indicator (the list's last child,
+  `position-anchor` plus four `anchor()` insets) transitions its insets on the `tabs` spring.
+  Without `anchor-scope` (Chrome below 131, Safari below 26, Firefox below 147) the indicator is not
+  drawn and the selected tab paints the same highlight on its `::before`; expandable always works
+  that way. Panels enter from opacity 0, `blur(4px)` and 4px down via `@starting-style`; leaving is
+  instant. Reduced motion keeps 100ms fades only; Motion off is instant. Open: the segmented thumb
+  (`--card`) is close to its track in dark; the dark values are unconfirmed in Figma.
+- **Blocks** (`src/blocks/<name>`, exported as `@rabtx/ui/blocks/<name>`): whole screens composed
+  only of the components, with a little CSS of their own (`src/styles/<name>-block.css`) for what is
+  unique to them. They import component files by path (`../../input/input`, never a folder index),
+  so the registry build rewrites each import to `@/components/ui/<file>` and adds that component as
+  a registry dependency; the item is a `registry:block` whose files target
+  `components/blocks/<name>/`. Blocks never call a network: they take callbacks (`onSubmit` and
+  friends) and only wait a moment without them. First block, **Sign-up** (`signup-block`): a
+  three-step card (details with a strength meter, an emailed code with a resend countdown, a drawn
+  tick) on one native `<form>` validated by its own constraints and shown through Field, plus a
+  compact `SigninBlock`. Steps enter with `@starting-style` and leave with a keyframe while the
+  viewport eases to the measured height (`--_h`); the new step's heading takes focus and a live
+  region names it. Docs at `/docs/ui/blocks/signup`, playground `/ui/blocks/signup`.
 - Other frameworks: a Solid component is another thin wrapper over `button.styles.ts` plus the same
   CSS, not a clone or a rewrite. Not built yet; add it as a separate package or export with
   `solid-js` as a peer dependency, and test it with a real Solid render.

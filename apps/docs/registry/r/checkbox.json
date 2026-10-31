@@ -177,23 +177,25 @@
         "font-size": "0.75rem",
         "line-height": "1rem",
         "letter-spacing": "0"
-      },
+      }
+    },
+    "@layer rx-motion": {
       "@media (prefers-reduced-motion: reduce)": {
         ".rx-checkbox": {
-          "scale": "none !important"
+          "scale": "none"
         },
         ".rx-checkbox-mark": {
-          "scale": "none !important",
-          "filter": "none !important",
-          "transition": "opacity 100ms var(--motion-ease) !important"
+          "scale": "none",
+          "filter": "none",
+          "transition": "opacity 100ms var(--motion-ease)"
         },
         ".rx-checkbox-mark path": {
-          "stroke-dashoffset": "0 !important",
-          "transition": "none !important"
+          "stroke-dashoffset": "0",
+          "transition": "none"
         }
       },
       "[data-motion=\"off\"] .rx-checkbox, [data-motion=\"off\"] .rx-checkbox-mark, [data-motion=\"off\"] .rx-checkbox-mark path": {
-        "transition": "none !important"
+        "transition": "none"
       }
     }
   },

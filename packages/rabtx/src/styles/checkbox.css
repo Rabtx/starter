@@ -212,24 +212,25 @@
 		line-height: 1rem;
 		letter-spacing: 0;
 	}
-
+}
+/* Less motion and motion off: the rx-motion layer, explained in control.css. */
+@layer rx-motion {
 	/*
 	 * Less motion (reference behaviour): no press, no pop, no blur and no draw; the glyph just fades.
 	 * Motion off: every state still shows, at once; a press still shrinks the box, instantly.
-	 * `!important` because the checked rules above are more specific.
 	 */
 	@media (prefers-reduced-motion: reduce) {
 		.rx-checkbox {
-			scale: none !important;
+			scale: none;
 		}
 		.rx-checkbox-mark {
-			scale: none !important;
-			filter: none !important;
-			transition: opacity 100ms var(--motion-ease) !important;
+			scale: none;
+			filter: none;
+			transition: opacity 100ms var(--motion-ease);
 
 			& path {
-				stroke-dashoffset: 0 !important;
-				transition: none !important;
+				stroke-dashoffset: 0;
+				transition: none;
 			}
 		}
 	}
@@ -237,7 +238,7 @@
 		& .rx-checkbox,
 		& .rx-checkbox-mark,
 		& .rx-checkbox-mark path {
-			transition: none !important;
+			transition: none;
 		}
 	}
 }

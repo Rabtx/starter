@@ -413,26 +413,9 @@
 		inset: 0;
 		z-index: calc(var(--_count, 1) + 1);
 	}
-
-	/* Motion off, or the OS asks for less: no tilt, no glare, every state still visible at once. */
-	[data-motion="off"] :is(.rx-card-tilt, .rx-card-stack) {
-		&,
-		& * {
-			transition-duration: 0ms !important;
-		}
-	}
-	[data-motion="off"] :is(.rx-card, .rx-card *, .rx-card::before, .rx-card::after) {
-		transition-duration: 0ms !important;
-	}
-	[data-motion="off"] .rx-card-expandable::details-content {
-		transition-duration: 0ms !important;
-	}
-	[data-motion="off"] .rx-card-tilt {
-		transform: none;
-		&::before {
-			display: none;
-		}
-	}
+}
+/* Less motion and motion off: the rx-motion layer, explained in control.css. */
+@layer rx-motion {
 	@media (prefers-reduced-motion: reduce) {
 		.rx-card,
 		.rx-card *,
@@ -440,13 +423,32 @@
 		.rx-card::after,
 		.rx-card-expandable::details-content,
 		.rx-card-stack * {
-			transition-duration: 0ms !important;
+			transition-duration: 0ms;
 		}
 		.rx-card-tilt {
 			transform: none;
 			&::before {
 				display: none;
 			}
+		}
+	}
+	/* Motion off, or the OS asks for less: no tilt, no glare, every state still visible at once. */
+	[data-motion="off"] :is(.rx-card-tilt, .rx-card-stack) {
+		&,
+		& * {
+			transition-duration: 0ms;
+		}
+	}
+	[data-motion="off"] :is(.rx-card, .rx-card *, .rx-card::before, .rx-card::after) {
+		transition-duration: 0ms;
+	}
+	[data-motion="off"] .rx-card-expandable::details-content {
+		transition-duration: 0ms;
+	}
+	[data-motion="off"] .rx-card-tilt {
+		transform: none;
+		&::before {
+			display: none;
 		}
 	}
 }

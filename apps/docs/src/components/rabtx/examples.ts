@@ -1,4 +1,6 @@
 import type { ComponentType } from "react";
+import SigninBlockExample from "./examples/blocks/signin";
+import SignupBlockExample from "./examples/blocks/signup";
 import ButtonDisabled from "./examples/button/disabled";
 import ButtonIcons from "./examples/button/icons";
 import ButtonLinkExample from "./examples/button/link";
@@ -16,6 +18,14 @@ import CheckboxIndeterminate from "./examples/checkbox/indeterminate";
 import CheckboxModes from "./examples/checkbox/modes";
 import CheckboxSizes from "./examples/checkbox/sizes";
 import CheckboxStates from "./examples/checkbox/states";
+import DialogDefault from "./examples/dialog/default";
+import DialogForm from "./examples/dialog/form";
+import DialogDestructive from "./examples/dialog/destructive";
+import DialogSizes from "./examples/dialog/sizes";
+import DialogMorph from "./examples/dialog/morph";
+import DialogSheet from "./examples/dialog/sheet";
+import DialogScrollable from "./examples/dialog/scrollable";
+import DialogNested from "./examples/dialog/nested";
 import InputAddons from "./examples/input/addons";
 import InputAlignment from "./examples/input/alignment";
 import InputDefault from "./examples/input/default";
@@ -37,6 +47,14 @@ import CardSizes from "./examples/card/sizes";
 import CardSpotlight from "./examples/card/spotlight";
 import CardStackExample from "./examples/card/stack";
 import CardTilt from "./examples/card/tilt";
+import RadioGroupCards from "./examples/radio-group/cards";
+import RadioGroupControlled from "./examples/radio-group/controlled";
+import RadioGroupDefault from "./examples/radio-group/default";
+import RadioGroupDescription from "./examples/radio-group/description";
+import RadioGroupHorizontal from "./examples/radio-group/horizontal";
+import RadioGroupModes from "./examples/radio-group/modes";
+import RadioGroupSizes from "./examples/radio-group/sizes";
+import RadioGroupStates from "./examples/radio-group/states";
 import SelectControlled from "./examples/select/controlled";
 import SelectDefault from "./examples/select/default";
 import SelectGroups from "./examples/select/groups";
@@ -53,6 +71,19 @@ import SwitchRows from "./examples/switch/rows";
 import SwitchRtl from "./examples/switch/rtl";
 import SwitchSizes from "./examples/switch/sizes";
 import SwitchStates from "./examples/switch/states";
+import TabsControlled from "./examples/tabs/controlled";
+import TabsDefault from "./examples/tabs/default";
+import TabsExpandable from "./examples/tabs/expandable";
+import TabsManual from "./examples/tabs/manual";
+import TabsModes from "./examples/tabs/modes";
+import TabsOverflow from "./examples/tabs/overflow";
+import TabsPill from "./examples/tabs/pill";
+import TabsRtl from "./examples/tabs/rtl";
+import TabsSizes from "./examples/tabs/sizes";
+import TabsStates from "./examples/tabs/states";
+import TabsUnderline from "./examples/tabs/underline";
+import TabsVariants from "./examples/tabs/variants";
+import TabsVertical from "./examples/tabs/vertical";
 
 /** Every live example, by the path of its file under `examples/` without the extension. */
 export const examples = {
@@ -100,6 +131,19 @@ export const examples = {
 	"switch/rows": SwitchRows,
 	"switch/rtl": SwitchRtl,
 	"switch/modes": SwitchModes,
+	"tabs/default": TabsDefault,
+	"tabs/variants": TabsVariants,
+	"tabs/sizes": TabsSizes,
+	"tabs/pill": TabsPill,
+	"tabs/underline": TabsUnderline,
+	"tabs/expandable": TabsExpandable,
+	"tabs/vertical": TabsVertical,
+	"tabs/manual": TabsManual,
+	"tabs/states": TabsStates,
+	"tabs/controlled": TabsControlled,
+	"tabs/overflow": TabsOverflow,
+	"tabs/rtl": TabsRtl,
+	"tabs/modes": TabsModes,
 	"card/default": CardDefault,
 	"card/sizes": CardSizes,
 	"card/media": CardMedia,
@@ -110,6 +154,24 @@ export const examples = {
 	"card/expandable": CardExpandable,
 	"card/stack": CardStackExample,
 	"card/modes": CardModes,
+	"radio-group/default": RadioGroupDefault,
+	"radio-group/sizes": RadioGroupSizes,
+	"radio-group/description": RadioGroupDescription,
+	"radio-group/horizontal": RadioGroupHorizontal,
+	"radio-group/cards": RadioGroupCards,
+	"radio-group/states": RadioGroupStates,
+	"radio-group/controlled": RadioGroupControlled,
+	"radio-group/modes": RadioGroupModes,
+	"dialog/default": DialogDefault,
+	"dialog/form": DialogForm,
+	"dialog/destructive": DialogDestructive,
+	"dialog/sizes": DialogSizes,
+	"dialog/morph": DialogMorph,
+	"dialog/sheet": DialogSheet,
+	"dialog/scrollable": DialogScrollable,
+	"dialog/nested": DialogNested,
+	"blocks/signup": SignupBlockExample,
+	"blocks/signin": SigninBlockExample,
 } satisfies Record<string, ComponentType>;
 
 export type ExampleName = keyof typeof examples;

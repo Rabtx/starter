@@ -112,16 +112,18 @@
         "--_sheen": "transparent",
         "--_shade": "transparent",
         "--_ring": "transparent"
-      },
-      "[data-motion=\"off\"] .rx-surface": {
-        "transition-duration": "0ms !important",
-        "animation-duration": "2400ms !important"
-      },
+      }
+    },
+    "@layer rx-motion": {
       "@media (prefers-reduced-motion: reduce)": {
         ".rx-surface": {
-          "transition-duration": "0ms !important",
-          "animation-duration": "2400ms !important"
+          "transition-duration": "0ms",
+          "animation-duration": "2400ms"
         }
+      },
+      "[data-motion=\"off\"] .rx-surface": {
+        "transition-duration": "0ms",
+        "animation-duration": "2400ms"
       }
     }
   },
