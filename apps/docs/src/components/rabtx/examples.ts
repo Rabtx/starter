@@ -16,6 +16,14 @@ import CheckboxIndeterminate from "./examples/checkbox/indeterminate";
 import CheckboxModes from "./examples/checkbox/modes";
 import CheckboxSizes from "./examples/checkbox/sizes";
 import CheckboxStates from "./examples/checkbox/states";
+import DialogDefault from "./examples/dialog/default";
+import DialogForm from "./examples/dialog/form";
+import DialogDestructive from "./examples/dialog/destructive";
+import DialogSizes from "./examples/dialog/sizes";
+import DialogMorph from "./examples/dialog/morph";
+import DialogSheet from "./examples/dialog/sheet";
+import DialogScrollable from "./examples/dialog/scrollable";
+import DialogNested from "./examples/dialog/nested";
 import InputAddons from "./examples/input/addons";
 import InputAlignment from "./examples/input/alignment";
 import InputDefault from "./examples/input/default";
@@ -110,6 +118,14 @@ export const examples = {
 	"card/expandable": CardExpandable,
 	"card/stack": CardStackExample,
 	"card/modes": CardModes,
+	"dialog/default": DialogDefault,
+	"dialog/form": DialogForm,
+	"dialog/destructive": DialogDestructive,
+	"dialog/sizes": DialogSizes,
+	"dialog/morph": DialogMorph,
+	"dialog/sheet": DialogSheet,
+	"dialog/scrollable": DialogScrollable,
+	"dialog/nested": DialogNested,
 } satisfies Record<string, ComponentType>;
 
 export type ExampleName = keyof typeof examples;
