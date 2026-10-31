@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `@rabtx/ui` Button rebuilt with CSS-only motion: `primary`, `secondary`, `ghost` and `outline`;
+  sizes `sm` (32), `md` (40), `lg` (48) and `icon` (32 square, `aria-label` required by type);
+  hover growth on fine pointers, spring press (`pressScale`), optional `ripple`, plus `ButtonLink`,
+  `StatefulButton` (idle, loading, success, error with a letter-by-letter label roll),
+  `MagneticButton` and `MetallicButton`. Colors, radius and scales are `--rx-btn-*` variables.
+  New `label` and `magnetic` springs in `@rabtx/ui/motion`.
+- `apps/docs`: a UI section (`/docs/ui`) with a live Button page (every variant, size and state
+  above its source).
 - `apps/ai-api`: Bun + Hono + TypeScript AI service. Zod-validated env, nest-api JWT auth (HS256,
   shared `JWT_SECRET`), RAG on Postgres + pgvector via Drizzle (`rag_documents` / `rag_chunks`,
   HNSW cosine index, ingest + top-k query + grounded answer), streaming tool-calling chat with the
@@ -24,6 +32,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Breaking (`@rabtx/ui/button`):** variants `accent` and `danger`, sizes `xl` and `2xl`, and the
+  `loading`, `static`, `iconOnly`, `leadingIcon` and `trailingIcon` props are gone. Use
+  `StatefulButton` for loading, `size="icon"` for icon-only, and put icons in the children. The
+  `rx-primary`, `rx-secondary`, `rx-ghost`, `rx-accent` and `rx-danger` utilities and the tokens
+  only they used were removed. The `/ui` playground and its e2e spec follow the new API.
 - Compose Postgres image is now `pgvector/pgvector:0.8.7-pg18-trixie` (Postgres 18 + pgvector) for
   `apps/ai-api`; see docker/README.md "Switching to the pgvector image".
 - `apps/rust/Dockerfile` builds from the monorepo root context (it copied a non-existent root
