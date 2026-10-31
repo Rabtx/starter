@@ -1,7 +1,12 @@
-@import "./tokens.css";
-@import "./springs.css";
+/*
+ * @rabtx/ui styles: the theme, then each component's CSS. Import this once, after Tailwind.
+ * Tailwind scans the component sources for their classes, so apps need no @source line.
+ */
+@import "./theme.css";
 @import "./control.css";
 @import "./button.css";
 @import "./badge.css";
 @import "./select.css";
 @import "./checkbox.css";
+
+@source "..";

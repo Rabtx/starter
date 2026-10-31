@@ -10,9 +10,10 @@ import {
 	type Ref,
 	type SelectHTMLAttributes,
 	useContext,
-	useSyncExternalStore,
 } from "react";
-import { FieldContext } from "../field/context";
+import { FieldContext } from "../field/field-context";
+import { useBaseSelect } from "../hooks/use-base-select";
+import { cn } from "../lib/utils";
 import {
 	type SelectSize,
 	chooseSide,
@@ -66,7 +67,7 @@ export function Select({
 			: { value };
 
 	return (
-		<div className={`${selectClass(size)}${className ? ` ${className}` : ""}`}>
+		<div className={cn(selectClass(size), className)}>
 			{leadingIcon ? (
 				<span className={selectParts.leading} aria-hidden="true">
 					{leadingIcon}
@@ -128,16 +129,6 @@ function place(select: HTMLSelectElement) {
 	select.dataset.seen = "";
 }
 
-const noop = () => () => {};
-/** Rich option content (icons) only where the styled list renders it, and only after hydration. */
-function useRichOptions() {
-	return useSyncExternalStore(
-		noop,
-		() => typeof CSS !== "undefined" && CSS.supports("appearance", "base-select"),
-		() => false,
-	);
-}
-
 export type SelectItemProps = Omit<OptionHTMLAttributes<HTMLOptionElement>, "value"> & {
 	value: string;
 	/** An icon before the label in the styled list. Browsers with a system list show the label. */
@@ -147,7 +138,8 @@ export type SelectItemProps = Omit<OptionHTMLAttributes<HTMLOptionElement>, "val
 
 /** One choice: a native `<option>`. The chosen one gets a tick in the styled list. */
 export function SelectItem({ icon, children, ref, ...rest }: SelectItemProps) {
-	const rich = useRichOptions();
+	// Rich option content (icons) only where the styled list renders it, and only after hydration.
+	const rich = useBaseSelect();
 	return (
 		<option {...rest} ref={ref}>
 			{icon && rich ? (

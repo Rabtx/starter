@@ -1,7 +1,5 @@
 "use client";
 
-// beui.dev/components/motion/theme-toggle
-
 import { ArrowDown01Icon, Moon01Icon, Sun01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
@@ -141,13 +139,13 @@ function prepareVariant(
 ) {
 	if (variant === "rectangle") {
 		const from = start === "pointer" ? RECT_FROM["bottom-up"] : RECT_FROM[start];
-		root.style.setProperty("--beui-vt-from", from);
-		root.dataset.beuiVt = "rect";
+		root.style.setProperty("--theme-vt-from", from);
+		root.dataset.themeVt = "rect";
 		return;
 	}
 
 	if (variant === "wipe") {
-		root.dataset.beuiVt = "wipe";
+		root.dataset.themeVt = "wipe";
 		return;
 	}
 
@@ -156,8 +154,8 @@ function prepareVariant(
 			start === "pointer" && event
 				? originFromEvent(event)
 				: CIRCLE_ORIGIN[start === "pointer" ? "top-right" : start];
-		root.style.setProperty("--beui-vt-origin", origin);
-		root.dataset.beuiVt = "polygon";
+		root.style.setProperty("--theme-vt-origin", origin);
+		root.dataset.themeVt = "polygon";
 		return;
 	}
 
@@ -165,8 +163,8 @@ function prepareVariant(
 		start === "pointer" && event
 			? originFromEvent(event)
 			: CIRCLE_ORIGIN[start === "pointer" ? "top-right" : start];
-	root.style.setProperty("--beui-vt-origin", origin);
-	root.dataset.beuiVt = variant;
+	root.style.setProperty("--theme-vt-origin", origin);
+	root.dataset.themeVt = variant;
 }
 
 export function useThemeToggle({
@@ -202,9 +200,9 @@ export function useThemeToggle({
 		});
 
 		void transition.finished.finally(() => {
-			delete root.dataset.beuiVt;
-			root.style.removeProperty("--beui-vt-from");
-			root.style.removeProperty("--beui-vt-origin");
+			delete root.dataset.themeVt;
+			root.style.removeProperty("--theme-vt-from");
+			root.style.removeProperty("--theme-vt-origin");
 		});
 	};
 

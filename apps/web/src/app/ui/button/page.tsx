@@ -116,10 +116,10 @@ export default function ButtonPage() {
 
 			<h2>Theming</h2>
 			<p>
-				Colors, radius, press and hover scale are CSS variables such as{" "}
-				<code>--rx-btn-primary</code>, <code>--rx-btn-radius</code> and <code>--rx-btn-press</code>.
-				Set them on any ancestor. Each falls back to the shared tokens, so the theme still switches
-				them.
+				The Button reads only the theme tokens in <code>theme.css</code>: <code>--primary</code>,{" "}
+				<code>--secondary</code>, <code>--accent</code>, <code>--input</code>, <code>--ring</code>{" "}
+				and <code>--radius-button</code>. Set one on any ancestor to restyle the buttons inside, or
+				pass Tailwind classes, which win over the component styles.
 			</p>
 
 			<h2>Accessibility</h2>

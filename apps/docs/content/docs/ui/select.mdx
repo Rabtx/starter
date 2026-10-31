@@ -5,7 +5,14 @@ description: A native select whose list unfolds from the trigger, pulls away int
 
 <ComponentPreview name="select/default" />
 
+## Installation
+
+<Installation name="select" />
+
 ## Usage
+
+Installed from the registry, import from `@/components/ui/select`; inside this monorepo, from
+`@rabtx/ui/select`.
 
 ```tsx
 import { Select, SelectItem } from "@rabtx/ui/select";
@@ -104,17 +111,17 @@ Outside React, the class names are exported from `@rabtx/ui/select/styles`:
 
 ## Theming
 
-Every color, the radius, the gap and the shadow are CSS variables with fallbacks to the shared
-tokens.
+The Select reads only the [theme tokens](/docs/ui/theming).
 
-| Variable | Used for |
+| Part | Tokens |
 | --- | --- |
-| `--rx-select-bg`, `--rx-select-text`, `--rx-select-placeholder`, `--rx-select-icon` | trigger fill, text, placeholder and icons |
-| `--rx-select-border`, `--rx-select-border-hover` | trigger and list edge |
-| `--rx-select-radius` | trigger and list corners |
-| `--rx-select-list-bg`, `--rx-select-shadow` | list fill and shadow |
-| `--rx-select-gap`, `--rx-select-lip` | space between trigger and list, and the strip the list unfolds from |
-| `--rx-select-item-text`, `--rx-select-item-active`, `--rx-select-item-radius` | rows |
+| Trigger | fill `--card`, text `--card-foreground`, edge `--input`, icons `--muted-foreground` |
+| Placeholder and group labels | `--subtle-foreground` |
+| List | fill `--popover`, text `--popover-foreground`, shadow `--shadow-popover` |
+| Rows | text `--muted-foreground`, hover and checked `--accent` / `--accent-foreground` |
+| Focus and error | `--ring`, `--destructive` |
+| Corners | `--radius-box` (trigger and list), `--radius-item` (rows) |
+| Font and motion | `--font-sans`, `--spring-unfold` |
 
 ## How the motion works
 

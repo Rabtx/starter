@@ -39,7 +39,7 @@ describe("select.css", () => {
 	});
 
 	it("unfolds on the unfold spring and folds back on a short ease, keeping the list until it ends", () => {
-		expect(css).toContain("rx-select-reveal var(--rx-spring-unfold-d) var(--rx-spring-unfold)");
+		expect(css).toContain("rx-select-reveal var(--spring-unfold-duration) var(--spring-unfold)");
 		expect(css).toContain("rx-select-fold 200ms");
 		expect(css).toMatch(/display 200ms allow-discrete,\s*overlay 200ms allow-discrete/);
 	});

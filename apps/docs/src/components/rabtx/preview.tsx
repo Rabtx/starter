@@ -17,7 +17,7 @@ export async function ComponentPreview({ name }: { name: ExampleName }) {
 	return (
 		<Tabs items={["Preview", "Code"]} className="not-prose">
 			<Tab value="Preview">
-				<div className="flex min-h-36 flex-wrap items-center justify-center gap-3 p-6 font-(--rx-font-sans) text-(--rx-text)">
+				<div className="rabtx flex min-h-36 flex-wrap items-center justify-center gap-3 p-6 text-foreground">
 					<Example />
 				</div>
 			</Tab>

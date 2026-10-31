@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input",
+  "title": "Input",
+  "description": "A recessed text field with optional icons, in five sizes.",
+  "registryDependencies": [
+    "{{origin}}/r/rabtx.json",
+    "{{origin}}/r/field-context.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/rabtx/ui/input.styles.ts",
+      "content": "export type InputSize = \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\";\n\n/** The whole look of an Input as Tailwind classes. The border and fill live on the wrapper. */\nconst base = \"rx-control rx-field flex w-full items-center [--_icon:16px]\";\n\n// Padding is one pixel less than Figma because the 1px edge is a real border. Pill pads more.\nconst sizes: Record<InputSize, { box: string; px: string; pillPx: string }> = {\n\tsm: { box: \"h-7 gap-2 text-[13px]/5\", px: \"px-[9px]\", pillPx: \"px-[11px]\" },\n\tmd: { box: \"h-8 gap-2 text-[13px]/5\", px: \"px-[9px]\", pillPx: \"px-[11px]\" },\n\tlg: { box: \"h-9 gap-2 text-sm/5\", px: \"px-[11px]\", pillPx: \"px-[15px]\" },\n\txl: { box: \"h-11 gap-2 text-sm/5\", px: \"px-[15px]\", pillPx: \"px-[19px]\" },\n\t\"2xl\": { box: \"h-12 gap-2.5 text-sm/5 [--_icon:20px]\", px: \"px-[15px]\", pillPx: \"px-[19px]\" },\n};\n\ntype InputStyle = { size?: InputSize; pill?: boolean };\n\nexport function inputClass({ size = \"md\", pill }: InputStyle = {}) {\n\tconst { box, px, pillPx } = sizes[size];\n\treturn `${base} ${box} ${pill ? `${pillPx} rounded-full` : `${px} rounded-(--radius-control)`}`;\n}\n\n/** Classes for the parts inside an Input. */\nexport const inputParts = {\n\tfield:\n\t\t\"min-w-0 flex-1 bg-transparent outline-none placeholder:text-(--subtle-foreground) disabled:placeholder:text-(--disabled-foreground)\",\n\ticon: \"inline-flex size-(--_icon) shrink-0 text-(--subtle-foreground) [&>svg]:size-full\",\n};\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/rabtx/ui/input.tsx",
+      "content": "\"use client\";\n\nimport { type InputHTMLAttributes, type ReactNode, type Ref, useContext, useRef } from \"react\";\nimport { FieldContext } from \"./field-context\";\nimport { cn } from \"@/lib/utils\";\nimport { type InputSize, inputClass, inputParts } from \"./input.styles\";\n\nexport type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, \"size\"> & {\n\t/** Control height: 28, 32, 36, 44 and 48. */\n\tsize?: InputSize;\n\t/** A fully rounded field, for search bars. Independent of the radius mode. */\n\tpill?: boolean;\n\tleadingIcon?: ReactNode;\n\ttrailingIcon?: ReactNode;\n\tref?: Ref<HTMLInputElement>;\n};\n\n/**\n * A native `<input>` inside a wrapper that draws the field. Put it in a `Field` to get a label, a\n * hint and an error wired up, or give it an `aria-label`. `aria-invalid` turns the edge red.\n */\nexport function Input({\n\tsize,\n\tpill,\n\tleadingIcon,\n\ttrailingIcon,\n\tclassName,\n\tref,\n\t...rest\n}: InputProps) {\n\tconst inner = useRef<HTMLInputElement>(null);\n\tconst fieldState = useContext(FieldContext);\n\tconst { field, icon } = inputParts;\n\n\treturn (\n\t\t// The wrapper only forwards pointer focus; keyboard users already land on the input.\n\t\t// oxlint-disable-next-line jsx-a11y/no-static-element-interactions\n\t\t<div\n\t\t\tclassName={cn(inputClass({ size, pill }), className)}\n\t\t\tonPointerDown={(event) => {\n\t\t\t\tif (event.target instanceof Element && event.target.closest(\"input, button, a\")) return;\n\t\t\t\tevent.preventDefault();\n\t\t\t\tinner.current?.focus();\n\t\t\t}}\n\t\t>\n\t\t\t{leadingIcon && <span className={icon}>{leadingIcon}</span>}\n\t\t\t<input\n\t\t\t\tid={fieldState?.id}\n\t\t\t\taria-describedby={fieldState?.describedBy}\n\t\t\t\taria-invalid={fieldState?.invalid || undefined}\n\t\t\t\t{...rest}\n\t\t\t\tref={(node) => {\n\t\t\t\t\tinner.current = node;\n\t\t\t\t\tif (typeof ref === \"function\") ref(node);\n\t\t\t\t\telse if (ref) ref.current = node;\n\t\t\t\t}}\n\t\t\t\tclassName={field}\n\t\t\t/>\n\t\t\t{trailingIcon && <span className={icon}>{trailingIcon}</span>}\n\t\t</div>\n\t);\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

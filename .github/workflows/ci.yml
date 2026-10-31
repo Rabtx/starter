@@ -39,7 +39,7 @@ jobs:
       - name: Install lint runtime
         run: sudo apt-get update && sudo apt-get install -y shellcheck
 
-      - name: Lint
+      - name: Lint, boundaries and registry up to date
         run: bun run ci:lint
 
   typecheck:

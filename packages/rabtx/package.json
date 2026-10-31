@@ -23,6 +23,7 @@
 		"./select": "./src/select/index.ts",
 		"./select/styles": "./src/select/select.styles.ts",
 		"./styles.css": "./src/styles/index.css",
+		"./theme.css": "./src/styles/theme.css",
 		"./textarea": "./src/textarea/index.ts",
 		"./textarea/styles": "./src/textarea/textarea.styles.ts"
 	},
@@ -32,7 +33,13 @@
 		"lint:fix": "oxlint --fix",
 		"typecheck": "tsc --noEmit",
 		"test": "vitest run",
-		"test:watch": "vitest"
+		"test:watch": "vitest",
+		"registry": "bun scripts/build-registry.ts",
+		"registry:check": "bun scripts/build-registry.ts --check"
+	},
+	"dependencies": {
+		"clsx": "^2.1.1",
+		"tailwind-merge": "^3.7.0"
 	},
 	"devDependencies": {
 		"@starter/typescript-config": "workspace:*",
@@ -42,7 +49,10 @@
 		"react": "^19.3.0",
 		"react-dom": "^19.3.0",
 		"typescript": "^7.0.2",
-		"vitest": "^5.0.5"
+		"vitest": "^5.0.5",
+		"postcss": "^8.5.32",
+		"postcss-nested": "^7.0.2",
+		"shadcn": "^4.23.0"
 	},
 	"peerDependencies": {
 		"react": ">=19"

@@ -2,6 +2,7 @@
 
 import { type InputHTMLAttributes, type Ref, useEffect, useRef } from "react";
 import { checkboxClass, checkboxLabelClass } from "./checkbox.styles";
+import { cn } from "../lib/utils";
 
 export type CheckboxProps = Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "size"> & {
 	/** The partly-checked look, such as a "select all" with some children chosen. */
@@ -31,13 +32,13 @@ export function Checkbox({ mixed, className, children, ref, ...rest }: CheckboxP
 				if (typeof ref === "function") ref(node);
 				else if (ref) ref.current = node;
 			}}
-			className={children ? checkboxClass : `${checkboxClass} ${className ?? ""}`}
+			className={children ? checkboxClass : cn(checkboxClass, className)}
 		/>
 	);
 
 	if (!children) return input;
 	return (
-		<label className={`${checkboxLabelClass} ${className ?? ""}`}>
+		<label className={cn(checkboxLabelClass, className)}>
 			{input}
 			{children}
 		</label>

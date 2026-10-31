@@ -2,6 +2,7 @@
 	"title": "UI",
 	"pages": [
 		"index",
+		"theming",
 		"button",
 		"select"
 	]

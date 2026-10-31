@@ -24,14 +24,14 @@ test.describe("rabtx docs: textarea", () => {
 	test("focus turns the edge blue", async ({ page }) => {
 		const textarea = page.getByLabel("Description");
 		await textarea.focus();
-		await expect(textarea).toHaveCSS("--rx-edge-a", "rgb(45, 124, 246)");
+		await expect(textarea).toHaveCSS("--_edge-a", "rgb(45, 124, 246)");
 	});
 
 	test("an error turns the edge red and a disabled one is disabled", async ({ page }) => {
 		const invalid = page.getByLabel("Notes", { exact: true });
 		await expect(invalid).toHaveAttribute("aria-invalid", "true");
 		await expect(invalid).toHaveAccessibleDescription("Notes can be at most 200 characters.");
-		await expect(invalid).toHaveCSS("--rx-edge-a", "rgb(229, 72, 77)");
+		await expect(invalid).toHaveCSS("--_edge-a", "rgb(229, 72, 77)");
 		await expect(page.getByLabel("Archived notes")).toBeDisabled();
 	});
 
@@ -40,7 +40,7 @@ test.describe("rabtx docs: textarea", () => {
 		const edges = () =>
 			textarea.evaluate((el) => {
 				const style = getComputedStyle(el);
-				return [style.getPropertyValue("--rx-edge-a"), style.getPropertyValue("--rx-edge-b")];
+				return [style.getPropertyValue("--_edge-a"), style.getPropertyValue("--_edge-b")];
 			});
 		const before = await textarea.boundingBox();
 		const [floatingA, floatingB] = await edges();

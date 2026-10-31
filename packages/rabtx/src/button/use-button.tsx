@@ -9,6 +9,7 @@ import {
 	useState,
 } from "react";
 import { type ButtonSize, type ButtonVariant, buttonClass, buttonParts } from "./button.styles";
+import { cn } from "../lib/utils";
 
 export type ButtonLookProps = {
 	variant?: ButtonVariant;
@@ -79,11 +80,11 @@ export function useButtonLook<E extends HTMLElement>(
 	};
 
 	return {
-		className: `${buttonClass({ variant, size, look })}${className ? ` ${className}` : ""}`,
+		className: cn(buttonClass({ variant, size, look }), className),
 		style:
 			pressScale === undefined
 				? style
-				: ({ ...style, "--rx-btn-press": String(pressScale) } as CSSProperties),
+				: ({ ...style, "--_btn-press": String(pressScale) } as CSSProperties),
 		onPointerDown: handlePointerDown,
 		ripples: ripple ? (
 			<span className={buttonParts.ripples} aria-hidden="true">
@@ -93,9 +94,9 @@ export function useButtonLook<E extends HTMLElement>(
 						className={buttonParts.ripple}
 						style={
 							{
-								"--rx-ripple-x": `${x}px`,
-								"--rx-ripple-y": `${y}px`,
-								"--rx-ripple-d": `${d}px`,
+								"--_ripple-x": `${x}px`,
+								"--_ripple-y": `${y}px`,
+								"--_ripple-d": `${d}px`,
 							} as CSSProperties
 						}
 						onAnimationEnd={() => setRipples((current) => current.filter((r) => r.id !== id))}

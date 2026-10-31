@@ -1,7 +1,8 @@
 "use client";
 
 import { type InputHTMLAttributes, type ReactNode, type Ref, useContext, useRef } from "react";
-import { FieldContext } from "../field/context";
+import { FieldContext } from "../field/field-context";
+import { cn } from "../lib/utils";
 import { type InputSize, inputClass, inputParts } from "./input.styles";
 
 export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size"> & {
@@ -35,7 +36,7 @@ export function Input({
 		// The wrapper only forwards pointer focus; keyboard users already land on the input.
 		// oxlint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div
-			className={`${inputClass({ size, pill })} ${className ?? ""}`}
+			className={cn(inputClass({ size, pill }), className)}
 			onPointerDown={(event) => {
 				if (event.target instanceof Element && event.target.closest("input, button, a")) return;
 				event.preventDefault();

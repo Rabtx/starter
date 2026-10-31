@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { springsCss } from "../../scripts/generate-springs";
+import { themeWithSprings } from "../../scripts/generate-springs";
 import { SPRINGS, dampingRatio, solveSpring, springFromDuration, springStep } from "./springs";
 
 describe("springs", () => {
@@ -46,8 +46,8 @@ describe("springs", () => {
 		expect(spring.stiffness).toBeCloseTo((2 * Math.PI) ** 2 / 0.25, 6);
 	});
 
-	it("keeps the committed springs.css in sync with the definitions", () => {
-		const committed = readFileSync(new URL("../styles/springs.css", import.meta.url), "utf8");
-		expect(committed).toBe(springsCss());
+	it("keeps the springs in theme.css in sync with the definitions", () => {
+		const committed = readFileSync(new URL("../styles/theme.css", import.meta.url), "utf8");
+		expect(committed).toBe(themeWithSprings(committed));
 	});
 });

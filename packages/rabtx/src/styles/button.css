@@ -1,30 +1,20 @@
 /*
  * The Button. Every animation here is CSS: transitions on springs solved into `linear()` easings
- * (springs.css), and @keyframes with a backwards fill for the ripple, the label roll and the chrome
+ * (the spring tokens in theme.css), and @keyframes with a backwards fill for the ripple, the label roll and the chrome
  * drift, so a new ripple or label starts from its first frame. JavaScript only sets state: a
  * ripple's position, a magnetic offset, the label width and which label is leaving.
  *
- * Swappable tokens. Set any of them on an ancestor (or the button) to restyle without new classes;
- * each falls back to the shared rabtx tokens, so the theme still switches them:
- *   --rx-btn-primary, --rx-btn-primary-text      solid fill and its text
- *   --rx-btn-secondary, --rx-btn-secondary-text  quiet fill and its text
- *   --rx-btn-border                              secondary and outline edge
- *   --rx-btn-muted                               ghost and outline hover fill
- *   --rx-btn-ghost-text                          ghost text at rest
- *   --rx-btn-radius, --rx-btn-icon-radius        corner radius (pill, and the square icon button)
- *   --rx-btn-press, --rx-btn-hover               scale when pressed and when hovered
- *   --rx-btn-weight                              label weight
- *   --rx-btn-metal-face                          the metallic button's inner face
- *
- * Tailwind classes passed in `className` still win: everything below is in the components layer.
+ * Colors come only from the theme: primary uses --primary / --primary-foreground, secondary uses
+ * --secondary / --secondary-foreground with an --input edge, ghost and outline hover on --accent, and
+ * focus draws --ring. Corners use --radius-button (--radius-item for the icon button). To restyle
+ * one button, set a theme token on it or an ancestor (`[--primary:var(--success)]`), or pass
+ * Tailwind classes in `className`: everything below is in the components layer, so they win.
  */
-@source "../button";
-
 @layer components {
 	.rx-btn {
 		--_bg: transparent;
 		--_bg-hover: var(--_bg);
-		--_fg: var(--rx-text);
+		--_fg: var(--foreground);
 		--_fg-hover: var(--_fg);
 		--_edge: transparent;
 		--_icon: 16px;
@@ -38,26 +28,26 @@
 		justify-content: center;
 		gap: var(--_gap);
 		border: 1px solid var(--_edge);
-		border-radius: var(--rx-btn-radius, var(--rx-r-pill));
+		border-radius: var(--radius-button);
 		background-color: var(--_bg);
 		color: var(--_fg);
 		font: inherit;
-		font-family: var(--rx-font-sans);
-		font-weight: var(--rx-btn-weight, 500);
+		font-family: var(--font-sans);
+		font-weight: 500;
 		white-space: nowrap;
 		text-decoration: none;
 		cursor: pointer;
 		user-select: none;
 		-webkit-tap-highlight-color: transparent;
-		translate: var(--rx-btn-mx, 0px) var(--rx-btn-my, 0px);
+		translate: var(--_btn-mx, 0px) var(--_btn-my, 0px);
 		transition:
-			background-color 150ms var(--rx-ease),
-			border-color 150ms var(--rx-ease),
-			color 150ms var(--rx-ease),
-			box-shadow 150ms var(--rx-ease),
-			opacity 150ms var(--rx-ease),
-			scale var(--rx-spring-press-d) var(--rx-spring-press),
-			translate var(--rx-spring-magnetic-d) var(--rx-spring-magnetic);
+			background-color 150ms var(--motion-ease),
+			border-color 150ms var(--motion-ease),
+			color 150ms var(--motion-ease),
+			box-shadow 150ms var(--motion-ease),
+			opacity 150ms var(--motion-ease),
+			scale var(--spring-press-duration) var(--spring-press),
+			translate var(--spring-magnetic-duration) var(--spring-magnetic);
 
 		& svg {
 			flex: none;
@@ -66,7 +56,7 @@
 		}
 
 		&:focus-visible {
-			outline: 2px solid var(--rx-focus);
+			outline: 2px solid var(--ring);
 			outline-offset: 2px;
 		}
 
@@ -75,12 +65,12 @@
 			&:hover {
 				background-color: var(--_bg-hover);
 				color: var(--_fg-hover);
-				scale: var(--rx-btn-hover, 1.02);
+				scale: 1.02;
 			}
 		}
 		/* After hover so a press wins while the pointer is over the button. */
 		&:active {
-			scale: var(--rx-btn-press, 0.93);
+			scale: var(--_btn-press, 0.93);
 		}
 
 		&:disabled,
@@ -96,28 +86,24 @@
 
 	/* Tones. A tone only sets the private variables; the rules above draw it. */
 	.rx-btn-primary {
-		--_bg: var(--rx-btn-primary, var(--rx-accent));
-		--_bg-hover: color-mix(in oklab, var(--rx-btn-primary, var(--rx-accent)) 90%, transparent);
-		--_fg: var(--rx-btn-primary-text, #fff);
+		--_bg: var(--primary);
+		--_bg-hover: color-mix(in oklab, var(--primary) 90%, transparent);
+		--_fg: var(--primary-foreground);
 	}
 	.rx-btn-secondary {
-		--_bg: var(--rx-btn-secondary, color-mix(in oklab, var(--rx-text) 4%, var(--rx-app)));
-		--_bg-hover: color-mix(
-			in oklab,
-			var(--rx-btn-secondary, color-mix(in oklab, var(--rx-text) 4%, var(--rx-app))) 80%,
-			transparent
-		);
-		--_fg: var(--rx-btn-secondary-text, var(--rx-text));
-		--_edge: var(--rx-btn-border, var(--rx-border-strong));
+		--_bg: var(--secondary);
+		--_bg-hover: color-mix(in oklab, var(--secondary) 80%, transparent);
+		--_fg: var(--secondary-foreground);
+		--_edge: var(--input);
 	}
 	.rx-btn-ghost {
-		--_fg: var(--rx-btn-ghost-text, var(--rx-text-secondary));
-		--_fg-hover: var(--rx-text);
-		--_bg-hover: var(--rx-btn-muted, color-mix(in oklab, var(--rx-text) 6%, transparent));
+		--_fg: var(--muted-foreground);
+		--_fg-hover: var(--accent-foreground);
+		--_bg-hover: var(--accent);
 	}
 	.rx-btn-outline {
-		--_edge: var(--rx-btn-border, var(--rx-border-strong));
-		--_bg-hover: var(--rx-btn-muted, color-mix(in oklab, var(--rx-text) 6%, transparent));
+		--_edge: var(--input);
+		--_bg-hover: var(--accent);
 	}
 
 	/* Sizes. */
@@ -146,7 +132,7 @@
 		width: 2rem;
 		height: 2rem;
 		padding: 0;
-		border-radius: var(--rx-btn-icon-radius, var(--rx-r-btn));
+		border-radius: var(--radius-item);
 	}
 
 	/* Ripple: a disc of the text color, spawned where the press landed, that spreads and fades. */
@@ -160,9 +146,9 @@
 	}
 	.rx-btn-ripple {
 		position: absolute;
-		left: var(--rx-ripple-x);
-		top: var(--rx-ripple-y);
-		width: var(--rx-ripple-d);
+		left: var(--_ripple-x);
+		top: var(--_ripple-y);
+		width: var(--_ripple-d);
 		aspect-ratio: 1;
 		border-radius: 50%;
 		background: currentColor;
@@ -210,10 +196,10 @@
 			scale: 1;
 			filter: blur(0);
 			transition:
-				width var(--rx-spring-label-d) var(--rx-spring-label),
-				opacity var(--rx-spring-label-d) var(--rx-spring-label),
-				scale var(--rx-spring-label-d) var(--rx-spring-label),
-				filter var(--rx-spring-label-d) var(--rx-spring-label);
+				width var(--spring-label-duration) var(--spring-label),
+				opacity var(--spring-label-duration) var(--spring-label),
+				scale var(--spring-label-duration) var(--spring-label),
+				filter var(--spring-label-duration) var(--spring-label);
 		}
 		/* A slot after the label keeps its icon at the far edge, so the gap opens toward the text. */
 		.rx-btn-text ~ & {
@@ -253,10 +239,10 @@
 	.rx-btn-text {
 		position: relative;
 		display: inline-flex;
-		width: var(--rx-btn-text-w, auto);
+		width: var(--_btn-text-w, auto);
 		overflow: clip;
 		overflow-clip-margin: 2px;
-		transition: width var(--rx-spring-label-d) var(--rx-spring-label);
+		transition: width var(--spring-label-duration) var(--spring-label);
 	}
 	.rx-btn-label {
 		display: inline-flex;
@@ -274,12 +260,12 @@
 
 		/* Each letter waits 25ms longer than the one before it; going out it waits half as long. */
 		[data-enter] > & {
-			animation: rx-btn-roll-in var(--rx-spring-label-d) var(--rx-spring-label) both;
-			animation-delay: calc(var(--i, 0) * 25ms);
+			animation: rx-btn-roll-in var(--spring-label-duration) var(--spring-label) both;
+			animation-delay: calc(var(--_i, 0) * 25ms);
 		}
 		[data-exit] > & {
 			animation: rx-btn-roll-out 160ms cubic-bezier(0.16, 1, 0.3, 1) both;
-			animation-delay: calc(var(--i, 0) * 12.5ms);
+			animation-delay: calc(var(--_i, 0) * 12.5ms);
 		}
 	}
 	@keyframes rx-btn-roll-in {
@@ -312,15 +298,15 @@
 	.rx-btn.rx-btn-metal {
 		--_bg: transparent;
 		--_bg-hover: transparent;
-		--_fg: var(--rx-text);
-		--_fg-hover: var(--rx-text);
+		--_fg: var(--foreground);
+		--_fg-hover: var(--foreground);
 		--_edge: transparent;
 		border: 0;
 		overflow: hidden;
-		box-shadow: 0 8px 22px rgb(0 0 0 / 0.16);
+		box-shadow: var(--shadow-raised);
 
 		&.rx-btn-icon {
-			border-radius: var(--rx-r-pill);
+			border-radius: var(--radius-button);
 		}
 		& > :is(.rx-btn-metal-rim, .rx-btn-metal-sheen, .rx-btn-metal-face, .rx-btn-metal-bevel) {
 			position: absolute;
@@ -384,15 +370,11 @@
 	}
 	.rx-btn-metal-face {
 		z-index: -2;
-		background: var(--rx-btn-metal-face, var(--rx-app));
-		transition: background-color 150ms var(--rx-ease);
+		background: var(--background);
+		transition: background-color 150ms var(--motion-ease);
 
 		.rx-btn-metal:hover > & {
-			background: color-mix(
-				in oklab,
-				var(--rx-btn-metal-face, var(--rx-app)) 94%,
-				var(--rx-text)
-			);
+			background: color-mix(in oklab, var(--background) 94%, var(--foreground));
 		}
 	}
 	.rx-btn-metal-bevel {

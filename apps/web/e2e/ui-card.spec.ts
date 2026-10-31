@@ -39,7 +39,7 @@ test.describe("rabtx docs: card", () => {
 		const edges = () =>
 			card.evaluate((el) => {
 				const style = getComputedStyle(el);
-				return [style.getPropertyValue("--rx-edge-a"), style.getPropertyValue("--rx-edge-b")];
+				return [style.getPropertyValue("--_edge-a"), style.getPropertyValue("--_edge-b")];
 			});
 		const before = await card.boundingBox();
 		const [floatingA, floatingB] = await edges();
@@ -52,11 +52,11 @@ test.describe("rabtx docs: card", () => {
 
 	test("a card does not react to hover or press like a control", async ({ page }) => {
 		const card = page.getByRole("heading", { name: "Invite your team" }).locator("xpath=../..");
-		const before = await card.evaluate((el) => getComputedStyle(el).getPropertyValue("--rx-fill"));
+		const before = await card.evaluate((el) => getComputedStyle(el).getPropertyValue("--_fill"));
 		await card.hover();
 		await page.mouse.down();
 		expect(await card.evaluate((el) => getComputedStyle(el).scale)).toBe("none");
-		expect(await card.evaluate((el) => getComputedStyle(el).getPropertyValue("--rx-fill"))).toBe(
+		expect(await card.evaluate((el) => getComputedStyle(el).getPropertyValue("--_fill"))).toBe(
 			before,
 		);
 		await page.mouse.up();

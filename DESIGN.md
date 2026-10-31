@@ -55,7 +55,6 @@ shadcn and it does not inherit `@starter/ui`'s components.
   modes, and each `kind` is a ready-made set of classes applied only when selected.
 - **Playground:** `apps/web` at `/ui` is the playground that showcases `@rabtx/ui`. It is rebuilt
   fresh; the earlier shadcn lab and the docs `/rabtx` preview pages are deleted.
-- **Animation reference:** beUI (`https://beui.dev`; MCP server `https://mcp.beui.dev/mcp`).
 
 ### Figma source
 
@@ -264,14 +263,22 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   variants and `mobile/*` components, plus the shared tokens. The apps still consume it. It is the
   thing being replaced, not the foundation to extend.
 - `packages/rabtx` (`@rabtx/ui`): the rebuild target. Built so far: the tokens and modes
-  (`src/styles/tokens.css`), the spring solver (`src/motion`, generated `springs.css`) and **Button**.
+  (one shadcn-style theme file, `src/styles/theme.css`), the spring solver (`src/motion`, generating
+  the `--spring-*` tokens in `theme.css`) and **Button**.
   Styling is Tailwind first: `src/styles/control.css` holds the shared depth recipe (`rx-control`,
   `rx-surface`, `rx-field`, `rx-card`) and the flat and motion-off rules for fields and cards.
   Exports: `@rabtx/ui/button`, `@rabtx/ui/button/styles`, `@rabtx/ui/input`,
   `@rabtx/ui/input/styles`, `@rabtx/ui/field`, `@rabtx/ui/field/styles`, `@rabtx/ui/textarea`,
   `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/badge`, `@rabtx/ui/badge/styles`,
   `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/checkbox`, `@rabtx/ui/checkbox/styles`,
-  `@rabtx/ui/motion`, `@rabtx/ui/styles.css`.
+  `@rabtx/ui/motion`, `@rabtx/ui/styles.css`, `@rabtx/ui/theme.css`.
+- Theming: `src/styles/theme.css` is the only place a color, radius, shadow or easing is defined.
+  Components read the shadcn semantic tokens (and the documented Rabtx extras) and never define
+  their own override variables; private `--_*` variables are allowed for internal plumbing.
+- Registry: `packages/rabtx/scripts/build-registry.ts` turns the package into shadcn registry items
+  (`apps/docs/registry/r/*.json`, served at `/r/<name>.json`). Keep imports inside a component
+  folder relative, shared helpers in `src/lib` or `src/hooks`, and run `bun run registry` after
+  changing a component or its CSS; CI fails on a stale registry.
 - **Button**: four tones (primary, secondary, ghost, outline) and four sizes (sm 32, md 40, lg 48,
   all pill shaped; icon, a 32px square on the button radius tier), drawn by `src/styles/button.css`
   (plain CSS in the components layer, so `className` utilities still win). `buttonClass()` in
@@ -282,12 +289,12 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   the press, keyframes 0.05 to 1 scale over 1.6s), `ButtonLink` (an `<a>`), `StatefulButton` (idle,
   loading, success, error: status icons are always in the DOM and widen in or fold away with
   transitions; the label rolls over letter by letter with staggered keyframes; the label box eases
-  to the measured width), `MagneticButton` (the pointer writes `--rx-btn-mx` / `--rx-btn-my`, a
+  to the measured width), `MagneticButton` (the pointer writes `--_btn-mx` / `--_btn-my`, a
   `translate` transition on the magnetic spring follows) and `MetallicButton` (a chrome gradient
   rim drifting on an 8s loop, a hover sweep, a face inset 2px). JavaScript only sets state: ripple
-  position, magnetic offset, label width and which label is leaving. Colors, radius and scales are
-  `--rx-btn-*` variables that fall back to the shared tokens, so the Figma values can be dropped in
-  without new classes. **Deviation from Figma:** this look (blue primary, pill sizes, no depth
+  position, magnetic offset, label width and which label is leaving. Colors and radius come only from
+  the theme tokens (`--primary`, `--secondary`, `--accent`, `--input`, `--ring`, `--radius-button`),
+  so the Figma values are dropped into `theme.css`, not into the component. **Deviation from Figma:** this look (blue primary, pill sizes, no depth
   modes) replaces Figma's black primary, accent and danger tones and the 24 to 48 size matrix; the
   Button ignores `data-depth`. Reconcile when the Figma design system is shared.
 - **Input** (Figma `6:14`): a wrapper draws the field (`rx-control rx-field`) around a native
@@ -320,7 +327,7 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   uses the tertiary gray; flagged. Option Card (selectable) and Stat Card are separate components.
 - **Badge** (Figma `6:116`): 20px, 12/16 medium, a pale tint with colored text, six tones (neutral,
   accent, success, warning, danger, violet), optional 6px dot. Radius is its own tier,
-  `--rx-r-badge`: 4px Default (Figma), 2px Sharp, fully round in Round. One `--tone` color per
+  `--radius-badge`: 4px Default (Figma), 2px Sharp, fully round in Round. One `--_tone` color per
   class drives both the fill (12% of the tone over the surface, which reproduces Figma's tints) and
   the ink. **Deviation, tested:** Figma's raw tone text (for example `#f0803c` on `#fef0e6`) is
   2.7 to 3.9:1, below 4.5:1 for 12px text, so the ink is the tone mixed 75% toward black (toward
@@ -354,7 +361,7 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   state: the browser clears it on click). The tick and minus are CSS masks on `::before` (so they
   take the text color), with a pop on the swap spring, off with Motion off. A 24px hit area comes
   from an invisible `::after`, since 16px is below the 24px target size. Radius is its own tier,
-  `--rx-r-check`: 4px Default (Figma), 2px Sharp, **6px in Round** so a checkbox stays a square
+  `--radius-check`: 4px Default (Figma), 2px Sharp, **6px in Round** so a checkbox stays a square
   and is never mistaken for a radio. Figma has no hover, error or focus state and no depth
   variants, so none were invented (focus uses the shared 2px ring). **Flagged:** the off box's
   border (`#e3e3e3` on white, about 1.3:1) is below the 3:1 non-text contrast WCAG asks for; it is

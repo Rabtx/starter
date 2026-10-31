@@ -9,7 +9,7 @@ export type Spring = {
 	mass: number;
 };
 
-/** The reference feel. Every web easing in `springs.css` is solved from these. */
+/** The reference feel. Every `--spring-*` easing in `theme.css` is solved from these. */
 export const SPRINGS = {
 	/** Press feedback: scale 0.93, settles in about 280ms. */
 	press: { stiffness: 500, damping: 30, mass: 0.6 },

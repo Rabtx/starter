@@ -3,6 +3,7 @@
 import type { PointerEvent } from "react";
 import { Button, type ButtonProps } from "./button";
 import { magneticOffset } from "./magnetic";
+import { cn } from "../lib/utils";
 
 export type MagneticButtonProps = ButtonProps & {
 	/** How strongly the button leans toward the pointer, 0 to 1. Default 0.25. */
@@ -35,20 +36,20 @@ export function MagneticButton({
 			event.clientY,
 			strength,
 		);
-		node.style.setProperty("--rx-btn-mx", `${x}px`);
-		node.style.setProperty("--rx-btn-my", `${y}px`);
+		node.style.setProperty("--_btn-mx", `${x}px`);
+		node.style.setProperty("--_btn-my", `${y}px`);
 	};
 
 	const release = (event: PointerEvent<HTMLButtonElement>) => {
 		onPointerLeave?.(event);
-		event.currentTarget.style.removeProperty("--rx-btn-mx");
-		event.currentTarget.style.removeProperty("--rx-btn-my");
+		event.currentTarget.style.removeProperty("--_btn-mx");
+		event.currentTarget.style.removeProperty("--_btn-my");
 	};
 
 	return (
 		<Button
 			{...(rest as ButtonProps)}
-			className={`rx-btn-magnet${className ? ` ${className}` : ""}`}
+			className={cn("rx-btn-magnet", className)}
 			onPointerMove={follow}
 			onPointerLeave={release}
 		/>
@@ -57,5 +58,5 @@ export function MagneticButton({
 
 function currentOffset(node: HTMLElement) {
 	const read = (name: string) => Number.parseFloat(node.style.getPropertyValue(name)) || 0;
-	return { x: read("--rx-btn-mx"), y: read("--rx-btn-my") };
+	return { x: read("--_btn-mx"), y: read("--_btn-my") };
 }

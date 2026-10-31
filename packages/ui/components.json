@@ -20,8 +20,5 @@
     "ui": "@starter/ui/components",
     "lib": "@starter/ui/lib",
     "hooks": "@starter/ui/hooks"
-  },
-  "registries": {
-    "@beui": "https://beui.dev/r/{name}.json"
   }
 }

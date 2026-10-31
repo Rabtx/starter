@@ -3,8 +3,8 @@ export type SelectSize = "sm" | "md" | "lg";
 export const selectSizes = ["sm", "md", "lg"] as const satisfies readonly SelectSize[];
 
 /**
- * The class list for a Select's wrapper. The look lives in `styles/select.css`, so React and plain
- * HTML get the same control from these names:
+ * The class list for a Select's wrapper. The look lives in `select.css` (your global CSS, when
+ * installed from the registry), so React and plain HTML get the same control from these names:
  *
  *   <div class="rx-select-field rx-select-md">
  *     <select class="rx-select">…</select>
