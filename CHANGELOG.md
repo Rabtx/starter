@@ -15,6 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   wiring. The dot glides to the chosen option with CSS anchor positioning on a new `glide` spring
   (each circle pops its own dot where anchors are missing). Registry item `@rabtx/radio-group`,
   `/docs/ui/radio-group`, the `/ui/radio-group` playground page and `ui-radio-group.spec.ts`.
+- `@rabtx/ui` Tabs: WAI-ARIA tabs (`Tabs`, `TabsList`, `TabsTrigger`, `TabsContent`, shadcn API
+  with `orientation` and `activationMode`) in `segmented`, `pill`, `underline` and `expandable`
+  variants and sizes `sm` / `md` / `lg` (32 / 40 / 48). The indicator follows the selected tab by
+  CSS anchor positioning on the `tabs` spring (the tab paints its own highlight where
+  `anchor-scope` is missing), expandable labels open with a `0fr` to `1fr` grid column, panels fade
+  in with `@starting-style`. Registry item `@rabtx/tabs`, `/docs/ui/tabs`, the `/ui/tabs`
+  playground and `ui-tabs.spec.ts`.
 - `@rabtx/ui` Checkbox rebuilt on a native checkbox laid over a box styled with `:has()`: sizes
   `sm` (16), `md` (20, default), `lg` (24); shadcn API (`checked` incl. `"indeterminate"`,
   `defaultChecked`, `onCheckedChange`) plus `indeterminate` and `description`; Field and

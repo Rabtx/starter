@@ -426,6 +426,27 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   edge, `--radius-control`, circle at the end; chosen is a `--primary` edge plus a 6% tint, with a
   card-level focus ring and a 0.985 press). The Field label now has an id (`<id>-label`) so a group
   is named by it with `aria-labelledby` (a `<label for>` cannot name a fieldset).
+- **Tabs** (Figma Tab `7:202` and Segmented Control `66:846` not yet read): WAI-ARIA tabs with
+  shadcn's API (`Tabs` with `value` / `defaultValue` / `onValueChange`, `orientation` and
+  `activationMode`; `TabsList` with `variant` and `size`; `TabsTrigger` with `icon`; `TabsContent`).
+  `<button role="tab">`s with `aria-selected` and `aria-controls`, one roving tab stop (the
+  selected tab, or the first enabled one), arrows that wrap and skip disabled tabs (left and right
+  swap in RTL; up and down when vertical), Home and End, automatic or manual activation. Panels stay
+  mounted and `hidden`, focusable, labelled by their tab; `aria-controls` is dropped after
+  hydration for a list with no panels. Variants: `segmented` (default; `--secondary` track with the
+  recessed field edge, a `--card` thumb with the raised surface edge and ring), `pill` (a `--card`
+  capsule track, `--primary` fill, the label's color on the same spring as the fill so it never
+  sits light on the track), `underline` (a `--border` rule, a 2px `--primary` line) and
+  `expandable` (icon tabs; the selected one's label opens in a `0fr` to `1fr` grid column on the
+  swap spring and fades out of a 3px blur). Sizes 32, 40 and 48 like the Button; segmented follows
+  `--radius-control`, pill and expandable `--radius-button`. Motion: `aria-selected` sets
+  `anchor-name: --_tab`, the list sets `anchor-scope`, and the indicator (the list's last child,
+  `position-anchor` plus four `anchor()` insets) transitions its insets on the `tabs` spring.
+  Without `anchor-scope` (Chrome below 131, Safari below 26, Firefox below 147) the indicator is not
+  drawn and the selected tab paints the same highlight on its `::before`; expandable always works
+  that way. Panels enter from opacity 0, `blur(4px)` and 4px down via `@starting-style`; leaving is
+  instant. Reduced motion keeps 100ms fades only; Motion off is instant. Open: the segmented thumb
+  (`--card`) is close to its track in dark; the dark values are unconfirmed in Figma.
 - Other frameworks: a Solid component is another thin wrapper over `button.styles.ts` plus the same
   CSS, not a clone or a rewrite. Not built yet; add it as a separate package or export with
   `solid-js` as a peer dependency, and test it with a real Solid render.

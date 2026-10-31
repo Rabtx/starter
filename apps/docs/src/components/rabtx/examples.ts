@@ -61,6 +61,19 @@ import SwitchRows from "./examples/switch/rows";
 import SwitchRtl from "./examples/switch/rtl";
 import SwitchSizes from "./examples/switch/sizes";
 import SwitchStates from "./examples/switch/states";
+import TabsControlled from "./examples/tabs/controlled";
+import TabsDefault from "./examples/tabs/default";
+import TabsExpandable from "./examples/tabs/expandable";
+import TabsManual from "./examples/tabs/manual";
+import TabsModes from "./examples/tabs/modes";
+import TabsOverflow from "./examples/tabs/overflow";
+import TabsPill from "./examples/tabs/pill";
+import TabsRtl from "./examples/tabs/rtl";
+import TabsSizes from "./examples/tabs/sizes";
+import TabsStates from "./examples/tabs/states";
+import TabsUnderline from "./examples/tabs/underline";
+import TabsVariants from "./examples/tabs/variants";
+import TabsVertical from "./examples/tabs/vertical";
 
 /** Every live example, by the path of its file under `examples/` without the extension. */
 export const examples = {
@@ -108,6 +121,19 @@ export const examples = {
 	"switch/rows": SwitchRows,
 	"switch/rtl": SwitchRtl,
 	"switch/modes": SwitchModes,
+	"tabs/default": TabsDefault,
+	"tabs/variants": TabsVariants,
+	"tabs/sizes": TabsSizes,
+	"tabs/pill": TabsPill,
+	"tabs/underline": TabsUnderline,
+	"tabs/expandable": TabsExpandable,
+	"tabs/vertical": TabsVertical,
+	"tabs/manual": TabsManual,
+	"tabs/states": TabsStates,
+	"tabs/controlled": TabsControlled,
+	"tabs/overflow": TabsOverflow,
+	"tabs/rtl": TabsRtl,
+	"tabs/modes": TabsModes,
 	"card/default": CardDefault,
 	"card/sizes": CardSizes,
 	"card/media": CardMedia,
