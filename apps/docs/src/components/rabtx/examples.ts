@@ -9,6 +9,13 @@ import ButtonRipple from "./examples/button/ripple";
 import ButtonSizes from "./examples/button/sizes";
 import ButtonStates from "./examples/button/states";
 import ButtonVariants from "./examples/button/variants";
+import CheckboxControlled from "./examples/checkbox/controlled";
+import CheckboxDefault from "./examples/checkbox/default";
+import CheckboxDescription from "./examples/checkbox/description";
+import CheckboxIndeterminate from "./examples/checkbox/indeterminate";
+import CheckboxModes from "./examples/checkbox/modes";
+import CheckboxSizes from "./examples/checkbox/sizes";
+import CheckboxStates from "./examples/checkbox/states";
 import SelectControlled from "./examples/select/controlled";
 import SelectDefault from "./examples/select/default";
 import SelectGroups from "./examples/select/groups";
@@ -30,6 +37,13 @@ export const examples = {
 	"button/magnetic": ButtonMagnetic,
 	"button/metallic": ButtonMetallic,
 	"button/modes": ButtonModes,
+	"checkbox/default": CheckboxDefault,
+	"checkbox/sizes": CheckboxSizes,
+	"checkbox/description": CheckboxDescription,
+	"checkbox/indeterminate": CheckboxIndeterminate,
+	"checkbox/states": CheckboxStates,
+	"checkbox/controlled": CheckboxControlled,
+	"checkbox/modes": CheckboxModes,
 	"select/default": SelectDefault,
 	"select/sizes": SelectSizes,
 	"select/icons": SelectIcons,
