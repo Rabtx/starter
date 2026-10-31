@@ -7,6 +7,7 @@
 		"select",
 		"checkbox",
 		"switch",
+		"radio-group",
 		"input",
 		"card"
 	]

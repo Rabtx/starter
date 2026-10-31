@@ -37,6 +37,14 @@ import CardSizes from "./examples/card/sizes";
 import CardSpotlight from "./examples/card/spotlight";
 import CardStackExample from "./examples/card/stack";
 import CardTilt from "./examples/card/tilt";
+import RadioGroupCards from "./examples/radio-group/cards";
+import RadioGroupControlled from "./examples/radio-group/controlled";
+import RadioGroupDefault from "./examples/radio-group/default";
+import RadioGroupDescription from "./examples/radio-group/description";
+import RadioGroupHorizontal from "./examples/radio-group/horizontal";
+import RadioGroupModes from "./examples/radio-group/modes";
+import RadioGroupSizes from "./examples/radio-group/sizes";
+import RadioGroupStates from "./examples/radio-group/states";
 import SelectControlled from "./examples/select/controlled";
 import SelectDefault from "./examples/select/default";
 import SelectGroups from "./examples/select/groups";
@@ -110,6 +118,14 @@ export const examples = {
 	"card/expandable": CardExpandable,
 	"card/stack": CardStackExample,
 	"card/modes": CardModes,
+	"radio-group/default": RadioGroupDefault,
+	"radio-group/sizes": RadioGroupSizes,
+	"radio-group/description": RadioGroupDescription,
+	"radio-group/horizontal": RadioGroupHorizontal,
+	"radio-group/cards": RadioGroupCards,
+	"radio-group/states": RadioGroupStates,
+	"radio-group/controlled": RadioGroupControlled,
+	"radio-group/modes": RadioGroupModes,
 } satisfies Record<string, ComponentType>;
 
 export type ExampleName = keyof typeof examples;
