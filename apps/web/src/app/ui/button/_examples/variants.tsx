@@ -6,8 +6,7 @@ export default function ButtonVariants() {
 			<Button>Primary</Button>
 			<Button variant="secondary">Secondary</Button>
 			<Button variant="ghost">Ghost</Button>
-			<Button variant="accent">Accent</Button>
-			<Button variant="danger">Danger</Button>
+			<Button variant="outline">Outline</Button>
 		</>
 	);
 }

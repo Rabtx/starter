@@ -1,16 +1,24 @@
 import { Doc } from "../_components/doc";
 import { Example } from "../_components/example";
 import { PropsTable } from "../_components/props-table";
+import ButtonDisabled from "./_examples/disabled";
 import ButtonIcons from "./_examples/icons";
-import ButtonLoading from "./_examples/loading";
+import ButtonLinkExample from "./_examples/link";
+import ButtonMagnetic from "./_examples/magnetic";
+import ButtonMetallic from "./_examples/metallic";
+import ButtonRipple from "./_examples/ripple";
 import ButtonSizes from "./_examples/sizes";
+import ButtonStates from "./_examples/states";
 import ButtonVariants from "./_examples/variants";
 
 export default function ButtonPage() {
 	return (
 		<Doc>
 			<h1>Button</h1>
-			<p>A native button with five styles and five sizes.</p>
+			<p>
+				A native button with four styles and four sizes. It grows a touch under a mouse and springs
+				down when pressed. Every animation is CSS.
+			</p>
 			<Example file="button/_examples/variants.tsx">
 				<ButtonVariants />
 			</Example>
@@ -19,42 +27,100 @@ export default function ButtonPage() {
 			<pre>{`import { Button } from "@rabtx/ui/button";\n\n<Button variant="secondary">Cancel</Button>`}</pre>
 
 			<h2>Sizes</h2>
-			<p>Heights are 24, 28, 36, 44 and 48. Medium is the default.</p>
+			<p>
+				Heights are 32, 40 and 48, all pill shaped. Medium is the default. Icon is a 32px square.
+			</p>
 			<Example file="button/_examples/sizes.tsx">
 				<ButtonSizes />
 			</Example>
 
 			<h2>Icons</h2>
 			<p>
-				Pass HugeIcons as <code>leadingIcon</code> or <code>trailingIcon</code>. An icon-only button
-				is a square and requires an <code>aria-label</code>.
+				Put HugeIcons in the children, before or after the text. They are sized for you. An
+				icon-only button uses <code>size="icon"</code> and requires an <code>aria-label</code>.
 			</p>
 			<Example file="button/_examples/icons.tsx">
 				<ButtonIcons />
 			</Example>
 
-			<h2>Loading</h2>
-			<p>The label cross-fades to a spinner and the button keeps its width. Click to try it.</p>
-			<Example file="button/_examples/loading.tsx">
-				<ButtonLoading />
+			<h2>States</h2>
+			<p>
+				<code>StatefulButton</code> moves between idle, loading, success and error. The status icon
+				widens in, the label rolls over letter by letter and the button eases to its new width.
+				Click to try it.
+			</p>
+			<Example file="button/_examples/states.tsx">
+				<ButtonStates />
+			</Example>
+
+			<h2>Disabled</h2>
+			<Example file="button/_examples/disabled.tsx">
+				<ButtonDisabled />
+			</Example>
+
+			<h2>Ripple</h2>
+			<p>
+				<code>ripple</code> spreads a soft disc from where you pressed. <code>pressScale</code> sets
+				how far the press goes.
+			</p>
+			<Example file="button/_examples/ripple.tsx">
+				<ButtonRipple />
+			</Example>
+
+			<h2>Link</h2>
+			<p>
+				<code>ButtonLink</code> is an <code>a</code> that looks like a button, for navigation.
+			</p>
+			<Example file="button/_examples/link.tsx">
+				<ButtonLinkExample />
+			</Example>
+
+			<h2>Magnetic</h2>
+			<p>Leans toward a mouse pointer and springs back when it leaves. Touch never moves it.</p>
+			<Example file="button/_examples/magnetic.tsx">
+				<ButtonMagnetic />
+			</Example>
+
+			<h2>Metallic</h2>
+			<p>A polished chrome rim that drifts slowly. Hover sweeps a highlight across it.</p>
+			<Example file="button/_examples/metallic.tsx">
+				<ButtonMetallic />
 			</Example>
 
 			<h2>API</h2>
 			<p>Everything a native button takes, plus:</p>
 			<PropsTable
 				rows={[
-					[
-						"variant",
-						'"primary" | "secondary" | "ghost" | "accent" | "danger"',
-						"Default primary.",
-					],
-					["size", '"sm" | "md" | "lg" | "xl" | "2xl"', "Default md."],
-					["loading", "boolean", "Shows the spinner, sets aria-busy and blocks clicks."],
-					["iconOnly", "boolean", "A square button. Needs aria-label."],
-					["leadingIcon / trailingIcon", "ReactNode", "Sized to 16px, or 20px at 2xl."],
-					["static", "boolean", "Removes the press scale."],
+					["variant", '"primary" | "secondary" | "ghost" | "outline"', "Default primary."],
+					["size", '"sm" | "md" | "lg" | "icon"', "Default md. Icon needs aria-label."],
+					["pressScale", "number", "Scale while pressed. Default 0.93, 1 turns it off."],
+					["ripple", "boolean", "A disc spreads from the press."],
 				]}
 			/>
+			<p>
+				<code>StatefulButton</code> adds:
+			</p>
+			<PropsTable
+				rows={[
+					["state", '"idle" | "loading" | "success" | "error"', "Default idle."],
+					["loadingText", "ReactNode", 'Default "Loading".'],
+					["successText", "ReactNode", 'Default "Done".'],
+					["errorText", "ReactNode", 'Default "Try again".'],
+					["icon", "ReactNode", "After the idle label; folds away in other states."],
+				]}
+			/>
+			<p>
+				<code>MagneticButton</code> adds <code>strength</code> (0 to 1, default 0.25).{" "}
+				<code>MetallicButton</code> adds <code>paused</code>.
+			</p>
+
+			<h2>Theming</h2>
+			<p>
+				Colors, radius, press and hover scale are CSS variables such as{" "}
+				<code>--rx-btn-primary</code>, <code>--rx-btn-radius</code> and <code>--rx-btn-press</code>.
+				Set them on any ancestor. Each falls back to the shared tokens, so the theme still switches
+				them.
+			</p>
 
 			<h2>Accessibility</h2>
 			<ul>
@@ -62,8 +128,15 @@ export default function ButtonPage() {
 					A real <code>button</code> with <code>type="button"</code> by default.
 				</li>
 				<li>Keyboard focus shows a 2px ring. Mouse clicks do not.</li>
-				<li>Loading stays focusable. Hover only applies where a real hover exists.</li>
-				<li>With motion off, or reduced motion, every state is visible and nothing travels.</li>
+				<li>
+					Loading sets <code>aria-busy</code>, blocks clicks and stays focusable. Label changes are
+					announced politely, as whole words.
+				</li>
+				<li>Hover only applies where a real hover exists.</li>
+				<li>
+					With reduced motion, labels cross-fade and nothing travels. With motion off, states swap
+					at once.
+				</li>
 			</ul>
 		</Doc>
 	);
