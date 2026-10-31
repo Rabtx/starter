@@ -245,7 +245,8 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 	{
 		name: "checkbox",
 		title: "Checkbox",
-		description: "A native checkbox with a springy tick and an indeterminate state.",
+		description:
+			"A native checkbox whose tick pops in and draws itself, an indeterminate dash and three sizes. CSS-only motion.",
 		css: "checkbox.css",
 	},
 	{

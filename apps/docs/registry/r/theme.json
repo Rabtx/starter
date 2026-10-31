@@ -13,6 +13,7 @@
       "color-field": "var(--field)",
       "ease-spring-press": "var(--spring-press)",
       "ease-spring-swap": "var(--spring-swap)",
+      "ease-spring-check": "var(--spring-check)",
       "ease-spring-label": "var(--spring-label)",
       "ease-spring-magnetic": "var(--spring-magnetic)",
       "ease-spring-unfold": "var(--spring-unfold)",
