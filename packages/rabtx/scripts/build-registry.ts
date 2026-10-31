@@ -285,6 +285,13 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 		css: "card.css",
 	},
 	{
+		name: "dialog",
+		title: "Dialog",
+		description:
+			"A native modal dialog with header, title, description, footer and close parts, three sizes, right and bottom sheets and a morph from its trigger. CSS-only motion.",
+		css: "dialog.css",
+	},
+	{
 		name: "badge",
 		title: "Badge",
 		description: "A small tinted label in six tones.",

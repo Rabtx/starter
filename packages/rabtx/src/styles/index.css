@@ -14,5 +14,6 @@
 @import "./radio-group.css";
 @import "./tabs.css";
 @import "./card.css";
+@import "./dialog.css";
 
 @source "..";

@@ -10,6 +10,7 @@
 		"radio-group",
 		"tabs",
 		"input",
-		"card"
+		"card",
+		"dialog"
 	]
 }
