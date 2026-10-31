@@ -15,5 +15,6 @@
 @import "./tabs.css";
 @import "./card.css";
 @import "./dialog.css";
+@import "./signup-block.css";
 
 @source "..";

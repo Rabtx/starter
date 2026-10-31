@@ -30,9 +30,10 @@ export async function readRegistryFile(file: string, origin: string): Promise<st
 	}
 }
 
-export type RegistryFile = { path: string; type: string; content: string };
+export type RegistryFile = { path: string; type: string; content: string; target?: string };
 export type RegistryItem = {
 	name: string;
+	type?: string;
 	title?: string;
 	description?: string;
 	dependencies?: string[];
@@ -80,6 +81,7 @@ export async function readRegistryTree(name: string, origin = registryOrigin()) 
 
 /** Where shadcn writes a registry file, relative to the project's `src` (or root). */
 export function targetPath(file: RegistryFile): string {
+	if (file.target) return file.target;
 	const base = file.path.split("/").pop() ?? file.path;
 	if (file.type === "registry:lib") return `lib/${base}`;
 	if (file.type === "registry:hook") return `hooks/${base}`;

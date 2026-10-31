@@ -11,6 +11,7 @@
 		"tabs",
 		"input",
 		"card",
-		"dialog"
+		"dialog",
+		"blocks"
 	]
 }
