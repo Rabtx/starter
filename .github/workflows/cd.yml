@@ -13,20 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.4.2
+          bun-version: 1.4.4
 
       - name: Install dependencies
         run: bun install --frozen-lockfile
-
-      - name: Setup uv
-        uses: astral-sh/setup-uv@v6
-        with:
-          enable-cache: true
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
@@ -45,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Deploy to staging
         run: |
           echo "Replace with your staging deploy command."
@@ -61,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Deploy to production
         run: |
           echo "Replace with your production deploy command."

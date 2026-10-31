@@ -2,8 +2,8 @@
 
 A production-ready monorepo starter kit for modern SaaS applications, built on **Bun workspaces + Turborepo**.
 
-Six apps — Next.js web, Expo mobile, NestJS API, Fumadocs docs, optional FastAPI AI service and
-Rust demo — sharing one UI layer, one logger, one TypeScript config, one CI pipeline and a slim
+Five apps — Next.js web, Expo mobile, NestJS API, Fumadocs docs and an optional Rust demo —
+sharing one UI layer, one logger, one TypeScript config, one CI pipeline and a slim
 Dev Container.
 
 Dual-licensed **MIT OR Apache-2.0**.
@@ -12,8 +12,8 @@ Dual-licensed **MIT OR Apache-2.0**.
 
 **Prerequisites**
 
-- [Bun](https://bun.sh) `1.4.2` (pinned via `packageManager`)
-- Optional: Docker Compose `v2.20+`, Rust toolchain (`apps/rust`), Python 3 (`apps/ai-api`, script tests)
+- [Bun](https://bun.sh) `1.4.4` (pinned via `packageManager`)
+- Optional: Docker Compose `v2.20+`, Rust toolchain (`apps/rust`)
 
 ```bash
 git clone https://github.com/rabtx/starter.git
@@ -42,10 +42,9 @@ To work on one app in isolation: `bun --cwd=apps/web run dev` (same pattern for 
 | Path | What it is |
 | --- | --- |
 | `apps/web` | Next.js 16 — admin, marketing, auth and billing; component playground at `/ui` |
-| `apps/mobile` | Expo SDK 57 — auth, billing via hosted checkout |
+| `apps/mobile` | Expo SDK 58 — auth, billing via hosted checkout |
 | `apps/nest-api` | NestJS API spine, Drizzle over Postgres/Neon |
 | `apps/docs` | Fumadocs site — project docs at `/docs` |
-| `apps/ai-api` | Optional FastAPI AI assist; Nest proxies it, never public |
 | `apps/rust` | Optional Rust/Axum demo |
 
 ### Packages
@@ -67,19 +66,19 @@ shown in the playground at `/ui` in `apps/web`.
 | --- | --- |
 | `.agents/` | Agent rules, skills and plans — the single source; there is no second copy |
 | `docker/` | Compose fragments: Postgres, Nest, web, optional profiles |
-| `scripts/` | Bash and Python utilities, plus architecture and naming checks |
+| `scripts/` | Bash utilities, plus architecture and naming checks |
 | `.github/workflows/` | `ci.yml`, `cd.yml`, `security.yml` |
-| `.devcontainer/` | Bun + Rust + Python/Bash tooling |
+| `.devcontainer/` | Bun + Rust + Bash tooling |
 
 ## Commands
 
 | Command | Does |
 | --- | --- |
 | `bun run dev` | All dev servers except Rust |
-| `bun run dev:all` / `dev:rust` / `dev:ai` | Everything / Rust only / FastAPI only |
+| `bun run dev:all` / `dev:rust` | Everything / Rust only |
 | `bun run build` | Build every app |
-| `bun run lint` / `lint:fix` | oxlint, plus ShellCheck and Ruff over `scripts/` |
-| `bun run format` | Format TS/JS, shell, Python and Rust |
+| `bun run lint` / `lint:fix` | oxlint, plus ShellCheck over `scripts/` |
+| `bun run format` | Format TS/JS, shell and Rust |
 | `bun run typecheck` | TypeScript across workspaces |
 | `bun run test` / `test:coverage` | Unit tests / coverage gates |
 | `bun run test:e2e:web` | Playwright e2e for web |
@@ -92,7 +91,7 @@ shown in the playground at `/ui` in `apps/web`.
 - **Bun** workspaces and **Turborepo** for the task graph
 - **oxlint** for linting and **oxfmt** for formatting TS/JS — tabs, line width 100
 - **Lefthook** pre-commit and commit-msg, enforcing Conventional Commits
-- Bash: ShellCheck + shfmt · Python: Ruff · Rust: rustfmt + clippy
+- Bash: ShellCheck + shfmt · Rust: rustfmt + clippy
 
 ## Docker
 
@@ -101,8 +100,8 @@ cp env.docker.example .env
 docker compose up -d --build
 ```
 
-Web `:3000`, Nest `:4000`, Postgres on host `:5433`. Optional profiles:
-`docker compose --profile rust up -d --build`, or `--profile ai` for FastAPI.
+Web `:3000`, Nest `:4000`, Postgres on host `:5433`. Optional Rust profile:
+`docker compose --profile rust up -d --build`.
 
 More in [docker/README.md](docker/README.md) and `/docs/docker`.
 
@@ -118,7 +117,7 @@ Walkthrough: `/docs/deploy` — [apps/docs/content/docs/deploy.mdx](apps/docs/co
 
 ## Dev Container
 
-`.devcontainer/` installs **Bun**, **Rust**, **Python/Ruff** and the Bash lint tools. C and Lua are
+`.devcontainer/` installs **Bun**, **Rust** and the Bash lint tools. C and Lua are
 deliberately excluded.
 
 ```text

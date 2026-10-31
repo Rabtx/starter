@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `apps/rust/Dockerfile` builds from the monorepo root context (it copied a non-existent root
+  `Cargo.toml`).
 - Documentation lives only in `apps/docs` (Fumadocs). Removed the root `docs/` pointer folder.
 - Architecture boundary check scopes deep `@/modules/*/*/*` imports to consumers outside `src/modules/`.
 - Root `format` script tolerates missing local `cargo`/`shfmt` tooling.
@@ -24,6 +26,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- `apps/ai-api` (Python FastAPI AI service) and the AI assist feature that proxied to it: Nest
+  `modules/ai` (`/api/v1/ai/*`, `AI_API_URL`, `AI_SERVICE_TOKEN`), the web `/admin/ai` page and nav
+  item, and its compose/Render config.
+- All Python tooling: `scripts/python`, Ruff/uv in `.mise.toml`, CI `setup-uv`, devcontainer and
+  VS Code Python setup.
 - Root `docs/` directory (stale pointer after the docs app migration).
 - Web API backend switcher (Python / Rust / Hono).
 

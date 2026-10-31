@@ -15,14 +15,6 @@ roles:
     reviewers:
       - reviewer
       - qa
-  ai-python:
-    team: ai
-    paths:
-      - apps/ai-api/**
-      - scripts/python/**
-    reviewers:
-      - reviewer
-      - qa
   web:
     team: web
     paths:

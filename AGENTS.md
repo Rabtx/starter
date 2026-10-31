@@ -62,7 +62,6 @@ starter/
 │   ├── mobile/          # Expo Router + Uniwind app (TypeScript)
 │   ├── nest-api/        # NestJS production API (PostgreSQL in later phases)
 │   ├── docs/            # Docs site (Fumadocs); source in apps/docs/content/docs/
-│   ├── ai-api/          # FastAPI AI assist (uv); Nest proxies, never public LLM keys
 │   └── rust/            # Rust binary (Cargo, Axum)
 
 ├── packages/
@@ -70,10 +69,10 @@ starter/
 │   ├── ui/              # @starter/ui: legacy shadcn-style components (being replaced) + shared tokens
 │   ├── rabtx/           # @rabtx/ui: the from-scratch component library (web + native), see DESIGN.md
 │   └── logger/          # Shared logger (TS + Rust)
-├── scripts/             # Utility scripts: bash/, python/
+├── scripts/             # Utility scripts: bash/, architecture/, git-hooks/
 ├── docker/              # Docker Compose fragments (see docker/README.md)
 ├── .agents/rules/       # Cursor-specific rules (also summarised below)
-├── .devcontainer/       # Dev Container (Bun, Rust, Python, Bash tooling)
+├── .devcontainer/       # Dev Container (Bun, Rust, Bash tooling)
 ├── .github/workflows/   # CI (lint, typecheck, build, test)
 └── (root config)        # .oxlintrc.json, .oxfmtrc.json, turbo.json, lefthook.yml, etc.
 ```
@@ -97,9 +96,9 @@ starter/
 | `bun run prepare` | Install git hooks (lefthook) |
 | `bun run dev` | Start all dev servers (Turbo) |
 | `bun run build` | Build all apps (Turbo) |
-| `bun run lint` | Lint: oxlint (TS/JS) + ShellCheck + ruff |
+| `bun run lint` | Lint: oxlint (TS/JS) + ShellCheck |
 | `bun run lint:fix` | Lint with auto-fix |
-| `bun run format` | Format: oxfmt + shfmt + ruff + cargo fmt |
+| `bun run format` | Format: oxfmt + shfmt + cargo fmt |
 | `bun run typecheck` | TypeScript typecheck |
 | `bun run test` | Run tests (e.g. cargo test) |
 | `bun run test:coverage` | Run TS coverage + all language tests |
@@ -157,7 +156,6 @@ starter/
 | **TypeScript/JS** | oxlint | oxfmt | Vitest/Jest (if added) |
 | **Rust** | Clippy | rustfmt | `cargo test` |
 | **Bash** | ShellCheck | shfmt | — |
-| **Python** | ruff check | ruff format | — |
 
 ### Docker
 

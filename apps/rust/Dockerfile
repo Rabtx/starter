@@ -1,25 +1,25 @@
-FROM rust:1.83-slim-bookworm as builder
+# Build context is the monorepo root (see docker/compose/rust-api.yml):
+#   docker build -f apps/rust/Dockerfile .
+# apps/rust is a standalone crate (its own Cargo.toml/Cargo.lock), so only that dir is copied.
+FROM rust:1.99-slim-bookworm AS builder
 
 WORKDIR /usr/src/app
 
-# Install build dependencies
-RUN apt-get update && apt-get install -y pkg-config libssl-dev && rm -rf /var/lib/apt/lists/*
-
-COPY Cargo.toml Cargo.lock turbo.json ./
-COPY packages/logger/rust packages/logger/rust
-COPY apps/rust apps/rust
+# rust-toolchain.toml is intentionally not copied: it pins `stable`, which would make rustup
+# download a second toolchain instead of using the one in the image.
+COPY apps/rust/Cargo.toml apps/rust/Cargo.lock ./
+COPY apps/rust/src ./src
 
 # Build the Rust application
-WORKDIR /usr/src/app/apps/rust
-RUN cargo build --release
+RUN cargo build --release --locked
 
 FROM debian:bookworm-slim
 WORKDIR /app
 
-# Install runtime dependencies
-RUN apt-get update && apt-get install -y libssl-dev ca-certificates && rm -rf /var/lib/apt/lists/*
+# Runtime deps: the binary links only libc/libgcc (no OpenSSL in Cargo.lock); CA certs for outbound TLS.
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /usr/src/app/apps/rust/target/release/starter-rust /app/starter-rust
+COPY --from=builder /usr/src/app/target/release/starter-rust /app/starter-rust
 
 ENV PORT=3002
 EXPOSE 3002

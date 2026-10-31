@@ -11,7 +11,9 @@ describe('AuthCryptoService', () => {
 
 		expect(passwordHash).not.toBe(password);
 		await expect(service.verifyPassword(password, passwordHash)).resolves.toBe(true);
-		await expect(service.verifyPassword('incorrect-password', passwordHash)).resolves.toBe(false);
+		await expect(service.verifyPassword('incorrect-password', passwordHash)).resolves.toBe(
+			false,
+		);
 	});
 
 	it('creates verifiable purpose-bound OTP hashes', () => {
@@ -20,7 +22,9 @@ describe('AuthCryptoService', () => {
 		expect(service.verifyOtp('email_verification', 'starter@example.com', '123456', hash)).toBe(
 			true,
 		);
-		expect(service.verifyOtp('password_reset', 'starter@example.com', '123456', hash)).toBe(false);
+		expect(service.verifyOtp('password_reset', 'starter@example.com', '123456', hash)).toBe(
+			false,
+		);
 	});
 
 	it('creates refresh tokens that reveal only the session identifier', () => {
@@ -46,9 +50,9 @@ describe('AuthCryptoService', () => {
 		expect(
 			service.verifyChallengeToken('magic_link', 'starter@example.com', token, tokenHash),
 		).toBe(true);
-		expect(service.verifyChallengeToken('mfa_login', 'starter@example.com', token, tokenHash)).toBe(
-			false,
-		);
+		expect(
+			service.verifyChallengeToken('mfa_login', 'starter@example.com', token, tokenHash),
+		).toBe(false);
 	});
 
 	it('signs short-lived access tokens with minimal claims', async () => {

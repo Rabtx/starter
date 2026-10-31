@@ -2,8 +2,7 @@
 title: Dependency Upgrade Report
 description: Historical dependency upgrade notes from 2026-05-17.
 ---
-Scope: repo-wide direct dependency refresh for Bun workspaces, Rust crates, and the FastAPI
-`uv` project.
+Scope: repo-wide direct dependency refresh for Bun workspaces and Rust crates.
 
 ## Verification
 
@@ -12,8 +11,6 @@ Scope: repo-wide direct dependency refresh for Bun workspaces, Rust crates, and 
 - `PRISMA_SCHEMA_ENGINE_BINARY=/tmp/prisma-schema-engine bun run --cwd apps/hono-api db:generate`
 - `cargo update --manifest-path apps/rust/Cargo.toml`
 - `cargo update --dry-run --verbose --manifest-path apps/rust/Cargo.toml`
-- `uv lock --upgrade`
-- `uv lock --check`
 - `bun run format`
 - `bun run lint`
 - `bun run typecheck`
@@ -114,18 +111,6 @@ Notes:
 
 `cargo update --dry-run --verbose` reports only transitive `generic-array` and `matchit` behind
 their latest versions due upstream compatible constraints.
-
-## FastAPI / uv
-
-| Package | From | To | Reason | Version URL |
-| --- | ---: | ---: | --- | --- |
-| `fastapi[standard]` | 0.135.3 | 0.135.4 | latest FastAPI patch | [https://pypi.org/project/fastapi/0.135.4/](https://pypi.org/project/fastapi/0.135.4/) |
-| `ruff` | 0.15.9 | 0.15.13 | latest Ruff patch | [https://pypi.org/project/ruff/0.15.13/](https://pypi.org/project/ruff/0.15.13/) |
-| `certifi` | 2026.2.25 | 2026.4.22 | latest transitive CA bundle | [https://pypi.org/project/certifi/2026.4.22/](https://pypi.org/project/certifi/2026.4.22/) |
-| `click` | 8.3.2 | 8.4.0 | latest transitive CLI runtime | [https://pypi.org/project/click/8.4.0/](https://pypi.org/project/click/8.4.0/) |
-| `starlette` | 0.49.x | 1.0.0 | latest FastAPI-compatible Starlette | [https://pypi.org/project/starlette/1.0.0/](https://pypi.org/project/starlette/1.0.0/) |
-| `pydantic` | 2.12.x | 2.13.4 | latest FastAPI-compatible Pydantic | [https://pypi.org/project/pydantic/2.13.4/](https://pypi.org/project/pydantic/2.13.4/) |
-| `websockets` | 15.x | 16.0 | latest Uvicorn standard extra | [https://pypi.org/project/websockets/16.0/](https://pypi.org/project/websockets/16.0/) |
 
 ## Compatibility Exceptions
 
