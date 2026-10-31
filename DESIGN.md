@@ -272,7 +272,7 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   `@rabtx/ui/input/styles`, `@rabtx/ui/field`, `@rabtx/ui/field/styles`, `@rabtx/ui/textarea`,
   `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/badge`, `@rabtx/ui/badge/styles`,
   `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/checkbox`, `@rabtx/ui/checkbox/styles`,
-  `@rabtx/ui/motion`, `@rabtx/ui/styles.css`, `@rabtx/ui/theme.css`.
+  `@rabtx/ui/motion`, `@rabtx/ui/blocks/signup`, `@rabtx/ui/styles.css`, `@rabtx/ui/theme.css`.
 - Theming: `src/styles/theme.css` is the only place a color, radius, shadow or easing is defined.
   Components read the shadcn semantic tokens (and the documented Rabtx extras) and never define
   their own override variables; private `--_*` variables are allowed for internal plumbing.
@@ -410,6 +410,18 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   `#e3e3e3` edge and pressed-fill disabled. No CheckboxGroup: a list of checkboxes is a `fieldset`
   of Checkboxes; add a group when a design needs one. The Figma `Task Check` (6:78, a priority
   circle) is a separate component.
+- **Blocks** (`src/blocks/<name>`, exported as `@rabtx/ui/blocks/<name>`): whole screens composed
+  only of the components, with a little CSS of their own (`src/styles/<name>-block.css`) for what is
+  unique to them. They import component files by path (`../../input/input`, never a folder index),
+  so the registry build rewrites each import to `@/components/ui/<file>` and adds that component as
+  a registry dependency; the item is a `registry:block` whose files target
+  `components/blocks/<name>/`. Blocks never call a network: they take callbacks (`onSubmit` and
+  friends) and only wait a moment without them. First block, **Sign-up** (`signup-block`): a
+  three-step card (details with a strength meter, an emailed code with a resend countdown, a drawn
+  tick) on one native `<form>` validated by its own constraints and shown through Field, plus a
+  compact `SigninBlock`. Steps enter with `@starting-style` and leave with a keyframe while the
+  viewport eases to the measured height (`--_h`); the new step's heading takes focus and a live
+  region names it. Docs at `/docs/ui/blocks/signup`, playground `/ui/blocks/signup`.
 - Other frameworks: a Solid component is another thin wrapper over `button.styles.ts` plus the same
   CSS, not a clone or a rewrite. Not built yet; add it as a separate package or export with
   `solid-js` as a peer dependency, and test it with a real Solid render.

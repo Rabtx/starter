@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `@rabtx/ui` Blocks, starting with a sign-up block (`@rabtx/ui/blocks/signup`, registry item
+  `@rabtx/signup-block` as a `registry:block` installing to `components/blocks/signup`): a
+  three-step Card (details, emailed code with resend countdown, done) built only from Input,
+  PasswordInput, InputOTP, Select, Checkbox, Switch, Field and StatefulButton, with native
+  constraint validation, CSS step transitions and focus moved to each step's heading, plus a
+  compact `SigninBlock`. `/docs/ui/blocks/signup`, the `/ui/blocks/signup` playground and
+  `ui-signup-block.spec.ts`.
 - `@rabtx/ui` Checkbox rebuilt on a native checkbox laid over a box styled with `:has()`: sizes
   `sm` (16), `md` (20, default), `lg` (24); shadcn API (`checked` incl. `"indeterminate"`,
   `defaultChecked`, `onCheckedChange`) plus `indeterminate` and `description`; Field and
