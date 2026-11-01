@@ -11,6 +11,7 @@ export const NAV = [
 			{ href: "/ui/checkbox", label: "Checkbox" },
 			{ href: "/ui/switch", label: "Switch" },
 			{ href: "/ui/radio-group", label: "Radio Group" },
+			{ href: "/ui/slider", label: "Slider" },
 			{ href: "/ui/tabs", label: "Tabs" },
 			{ href: "/ui/card", label: "Card" },
 			{ href: "/ui/dialog", label: "Dialog" },
