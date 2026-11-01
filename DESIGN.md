@@ -484,6 +484,22 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   recesses the rail; Flat drops it and the thumb ring; Field errors turn the edges `--destructive`.
   Not built (need JS animation): velocity lean on the bubble, a momentum-scrolling ruler scale, a
   wave of bars and a thumb parting around inline labels.
+- **Accordion and Collapsible** (no Figma section yet): both on native `<details>` / `<summary>`,
+  so the button role, expanded state, Enter and Space, find-in-page and fragment opening come from
+  the browser and they work before hydration. React holds the state; a press (or the browser
+  opening one) is a request through `onOpenChange` / `onValueChange` and the element is put back if
+  a controlled owner refuses. `Collapsible` (`open` / `defaultOpen` / `onOpenChange`, `disabled`,
+  `CollapsibleTrigger` with a chevron, `CollapsibleContent`, `useCollapsible`) glides on `glide`
+  both ways. `Accordion` is shadcn's API (`type` single or multiple, `value` / `defaultValue` /
+  `onValueChange`, `collapsible`, `AccordionItem` / `Trigger` with `icon` / `Content` as a named
+  `region`) built from Collapsibles; single gives the items one `name`. Up/down, Home and End move
+  between triggers. Variants: `separated` (default, one joined stack; the open item lifts out with
+  a 12px gap and its neighbours round their facing corners, all margins and radii from sibling
+  selectors), `cards` and `flush`. Height is `::details-content` `block-size` 0 to `auto` with
+  `interpolate-size`, a `0fr` to `1fr` grid row where that is missing; opening rides the new
+  `expand` spring (117 / 14.7 / 1, the reference's 0.58s with 0.32 bounce, about 5% overshoot),
+  closing glides; content rises 4px out of a 4px blur, the chevron turns on `swap`. Corners use
+  `--radius-box`; surfaces the card edges, `--border` in Flat; no shadows.
 - **Blocks** (`src/blocks/<name>`, exported as `@rabtx/ui/blocks/<name>`): whole screens composed
   only of the components, with a little CSS of their own (`src/styles/<name>-block.css`) for what is
   unique to them. They import component files by path (`../../input/input`, never a folder index),

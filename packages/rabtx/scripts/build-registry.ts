@@ -204,6 +204,15 @@ const REWRITES: [
 	],
 	[/^\.\.\/hooks\/([\w-]+)$/, (m) => ({ to: `@/hooks/${m[1]}`, dependency: m[1] })],
 	[/^\.\.\/field\/field-context$/, () => ({ to: "./field-context", dependency: "field-context" })],
+	// A component built on another (Accordion on Collapsible): both install into the same folder.
+	[
+		/^\.\.\/([\w-]+)\/([\w.-]+)$/,
+		(m) => {
+			if (!COMPONENTS.some((component) => component.name === m[1]))
+				throw new Error(`components may only import registry components, not "${m[1]}"`);
+			return { to: `./${m[2]}`, dependency: m[1] };
+		},
+	],
 	[/^\.\/([\w.-]+)$/, (m) => ({ to: `./${m[1]}` })],
 ];
 
@@ -299,6 +308,20 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 		description:
 			"WAI-ARIA tabs in segmented, pill, underline and expandable variants, with an indicator that slides by CSS anchor positioning. CSS-only motion.",
 		css: "tabs.css",
+	},
+	{
+		name: "collapsible",
+		title: "Collapsible",
+		description:
+			"A native details element whose content grows to its height, fades in out of a blur and turns its chevron over. CSS-only motion.",
+		css: "collapsible.css",
+	},
+	{
+		name: "accordion",
+		title: "Accordion",
+		description:
+			"Single or multiple accordions on native details, in separated, cards and flush variants: the open item lifts out of the stack on a bouncy spring. CSS-only motion.",
+		css: "accordion.css",
 	},
 	{
 		name: "card",

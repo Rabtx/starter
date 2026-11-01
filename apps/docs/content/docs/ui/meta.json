@@ -10,6 +10,8 @@
 		"radio-group",
 		"slider",
 		"tabs",
+		"accordion",
+		"collapsible",
 		"input",
 		"card",
 		"dialog",
