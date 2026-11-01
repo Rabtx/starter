@@ -9,6 +9,8 @@ import AccordionVariants from "./examples/accordion/variants";
 import CommandBlockExample from "./examples/blocks/command";
 import CommandInlineExample from "./examples/blocks/command-inline";
 import CommandSearchExample from "./examples/blocks/command-search";
+import SettingsBlockExample from "./examples/blocks/settings";
+import SettingsBlockNarrow from "./examples/blocks/settings-narrow";
 import SigninBlockExample from "./examples/blocks/signin";
 import SignupBlockExample from "./examples/blocks/signup";
 import ButtonDisabled from "./examples/button/disabled";
@@ -230,6 +232,8 @@ export const examples = {
 	"blocks/command": CommandBlockExample,
 	"blocks/command-inline": CommandInlineExample,
 	"blocks/command-search": CommandSearchExample,
+	"blocks/settings": SettingsBlockExample,
+	"blocks/settings-narrow": SettingsBlockNarrow,
 } satisfies Record<string, ComponentType>;
 
 export type ExampleName = keyof typeof examples;

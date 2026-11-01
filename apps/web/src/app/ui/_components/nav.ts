@@ -25,6 +25,7 @@ export const NAV = [
 		links: [
 			{ href: "/ui/blocks/signup", label: "Sign-up" },
 			{ href: "/ui/blocks/command", label: "Command palette" },
+			{ href: "/ui/blocks/settings", label: "Settings" },
 		],
 	},
 ];

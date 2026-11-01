@@ -277,6 +277,8 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/slider`, `@rabtx/ui/slider/styles`,
   `@rabtx/ui/checkbox`, `@rabtx/ui/checkbox/styles`,
   `@rabtx/ui/motion`, `@rabtx/ui/blocks/signup`, `@rabtx/ui/styles.css`, `@rabtx/ui/theme.css`.
+  `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/checkbox`, `@rabtx/ui/checkbox/styles`,
+  `@rabtx/ui/motion`, `@rabtx/ui/blocks/signup`, `@rabtx/ui/blocks/settings`, `@rabtx/ui/styles.css`, `@rabtx/ui/theme.css`.
 - Theming: `src/styles/theme.css` is the only place a color, radius, shadow or easing is defined.
   Components read the shadcn semantic tokens (and the documented Rabtx extras) and never define
   their own override variables; private `--_*` variables are allowed for internal plumbing.
@@ -541,6 +543,16 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   fills itself without it) and the viewport eases to the measured `--_h` on the panel spring.
   Block CSS keeps the highlight's rules inside `@supports`, because the shadcn CLI merges every
   `@supports` block into the first one and a later base rule would win.
+- **Settings block** (`settings-block`): Profile, Account, Notifications, Appearance and Danger
+  zone on Tabs. The block is a size container: from 40rem of its own width the tab list is a
+  sticky column beside the panels, below it a sideways-scrolling row, and the tabs'
+  `aria-orientation` (so the arrow keys) is read back from that layout. The saved controls join
+  one empty native `<form>` through their `form` attribute, so the Change email and Delete
+  account Dialogs keep their own forms inside the cards. Dirty state is a diff against the last
+  save; `data-dirty` on the form reveals the sticky bar via `:has()`, with `@starting-style` in and
+  `display` `allow-discrete` out; tabs with changes or errors grow a dot, Save opens the first
+  error's section, and focus moves to the open panel when the bar leaves. Destructive buttons are
+  a block class over the Button's private variables (no Button variant added).
 - Other frameworks: a Solid component is another thin wrapper over `button.styles.ts` plus the same
   CSS, not a clone or a rewrite. Not built yet; add it as a separate package or export with
   `solid-js` as a peer dependency, and test it with a real Solid render.
