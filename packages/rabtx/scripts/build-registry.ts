@@ -204,6 +204,15 @@ const REWRITES: [
 	],
 	[/^\.\.\/hooks\/([\w-]+)$/, (m) => ({ to: `@/hooks/${m[1]}`, dependency: m[1] })],
 	[/^\.\.\/field\/field-context$/, () => ({ to: "./field-context", dependency: "field-context" })],
+	// A component that uses another one (the Toast's buttons): both land in components/ui.
+	[
+		/^\.\.\/([\w-]+)\/([\w.-]+)$/,
+		(m) => {
+			if (!COMPONENTS.some((component) => component.name === m[1]))
+				throw new Error(`components may only import registry components, not "${m[1]}"`);
+			return { to: `./${m[2]}`, dependency: m[1] };
+		},
+	],
 	[/^\.\/([\w.-]+)$/, (m) => ({ to: `./${m[1]}` })],
 ];
 
@@ -312,6 +321,13 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 		title: "Badge",
 		description: "A small tinted label in six tones.",
 		css: "badge.css",
+	},
+	{
+		name: "toast",
+		title: "Toast",
+		description:
+			"Stacked toasts in a top-layer region: toast(), success, error, warning, info, loading and promise, with actions, swipe to dismiss, paused timers and live announcements. CSS-only motion.",
+		css: "toast.css",
 	},
 ];
 

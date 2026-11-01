@@ -33,6 +33,8 @@
 		"./tabs": "./src/tabs/index.ts",
 		"./tabs/styles": "./src/tabs/tabs.styles.ts",
 		"./theme.css": "./src/styles/theme.css",
+		"./toast": "./src/toast/index.ts",
+		"./toast/styles": "./src/toast/toast.styles.ts",
 		"./textarea": "./src/textarea/index.ts",
 		"./textarea/styles": "./src/textarea/textarea.styles.ts"
 	},
