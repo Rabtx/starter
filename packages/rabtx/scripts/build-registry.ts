@@ -287,6 +287,13 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 		css: "radio-group.css",
 	},
 	{
+		name: "slider",
+		title: "Slider",
+		description:
+			"Native range inputs as a slider or a multi-thumb range, with a value bubble, marks, three sizes, vertical and a ruler variant. CSS-only motion.",
+		css: "slider.css",
+	},
+	{
 		name: "tabs",
 		title: "Tabs",
 		description:
