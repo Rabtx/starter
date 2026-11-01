@@ -1,4 +1,7 @@
 import type { ComponentType } from "react";
+import CommandBlockExample from "./examples/blocks/command";
+import CommandInlineExample from "./examples/blocks/command-inline";
+import CommandSearchExample from "./examples/blocks/command-search";
 import SigninBlockExample from "./examples/blocks/signin";
 import SignupBlockExample from "./examples/blocks/signup";
 import ButtonDisabled from "./examples/button/disabled";
@@ -172,6 +175,9 @@ export const examples = {
 	"dialog/nested": DialogNested,
 	"blocks/signup": SignupBlockExample,
 	"blocks/signin": SigninBlockExample,
+	"blocks/command": CommandBlockExample,
+	"blocks/command-inline": CommandInlineExample,
+	"blocks/command-search": CommandSearchExample,
 } satisfies Record<string, ComponentType>;
 
 export type ExampleName = keyof typeof examples;
