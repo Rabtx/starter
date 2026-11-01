@@ -19,5 +19,6 @@
 @import "./card.css";
 @import "./dialog.css";
 @import "./signup-block.css";
+@import "./command-block.css";
 
 @source "..";

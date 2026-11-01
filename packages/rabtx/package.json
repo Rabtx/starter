@@ -11,6 +11,7 @@
 		"./accordion/styles": "./src/accordion/accordion.styles.ts",
 		"./badge": "./src/badge/index.ts",
 		"./badge/styles": "./src/badge/badge.styles.ts",
+		"./blocks/command": "./src/blocks/command/index.ts",
 		"./blocks/signup": "./src/blocks/signup/index.ts",
 		"./button": "./src/button/index.ts",
 		"./button/styles": "./src/button/button.styles.ts",

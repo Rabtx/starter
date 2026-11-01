@@ -359,7 +359,18 @@ const BLOCKS: { name: string; folder: string; title: string; description: string
 				"A three-step sign-up card (details with a password meter, an emailed code with a resend countdown, a drawn tick) and a compact sign-in card, made of the Rabtx components. CSS-only motion.",
 			css: "signup-block.css",
 		},
+		{
+			name: "command-block",
+			folder: "command",
+			title: "Command palette block",
+			description:
+				"A ⌘K command palette in a native dialog: fuzzy search over grouped commands, an ARIA combobox and listbox, recent items, nested pages, loading and empty states, keyboard hints and a highlight that slides by CSS anchor positioning. Made of the Rabtx components. CSS-only motion.",
+			css: "command-block.css",
+		},
 	];
+
+/** The shadcn categories of a block; sign-up's is the default. */
+const BLOCK_CATEGORIES: Record<string, string[]> = { "command-block": ["navigation"] };
 
 /** A link to another item of this registry; the docs route fills in the origin. */
 const dep = (name: string) => `${ORIGIN}/r/${name}.json`;
@@ -472,7 +483,7 @@ function buildItems(warnings: string[]): Item[] {
 			})),
 			registryDependencies: [dep("rabtx")],
 			css: block.css ? cssObject(readStyle(block.css), block.css, warnings) : undefined,
-			categories: ["authentication"],
+			categories: BLOCK_CATEGORIES[block.name] ?? ["authentication"],
 		});
 	}
 	return items;
