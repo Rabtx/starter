@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `@rabtx/ui` Accordion and Collapsible on native `<details>` (shadcn API; single via `name`,
+  multiple, `collapsible`; `separated`, `cards` and `flush` variants), heights animated with
+  `interpolate-size` and `::details-content` on a new bouncy `expand` spring, find-in-page opening.
+  Registry items `@rabtx/accordion` and `@rabtx/collapsible`, `/docs/ui/accordion`,
+  `/docs/ui/collapsible`, the `/ui/accordion` playground and `ui-accordion.spec.ts`.
 - `@rabtx/ui` RadioGroup: native radios sharing one name in a `<fieldset role="radiogroup">`,
   sizes `sm` (16), `md` (20), `lg` (24), `orientation`, a `card` variant (choice cards), shadcn API
   (`value` / `defaultValue` / `onValueChange`, `RadioGroupItem` with `description`) and Field
