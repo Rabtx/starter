@@ -364,6 +364,18 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   `rx-morph-open` / `rx-morph-close`, the box on the panel spring, each picture clipped by it) and
   falls back to the scale and fade. Before hydration the trigger carries `command="show-modal"`
   (Invoker Commands). Scroll lock is `:root:has(.rx-dialog:modal) { overflow: hidden }`.
+- **Popover and Dropdown Menu** (no Figma frame yet): both are `popover="auto"` panels, so the top
+  layer, light dismiss, Escape and stacking come from the browser, and the trigger is a native
+  `popovertarget` invoker that works before hydration. CSS anchor positioning places them
+  (`position-area` from `side` / `align`, `position-try-fallbacks` to flip; browsers without it get
+  the centered UA popover). The panel is the overlay surface in `--popover` with the box radius, no
+  cast shadow; it unfolds from the edge touching its trigger (`transform-origin` and a clip reveal,
+  mirrored by `data-flip` when a fallback is used) on `--spring-unfold`, exits in 150ms with
+  `display` / `overlay` `allow-discrete`, and fades only under reduced motion. The menu follows
+  WAI-ARIA's menu button (roving focus, arrows, Home/End, typeahead, submenus on ArrowRight / hover,
+  Escape back to the opener); one highlight glides between rows by `anchor()` (rows paint their own
+  where `anchor-scope` is missing). `ContextMenu` reuses the menu, anchored to the pointer or, for
+  Shift+F10, the focused element.
 - **Badge** (Figma `6:116`): 20px, 12/16 medium, a pale tint with colored text, six tones (neutral,
   accent, success, warning, danger, violet), optional 6px dot. Radius is its own tier,
   `--radius-badge`: 4px Default (Figma), 2px Sharp, fully round in Round. One `--_tone` color per
