@@ -27,6 +27,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the trigger and CSS-only enter and exit (`@starting-style`, `allow-discrete`, panel spring).
   Registry item `@rabtx/dialog`, `/docs/ui/dialog`, the `/ui/dialog` playground and
   `ui-dialog.spec.ts`.
+- `@rabtx/ui` Tooltip on `popover="hint"` placed by CSS anchor positioning (`position-area`,
+  `position-try-fallbacks` flipping, `position-visibility`), shadcn's parts (`TooltipProvider` with
+  `delayDuration` / `skipDelayDuration`, `Tooltip`, `TooltipTrigger` with `asChild`,
+  `TooltipContent` with `side` / `align` / `sideOffset` / `arrow`) plus `asLabel` and a
+  `TooltipKbd` key cap, `interestfor` before hydration and a CSS-only enter and exit
+  (`@starting-style`, `allow-discrete`, unfold spring). Registry item `@rabtx/tooltip`,
+  `/docs/ui/tooltip`, the `/ui/tooltip` playground and `ui-tooltip.spec.ts`.
 - `@rabtx/ui` Blocks, starting with a sign-up block (`@rabtx/ui/blocks/signup`, registry item
   `@rabtx/signup-block` as a `registry:block` installing to `components/blocks/signup`): a
   three-step Card (details, emailed code with resend countdown, done) built only from Input,

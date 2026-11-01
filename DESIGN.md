@@ -364,6 +364,25 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   `rx-morph-open` / `rx-morph-close`, the box on the panel spring, each picture clipped by it) and
   falls back to the scale and fade. Before hydration the trigger carries `command="show-modal"`
   (Invoker Commands). Scroll lock is `:root:has(.rx-dialog:modal) { overflow: hidden }`.
+- **Tooltip** (Figma `7:231` not yet read; built 2026-11-01): shadcn's parts (`TooltipProvider`
+  with `delayDuration` 120 and `skipDelayDuration` 300, `Tooltip` with `open` / `defaultOpen` /
+  `onOpenChange`, `delayDuration`, `disabled` and `asLabel`, `TooltipTrigger` with `asChild`,
+  `TooltipContent` with `side`, `align`, `sideOffset` and `arrow`, `TooltipKbd`). The content is a
+  `<span popover="hint" role="tooltip">` (an unknown value is `manual`, so older engines still get a
+  top-layer popover) linked by `aria-describedby`, or `aria-labelledby` with `asLabel` for icon-only
+  buttons. Placement is CSS: the trigger's inline `anchor-name`, `position-area` per side and
+  alignment, `position-try-fallbacks` to flip, an 8px inline margin to stay in the viewport and
+  `position-visibility: anchors-visible`; JavaScript only reads the side CSS chose (`data-placed`)
+  and the arrow offset (`--_arrow`), and places it itself where anchor positioning is missing. Opens
+  on hover after the delay (instant inside the skip delay or while another shows; one at a time), on
+  `:focus-visible` focus at once and on a tap (as the reference); closes on leave (100ms grace onto
+  the label, WCAG 1.4.13), blur, Escape (cancelled, so a surrounding dialog stays), a press and
+  window blur. `interestfor` with `interest-delay` before hydration. The label is `--popover` on the
+  raised edge with a hairline ring, 12/16 medium, `--radius-control`, max 20rem; the arrow is a 10px
+  turned square continuing the edge; key caps are CSS generated content with empty alt text so the
+  name stays the words. Motion: `@starting-style` opacity 0 and scale 0.94 on the `unfold` spring
+  from the placed side's arrow point; exit 100ms with `display` / `overlay` `allow-discrete`.
+  Reduced motion keeps a 100ms fade; Motion off is instant.
 - **Badge** (Figma `6:116`): 20px, 12/16 medium, a pale tint with colored text, six tones (neutral,
   accent, success, warning, danger, violet), optional 6px dot. Radius is its own tier,
   `--radius-badge`: 4px Default (Figma), 2px Sharp, fully round in Round. One `--_tone` color per
