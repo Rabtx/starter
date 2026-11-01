@@ -9,6 +9,8 @@
 		"switch",
 		"radio-group",
 		"tabs",
+		"accordion",
+		"collapsible",
 		"input",
 		"card",
 		"dialog",

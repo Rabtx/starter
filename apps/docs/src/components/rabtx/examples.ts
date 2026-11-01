@@ -1,4 +1,11 @@
 import type { ComponentType } from "react";
+import AccordionControlled from "./examples/accordion/controlled";
+import AccordionDefault from "./examples/accordion/default";
+import AccordionFlush from "./examples/accordion/flush";
+import AccordionModes from "./examples/accordion/modes";
+import AccordionMultiple from "./examples/accordion/multiple";
+import AccordionStates from "./examples/accordion/states";
+import AccordionVariants from "./examples/accordion/variants";
 import SigninBlockExample from "./examples/blocks/signin";
 import SignupBlockExample from "./examples/blocks/signup";
 import ButtonDisabled from "./examples/button/disabled";
@@ -11,6 +18,8 @@ import ButtonRipple from "./examples/button/ripple";
 import ButtonSizes from "./examples/button/sizes";
 import ButtonStates from "./examples/button/states";
 import ButtonVariants from "./examples/button/variants";
+import CollapsibleControlled from "./examples/collapsible/controlled";
+import CollapsibleDefault from "./examples/collapsible/default";
 import CheckboxControlled from "./examples/checkbox/controlled";
 import CheckboxDefault from "./examples/checkbox/default";
 import CheckboxDescription from "./examples/checkbox/description";
@@ -144,6 +153,15 @@ export const examples = {
 	"tabs/overflow": TabsOverflow,
 	"tabs/rtl": TabsRtl,
 	"tabs/modes": TabsModes,
+	"accordion/default": AccordionDefault,
+	"accordion/variants": AccordionVariants,
+	"accordion/multiple": AccordionMultiple,
+	"accordion/flush": AccordionFlush,
+	"accordion/states": AccordionStates,
+	"accordion/controlled": AccordionControlled,
+	"accordion/modes": AccordionModes,
+	"collapsible/default": CollapsibleDefault,
+	"collapsible/controlled": CollapsibleControlled,
 	"card/default": CardDefault,
 	"card/sizes": CardSizes,
 	"card/media": CardMedia,
