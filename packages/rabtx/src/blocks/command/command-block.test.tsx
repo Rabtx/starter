@@ -34,6 +34,12 @@ const commands: CommandItem[] = [
 	{ id: "team", label: "Switch team", group: "Preferences", items: async () => [] },
 ];
 
+const press = (init: Partial<KeyboardEvent>) =>
+	isShortcut(
+		{ key: "k", metaKey: false, ctrlKey: false, altKey: false, shiftKey: false, ...init },
+		"k",
+	);
+
 const labelsOf = (sections: ReturnType<typeof commandSections>) =>
 	sections.map((section) => [section.heading, section.rows.map((row) => row.item.id)]);
 
@@ -136,11 +142,6 @@ describe("helpers", () => {
 	});
 
 	it("takes ⌘ or Ctrl plus the key, and nothing with Shift or Alt", () => {
-		const press = (init: Partial<KeyboardEvent>) =>
-			isShortcut(
-				{ key: "k", metaKey: false, ctrlKey: false, altKey: false, shiftKey: false, ...init },
-				"k",
-			);
 		expect(press({ metaKey: true })).toBe(true);
 		expect(press({ ctrlKey: true, key: "K" })).toBe(true);
 		expect(press({})).toBe(false);

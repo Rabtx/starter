@@ -79,6 +79,7 @@ test.describe("rabtx docs: command palette block", () => {
 
 		// Archive project is disabled: the arrows step over it.
 		await page.keyboard.press("Home");
+		// oxlint-disable-next-line no-await-in-loop -- key presses must land one after another
 		for (let i = 0; i < 5; i++) await page.keyboard.press("ArrowDown");
 		expect(await activeLabel(box)).toBe("New project");
 		await page.keyboard.press("ArrowDown");
