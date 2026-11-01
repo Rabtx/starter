@@ -364,6 +364,18 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   `rx-morph-open` / `rx-morph-close`, the box on the panel spring, each picture clipped by it) and
   falls back to the scale and fade. Before hydration the trigger carries `command="show-modal"`
   (Invoker Commands). Scroll lock is `:root:has(.rx-dialog:modal) { overflow: hidden }`.
+- **Toast** (Figma `7:238` not yet read): a Sonner-style stack. `Toaster` is a
+  `<section popover="manual">` (top layer, no portal or z-index) that hides and re-shows itself when
+  a dialog or popover opens so it stays on top; under a modal dialog it is visible but inert. A
+  module store feeds it; `toast()` and `toast.success / error / warning / info / loading / promise /
+  dismiss` add, update (same `id`) and dismiss; one Toaster per `id` renders (the first mounted).
+  Toasts are `--popover` raised surfaces (`--radius-box`, no cast shadow); the icon chip tints
+  `--success`, `--warning`, `--destructive` or `--primary` toward `--tint-ink`; actions are our
+  Button (primary, ghost cancel). JS only measures heights and writes `--_i` / `--_offset` /
+  `--_front-h`, `data-expanded` and swipe vars; CSS stacks (14px peek, 5% smaller, back ones cut to
+  the front height), fans out, enters with `@starting-style` on the toast spring and exits with
+  `display` `allow-discrete`. Timers pause on hover, focus, press and a hidden tab; polite and
+  assertive live regions announce; F6 / Alt+T focus the newest, Escape dismisses the focused one.
 - **Badge** (Figma `6:116`): 20px, 12/16 medium, a pale tint with colored text, six tones (neutral,
   accent, success, warning, danger, violet), optional 6px dot. Radius is its own tier,
   `--radius-badge`: 4px Default (Figma), 2px Sharp, fully round in Round. One `--_tone` color per
