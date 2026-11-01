@@ -7,6 +7,8 @@
 		"**/*.css"
 	],
 	"exports": {
+		"./accordion": "./src/accordion/index.ts",
+		"./accordion/styles": "./src/accordion/accordion.styles.ts",
 		"./badge": "./src/badge/index.ts",
 		"./badge/styles": "./src/badge/badge.styles.ts",
 		"./blocks/signup": "./src/blocks/signup/index.ts",
@@ -16,6 +18,8 @@
 		"./card/styles": "./src/card/card.styles.ts",
 		"./checkbox": "./src/checkbox/index.ts",
 		"./checkbox/styles": "./src/checkbox/checkbox.styles.ts",
+		"./collapsible": "./src/collapsible/index.ts",
+		"./collapsible/styles": "./src/collapsible/collapsible.styles.ts",
 		"./dialog": "./src/dialog/index.ts",
 		"./dialog/styles": "./src/dialog/dialog.styles.ts",
 		"./field": "./src/field/index.ts",

@@ -32,6 +32,8 @@ export const SPRINGS = {
 	switch: { stiffness: 800, damping: 80, mass: 4 },
 	/** A radio dot gliding to the chosen option. Slightly overdamped, no overshoot, about 420ms. */
 	glide: { stiffness: 360, damping: 32, mass: 0.6 },
+	/** An accordion item opening: about 5% overshoot, most of the travel in 450ms (settles ~890ms). */
+	expand: { stiffness: 117, damping: 14.7, mass: 1 },
 } as const satisfies Record<string, Spring>;
 
 export type SpringName = keyof typeof SPRINGS;

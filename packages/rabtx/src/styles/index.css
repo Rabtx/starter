@@ -13,6 +13,8 @@
 @import "./switch.css";
 @import "./radio-group.css";
 @import "./tabs.css";
+@import "./collapsible.css";
+@import "./accordion.css";
 @import "./card.css";
 @import "./dialog.css";
 @import "./signup-block.css";

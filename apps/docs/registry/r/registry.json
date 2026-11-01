@@ -26,7 +26,8 @@
           "ease-spring-panel": "var(--spring-panel)",
           "ease-spring-toast": "var(--spring-toast)",
           "ease-spring-switch": "var(--spring-switch)",
-          "ease-spring-glide": "var(--spring-glide)"
+          "ease-spring-glide": "var(--spring-glide)",
+          "ease-spring-expand": "var(--spring-expand)"
         },
         "light": {
           "radius": "0.5rem",
@@ -177,7 +178,8 @@
           "ease-spring-panel": "var(--spring-panel)",
           "ease-spring-toast": "var(--spring-toast)",
           "ease-spring-switch": "var(--spring-switch)",
-          "ease-spring-glide": "var(--spring-glide)"
+          "ease-spring-glide": "var(--spring-glide)",
+          "ease-spring-expand": "var(--spring-expand)"
         },
         "light": {
           "spring-press": "linear(0, 0.0157, 0.0565, 0.1142, 0.1824, 0.256, 0.3316, 0.4061, 0.4777, 0.5451, 0.6074, 0.6642, 0.7153, 0.7607, 0.8007, 0.8356, 0.8657, 0.8915, 0.9134, 0.9318, 0.9471, 0.9598, 0.9702, 0.9785, 0.9852, 0.9905, 0.9946, 0.9978, 1.0001, 1.0018, 1.0029, 1.0037, 1.0041, 1.0043, 1.0043, 1.0042, 1.004, 1.0037, 1.0034, 1.0031, 1.0027, 1.0024, 1.0021, 1)",
@@ -201,7 +203,9 @@
           "spring-switch": "linear(0, 0.0138, 0.0509, 0.1051, 0.1713, 0.2451, 0.323, 0.4019, 0.4795, 0.5541, 0.6244, 0.6893, 0.7484, 0.8014, 0.8481, 0.8886, 0.9234, 0.9526, 0.9767, 0.9962, 1.0116, 1.0233, 1.0318, 1.0377, 1.0412, 1.0429, 1.0431, 1.0421, 1.0402, 1.0377, 1.0347, 1.0314, 1.028, 1.0246, 1.0213, 1.0181, 1.0152, 1.0125, 1.01, 1.0078, 1.0059, 1.0042, 1.0028, 1)",
           "spring-switch-duration": "527ms",
           "spring-glide": "linear(0, 0.0245, 0.0831, 0.1591, 0.242, 0.3252, 0.4048, 0.4788, 0.546, 0.6062, 0.6596, 0.7065, 0.7475, 0.7831, 0.814, 0.8406, 0.8635, 0.8833, 0.9002, 0.9147, 0.9271, 0.9377, 0.9468, 0.9546, 0.9613, 0.9669, 0.9718, 0.9759, 0.9795, 0.9825, 0.985, 0.9872, 0.9891, 0.9907, 0.9921, 0.9932, 0.9942, 0.9951, 0.9958, 0.9964, 0.9969, 0.9974, 0.9978, 1)",
-          "spring-glide-duration": "424ms"
+          "spring-glide-duration": "424ms",
+          "spring-expand": "linear(0, 0.0227, 0.0815, 0.1645, 0.2618, 0.3653, 0.469, 0.5684, 0.6603, 0.7427, 0.8146, 0.8756, 0.926, 0.9663, 0.9975, 1.0206, 1.0367, 1.047, 1.0526, 1.0545, 1.0535, 1.0505, 1.046, 1.0408, 1.0352, 1.0295, 1.0241, 1.019, 1.0145, 1.0105, 1.0071, 1.0043, 1.002, 1.0003, 0.999, 0.9981, 0.9975, 0.9972, 0.997, 0.9971, 0.9972, 0.9975, 0.9977, 1)",
+          "spring-expand-duration": "891ms"
         }
       }
     },
@@ -2622,6 +2626,336 @@
             }
           },
           "[data-motion=\"off\"] :is(.rx-tabs-indicator, .rx-tabs-trigger, .rx-tabs-content), [data-motion=\"off\"] .rx-tabs-trigger::before, [data-motion=\"off\"] .rx-tabs-trigger .rx-tabs-text": {
+            "transition": "none"
+          }
+        }
+      }
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "A native details element whose content grows to its height, fades in out of a blur and turns its chevron over. CSS-only motion.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/ui/collapsible.styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/collapsible.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-collapsible": {
+            "--_open-ease": "var(--spring-glide)",
+            "--_open-time": "var(--spring-glide-duration)",
+            "--_close-ease": "var(--spring-glide)",
+            "--_close-time": "var(--spring-glide-duration)",
+            "display": "block",
+            "interpolate-size": "allow-keywords"
+          },
+          ".rx-collapsible::details-content": {
+            "block-size": "0",
+            "overflow": "clip",
+            "transition": "block-size var(--_close-time) var(--_close-ease), content-visibility var(--_close-time) allow-discrete"
+          },
+          ".rx-collapsible[open]::details-content": {
+            "block-size": "auto",
+            "transition": "block-size var(--_open-time) var(--_open-ease), content-visibility var(--_open-time) allow-discrete"
+          },
+          "@supports not (interpolate-size: allow-keywords)": {
+            ".rx-collapsible::details-content": {
+              "display": "grid",
+              "grid-template-rows": "0fr",
+              "block-size": "auto",
+              "transition": "grid-template-rows var(--_close-time) var(--_close-ease), content-visibility var(--_close-time) allow-discrete"
+            },
+            ".rx-collapsible[open]::details-content": {
+              "grid-template-rows": "1fr",
+              "transition": "grid-template-rows var(--_open-time) var(--_open-ease), content-visibility var(--_open-time) allow-discrete"
+            },
+            ".rx-collapsible > .rx-collapsible-content": {
+              "min-block-size": "0",
+              "overflow": "hidden"
+            }
+          },
+          ".rx-collapsible-trigger": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "0.5rem",
+            "box-sizing": "border-box",
+            "min-block-size": "2.5rem",
+            "padding": "0.5rem 0.75rem",
+            "border-radius": "var(--radius-control)",
+            "color": "var(--foreground)",
+            "font-size": "0.875rem",
+            "line-height": "1.25rem",
+            "font-weight": "500",
+            "letter-spacing": "-0.15px",
+            "list-style": "none",
+            "cursor": "pointer",
+            "user-select": "none",
+            "-webkit-tap-highlight-color": "transparent",
+            "transition": "background-color 150ms var(--motion-ease)"
+          },
+          ".rx-collapsible-trigger::-webkit-details-marker": {
+            "display": "none"
+          },
+          ".rx-collapsible-trigger:focus-visible": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "2px"
+          },
+          ".rx-collapsible-trigger[data-disabled]": {
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "@media (hover: hover) and (pointer: fine)": {
+            ".rx-collapsible-trigger:hover:not([data-disabled])": {
+              "background-color": "color-mix(in oklab, var(--foreground) 5%, transparent)"
+            }
+          },
+          ".rx-collapsible-chevron": {
+            "flex": "none",
+            "inline-size": "16px",
+            "block-size": "16px",
+            "margin-inline-start": "auto",
+            "background": "currentColor",
+            "color": "var(--muted-foreground)",
+            "mask": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 9L12 15L6 9'/%3E%3C/svg%3E\") center / 16px no-repeat",
+            "transition": "rotate var(--spring-swap-duration) var(--spring-swap)"
+          },
+          "[open] > .rx-collapsible-trigger > .rx-collapsible-chevron": {
+            "rotate": "180deg"
+          },
+          ".rx-collapsible-content": {
+            "opacity": "0",
+            "filter": "blur(4px)",
+            "translate": "0 -4px",
+            "transition": "opacity 120ms var(--motion-ease), filter 120ms var(--motion-ease), translate 120ms var(--motion-ease)"
+          },
+          "[open] > .rx-collapsible-content": {
+            "opacity": "1",
+            "filter": "blur(0)",
+            "translate": "0 0",
+            "transition": "opacity 220ms var(--motion-ease) 50ms, filter 220ms var(--motion-ease) 50ms, translate var(--_open-time) var(--_open-ease)"
+          },
+          "@starting-style ": {
+            "[open] > .rx-collapsible-content": {
+              "opacity": "0",
+              "filter": "blur(4px)",
+              "translate": "0 -4px"
+            }
+          }
+        },
+        "@layer rx-motion": {
+          "@media (prefers-reduced-motion: reduce)": {
+            ".rx-collapsible::details-content, .rx-collapsible[open]::details-content, .rx-collapsible-chevron": {
+              "transition-duration": "0ms"
+            },
+            ".rx-collapsible-content, [open] > .rx-collapsible-content": {
+              "filter": "none",
+              "translate": "none",
+              "transition": "opacity 100ms var(--motion-ease)"
+            }
+          },
+          "[data-motion=\"off\"] :is(.rx-collapsible-chevron, .rx-collapsible-content), [data-motion=\"off\"] .rx-collapsible::details-content, [data-motion=\"off\"] .rx-collapsible[open]::details-content": {
+            "transition": "none"
+          }
+        }
+      }
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Single or multiple accordions on native details, in separated, cards and flush variants: the open item lifts out of the stack on a bouncy spring. CSS-only motion.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "{{origin}}/r/collapsible.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/ui/accordion.styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/accordion.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-accordion": {
+            "--_r": "var(--radius-box)",
+            "--_gap": "0.75rem",
+            "--_ease": "var(--spring-glide)",
+            "--_time": "var(--spring-glide-duration)",
+            "display": "flex",
+            "flex-direction": "column",
+            "inline-size": "100%",
+            "font-family": "var(--font-sans)"
+          },
+          ".rx-accordion:has(> [open])": {
+            "--_ease": "var(--spring-expand)",
+            "--_time": "var(--spring-expand-duration)"
+          },
+          ".rx-accordion > .rx-accordion-item": {
+            "--_open-ease": "var(--spring-expand)",
+            "--_open-time": "var(--spring-expand-duration)",
+            "--_fill": "transparent",
+            "--_edge-a": "transparent",
+            "--_edge-b": "transparent",
+            "--_ring": "transparent",
+            "--_sheen": "transparent",
+            "--_shade": "transparent",
+            "--_rs": "0px",
+            "--_re": "0px",
+            "--_px": "1rem",
+            "position": "relative",
+            "box-sizing": "border-box",
+            "border": "1px solid transparent",
+            "border-start-start-radius": "var(--_rs)",
+            "border-start-end-radius": "var(--_rs)",
+            "border-end-start-radius": "var(--_re)",
+            "border-end-end-radius": "var(--_re)",
+            "background": "linear-gradient(180deg, var(--_sheen), transparent 40%, transparent 60%, var(--_shade)) padding-box, linear-gradient(var(--_fill), var(--_fill)) padding-box, linear-gradient(180deg, var(--_edge-a), var(--_edge-b)) border-box",
+            "box-shadow": "0 0 0 1px var(--_ring)",
+            "color": "var(--card-foreground)",
+            "transition": "--_fill 150ms var(--motion-ease), margin-block-start var(--_time) var(--_ease), border-radius var(--_time) var(--_ease)"
+          },
+          ".rx-accordion-item > .rx-accordion-trigger": {
+            "gap": "0.75rem",
+            "min-block-size": "3.25rem",
+            "padding": "0.75rem var(--_px)",
+            "border-radius": "inherit",
+            "background": "none",
+            "color": "var(--card-foreground)"
+          },
+          ".rx-accordion-item > .rx-accordion-trigger:focus-visible": {
+            "outline-offset": "-2px"
+          },
+          ".rx-accordion-item > .rx-accordion-trigger[aria-disabled=\"true\"]:not([data-disabled])": {
+            "cursor": "default"
+          },
+          "@media (hover: hover) and (pointer: fine)": {
+            ".rx-accordion-item > .rx-accordion-trigger:hover:not([data-disabled])": {
+              "background": "none"
+            },
+            ":is(.rx-accordion-separated, .rx-accordion-cards) > .rx-accordion-item:has(> .rx-accordion-trigger:hover:not([data-disabled], [aria-disabled=\"true\"]))": {
+              "--_fill": "color-mix(in oklab, var(--card), var(--foreground) 3%)"
+            },
+            ".rx-accordion-flush > .rx-accordion-item > .rx-accordion-trigger:hover:not([data-disabled], [aria-disabled=\"true\"]) > .rx-accordion-title": {
+              "text-decoration": "underline",
+              "text-underline-offset": "3px"
+            }
+          },
+          ".rx-accordion-icon": {
+            "display": "grid",
+            "flex": "none",
+            "place-items": "center",
+            "inline-size": "1.75rem",
+            "block-size": "1.75rem",
+            "color": "var(--muted-foreground)"
+          },
+          ".rx-accordion-icon svg": {
+            "inline-size": "1rem",
+            "block-size": "1rem"
+          },
+          ".rx-accordion-title": {
+            "flex": "1",
+            "min-inline-size": "0",
+            "text-align": "start"
+          },
+          ".rx-accordion-content": {
+            "padding-inline": "var(--_px)",
+            "color": "var(--muted-foreground)",
+            "font-size": "0.875rem",
+            "line-height": "1.375rem"
+          },
+          ".rx-accordion-content::after": {
+            "content": "\"\"",
+            "display": "block",
+            "block-size": "var(--_px)"
+          },
+          ".rx-accordion-item:has(> .rx-accordion-trigger > .rx-accordion-icon) > .rx-accordion-content": {
+            "padding-inline-start": "calc(var(--_px) + 2.5rem)"
+          },
+          ":is(.rx-accordion-separated, .rx-accordion-cards) > .rx-accordion-item": {
+            "--_fill": "var(--card)",
+            "--_edge-a": "var(--surface-edge-top)",
+            "--_edge-b": "var(--surface-edge-bottom)",
+            "--_ring": "var(--surface-ring)",
+            "--_sheen": "var(--surface-sheen)",
+            "--_shade": "var(--surface-shade)"
+          },
+          "[data-depth=\"flat\"] :is(.rx-accordion-separated, .rx-accordion-cards) > .rx-accordion-item": {
+            "--_edge-a": "var(--border)",
+            "--_edge-b": "var(--border)",
+            "--_ring": "transparent",
+            "--_sheen": "transparent",
+            "--_shade": "transparent"
+          },
+          ".rx-accordion-separated > .rx-accordion-item:first-child": {
+            "--_rs": "var(--_r)"
+          },
+          ".rx-accordion-separated > .rx-accordion-item:last-child": {
+            "--_re": "var(--_r)"
+          },
+          ".rx-accordion-separated > .rx-accordion-item + .rx-accordion-item": {
+            "margin-block-start": "-1px"
+          },
+          ".rx-accordion-separated > .rx-accordion-item[open]": {
+            "--_rs": "var(--_r)",
+            "--_re": "var(--_r)"
+          },
+          ".rx-accordion-separated > .rx-accordion-item[open] + .rx-accordion-item, .rx-accordion-separated > .rx-accordion-item + .rx-accordion-item[open]": {
+            "--_rs": "var(--_r)",
+            "margin-block-start": "var(--_gap)"
+          },
+          ".rx-accordion-separated > .rx-accordion-item:has(+ .rx-accordion-item[open])": {
+            "--_re": "var(--_r)"
+          },
+          ".rx-accordion-cards": {
+            "gap": "0.5rem"
+          },
+          ".rx-accordion-cards > .rx-accordion-item": {
+            "--_rs": "var(--_r)",
+            "--_re": "var(--_r)"
+          },
+          ".rx-accordion-flush > .rx-accordion-item": {
+            "--_px": "0px",
+            "border-width": "0",
+            "border-block-end": "1px solid var(--border)",
+            "background": "none",
+            "box-shadow": "none"
+          },
+          ".rx-accordion-flush > .rx-accordion-item:last-child": {
+            "border-block-end-width": "0"
+          },
+          ".rx-accordion-flush > .rx-accordion-item > .rx-accordion-content::after": {
+            "block-size": "1rem"
+          },
+          ".rx-accordion-flush > .rx-accordion-item > .rx-accordion-trigger": {
+            "border-radius": "var(--radius-item)"
+          },
+          ".rx-accordion-flush > .rx-accordion-item > .rx-accordion-trigger:focus-visible": {
+            "outline-offset": "0"
+          }
+        },
+        "@layer rx-motion": {
+          "@media (prefers-reduced-motion: reduce)": {
+            ".rx-accordion-item": {
+              "transition-duration": "0ms"
+            }
+          },
+          "[data-motion=\"off\"] .rx-accordion-item": {
             "transition": "none"
           }
         }
