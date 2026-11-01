@@ -14,6 +14,7 @@ export const NAV = [
 			{ href: "/ui/tabs", label: "Tabs" },
 			{ href: "/ui/card", label: "Card" },
 			{ href: "/ui/dialog", label: "Dialog" },
+			{ href: "/ui/toast", label: "Toast" },
 			{ href: "/ui/badge", label: "Badge" },
 		],
 	},
