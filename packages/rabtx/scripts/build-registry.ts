@@ -308,6 +308,13 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 		css: "dialog.css",
 	},
 	{
+		name: "tooltip",
+		title: "Tooltip",
+		description:
+			"A hint popover placed by CSS anchor positioning, with a provider for delays, flipping, an arrow and a shortcut key cap. CSS-only motion.",
+		css: "tooltip.css",
+	},
+	{
 		name: "badge",
 		title: "Badge",
 		description: "A small tinted label in six tones.",
