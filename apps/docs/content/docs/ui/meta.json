@@ -8,10 +8,17 @@
 		"checkbox",
 		"switch",
 		"radio-group",
+		"slider",
 		"tabs",
+		"accordion",
+		"collapsible",
 		"input",
 		"card",
 		"dialog",
+		"tooltip",
+		"popover",
+		"dropdown-menu",
+		"toast",
 		"blocks"
 	]
 }

@@ -9,6 +9,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `@rabtx/ui` Slider on native `<input type="range">`s (shadcn API: `value` / `defaultValue` /
+  `onValueChange` as `number[]`, `onValueCommit`, `minStepsBetweenThumbs`), one value or a range of
+  overlaid inputs clamped between neighbours, sizes `sm` / `md` / `lg`, `orientation="vertical"`,
+  `showValue` bubbles, `marks` (with a `<datalist>`), a `ruler` variant and Field wiring. The fill,
+  bubbles and marks are placed by CSS variables; the thumb grows on the press spring and the bubble
+  pops on the swap spring. Registry item `@rabtx/slider`, `/docs/ui/slider`, the `/ui/slider`
+  playground and `ui-slider.spec.ts`.
+- `@rabtx/ui` Accordion and Collapsible on native `<details>` (shadcn API; single via `name`,
+  multiple, `collapsible`; `separated`, `cards` and `flush` variants), heights animated with
+  `interpolate-size` and `::details-content` on a new bouncy `expand` spring, find-in-page opening.
+  Registry items `@rabtx/accordion` and `@rabtx/collapsible`, `/docs/ui/accordion`,
+  `/docs/ui/collapsible`, the `/ui/accordion` playground and `ui-accordion.spec.ts`.
+- `@rabtx/ui` Settings block (`@rabtx/ui/blocks/settings`, registry item `@rabtx/settings-block`
+  installing to `components/blocks/settings`): Profile, Account, Notifications, Appearance and
+  Danger zone on Tabs that are a sticky column or a scrolling row by a container query, one native
+  form for Field/Input/Textarea, Select, Switch, Checkbox and RadioGroup choice cards, a sticky
+  unsaved changes bar shown by `:has()` and `@starting-style` (Discard, Ctrl/Cmd+S, StatefulButton
+  save), and Dialogs to change the email and to delete the account by a typed phrase.
+  `/docs/ui/blocks/settings`, the `/ui/blocks/settings` playground and `ui-settings-block.spec.ts`.
+- `@rabtx/ui` Popover and Dropdown Menu (+ ContextMenu) on the native Popover API and CSS anchor positioning, with registry items `@rabtx/popover` and `@rabtx/dropdown-menu`, `/docs/ui/popover`, `/docs/ui/dropdown-menu`, the `/ui/popover` and `/ui/dropdown-menu` playground pages and their e2e specs.
+- `@rabtx/ui` Toast: a Sonner-style stacked `Toaster` in the top layer (`popover="manual"`, re-raised
+  above dialogs) with six positions, `expand`, `visibleToasts` and `gap`, and the imperative
+  `toast()` / `success` / `error` / `warning` / `info` / `loading` / `promise` / `dismiss` API with
+  actions and cancel (our Button), icons and durations. Stacking, fan-out, `@starting-style` enter
+  and `allow-discrete` exit are CSS on the toast spring; swipe writes CSS variables from pointer
+  events; timers pause on hover, focus and a hidden tab; polite and assertive live regions, F6 /
+  Alt+T and Escape. Registry item `@rabtx/toast`, `/docs/ui/toast`, `/ui/toast` and
+  `ui-toast.spec.ts`.
 - `@rabtx/ui` RadioGroup: native radios sharing one name in a `<fieldset role="radiogroup">`,
   sizes `sm` (16), `md` (20), `lg` (24), `orientation`, a `card` variant (choice cards), shadcn API
   (`value` / `defaultValue` / `onValueChange`, `RadioGroupItem` with `description`) and Field
@@ -27,6 +55,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the trigger and CSS-only enter and exit (`@starting-style`, `allow-discrete`, panel spring).
   Registry item `@rabtx/dialog`, `/docs/ui/dialog`, the `/ui/dialog` playground and
   `ui-dialog.spec.ts`.
+- `@rabtx/ui` Tooltip on `popover="hint"` placed by CSS anchor positioning (`position-area`,
+  `position-try-fallbacks` flipping, `position-visibility`), shadcn's parts (`TooltipProvider` with
+  `delayDuration` / `skipDelayDuration`, `Tooltip`, `TooltipTrigger` with `asChild`,
+  `TooltipContent` with `side` / `align` / `sideOffset` / `arrow`) plus `asLabel` and a
+  `TooltipKbd` key cap, `interestfor` before hydration and a CSS-only enter and exit
+  (`@starting-style`, `allow-discrete`, unfold spring). Registry item `@rabtx/tooltip`,
+  `/docs/ui/tooltip`, the `/ui/tooltip` playground and `ui-tooltip.spec.ts`.
 - `@rabtx/ui` Blocks, starting with a sign-up block (`@rabtx/ui/blocks/signup`, registry item
   `@rabtx/signup-block` as a `registry:block` installing to `components/blocks/signup`): a
   three-step Card (details, emailed code with resend countdown, done) built only from Input,
@@ -34,6 +69,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   constraint validation, CSS step transitions and focus moved to each step's heading, plus a
   compact `SigninBlock`. `/docs/ui/blocks/signup`, the `/ui/blocks/signup` playground and
   `ui-signup-block.spec.ts`.
+- `@rabtx/ui` Command palette block (`@rabtx/ui/blocks/command`, registry item `@rabtx/command-block`
+  installing to `components/blocks/command`): `CommandBlock` (⌘K / Ctrl+K, a trigger showing the
+  shortcut, a native Dialog) and the inline `CommandPanel`, built from Dialog, Input, Badge, Button
+  and Tabs. Data-driven commands with fuzzy search, groups, recent items, nested and async pages,
+  loading and empty states, an ARIA combobox over a listbox (`aria-activedescendant`), a highlight
+  that slides by CSS anchor positioning and a list that eases to its height.
+  `/docs/ui/blocks/command`, the `/ui/blocks/command` playground and `ui-command-block.spec.ts`.
 - `@rabtx/ui` Checkbox rebuilt on a native checkbox laid over a box styled with `:has()`: sizes
   `sm` (16), `md` (20, default), `lg` (24); shadcn API (`checked` incl. `"indeterminate"`,
   `defaultChecked`, `onCheckedChange`) plus `indeterminate` and `description`; Field and

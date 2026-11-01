@@ -274,8 +274,11 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   Exports: `@rabtx/ui/button`, `@rabtx/ui/button/styles`, `@rabtx/ui/input`,
   `@rabtx/ui/input/styles`, `@rabtx/ui/field`, `@rabtx/ui/field/styles`, `@rabtx/ui/textarea`,
   `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/dialog`, `@rabtx/ui/dialog/styles`, `@rabtx/ui/badge`, `@rabtx/ui/badge/styles`,
-  `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/checkbox`, `@rabtx/ui/checkbox/styles`,
+  `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/slider`, `@rabtx/ui/slider/styles`,
+  `@rabtx/ui/checkbox`, `@rabtx/ui/checkbox/styles`,
   `@rabtx/ui/motion`, `@rabtx/ui/blocks/signup`, `@rabtx/ui/styles.css`, `@rabtx/ui/theme.css`.
+  `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/checkbox`, `@rabtx/ui/checkbox/styles`,
+  `@rabtx/ui/motion`, `@rabtx/ui/blocks/signup`, `@rabtx/ui/blocks/settings`, `@rabtx/ui/styles.css`, `@rabtx/ui/theme.css`.
 - Theming: `src/styles/theme.css` is the only place a color, radius, shadow or easing is defined.
   Components read the shadcn semantic tokens (and the documented Rabtx extras) and never define
   their own override variables; private `--_*` variables are allowed for internal plumbing.
@@ -364,6 +367,49 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   `rx-morph-open` / `rx-morph-close`, the box on the panel spring, each picture clipped by it) and
   falls back to the scale and fade. Before hydration the trigger carries `command="show-modal"`
   (Invoker Commands). Scroll lock is `:root:has(.rx-dialog:modal) { overflow: hidden }`.
+- **Tooltip** (Figma `7:231` not yet read; built 2026-11-01): shadcn's parts (`TooltipProvider`
+  with `delayDuration` 120 and `skipDelayDuration` 300, `Tooltip` with `open` / `defaultOpen` /
+  `onOpenChange`, `delayDuration`, `disabled` and `asLabel`, `TooltipTrigger` with `asChild`,
+  `TooltipContent` with `side`, `align`, `sideOffset` and `arrow`, `TooltipKbd`). The content is a
+  `<span popover="hint" role="tooltip">` (an unknown value is `manual`, so older engines still get a
+  top-layer popover) linked by `aria-describedby`, or `aria-labelledby` with `asLabel` for icon-only
+  buttons. Placement is CSS: the trigger's inline `anchor-name`, `position-area` per side and
+  alignment, `position-try-fallbacks` to flip, an 8px inline margin to stay in the viewport and
+  `position-visibility: anchors-visible`; JavaScript only reads the side CSS chose (`data-placed`)
+  and the arrow offset (`--_arrow`), and places it itself where anchor positioning is missing. Opens
+  on hover after the delay (instant inside the skip delay or while another shows; one at a time), on
+  `:focus-visible` focus at once and on a tap (as the reference); closes on leave (100ms grace onto
+  the label, WCAG 1.4.13), blur, Escape (cancelled, so a surrounding dialog stays), a press and
+  window blur. `interestfor` with `interest-delay` before hydration. The label is `--popover` on the
+  raised edge with a hairline ring, 12/16 medium, `--radius-control`, max 20rem; the arrow is a 10px
+  turned square continuing the edge; key caps are CSS generated content with empty alt text so the
+  name stays the words. Motion: `@starting-style` opacity 0 and scale 0.94 on the `unfold` spring
+  from the placed side's arrow point; exit 100ms with `display` / `overlay` `allow-discrete`.
+  Reduced motion keeps a 100ms fade; Motion off is instant.
+- **Popover and Dropdown Menu** (no Figma frame yet): both are `popover="auto"` panels, so the top
+  layer, light dismiss, Escape and stacking come from the browser, and the trigger is a native
+  `popovertarget` invoker that works before hydration. CSS anchor positioning places them
+  (`position-area` from `side` / `align`, `position-try-fallbacks` to flip; browsers without it get
+  the centered UA popover). The panel is the overlay surface in `--popover` with the box radius, no
+  cast shadow; it unfolds from the edge touching its trigger (`transform-origin` and a clip reveal,
+  mirrored by `data-flip` when a fallback is used) on `--spring-unfold`, exits in 150ms with
+  `display` / `overlay` `allow-discrete`, and fades only under reduced motion. The menu follows
+  WAI-ARIA's menu button (roving focus, arrows, Home/End, typeahead, submenus on ArrowRight / hover,
+  Escape back to the opener); one highlight glides between rows by `anchor()` (rows paint their own
+  where `anchor-scope` is missing). `ContextMenu` reuses the menu, anchored to the pointer or, for
+  Shift+F10, the focused element.
+- **Toast** (Figma `7:238` not yet read): a Sonner-style stack. `Toaster` is a
+  `<section popover="manual">` (top layer, no portal or z-index) that hides and re-shows itself when
+  a dialog or popover opens so it stays on top; under a modal dialog it is visible but inert. A
+  module store feeds it; `toast()` and `toast.success / error / warning / info / loading / promise /
+  dismiss` add, update (same `id`) and dismiss; one Toaster per `id` renders (the first mounted).
+  Toasts are `--popover` raised surfaces (`--radius-box`, no cast shadow); the icon chip tints
+  `--success`, `--warning`, `--destructive` or `--primary` toward `--tint-ink`; actions are our
+  Button (primary, ghost cancel). JS only measures heights and writes `--_i` / `--_offset` /
+  `--_front-h`, `data-expanded` and swipe vars; CSS stacks (14px peek, 5% smaller, back ones cut to
+  the front height), fans out, enters with `@starting-style` on the toast spring and exits with
+  `display` `allow-discrete`. Timers pause on hover, focus, press and a hidden tab; polite and
+  assertive live regions announce; F6 / Alt+T focus the newest, Escape dismisses the focused one.
 - **Badge** (Figma `6:116`): 20px, 12/16 medium, a pale tint with colored text, six tones (neutral,
   accent, success, warning, danger, violet), optional 6px dot. Radius is its own tier,
   `--radius-badge`: 4px Default (Figma), 2px Sharp, fully round in Round. One `--_tone` color per
@@ -465,6 +511,40 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   that way. Panels enter from opacity 0, `blur(4px)` and 4px down via `@starting-style`; leaving is
   instant. Reduced motion keeps 100ms fades only; Motion off is instant. Open: the segmented thumb
   (`--card`) is close to its track in dark; the dark values are unconfirmed in Figma.
+- **Slider** (no Figma section yet; built 2026-11-01): native `<input type="range">`s with
+  `appearance: none`, so the slider role, keys (arrows, Page Up and Down, Home, End), forms and
+  vertical layout (`writing-mode: vertical-lr; direction: rtl`) are the browser's. shadcn API
+  (`value` / `defaultValue` / `onValueChange` as `number[]`, `onValueCommit` from the native
+  `change` event, `min`, `max`, `step`, `minStepsBetweenThumbs`, `orientation`) plus `size` (track
+  4 / 6 / 8, thumb 16 / 20 / 24), `showValue` (`true` or `"always"`), `formatValue`, `marks`,
+  `thumbLabels` and `variant="ruler"`. JavaScript writes `--_lo` / `--_hi` / `--_p` (0 to 1) and
+  CSS places everything at `thumb / 2 + (100% - thumb) * p`, the native thumb's path: one value
+  paints the rail and `--primary` fill on its own runnable track; a range overlays one input per
+  thumb (pointer events on the thumbs only, a shared track underneath), clamps each between its
+  neighbours, names them "<label> Minimum" / "Maximum" and moves the nearest thumb on a bare-track
+  press. The thumb (`--background`, 2px `--primary` edge, `--radius-button`) grows to 1.2 with a
+  halo on the press spring (a `transform`: Chrome ignores `scale` on a range thumb); the bubble
+  (`--foreground`) pops on the swap spring. Thumbs are pseudo-elements and cannot be anchors, so
+  the bubble reads a variable. Marks are ticks under the rail, never under the thumb. Floating
+  recesses the rail; Flat drops it and the thumb ring; Field errors turn the edges `--destructive`.
+  Not built (need JS animation): velocity lean on the bubble, a momentum-scrolling ruler scale, a
+  wave of bars and a thumb parting around inline labels.
+- **Accordion and Collapsible** (no Figma section yet): both on native `<details>` / `<summary>`,
+  so the button role, expanded state, Enter and Space, find-in-page and fragment opening come from
+  the browser and they work before hydration. React holds the state; a press (or the browser
+  opening one) is a request through `onOpenChange` / `onValueChange` and the element is put back if
+  a controlled owner refuses. `Collapsible` (`open` / `defaultOpen` / `onOpenChange`, `disabled`,
+  `CollapsibleTrigger` with a chevron, `CollapsibleContent`, `useCollapsible`) glides on `glide`
+  both ways. `Accordion` is shadcn's API (`type` single or multiple, `value` / `defaultValue` /
+  `onValueChange`, `collapsible`, `AccordionItem` / `Trigger` with `icon` / `Content` as a named
+  `region`) built from Collapsibles; single gives the items one `name`. Up/down, Home and End move
+  between triggers. Variants: `separated` (default, one joined stack; the open item lifts out with
+  a 12px gap and its neighbours round their facing corners, all margins and radii from sibling
+  selectors), `cards` and `flush`. Height is `::details-content` `block-size` 0 to `auto` with
+  `interpolate-size`, a `0fr` to `1fr` grid row where that is missing; opening rides the new
+  `expand` spring (117 / 14.7 / 1, the reference's 0.58s with 0.32 bounce, about 5% overshoot),
+  closing glides; content rises 4px out of a 4px blur, the chevron turns on `swap`. Corners use
+  `--radius-box`; surfaces the card edges, `--border` in Flat; no shadows.
 - **Blocks** (`src/blocks/<name>`, exported as `@rabtx/ui/blocks/<name>`): whole screens composed
   only of the components, with a little CSS of their own (`src/styles/<name>-block.css`) for what is
   unique to them. They import component files by path (`../../input/input`, never a folder index),
@@ -477,6 +557,26 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   compact `SigninBlock`. Steps enter with `@starting-style` and leave with a keyframe while the
   viewport eases to the measured height (`--_h`); the new step's heading takes focus and a live
   region names it. Docs at `/docs/ui/blocks/signup`, playground `/ui/blocks/signup`.
+  **Command palette** (`command-block`): `CommandBlock` puts `CommandPanel` in a native Dialog
+  behind a trigger and ⌘K / Ctrl+K (`shortcut`, `false` for a second palette). Commands are data
+  (`id`, `label`, `group`, `icon`, `shortcut`, `badge`, `items` as an array or a loader,
+  `onSelect`); the field is the Input as a `combobox` over a `listbox` with
+  `aria-activedescendant`, fuzzy matching (runs and word starts) also searches pages below the
+  first, Backspace or Escape steps back a page, recent ids are kept across openings. The highlight
+  is the list's last child anchored to `[data-active]` (`anchor-scope`, unfold spring; the row
+  fills itself without it) and the viewport eases to the measured `--_h` on the panel spring.
+  Block CSS keeps the highlight's rules inside `@supports`, because the shadcn CLI merges every
+  `@supports` block into the first one and a later base rule would win.
+- **Settings block** (`settings-block`): Profile, Account, Notifications, Appearance and Danger
+  zone on Tabs. The block is a size container: from 40rem of its own width the tab list is a
+  sticky column beside the panels, below it a sideways-scrolling row, and the tabs'
+  `aria-orientation` (so the arrow keys) is read back from that layout. The saved controls join
+  one empty native `<form>` through their `form` attribute, so the Change email and Delete
+  account Dialogs keep their own forms inside the cards. Dirty state is a diff against the last
+  save; `data-dirty` on the form reveals the sticky bar via `:has()`, with `@starting-style` in and
+  `display` `allow-discrete` out; tabs with changes or errors grow a dot, Save opens the first
+  error's section, and focus moves to the open panel when the bar leaves. Destructive buttons are
+  a block class over the Button's private variables (no Button variant added).
 - Other frameworks: a Solid component is another thin wrapper over `button.styles.ts` plus the same
   CSS, not a clone or a rewrite. Not built yet; add it as a separate package or export with
   `solid-js` as a peer dependency, and test it with a real Solid render.

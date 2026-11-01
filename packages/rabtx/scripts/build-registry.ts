@@ -204,6 +204,17 @@ const REWRITES: [
 	],
 	[/^\.\.\/hooks\/([\w-]+)$/, (m) => ({ to: `@/hooks/${m[1]}`, dependency: m[1] })],
 	[/^\.\.\/field\/field-context$/, () => ({ to: "./field-context", dependency: "field-context" })],
+	// A component that uses another one (Accordion on Collapsible, Toast on Button):
+	// both install into components/ui, so the import stays relative and the other component
+	// becomes a registry dependency. Links no import shows (CSS one builds on) go in `needs`.
+	[
+		/^\.\.\/([\w-]+)\/([\w.-]+)$/,
+		(m) => {
+			if (!COMPONENTS.some((component) => component.name === m[1]))
+				throw new Error(`components may only import registry components, not "${m[1]}"`);
+			return { to: `./${m[2]}`, dependency: m[1] };
+		},
+	],
 	[/^\.\/([\w.-]+)$/, (m) => ({ to: `./${m[1]}` })],
 ];
 
@@ -232,7 +243,14 @@ function componentFiles(dir: string): File[] {
 // ---------------------------------------------------------------------------------------------
 // The items.
 
-const COMPONENTS: { name: string; title: string; description: string; css?: string }[] = [
+const COMPONENTS: {
+	name: string;
+	title: string;
+	description: string;
+	css?: string;
+	/** Other items of this registry it needs, such as the CSS a component builds on. */
+	needs?: string[];
+}[] = [
 	{
 		name: "button",
 		title: "Button",
@@ -287,11 +305,32 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 		css: "radio-group.css",
 	},
 	{
+		name: "slider",
+		title: "Slider",
+		description:
+			"Native range inputs as a slider or a multi-thumb range, with a value bubble, marks, three sizes, vertical and a ruler variant. CSS-only motion.",
+		css: "slider.css",
+	},
+	{
 		name: "tabs",
 		title: "Tabs",
 		description:
 			"WAI-ARIA tabs in segmented, pill, underline and expandable variants, with an indicator that slides by CSS anchor positioning. CSS-only motion.",
 		css: "tabs.css",
+	},
+	{
+		name: "collapsible",
+		title: "Collapsible",
+		description:
+			"A native details element whose content grows to its height, fades in out of a blur and turns its chevron over. CSS-only motion.",
+		css: "collapsible.css",
+	},
+	{
+		name: "accordion",
+		title: "Accordion",
+		description:
+			"Single or multiple accordions on native details, in separated, cards and flush variants: the open item lifts out of the stack on a bouncy spring. CSS-only motion.",
+		css: "accordion.css",
 	},
 	{
 		name: "card",
@@ -308,10 +347,39 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 		css: "dialog.css",
 	},
 	{
+		name: "tooltip",
+		title: "Tooltip",
+		description:
+			"A hint popover placed by CSS anchor positioning, with a provider for delays, flipping, an arrow and a shortcut key cap. CSS-only motion.",
+		css: "tooltip.css",
+	},
+	{
+		name: "popover",
+		title: "Popover",
+		description:
+			"A native popover anchored to its trigger with CSS anchor positioning: flips when it would not fit and unfolds from the side it opened on. CSS-only motion.",
+		css: "popover.css",
+	},
+	{
+		name: "dropdown-menu",
+		title: "Dropdown Menu",
+		description:
+			"A WAI-ARIA menu on the native Popover API: icons, shortcuts, checkbox and radio rows, submenus, typeahead and a highlight that glides between rows, plus a right-click ContextMenu. CSS-only motion.",
+		css: "dropdown-menu.css",
+		needs: ["popover"],
+	},
+	{
 		name: "badge",
 		title: "Badge",
 		description: "A small tinted label in six tones.",
 		css: "badge.css",
+	},
+	{
+		name: "toast",
+		title: "Toast",
+		description:
+			"Stacked toasts in a top-layer region: toast(), success, error, warning, info, loading and promise, with actions, swipe to dismiss, paused timers and live announcements. CSS-only motion.",
+		css: "toast.css",
 	},
 ];
 
@@ -319,17 +387,42 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
  * Blocks: whole screens composed of the components above, from `src/blocks/<folder>`. Their files
  * install to `components/blocks/<folder>` and their component imports become registry dependencies.
  */
-const BLOCKS: { name: string; folder: string; title: string; description: string; css?: string }[] =
-	[
-		{
-			name: "signup-block",
-			folder: "signup",
-			title: "Sign-up block",
-			description:
-				"A three-step sign-up card (details with a password meter, an emailed code with a resend countdown, a drawn tick) and a compact sign-in card, made of the Rabtx components. CSS-only motion.",
-			css: "signup-block.css",
-		},
-	];
+const BLOCKS: {
+	name: string;
+	folder: string;
+	title: string;
+	description: string;
+	css?: string;
+	categories: string[];
+}[] = [
+	{
+		name: "signup-block",
+		folder: "signup",
+		title: "Sign-up block",
+		description:
+			"A three-step sign-up card (details with a password meter, an emailed code with a resend countdown, a drawn tick) and a compact sign-in card, made of the Rabtx components. CSS-only motion.",
+		css: "signup-block.css",
+		categories: ["authentication"],
+	},
+	{
+		name: "command-block",
+		folder: "command",
+		title: "Command palette block",
+		description:
+			"A ⌘K command palette in a native dialog: fuzzy search over grouped commands, an ARIA combobox and listbox, recent items, nested pages, loading and empty states, keyboard hints and a highlight that slides by CSS anchor positioning. Made of the Rabtx components. CSS-only motion.",
+		css: "command-block.css",
+		categories: ["navigation"],
+	},
+	{
+		name: "settings-block",
+		folder: "settings",
+		title: "Settings block",
+		description:
+			"A settings page in sections (profile, account, notifications, appearance, danger zone) on Tabs that turn vertical when the block is wide, with an unsaved changes bar and dialogs to change the email and delete the account, made of the Rabtx components. CSS-only motion.",
+		css: "settings-block.css",
+		categories: ["settings", "account"],
+	},
+];
 
 /** A link to another item of this registry; the docs route fills in the origin. */
 const dep = (name: string) => `${ORIGIN}/r/${name}.json`;
@@ -406,6 +499,14 @@ function buildItems(warnings: string[]): Item[] {
 			files: [{ from: "hooks/use-base-select.ts", type: "registry:hook" }],
 		},
 		{
+			name: "use-popover",
+			type: "registry:hook",
+			title: "usePopoverState",
+			description:
+				"Keeps a React open state in step with a native [popover] element, names its CSS anchor and merges a trigger into its child.",
+			files: [{ from: "hooks/use-popover.tsx", type: "registry:hook" }],
+		},
+		{
 			name: "field-context",
 			type: "registry:ui",
 			title: "Field context",
@@ -424,7 +525,7 @@ function buildItems(warnings: string[]): Item[] {
 			title: component.title,
 			description: component.description,
 			files,
-			registryDependencies: [dep("rabtx")],
+			registryDependencies: [dep("rabtx"), ...(component.needs ?? []).map(dep)],
 			css: component.css ? cssObject(readStyle(component.css), component.css, warnings) : undefined,
 		});
 	}
@@ -442,7 +543,7 @@ function buildItems(warnings: string[]): Item[] {
 			})),
 			registryDependencies: [dep("rabtx")],
 			css: block.css ? cssObject(readStyle(block.css), block.css, warnings) : undefined,
-			categories: ["authentication"],
+			categories: block.categories,
 		});
 	}
 	return items;

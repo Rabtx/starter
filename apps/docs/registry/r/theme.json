@@ -21,7 +21,8 @@
       "ease-spring-panel": "var(--spring-panel)",
       "ease-spring-toast": "var(--spring-toast)",
       "ease-spring-switch": "var(--spring-switch)",
-      "ease-spring-glide": "var(--spring-glide)"
+      "ease-spring-glide": "var(--spring-glide)",
+      "ease-spring-expand": "var(--spring-expand)"
     },
     "light": {
       "radius": "0.5rem",

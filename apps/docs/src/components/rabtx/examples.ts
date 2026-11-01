@@ -1,4 +1,16 @@
 import type { ComponentType } from "react";
+import AccordionControlled from "./examples/accordion/controlled";
+import AccordionDefault from "./examples/accordion/default";
+import AccordionFlush from "./examples/accordion/flush";
+import AccordionModes from "./examples/accordion/modes";
+import AccordionMultiple from "./examples/accordion/multiple";
+import AccordionStates from "./examples/accordion/states";
+import AccordionVariants from "./examples/accordion/variants";
+import CommandBlockExample from "./examples/blocks/command";
+import CommandInlineExample from "./examples/blocks/command-inline";
+import CommandSearchExample from "./examples/blocks/command-search";
+import SettingsBlockExample from "./examples/blocks/settings";
+import SettingsBlockNarrow from "./examples/blocks/settings-narrow";
 import SigninBlockExample from "./examples/blocks/signin";
 import SignupBlockExample from "./examples/blocks/signup";
 import ButtonDisabled from "./examples/button/disabled";
@@ -11,6 +23,8 @@ import ButtonRipple from "./examples/button/ripple";
 import ButtonSizes from "./examples/button/sizes";
 import ButtonStates from "./examples/button/states";
 import ButtonVariants from "./examples/button/variants";
+import CollapsibleControlled from "./examples/collapsible/controlled";
+import CollapsibleDefault from "./examples/collapsible/default";
 import CheckboxControlled from "./examples/checkbox/controlled";
 import CheckboxDefault from "./examples/checkbox/default";
 import CheckboxDescription from "./examples/checkbox/description";
@@ -26,6 +40,21 @@ import DialogMorph from "./examples/dialog/morph";
 import DialogSheet from "./examples/dialog/sheet";
 import DialogScrollable from "./examples/dialog/scrollable";
 import DialogNested from "./examples/dialog/nested";
+import TooltipDefault from "./examples/tooltip/default";
+import TooltipSides from "./examples/tooltip/sides";
+import TooltipAlignment from "./examples/tooltip/align";
+import TooltipToolbar from "./examples/tooltip/toolbar";
+import TooltipControlled from "./examples/tooltip/controlled";
+import TooltipInline from "./examples/tooltip/inline";
+import DropdownMenuActions from "./examples/dropdown-menu/actions";
+import DropdownMenuCheckboxes from "./examples/dropdown-menu/checkboxes";
+import ContextMenuExample from "./examples/dropdown-menu/context-menu";
+import DropdownMenuDefault from "./examples/dropdown-menu/default";
+import DropdownMenuRadio from "./examples/dropdown-menu/radio";
+import PopoverAlignExample from "./examples/popover/align";
+import PopoverControlled from "./examples/popover/close";
+import PopoverDefault from "./examples/popover/default";
+import PopoverSides from "./examples/popover/sides";
 import InputAddons from "./examples/input/addons";
 import InputAlignment from "./examples/input/alignment";
 import InputDefault from "./examples/input/default";
@@ -63,6 +92,17 @@ import SelectNative from "./examples/select/native";
 import SelectPlacement from "./examples/select/placement";
 import SelectSizes from "./examples/select/sizes";
 import SelectStates from "./examples/select/states";
+import SliderBubble from "./examples/slider/bubble";
+import SliderControlled from "./examples/slider/controlled";
+import SliderDefault from "./examples/slider/default";
+import SliderForm from "./examples/slider/form";
+import SliderMarks from "./examples/slider/marks";
+import SliderModes from "./examples/slider/modes";
+import SliderRtl from "./examples/slider/rtl";
+import SliderRuler from "./examples/slider/ruler";
+import SliderSizes from "./examples/slider/sizes";
+import SliderStates from "./examples/slider/states";
+import SliderVertical from "./examples/slider/vertical";
 import SwitchControlled from "./examples/switch/controlled";
 import SwitchDefault from "./examples/switch/default";
 import SwitchField from "./examples/switch/field";
@@ -84,6 +124,13 @@ import TabsStates from "./examples/tabs/states";
 import TabsUnderline from "./examples/tabs/underline";
 import TabsVariants from "./examples/tabs/variants";
 import TabsVertical from "./examples/tabs/vertical";
+import ToastDefault from "./examples/toast/default";
+import ToastTypes from "./examples/toast/types";
+import ToastPromise from "./examples/toast/promise";
+import ToastAction from "./examples/toast/action";
+import ToastPositions from "./examples/toast/positions";
+import ToastDialog from "./examples/toast/dialog";
+import ToastOptions from "./examples/toast/options";
 
 /** Every live example, by the path of its file under `examples/` without the extension. */
 export const examples = {
@@ -131,6 +178,17 @@ export const examples = {
 	"switch/rows": SwitchRows,
 	"switch/rtl": SwitchRtl,
 	"switch/modes": SwitchModes,
+	"slider/default": SliderDefault,
+	"slider/sizes": SliderSizes,
+	"slider/bubble": SliderBubble,
+	"slider/marks": SliderMarks,
+	"slider/ruler": SliderRuler,
+	"slider/vertical": SliderVertical,
+	"slider/states": SliderStates,
+	"slider/controlled": SliderControlled,
+	"slider/form": SliderForm,
+	"slider/rtl": SliderRtl,
+	"slider/modes": SliderModes,
 	"tabs/default": TabsDefault,
 	"tabs/variants": TabsVariants,
 	"tabs/sizes": TabsSizes,
@@ -144,6 +202,15 @@ export const examples = {
 	"tabs/overflow": TabsOverflow,
 	"tabs/rtl": TabsRtl,
 	"tabs/modes": TabsModes,
+	"accordion/default": AccordionDefault,
+	"accordion/variants": AccordionVariants,
+	"accordion/multiple": AccordionMultiple,
+	"accordion/flush": AccordionFlush,
+	"accordion/states": AccordionStates,
+	"accordion/controlled": AccordionControlled,
+	"accordion/modes": AccordionModes,
+	"collapsible/default": CollapsibleDefault,
+	"collapsible/controlled": CollapsibleControlled,
 	"card/default": CardDefault,
 	"card/sizes": CardSizes,
 	"card/media": CardMedia,
@@ -170,8 +237,35 @@ export const examples = {
 	"dialog/sheet": DialogSheet,
 	"dialog/scrollable": DialogScrollable,
 	"dialog/nested": DialogNested,
+	"tooltip/default": TooltipDefault,
+	"tooltip/sides": TooltipSides,
+	"tooltip/align": TooltipAlignment,
+	"tooltip/toolbar": TooltipToolbar,
+	"tooltip/controlled": TooltipControlled,
+	"tooltip/inline": TooltipInline,
+	"popover/default": PopoverDefault,
+	"popover/sides": PopoverSides,
+	"popover/align": PopoverAlignExample,
+	"popover/close": PopoverControlled,
+	"dropdown-menu/default": DropdownMenuDefault,
+	"dropdown-menu/actions": DropdownMenuActions,
+	"dropdown-menu/checkboxes": DropdownMenuCheckboxes,
+	"dropdown-menu/radio": DropdownMenuRadio,
+	"dropdown-menu/context-menu": ContextMenuExample,
+	"toast/default": ToastDefault,
+	"toast/types": ToastTypes,
+	"toast/promise": ToastPromise,
+	"toast/action": ToastAction,
+	"toast/positions": ToastPositions,
+	"toast/dialog": ToastDialog,
+	"toast/options": ToastOptions,
 	"blocks/signup": SignupBlockExample,
 	"blocks/signin": SigninBlockExample,
+	"blocks/command": CommandBlockExample,
+	"blocks/command-inline": CommandInlineExample,
+	"blocks/command-search": CommandSearchExample,
+	"blocks/settings": SettingsBlockExample,
+	"blocks/settings-narrow": SettingsBlockNarrow,
 } satisfies Record<string, ComponentType>;
 
 export type ExampleName = keyof typeof examples;
