@@ -12,6 +12,8 @@
 		"input",
 		"card",
 		"dialog",
+		"popover",
+		"dropdown-menu",
 		"blocks"
 	]
 }

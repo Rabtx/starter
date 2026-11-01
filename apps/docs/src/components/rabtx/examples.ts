@@ -26,6 +26,15 @@ import DialogMorph from "./examples/dialog/morph";
 import DialogSheet from "./examples/dialog/sheet";
 import DialogScrollable from "./examples/dialog/scrollable";
 import DialogNested from "./examples/dialog/nested";
+import DropdownMenuActions from "./examples/dropdown-menu/actions";
+import DropdownMenuCheckboxes from "./examples/dropdown-menu/checkboxes";
+import ContextMenuExample from "./examples/dropdown-menu/context-menu";
+import DropdownMenuDefault from "./examples/dropdown-menu/default";
+import DropdownMenuRadio from "./examples/dropdown-menu/radio";
+import PopoverAlignExample from "./examples/popover/align";
+import PopoverControlled from "./examples/popover/close";
+import PopoverDefault from "./examples/popover/default";
+import PopoverSides from "./examples/popover/sides";
 import InputAddons from "./examples/input/addons";
 import InputAlignment from "./examples/input/alignment";
 import InputDefault from "./examples/input/default";
@@ -170,6 +179,15 @@ export const examples = {
 	"dialog/sheet": DialogSheet,
 	"dialog/scrollable": DialogScrollable,
 	"dialog/nested": DialogNested,
+	"popover/default": PopoverDefault,
+	"popover/sides": PopoverSides,
+	"popover/align": PopoverAlignExample,
+	"popover/close": PopoverControlled,
+	"dropdown-menu/default": DropdownMenuDefault,
+	"dropdown-menu/actions": DropdownMenuActions,
+	"dropdown-menu/checkboxes": DropdownMenuCheckboxes,
+	"dropdown-menu/radio": DropdownMenuRadio,
+	"dropdown-menu/context-menu": ContextMenuExample,
 	"blocks/signup": SignupBlockExample,
 	"blocks/signin": SigninBlockExample,
 } satisfies Record<string, ComponentType>;
