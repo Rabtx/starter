@@ -1,4 +1,4 @@
 {
 	"title": "Blocks",
-	"pages": ["index", "signup"]
+	"pages": ["index", "signup", "settings"]
 }

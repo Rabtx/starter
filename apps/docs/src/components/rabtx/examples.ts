@@ -1,4 +1,6 @@
 import type { ComponentType } from "react";
+import SettingsBlockExample from "./examples/blocks/settings";
+import SettingsBlockNarrow from "./examples/blocks/settings-narrow";
 import SigninBlockExample from "./examples/blocks/signin";
 import SignupBlockExample from "./examples/blocks/signup";
 import ButtonDisabled from "./examples/button/disabled";
@@ -172,6 +174,8 @@ export const examples = {
 	"dialog/nested": DialogNested,
 	"blocks/signup": SignupBlockExample,
 	"blocks/signin": SigninBlockExample,
+	"blocks/settings": SettingsBlockExample,
+	"blocks/settings-narrow": SettingsBlockNarrow,
 } satisfies Record<string, ComponentType>;
 
 export type ExampleName = keyof typeof examples;
