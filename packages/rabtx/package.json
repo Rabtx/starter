@@ -9,6 +9,7 @@
 	"exports": {
 		"./badge": "./src/badge/index.ts",
 		"./badge/styles": "./src/badge/badge.styles.ts",
+		"./blocks/settings": "./src/blocks/settings/index.ts",
 		"./blocks/signup": "./src/blocks/signup/index.ts",
 		"./button": "./src/button/index.ts",
 		"./button/styles": "./src/button/button.styles.ts",
