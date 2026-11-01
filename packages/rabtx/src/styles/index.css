@@ -19,6 +19,8 @@
 @import "./card.css";
 @import "./dialog.css";
 @import "./tooltip.css";
+@import "./popover.css";
+@import "./dropdown-menu.css";
 @import "./signup-block.css";
 @import "./command-block.css";
 @import "./settings-block.css";

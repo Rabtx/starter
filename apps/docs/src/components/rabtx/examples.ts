@@ -46,6 +46,15 @@ import TooltipAlignment from "./examples/tooltip/align";
 import TooltipToolbar from "./examples/tooltip/toolbar";
 import TooltipControlled from "./examples/tooltip/controlled";
 import TooltipInline from "./examples/tooltip/inline";
+import DropdownMenuActions from "./examples/dropdown-menu/actions";
+import DropdownMenuCheckboxes from "./examples/dropdown-menu/checkboxes";
+import ContextMenuExample from "./examples/dropdown-menu/context-menu";
+import DropdownMenuDefault from "./examples/dropdown-menu/default";
+import DropdownMenuRadio from "./examples/dropdown-menu/radio";
+import PopoverAlignExample from "./examples/popover/align";
+import PopoverControlled from "./examples/popover/close";
+import PopoverDefault from "./examples/popover/default";
+import PopoverSides from "./examples/popover/sides";
 import InputAddons from "./examples/input/addons";
 import InputAlignment from "./examples/input/alignment";
 import InputDefault from "./examples/input/default";
@@ -227,6 +236,15 @@ export const examples = {
 	"tooltip/toolbar": TooltipToolbar,
 	"tooltip/controlled": TooltipControlled,
 	"tooltip/inline": TooltipInline,
+	"popover/default": PopoverDefault,
+	"popover/sides": PopoverSides,
+	"popover/align": PopoverAlignExample,
+	"popover/close": PopoverControlled,
+	"dropdown-menu/default": DropdownMenuDefault,
+	"dropdown-menu/actions": DropdownMenuActions,
+	"dropdown-menu/checkboxes": DropdownMenuCheckboxes,
+	"dropdown-menu/radio": DropdownMenuRadio,
+	"dropdown-menu/context-menu": ContextMenuExample,
 	"blocks/signup": SignupBlockExample,
 	"blocks/signin": SigninBlockExample,
 	"blocks/command": CommandBlockExample,

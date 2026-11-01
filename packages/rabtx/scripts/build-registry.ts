@@ -241,7 +241,14 @@ function componentFiles(dir: string): File[] {
 // ---------------------------------------------------------------------------------------------
 // The items.
 
-const COMPONENTS: { name: string; title: string; description: string; css?: string }[] = [
+const COMPONENTS: {
+	name: string;
+	title: string;
+	description: string;
+	css?: string;
+	/** Other items of this registry it needs, such as the CSS a component builds on. */
+	needs?: string[];
+}[] = [
 	{
 		name: "button",
 		title: "Button",
@@ -343,6 +350,21 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
 		description:
 			"A hint popover placed by CSS anchor positioning, with a provider for delays, flipping, an arrow and a shortcut key cap. CSS-only motion.",
 		css: "tooltip.css",
+	},
+	{
+		name: "popover",
+		title: "Popover",
+		description:
+			"A native popover anchored to its trigger with CSS anchor positioning: flips when it would not fit and unfolds from the side it opened on. CSS-only motion.",
+		css: "popover.css",
+	},
+	{
+		name: "dropdown-menu",
+		title: "Dropdown Menu",
+		description:
+			"A WAI-ARIA menu on the native Popover API: icons, shortcuts, checkbox and radio rows, submenus, typeahead and a highlight that glides between rows, plus a right-click ContextMenu. CSS-only motion.",
+		css: "dropdown-menu.css",
+		needs: ["popover"],
 	},
 	{
 		name: "badge",
@@ -468,6 +490,14 @@ function buildItems(warnings: string[]): Item[] {
 			files: [{ from: "hooks/use-base-select.ts", type: "registry:hook" }],
 		},
 		{
+			name: "use-popover",
+			type: "registry:hook",
+			title: "usePopoverState",
+			description:
+				"Keeps a React open state in step with a native [popover] element, names its CSS anchor and merges a trigger into its child.",
+			files: [{ from: "hooks/use-popover.tsx", type: "registry:hook" }],
+		},
+		{
 			name: "field-context",
 			type: "registry:ui",
 			title: "Field context",
@@ -486,7 +516,7 @@ function buildItems(warnings: string[]): Item[] {
 			title: component.title,
 			description: component.description,
 			files,
-			registryDependencies: [dep("rabtx")],
+			registryDependencies: [dep("rabtx"), ...(component.needs ?? []).map(dep)],
 			css: component.css ? cssObject(readStyle(component.css), component.css, warnings) : undefined,
 		});
 	}

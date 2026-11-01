@@ -16,6 +16,8 @@
 		"card",
 		"dialog",
 		"tooltip",
+		"popover",
+		"dropdown-menu",
 		"blocks"
 	]
 }
