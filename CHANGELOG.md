@@ -34,6 +34,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   constraint validation, CSS step transitions and focus moved to each step's heading, plus a
   compact `SigninBlock`. `/docs/ui/blocks/signup`, the `/ui/blocks/signup` playground and
   `ui-signup-block.spec.ts`.
+- `@rabtx/ui` Command palette block (`@rabtx/ui/blocks/command`, registry item `@rabtx/command-block`
+  installing to `components/blocks/command`): `CommandBlock` (⌘K / Ctrl+K, a trigger showing the
+  shortcut, a native Dialog) and the inline `CommandPanel`, built from Dialog, Input, Badge, Button
+  and Tabs. Data-driven commands with fuzzy search, groups, recent items, nested and async pages,
+  loading and empty states, an ARIA combobox over a listbox (`aria-activedescendant`), a highlight
+  that slides by CSS anchor positioning and a list that eases to its height.
+  `/docs/ui/blocks/command`, the `/ui/blocks/command` playground and `ui-command-block.spec.ts`.
 - `@rabtx/ui` Checkbox rebuilt on a native checkbox laid over a box styled with `:has()`: sizes
   `sm` (16), `md` (20, default), `lg` (24); shadcn API (`checked` incl. `"indeterminate"`,
   `defaultChecked`, `onCheckedChange`) plus `indeterminate` and `description`; Field and

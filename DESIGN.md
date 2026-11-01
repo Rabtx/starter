@@ -477,6 +477,16 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   compact `SigninBlock`. Steps enter with `@starting-style` and leave with a keyframe while the
   viewport eases to the measured height (`--_h`); the new step's heading takes focus and a live
   region names it. Docs at `/docs/ui/blocks/signup`, playground `/ui/blocks/signup`.
+  **Command palette** (`command-block`): `CommandBlock` puts `CommandPanel` in a native Dialog
+  behind a trigger and ⌘K / Ctrl+K (`shortcut`, `false` for a second palette). Commands are data
+  (`id`, `label`, `group`, `icon`, `shortcut`, `badge`, `items` as an array or a loader,
+  `onSelect`); the field is the Input as a `combobox` over a `listbox` with
+  `aria-activedescendant`, fuzzy matching (runs and word starts) also searches pages below the
+  first, Backspace or Escape steps back a page, recent ids are kept across openings. The highlight
+  is the list's last child anchored to `[data-active]` (`anchor-scope`, unfold spring; the row
+  fills itself without it) and the viewport eases to the measured `--_h` on the panel spring.
+  Block CSS keeps the highlight's rules inside `@supports`, because the shadcn CLI merges every
+  `@supports` block into the first one and a later base rule would win.
 - Other frameworks: a Solid component is another thin wrapper over `button.styles.ts` plus the same
   CSS, not a clone or a rewrite. Not built yet; add it as a separate package or export with
   `solid-js` as a peer dependency, and test it with a real Solid render.
