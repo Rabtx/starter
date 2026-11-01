@@ -240,11 +240,11 @@ export function Toaster({
 	/** Before a toast that holds focus leaves, focus moves to the next one, or back to the page. */
 	const handOffFocus = useCallback((from: HTMLElement) => {
 		if (!from.contains(document.activeElement)) return;
-		const next = [
-			...(listRef.current?.querySelectorAll<HTMLElement>(
-				`.${toastParts.toast}:not([data-removed])`,
-			) ?? []),
-		].find((el) => el !== from);
+		// Array.from, not a spread, so projects without the DOM iterable lib still type-check.
+		const next = Array.from(
+			listRef.current?.querySelectorAll<HTMLElement>(`.${toastParts.toast}:not([data-removed])`) ??
+				[],
+		).find((el) => el !== from);
 		if (next) next.focus();
 		else if (lastFocus.current?.isConnected) lastFocus.current.focus();
 		else from.blur();
