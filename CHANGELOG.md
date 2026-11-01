@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `@rabtx/ui` Slider on native `<input type="range">`s (shadcn API: `value` / `defaultValue` /
+  `onValueChange` as `number[]`, `onValueCommit`, `minStepsBetweenThumbs`), one value or a range of
+  overlaid inputs clamped between neighbours, sizes `sm` / `md` / `lg`, `orientation="vertical"`,
+  `showValue` bubbles, `marks` (with a `<datalist>`), a `ruler` variant and Field wiring. The fill,
+  bubbles and marks are placed by CSS variables; the thumb grows on the press spring and the bubble
+  pops on the swap spring. Registry item `@rabtx/slider`, `/docs/ui/slider`, the `/ui/slider`
+  playground and `ui-slider.spec.ts`.
 - `@rabtx/ui` RadioGroup: native radios sharing one name in a `<fieldset role="radiogroup">`,
   sizes `sm` (16), `md` (20), `lg` (24), `orientation`, a `card` variant (choice cards), shadcn API
   (`value` / `defaultValue` / `onValueChange`, `RadioGroupItem` with `description`) and Field

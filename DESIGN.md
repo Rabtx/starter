@@ -274,7 +274,8 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   Exports: `@rabtx/ui/button`, `@rabtx/ui/button/styles`, `@rabtx/ui/input`,
   `@rabtx/ui/input/styles`, `@rabtx/ui/field`, `@rabtx/ui/field/styles`, `@rabtx/ui/textarea`,
   `@rabtx/ui/textarea/styles`, `@rabtx/ui/card`, `@rabtx/ui/card/styles`, `@rabtx/ui/dialog`, `@rabtx/ui/dialog/styles`, `@rabtx/ui/badge`, `@rabtx/ui/badge/styles`,
-  `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/checkbox`, `@rabtx/ui/checkbox/styles`,
+  `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/slider`, `@rabtx/ui/slider/styles`,
+  `@rabtx/ui/checkbox`, `@rabtx/ui/checkbox/styles`,
   `@rabtx/ui/motion`, `@rabtx/ui/blocks/signup`, `@rabtx/ui/styles.css`, `@rabtx/ui/theme.css`.
 - Theming: `src/styles/theme.css` is the only place a color, radius, shadow or easing is defined.
   Components read the shadcn semantic tokens (and the documented Rabtx extras) and never define
@@ -465,6 +466,24 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   that way. Panels enter from opacity 0, `blur(4px)` and 4px down via `@starting-style`; leaving is
   instant. Reduced motion keeps 100ms fades only; Motion off is instant. Open: the segmented thumb
   (`--card`) is close to its track in dark; the dark values are unconfirmed in Figma.
+- **Slider** (no Figma section yet; built 2026-11-01): native `<input type="range">`s with
+  `appearance: none`, so the slider role, keys (arrows, Page Up and Down, Home, End), forms and
+  vertical layout (`writing-mode: vertical-lr; direction: rtl`) are the browser's. shadcn API
+  (`value` / `defaultValue` / `onValueChange` as `number[]`, `onValueCommit` from the native
+  `change` event, `min`, `max`, `step`, `minStepsBetweenThumbs`, `orientation`) plus `size` (track
+  4 / 6 / 8, thumb 16 / 20 / 24), `showValue` (`true` or `"always"`), `formatValue`, `marks`,
+  `thumbLabels` and `variant="ruler"`. JavaScript writes `--_lo` / `--_hi` / `--_p` (0 to 1) and
+  CSS places everything at `thumb / 2 + (100% - thumb) * p`, the native thumb's path: one value
+  paints the rail and `--primary` fill on its own runnable track; a range overlays one input per
+  thumb (pointer events on the thumbs only, a shared track underneath), clamps each between its
+  neighbours, names them "<label> Minimum" / "Maximum" and moves the nearest thumb on a bare-track
+  press. The thumb (`--background`, 2px `--primary` edge, `--radius-button`) grows to 1.2 with a
+  halo on the press spring (a `transform`: Chrome ignores `scale` on a range thumb); the bubble
+  (`--foreground`) pops on the swap spring. Thumbs are pseudo-elements and cannot be anchors, so
+  the bubble reads a variable. Marks are ticks under the rail, never under the thumb. Floating
+  recesses the rail; Flat drops it and the thumb ring; Field errors turn the edges `--destructive`.
+  Not built (need JS animation): velocity lean on the bubble, a momentum-scrolling ruler scale, a
+  wave of bars and a thumb parting around inline labels.
 - **Blocks** (`src/blocks/<name>`, exported as `@rabtx/ui/blocks/<name>`): whole screens composed
   only of the components, with a little CSS of their own (`src/styles/<name>-block.css`) for what is
   unique to them. They import component files by path (`../../input/input`, never a folder index),
