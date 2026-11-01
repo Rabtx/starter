@@ -4058,6 +4058,245 @@
       }
     },
     {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "A hint popover placed by CSS anchor positioning, with a provider for delays, flipping, an arrow and a shortcut key cap. CSS-only motion.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/ui/tooltip.styles.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/rabtx/ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-tooltip": {
+            "--_tip": "var(--popover)",
+            "--_tip-edge-a": "var(--surface-edge-top)",
+            "--_tip-edge-b": "var(--surface-edge-bottom)",
+            "--_tip-ring": "var(--surface-ring)",
+            "--_tip-sheen": "var(--surface-sheen)",
+            "--_tip-shade": "var(--surface-shade)",
+            "--_offset": "6px",
+            "--_gap": "var(--_offset)",
+            "--_arrow": "8px",
+            "--_exit": "100ms",
+            "position": "fixed",
+            "inset": "auto",
+            "margin": "0",
+            "box-sizing": "border-box",
+            "width": "max-content",
+            "max-width": "min(20rem, calc(100vw - 16px))",
+            "padding": "4px 8px",
+            "overflow": "visible",
+            "border": "1px solid transparent",
+            "border-radius": "var(--radius-control)",
+            "background": "linear-gradient( 180deg, var(--_tip-sheen), transparent 40%, transparent 60%, var(--_tip-shade) ) padding-box, linear-gradient(var(--_tip), var(--_tip)) padding-box, linear-gradient(180deg, var(--_tip-edge-a), var(--_tip-edge-b)) border-box",
+            "box-shadow": "0 0 0 1px var(--_tip-ring)",
+            "color": "var(--popover-foreground)",
+            "font-size": "12px",
+            "line-height": "16px",
+            "font-weight": "510",
+            "letter-spacing": "-0.1px",
+            "text-align": "start",
+            "text-wrap": "pretty",
+            "overflow-wrap": "anywhere",
+            "white-space": "normal",
+            "position-area": "top",
+            "position-try-fallbacks": "flip-block, flip-inline, flip-block flip-inline",
+            "position-visibility": "anchors-visible",
+            "margin-bottom": "var(--_gap)",
+            "transform-origin": "calc(var(--_arrow) + 5px) 100%",
+            "opacity": "0",
+            "scale": "0.96",
+            "transition": "opacity var(--_exit) var(--motion-ease), scale var(--_exit) var(--motion-ease), display var(--_exit) allow-discrete, overlay var(--_exit) allow-discrete"
+          },
+          ".rx-tooltip:popover-open": {
+            "display": "block",
+            "opacity": "1",
+            "scale": "1",
+            "transition": "opacity 140ms var(--motion-ease), scale var(--spring-unfold-duration) var(--spring-unfold), display var(--spring-unfold-duration) allow-discrete, overlay var(--spring-unfold-duration) allow-discrete"
+          },
+          ".rx-tooltip[data-arrow]": {
+            "--_gap": "calc(var(--_offset) + 6px)"
+          },
+          ".rx-tooltip[data-side=\"bottom\"]": {
+            "position-area": "bottom",
+            "margin": "0",
+            "margin-top": "var(--_gap)"
+          },
+          ".rx-tooltip[data-side=\"left\"]": {
+            "position-area": "left",
+            "position-try-fallbacks": "flip-inline, flip-block, flip-inline flip-block",
+            "margin": "0",
+            "margin-right": "var(--_gap)"
+          },
+          ".rx-tooltip[data-side=\"right\"]": {
+            "position-area": "right",
+            "position-try-fallbacks": "flip-inline, flip-block, flip-inline flip-block",
+            "margin": "0",
+            "margin-left": "var(--_gap)"
+          },
+          ".rx-tooltip[data-align=\"center\"]:is([data-side=\"top\"], [data-side=\"bottom\"])": {
+            "margin-left": "8px",
+            "margin-right": "8px"
+          },
+          ".rx-tooltip[data-align=\"center\"]:is([data-side=\"left\"], [data-side=\"right\"])": {
+            "margin-top": "8px",
+            "margin-bottom": "8px"
+          },
+          ".rx-tooltip[data-side=\"top\"][data-align=\"start\"]": {
+            "position-area": "top span-right"
+          },
+          ".rx-tooltip[data-side=\"top\"][data-align=\"end\"]": {
+            "position-area": "top span-left"
+          },
+          ".rx-tooltip[data-side=\"bottom\"][data-align=\"start\"]": {
+            "position-area": "bottom span-right"
+          },
+          ".rx-tooltip[data-side=\"bottom\"][data-align=\"end\"]": {
+            "position-area": "bottom span-left"
+          },
+          ".rx-tooltip[data-side=\"left\"][data-align=\"start\"]": {
+            "position-area": "left span-bottom"
+          },
+          ".rx-tooltip[data-side=\"left\"][data-align=\"end\"]": {
+            "position-area": "left span-top"
+          },
+          ".rx-tooltip[data-side=\"right\"][data-align=\"start\"]": {
+            "position-area": "right span-bottom"
+          },
+          ".rx-tooltip[data-side=\"right\"][data-align=\"end\"]": {
+            "position-area": "right span-top"
+          },
+          ".rx-tooltip[data-placed=\"bottom\"]": {
+            "transform-origin": "calc(var(--_arrow) + 5px) 0%"
+          },
+          ".rx-tooltip[data-placed=\"left\"]": {
+            "transform-origin": "100% calc(var(--_arrow) + 5px)"
+          },
+          ".rx-tooltip[data-placed=\"right\"]": {
+            "transform-origin": "0% calc(var(--_arrow) + 5px)"
+          },
+          ".rx-tooltip-arrow": {
+            "position": "absolute",
+            "top": "calc(100% - 4.5px)",
+            "left": "var(--_arrow)",
+            "box-sizing": "border-box",
+            "width": "10px",
+            "height": "10px",
+            "border": "0 solid var(--_tip-edge-b)",
+            "border-right-width": "1px",
+            "border-bottom-width": "1px",
+            "background-color": "var(--_tip)",
+            "box-shadow": "1px 1px 0 0 var(--_tip-ring)",
+            "rotate": "45deg",
+            "pointer-events": "none"
+          },
+          ".rx-tooltip[data-placed=\"bottom\"] > .rx-tooltip-arrow": {
+            "top": "-5.5px",
+            "border-width": "0",
+            "border-top-width": "1px",
+            "border-left-width": "1px",
+            "border-color": "var(--_tip-edge-a)",
+            "box-shadow": "-1px -1px 0 0 var(--_tip-ring)"
+          },
+          ".rx-tooltip[data-placed=\"left\"] > .rx-tooltip-arrow": {
+            "top": "var(--_arrow)",
+            "left": "calc(100% - 4.5px)",
+            "border-width": "0",
+            "border-top-width": "1px",
+            "border-right-width": "1px",
+            "border-color": "var(--_tip-edge-b)",
+            "box-shadow": "1px -1px 0 0 var(--_tip-ring)"
+          },
+          ".rx-tooltip[data-placed=\"right\"] > .rx-tooltip-arrow": {
+            "top": "var(--_arrow)",
+            "left": "-5.5px",
+            "border-width": "0",
+            "border-bottom-width": "1px",
+            "border-left-width": "1px",
+            "border-color": "var(--_tip-edge-b)",
+            "box-shadow": "-1px 1px 0 0 var(--_tip-ring)"
+          },
+          ".rx-tooltip-kbd": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "box-sizing": "border-box",
+            "min-inline-size": "18px",
+            "block-size": "16px",
+            "margin-inline-start": "6px",
+            "padding-inline": "4px",
+            "border": "1px solid var(--border)",
+            "border-radius": "var(--radius-badge)",
+            "background-color": "var(--muted)",
+            "color": "var(--muted-foreground)",
+            "font-family": "inherit",
+            "font-size": "11px",
+            "line-height": "14px",
+            "font-weight": "510",
+            "letter-spacing": "0",
+            "vertical-align": "top"
+          },
+          ".rx-tooltip-kbd::before": {
+            "content": "attr(data-key) / \"\""
+          },
+          ".rx-tooltip-kbd + .rx-tooltip-kbd": {
+            "margin-inline-start": "2px"
+          },
+          "[data-depth=\"flat\"] .rx-tooltip": {
+            "--_tip-edge-a": "var(--border)",
+            "--_tip-edge-b": "var(--border)",
+            "--_tip-ring": "transparent",
+            "--_tip-sheen": "transparent",
+            "--_tip-shade": "transparent"
+          },
+          "@starting-style ": {
+            ".rx-tooltip:popover-open": {
+              "opacity": "0",
+              "scale": "0.94"
+            }
+          },
+          "[data-slot=\"tooltip-trigger\"][interestfor]": {
+            "interest-delay": "120ms 100ms"
+          },
+          "@supports not selector(:popover-open)": {
+            ".rx-tooltip:not([data-state=\"open\"])": {
+              "display": "none"
+            }
+          },
+          "@supports not (position-area: top)": {
+            ".rx-tooltip, .rx-tooltip[data-side]": {
+              "top": "var(--_y, 0px)",
+              "left": "var(--_x, 0px)",
+              "margin": "0"
+            }
+          }
+        },
+        "@layer rx-motion": {
+          "@media (prefers-reduced-motion: reduce)": {
+            ".rx-tooltip, .rx-tooltip:popover-open": {
+              "scale": "none",
+              "transition-duration": "100ms"
+            }
+          },
+          "[data-motion=\"off\"] :is(.rx-tooltip, .rx-tooltip:popover-open)": {
+            "scale": "none",
+            "transition-duration": "0ms"
+          }
+        }
+      }
+    },
+    {
       "name": "badge",
       "type": "registry:ui",
       "title": "Badge",

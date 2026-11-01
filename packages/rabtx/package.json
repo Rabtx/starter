@@ -40,6 +40,8 @@
 		"./tabs": "./src/tabs/index.ts",
 		"./tabs/styles": "./src/tabs/tabs.styles.ts",
 		"./theme.css": "./src/styles/theme.css",
+		"./tooltip": "./src/tooltip/index.ts",
+		"./tooltip/styles": "./src/tooltip/tooltip.styles.ts",
 		"./textarea": "./src/textarea/index.ts",
 		"./textarea/styles": "./src/textarea/textarea.styles.ts"
 	},

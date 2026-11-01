@@ -38,6 +38,12 @@ import DialogMorph from "./examples/dialog/morph";
 import DialogSheet from "./examples/dialog/sheet";
 import DialogScrollable from "./examples/dialog/scrollable";
 import DialogNested from "./examples/dialog/nested";
+import TooltipDefault from "./examples/tooltip/default";
+import TooltipSides from "./examples/tooltip/sides";
+import TooltipAlignment from "./examples/tooltip/align";
+import TooltipToolbar from "./examples/tooltip/toolbar";
+import TooltipControlled from "./examples/tooltip/controlled";
+import TooltipInline from "./examples/tooltip/inline";
 import InputAddons from "./examples/input/addons";
 import InputAlignment from "./examples/input/alignment";
 import InputDefault from "./examples/input/default";
@@ -213,6 +219,12 @@ export const examples = {
 	"dialog/sheet": DialogSheet,
 	"dialog/scrollable": DialogScrollable,
 	"dialog/nested": DialogNested,
+	"tooltip/default": TooltipDefault,
+	"tooltip/sides": TooltipSides,
+	"tooltip/align": TooltipAlignment,
+	"tooltip/toolbar": TooltipToolbar,
+	"tooltip/controlled": TooltipControlled,
+	"tooltip/inline": TooltipInline,
 	"blocks/signup": SignupBlockExample,
 	"blocks/signin": SigninBlockExample,
 	"blocks/command": CommandBlockExample,
