@@ -12,6 +12,7 @@
 		"input",
 		"card",
 		"dialog",
+		"toast",
 		"blocks"
 	]
 }

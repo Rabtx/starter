@@ -84,6 +84,13 @@ import TabsStates from "./examples/tabs/states";
 import TabsUnderline from "./examples/tabs/underline";
 import TabsVariants from "./examples/tabs/variants";
 import TabsVertical from "./examples/tabs/vertical";
+import ToastDefault from "./examples/toast/default";
+import ToastTypes from "./examples/toast/types";
+import ToastPromise from "./examples/toast/promise";
+import ToastAction from "./examples/toast/action";
+import ToastPositions from "./examples/toast/positions";
+import ToastDialog from "./examples/toast/dialog";
+import ToastOptions from "./examples/toast/options";
 
 /** Every live example, by the path of its file under `examples/` without the extension. */
 export const examples = {
@@ -170,6 +177,13 @@ export const examples = {
 	"dialog/sheet": DialogSheet,
 	"dialog/scrollable": DialogScrollable,
 	"dialog/nested": DialogNested,
+	"toast/default": ToastDefault,
+	"toast/types": ToastTypes,
+	"toast/promise": ToastPromise,
+	"toast/action": ToastAction,
+	"toast/positions": ToastPositions,
+	"toast/dialog": ToastDialog,
+	"toast/options": ToastOptions,
 	"blocks/signup": SignupBlockExample,
 	"blocks/signin": SigninBlockExample,
 } satisfies Record<string, ComponentType>;
