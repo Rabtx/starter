@@ -63,6 +63,17 @@ import SelectNative from "./examples/select/native";
 import SelectPlacement from "./examples/select/placement";
 import SelectSizes from "./examples/select/sizes";
 import SelectStates from "./examples/select/states";
+import SliderBubble from "./examples/slider/bubble";
+import SliderControlled from "./examples/slider/controlled";
+import SliderDefault from "./examples/slider/default";
+import SliderForm from "./examples/slider/form";
+import SliderMarks from "./examples/slider/marks";
+import SliderModes from "./examples/slider/modes";
+import SliderRtl from "./examples/slider/rtl";
+import SliderRuler from "./examples/slider/ruler";
+import SliderSizes from "./examples/slider/sizes";
+import SliderStates from "./examples/slider/states";
+import SliderVertical from "./examples/slider/vertical";
 import SwitchControlled from "./examples/switch/controlled";
 import SwitchDefault from "./examples/switch/default";
 import SwitchField from "./examples/switch/field";
@@ -131,6 +142,17 @@ export const examples = {
 	"switch/rows": SwitchRows,
 	"switch/rtl": SwitchRtl,
 	"switch/modes": SwitchModes,
+	"slider/default": SliderDefault,
+	"slider/sizes": SliderSizes,
+	"slider/bubble": SliderBubble,
+	"slider/marks": SliderMarks,
+	"slider/ruler": SliderRuler,
+	"slider/vertical": SliderVertical,
+	"slider/states": SliderStates,
+	"slider/controlled": SliderControlled,
+	"slider/form": SliderForm,
+	"slider/rtl": SliderRtl,
+	"slider/modes": SliderModes,
 	"tabs/default": TabsDefault,
 	"tabs/variants": TabsVariants,
 	"tabs/sizes": TabsSizes,

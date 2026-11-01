@@ -27,6 +27,8 @@
 		"./radio-group/styles": "./src/radio-group/radio-group.styles.ts",
 		"./select": "./src/select/index.ts",
 		"./select/styles": "./src/select/select.styles.ts",
+		"./slider": "./src/slider/index.ts",
+		"./slider/styles": "./src/slider/slider.styles.ts",
 		"./styles.css": "./src/styles/index.css",
 		"./switch": "./src/switch/index.ts",
 		"./switch/styles": "./src/switch/switch.styles.ts",
