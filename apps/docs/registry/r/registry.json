@@ -3620,6 +3620,355 @@
       "categories": [
         "authentication"
       ]
+    },
+    {
+      "name": "settings-block",
+      "type": "registry:block",
+      "title": "Settings block",
+      "description": "A settings page in sections (profile, account, notifications, appearance, danger zone) on Tabs that turn vertical when the block is wide, with an unsaved changes bar and dialogs to change the email and delete the account, made of the Rabtx components. CSS-only motion.",
+      "registryDependencies": [
+        "{{origin}}/r/rabtx.json",
+        "{{origin}}/r/badge.json",
+        "{{origin}}/r/button.json",
+        "{{origin}}/r/card.json",
+        "{{origin}}/r/checkbox.json",
+        "{{origin}}/r/field.json",
+        "{{origin}}/r/input.json",
+        "utils",
+        "{{origin}}/r/radio-group.json",
+        "{{origin}}/r/select.json",
+        "{{origin}}/r/switch.json",
+        "{{origin}}/r/tabs.json",
+        "{{origin}}/r/textarea.json",
+        "{{origin}}/r/dialog.json"
+      ],
+      "files": [
+        {
+          "path": "registry/rabtx/blocks/settings/icons.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/settings/icons.tsx"
+        },
+        {
+          "path": "registry/rabtx/blocks/settings/settings-block.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/settings/settings-block.tsx"
+        },
+        {
+          "path": "registry/rabtx/blocks/settings/settings-dialogs.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/settings/settings-dialogs.tsx"
+        },
+        {
+          "path": "registry/rabtx/blocks/settings/settings.styles.ts",
+          "type": "registry:component",
+          "target": "components/blocks/settings/settings.styles.ts"
+        },
+        {
+          "path": "registry/rabtx/blocks/settings/validity.ts",
+          "type": "registry:component",
+          "target": "components/blocks/settings/validity.ts"
+        },
+        {
+          "path": "registry/rabtx/blocks/settings/values.ts",
+          "type": "registry:component",
+          "target": "components/blocks/settings/values.ts"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".rx-settings": {
+            "container": "rx-settings / inline-size",
+            "position": "relative",
+            "display": "grid",
+            "gap": "1.25rem",
+            "width": "100%",
+            "max-width": "64rem",
+            "min-width": "0",
+            "color": "var(--foreground)"
+          },
+          ".rx-settings > form": {
+            "display": "none"
+          },
+          ".rx-settings .rx-tabs.rx-settings-tabs": {
+            "display": "flex",
+            "flex-direction": "column",
+            "align-items": "stretch",
+            "gap": "1rem",
+            "min-width": "0"
+          },
+          ".rx-settings .rx-tabs-list.rx-settings-nav": {
+            "flex-direction": "row",
+            "align-self": "stretch",
+            "align-items": "center",
+            "overflow-x": "auto",
+            "overflow-y": "hidden",
+            "scrollbar-width": "none",
+            "scroll-padding-inline": "0.5rem"
+          },
+          ".rx-settings .rx-tabs-list.rx-settings-nav > .rx-tabs-trigger": {
+            "flex": "1 0 auto",
+            "justify-content": "center"
+          },
+          "@container rx-settings (width >= 40rem)": {
+            ".rx-settings .rx-tabs.rx-settings-tabs": {
+              "display": "grid",
+              "grid-template-columns": "12rem minmax(0, 1fr)",
+              "align-items": "start",
+              "gap": "1.5rem"
+            },
+            ".rx-settings .rx-tabs-list.rx-settings-nav": {
+              "position": "sticky",
+              "top": "1rem",
+              "flex-direction": "column",
+              "align-self": "start",
+              "align-items": "stretch",
+              "overflow": "visible"
+            },
+            ".rx-settings .rx-tabs-list.rx-settings-nav > .rx-tabs-trigger": {
+              "flex": "none",
+              "justify-content": "flex-start"
+            },
+            ".rx-settings .rx-tabs-list.rx-settings-nav > .rx-tabs-trigger[data-section=\"danger\"]": {
+              "margin-block-start": "0.5rem"
+            }
+          },
+          ".rx-settings .rx-settings-nav > .rx-tabs-trigger[data-section=\"danger\"]": {
+            "color": "var(--destructive)"
+          },
+          ".rx-settings .rx-settings-nav > .rx-tabs-trigger::after": {
+            "content": "\"\"",
+            "flex": "none",
+            "width": "6px",
+            "height": "6px",
+            "margin-inline-start": "auto",
+            "border-radius": "999px",
+            "background-color": "var(--primary)",
+            "opacity": "0",
+            "scale": "0",
+            "transition": "opacity 120ms var(--motion-ease), scale var(--spring-swap-duration) var(--spring-swap)"
+          },
+          ".rx-settings .rx-settings-nav > .rx-tabs-trigger:is([data-dirty], [data-invalid])::after": {
+            "opacity": "1",
+            "scale": "1"
+          },
+          ".rx-settings .rx-settings-nav > .rx-tabs-trigger[data-invalid]::after": {
+            "background-color": "var(--destructive)"
+          },
+          ".rx-settings-panel:not([hidden])": {
+            "display": "grid",
+            "align-content": "start",
+            "gap": "1rem"
+          },
+          ".rx-settings-panel > *": {
+            "--_i": "0"
+          },
+          ".rx-settings-panel > :nth-child(2)": {
+            "--_i": "1"
+          },
+          ".rx-settings-panel > :nth-child(3)": {
+            "--_i": "2"
+          },
+          ".rx-settings[data-moved] .rx-settings-panel > .rx-settings-section": {
+            "transition": "opacity 220ms var(--motion-ease) calc(var(--_i) * 60ms), translate var(--spring-panel-duration) var(--spring-panel) calc(var(--_i) * 60ms)"
+          },
+          ".rx-settings-row": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "1rem",
+            "padding-block": "0.75rem",
+            "border-block-start": "1px solid var(--border)"
+          },
+          ".rx-settings-row:first-child": {
+            "padding-block-start": "0",
+            "border-block-start": "0"
+          },
+          ".rx-settings-row:last-child": {
+            "padding-block-end": "0"
+          },
+          "label.rx-settings-row": {
+            "cursor": "pointer"
+          },
+          ".rx-settings-avatar": {
+            "display": "grid",
+            "flex": "none",
+            "place-items": "center",
+            "width": "3rem",
+            "height": "3rem",
+            "overflow": "hidden",
+            "border-radius": "999px",
+            "background-color": "color-mix(in oklab, var(--primary) 14%, var(--card))",
+            "outline": "1px solid color-mix(in oklab, var(--primary) 24%, transparent)",
+            "outline-offset": "-1px",
+            "color": "var(--primary)",
+            "font-size": "15px",
+            "line-height": "1",
+            "font-weight": "590",
+            "letter-spacing": "-0.2px"
+          },
+          ".rx-settings-avatar img": {
+            "width": "100%",
+            "height": "100%",
+            "object-fit": "cover"
+          },
+          ".rx-radio-group-card.rx-settings-choices > .rx-radio-item": {
+            "display": "grid",
+            "flex": "1 1 7rem",
+            "grid-template-columns": "minmax(0, 1fr) auto",
+            "align-items": "center",
+            "gap": "0.125rem 0.5rem",
+            "padding": "0.5rem 0.75rem 0.625rem 0.5rem",
+            "font-size": "13px",
+            "line-height": "20px",
+            "font-weight": "510"
+          },
+          ".rx-radio-group-card.rx-settings-choices > .rx-radio-item > .rx-radio": {
+            "grid-row": "2",
+            "grid-column": "2"
+          },
+          ".rx-radio-group-card.rx-settings-choices > .rx-radio-item > .rx-radio-text, .rx-radio-group-card.rx-settings-choices > .rx-radio-item > .rx-radio-text > span:not([class])": {
+            "display": "contents"
+          },
+          ".rx-radio-group-card.rx-settings-choices > .rx-radio-item .rx-radio-description": {
+            "grid-column": "1 / -1",
+            "font-weight": "400"
+          },
+          ".rx-settings-swatch, .rx-settings-density": {
+            "grid-column": "1 / -1",
+            "height": "3.5rem",
+            "margin-block-end": "0.375rem",
+            "overflow": "hidden",
+            "border-radius": "max(4px, calc(var(--radius-control) - 4px))",
+            "outline": "1px solid var(--border)",
+            "outline-offset": "-1px"
+          },
+          ".rx-settings-swatch": {
+            "display": "flex"
+          },
+          ".rx-settings-swatch > span": {
+            "flex": "1",
+            "background": "linear-gradient(var(--primary), var(--primary)) 0.5rem 0.5rem / 1.25rem 0.375rem no-repeat, linear-gradient(var(--foreground), var(--foreground)) 0.5rem 1.25rem / 60% 0.25rem no-repeat, linear-gradient(var(--muted-foreground), var(--muted-foreground)) 0.5rem 1.875rem / 40% 0.25rem no-repeat, linear-gradient(var(--muted), var(--muted)) 0.5rem 2.5rem / calc(100% - 1rem) 0.5rem no-repeat, var(--background)"
+          },
+          ".rx-settings-swatch[data-theme=\"system\"] > span + span": {
+            "background-position": "calc(0.5rem - 100%) 0.5rem, calc(0.5rem - 100%) 1.25rem, calc(0.5rem - 100%) 1.875rem, calc(0.5rem - 100%) 2.5rem, 0 0"
+          },
+          ".rx-settings-density": {
+            "display": "grid",
+            "align-content": "center",
+            "gap": "6px",
+            "padding-inline": "0.75rem",
+            "background-color": "var(--muted)",
+            "transition": "gap var(--spring-swap-duration) var(--spring-swap)"
+          },
+          ".rx-settings-density > span": {
+            "height": "6px",
+            "border-radius": "999px",
+            "background-color": "color-mix(in oklab, var(--muted-foreground) 45%, transparent)",
+            "transition": "background-color 150ms var(--motion-ease)"
+          },
+          ".rx-settings-density > span:nth-child(2)": {
+            "width": "80%"
+          },
+          ".rx-settings-density > span:nth-child(3)": {
+            "width": "60%"
+          },
+          ".rx-settings-density[data-density=\"compact\"]": {
+            "gap": "3px"
+          },
+          ".rx-settings-density[data-density=\"compact\"] > span": {
+            "height": "4px"
+          },
+          ".rx-radio-item:has(:checked) .rx-settings-density > span:first-child": {
+            "background-color": "var(--primary)"
+          },
+          ".rx-card.rx-settings-danger": {
+            "--_edge-a": "color-mix(in oklab, var(--destructive) 40%, var(--border))",
+            "--_edge-b": "color-mix(in oklab, var(--destructive) 40%, var(--border))",
+            "--_flat": "color-mix(in oklab, var(--destructive) 40%, var(--border))",
+            "--_ring": "transparent",
+            "--_fill": "color-mix(in oklab, var(--destructive) 3%, var(--card))"
+          },
+          ".rx-btn.rx-settings-destructive": {
+            "--_bg": "var(--destructive)",
+            "--_bg-hover": "color-mix(in oklab, var(--destructive) 88%, transparent)",
+            "--_fg": "var(--primary-foreground)",
+            "transition": "opacity 150ms var(--motion-ease)"
+          },
+          ".rx-btn.rx-settings-destructive[data-tone=\"soft\"]": {
+            "--_bg": "color-mix(in oklab, var(--destructive) 10%, transparent)",
+            "--_bg-hover": "color-mix(in oklab, var(--destructive) 16%, transparent)",
+            "--_fg": "var(--destructive)"
+          },
+          ".rx-settings-confirm:has(input:invalid) .rx-settings-destructive:not([data-state=\"loading\"])": {
+            "opacity": "0.55"
+          },
+          ".rx-settings-bar": {
+            "position": "sticky",
+            "bottom": "1rem",
+            "z-index": "2",
+            "display": "none",
+            "flex-wrap": "wrap",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "0.5rem 0.75rem",
+            "padding": "0.5rem 0.5rem 0.5rem 1rem",
+            "border": "1px solid var(--border)",
+            "border-radius": "var(--radius-box)",
+            "background-color": "color-mix(in oklab, var(--popover) 90%, transparent)",
+            "backdrop-filter": "blur(12px)",
+            "color": "var(--popover-foreground)",
+            "opacity": "0",
+            "translate": "0 1rem",
+            "scale": "0.98",
+            "transition": "opacity 160ms var(--motion-ease), translate 160ms var(--motion-ease), scale 160ms var(--motion-ease), border-color 200ms var(--motion-ease), display 160ms allow-discrete"
+          },
+          ".rx-settings:has(> form[data-dirty]) > .rx-settings-bar": {
+            "display": "flex",
+            "opacity": "1",
+            "translate": "0 0",
+            "scale": "1",
+            "transition": "opacity 200ms var(--motion-ease), translate var(--spring-panel-duration) var(--spring-panel), scale var(--spring-panel-duration) var(--spring-panel), border-color 200ms var(--motion-ease), display var(--spring-panel-duration) allow-discrete"
+          },
+          "@starting-style ": {
+            ".rx-settings[data-moved] .rx-settings-panel > .rx-settings-section": {
+              "opacity": "0",
+              "translate": "0 0.75rem"
+            },
+            ".rx-settings:has(> form[data-dirty]) > .rx-settings-bar": {
+              "opacity": "0",
+              "translate": "0 1rem",
+              "scale": "0.98"
+            }
+          },
+          ".rx-settings-bar[data-state=\"success\"]": {
+            "border-color": "color-mix(in oklab, var(--success) 50%, var(--border))"
+          },
+          ".rx-settings-bar[data-state=\"error\"]": {
+            "border-color": "color-mix(in oklab, var(--destructive) 50%, var(--border))"
+          }
+        },
+        "@layer rx-motion": {
+          "@media (prefers-reduced-motion: reduce)": {
+            ".rx-settings[data-moved] .rx-settings-panel > .rx-settings-section, .rx-settings .rx-settings-nav > .rx-tabs-trigger::after, .rx-settings .rx-settings-density": {
+              "transition": "none"
+            },
+            ".rx-settings .rx-settings-bar, .rx-settings:has(> form[data-dirty]) > .rx-settings-bar": {
+              "translate": "none",
+              "scale": "none",
+              "transition": "opacity 120ms var(--motion-ease), display 120ms allow-discrete"
+            }
+          },
+          "[data-motion=\"off\"] .rx-settings[data-moved] .rx-settings-panel > .rx-settings-section, [data-motion=\"off\"] .rx-settings .rx-settings-nav > .rx-tabs-trigger::after, [data-motion=\"off\"] .rx-settings .rx-settings-density, [data-motion=\"off\"] .rx-settings .rx-settings-bar, [data-motion=\"off\"] .rx-settings:has(> form[data-dirty]) > .rx-settings-bar": {
+            "translate": "none",
+            "scale": "none",
+            "transition": "none"
+          }
+        }
+      },
+      "categories": [
+        "settings",
+        "account"
+      ]
     }
   ]
 }

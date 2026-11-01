@@ -319,17 +319,33 @@ const COMPONENTS: { name: string; title: string; description: string; css?: stri
  * Blocks: whole screens composed of the components above, from `src/blocks/<folder>`. Their files
  * install to `components/blocks/<folder>` and their component imports become registry dependencies.
  */
-const BLOCKS: { name: string; folder: string; title: string; description: string; css?: string }[] =
-	[
-		{
-			name: "signup-block",
-			folder: "signup",
-			title: "Sign-up block",
-			description:
-				"A three-step sign-up card (details with a password meter, an emailed code with a resend countdown, a drawn tick) and a compact sign-in card, made of the Rabtx components. CSS-only motion.",
-			css: "signup-block.css",
-		},
-	];
+const BLOCKS: {
+	name: string;
+	folder: string;
+	title: string;
+	description: string;
+	css?: string;
+	categories: string[];
+}[] = [
+	{
+		name: "signup-block",
+		folder: "signup",
+		title: "Sign-up block",
+		description:
+			"A three-step sign-up card (details with a password meter, an emailed code with a resend countdown, a drawn tick) and a compact sign-in card, made of the Rabtx components. CSS-only motion.",
+		css: "signup-block.css",
+		categories: ["authentication"],
+	},
+	{
+		name: "settings-block",
+		folder: "settings",
+		title: "Settings block",
+		description:
+			"A settings page in sections (profile, account, notifications, appearance, danger zone) on Tabs that turn vertical when the block is wide, with an unsaved changes bar and dialogs to change the email and delete the account, made of the Rabtx components. CSS-only motion.",
+		css: "settings-block.css",
+		categories: ["settings", "account"],
+	},
+];
 
 /** A link to another item of this registry; the docs route fills in the origin. */
 const dep = (name: string) => `${ORIGIN}/r/${name}.json`;
@@ -442,7 +458,7 @@ function buildItems(warnings: string[]): Item[] {
 			})),
 			registryDependencies: [dep("rabtx")],
 			css: block.css ? cssObject(readStyle(block.css), block.css, warnings) : undefined,
-			categories: ["authentication"],
+			categories: block.categories,
 		});
 	}
 	return items;
