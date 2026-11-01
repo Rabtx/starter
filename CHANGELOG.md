@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `@rabtx/ui` Settings block (`@rabtx/ui/blocks/settings`, registry item `@rabtx/settings-block`
+  installing to `components/blocks/settings`): Profile, Account, Notifications, Appearance and
+  Danger zone on Tabs that are a sticky column or a scrolling row by a container query, one native
+  form for Field/Input/Textarea, Select, Switch, Checkbox and RadioGroup choice cards, a sticky
+  unsaved changes bar shown by `:has()` and `@starting-style` (Discard, Ctrl/Cmd+S, StatefulButton
+  save), and Dialogs to change the email and to delete the account by a typed phrase.
+  `/docs/ui/blocks/settings`, the `/ui/blocks/settings` playground and `ui-settings-block.spec.ts`.
 - `@rabtx/ui` RadioGroup: native radios sharing one name in a `<fieldset role="radiogroup">`,
   sizes `sm` (16), `md` (20), `lg` (24), `orientation`, a `card` variant (choice cards), shadcn API
   (`value` / `defaultValue` / `onValueChange`, `RadioGroupItem` with `description`) and Field
