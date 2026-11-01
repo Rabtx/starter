@@ -204,7 +204,9 @@ const REWRITES: [
 	],
 	[/^\.\.\/hooks\/([\w-]+)$/, (m) => ({ to: `@/hooks/${m[1]}`, dependency: m[1] })],
 	[/^\.\.\/field\/field-context$/, () => ({ to: "./field-context", dependency: "field-context" })],
-	// A component built on another (Accordion on Collapsible): both install into the same folder.
+	// A component that uses another one (Accordion on Collapsible, Toast on Button):
+	// both install into components/ui, so the import stays relative and the other component
+	// becomes a registry dependency. Links no import shows (CSS one builds on) go in `needs`.
 	[
 		/^\.\.\/([\w-]+)\/([\w.-]+)$/,
 		(m) => {
@@ -371,6 +373,13 @@ const COMPONENTS: {
 		title: "Badge",
 		description: "A small tinted label in six tones.",
 		css: "badge.css",
+	},
+	{
+		name: "toast",
+		title: "Toast",
+		description:
+			"Stacked toasts in a top-layer region: toast(), success, error, warning, info, loading and promise, with actions, swipe to dismiss, paused timers and live announcements. CSS-only motion.",
+		css: "toast.css",
 	},
 ];
 

@@ -19,6 +19,7 @@ export const NAV = [
 			{ href: "/ui/tooltip", label: "Tooltip" },
 			{ href: "/ui/popover", label: "Popover" },
 			{ href: "/ui/dropdown-menu", label: "Dropdown Menu" },
+			{ href: "/ui/toast", label: "Toast" },
 			{ href: "/ui/badge", label: "Badge" },
 		],
 	},

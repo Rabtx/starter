@@ -18,6 +18,7 @@
 		"tooltip",
 		"popover",
 		"dropdown-menu",
+		"toast",
 		"blocks"
 	]
 }

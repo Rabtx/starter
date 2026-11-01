@@ -29,6 +29,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   save), and Dialogs to change the email and to delete the account by a typed phrase.
   `/docs/ui/blocks/settings`, the `/ui/blocks/settings` playground and `ui-settings-block.spec.ts`.
 - `@rabtx/ui` Popover and Dropdown Menu (+ ContextMenu) on the native Popover API and CSS anchor positioning, with registry items `@rabtx/popover` and `@rabtx/dropdown-menu`, `/docs/ui/popover`, `/docs/ui/dropdown-menu`, the `/ui/popover` and `/ui/dropdown-menu` playground pages and their e2e specs.
+- `@rabtx/ui` Toast: a Sonner-style stacked `Toaster` in the top layer (`popover="manual"`, re-raised
+  above dialogs) with six positions, `expand`, `visibleToasts` and `gap`, and the imperative
+  `toast()` / `success` / `error` / `warning` / `info` / `loading` / `promise` / `dismiss` API with
+  actions and cancel (our Button), icons and durations. Stacking, fan-out, `@starting-style` enter
+  and `allow-discrete` exit are CSS on the toast spring; swipe writes CSS variables from pointer
+  events; timers pause on hover, focus and a hidden tab; polite and assertive live regions, F6 /
+  Alt+T and Escape. Registry item `@rabtx/toast`, `/docs/ui/toast`, `/ui/toast` and
+  `ui-toast.spec.ts`.
 - `@rabtx/ui` RadioGroup: native radios sharing one name in a `<fieldset role="radiogroup">`,
   sizes `sm` (16), `md` (20), `lg` (24), `orientation`, a `card` variant (choice cards), shadcn API
   (`value` / `defaultValue` / `onValueChange`, `RadioGroupItem` with `description`) and Field
