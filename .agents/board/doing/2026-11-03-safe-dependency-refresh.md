@@ -71,4 +71,4 @@ Contract impact: none.
 
 Review: read-only review of `ea45d45`; no dependency or scope findings. Card count/status correction addressed in this follow-up.
 
-Commit: `ea45d45` (dependency changes); card correction follow-up pending commit.
+Commit: `ea45d45` (dependency changes); `cf9f8df` (review record correction).
