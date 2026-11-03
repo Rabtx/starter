@@ -61,14 +61,14 @@ Apply only the versions Bun identifies as compatible with each existing manifest
 - `bun run typecheck`: pass, 8 workspace tasks. Mobile check used the main worktree's installed copies of unchanged `expo-secure-store` and `expo-image-picker` after the interrupted WTP install left zero-byte files in this worktree.
 - `bun run test`: pass, 7 workspace tasks and shell tests; 3 pgvector integration tests skipped without a database.
 - `bun outdated --recursive --no-save --dry-run`: remaining results are exact-pinned or outside the current range; no further compatible direct updates.
-- `git diff --check`: pending final review.
+- `git diff HEAD^ HEAD --check`: pass.
 
 ## Resolution
 
-Updated 16 compatible dependency versions across 8 workspace manifests and `bun.lock`. No source files changed. Independent review and push are pending.
+Updated 16 compatible dependency versions across 7 workspace manifests and `bun.lock`. No source files changed. Independent review found no dependency, range, or source-scope issues; it requested this card metadata correction, which is now recorded. Push is pending.
 
 Contract impact: none.
 
-Review: pending.
+Review: read-only review of `ea45d45`; no dependency or scope findings. Card count/status correction addressed in this follow-up.
 
-Commit: pending.
+Commit: `ea45d45` (dependency changes); card correction follow-up pending commit.
