@@ -10,9 +10,7 @@
 @import "./input.css";
 @import "./textarea.css";
 @import "./checkbox.css";
-<<<<<<< HEAD
 @import "./toggle.css";
-=======
 @import "./switch.css";
 @import "./radio-group.css";
 @import "./tabs.css";
@@ -30,4 +28,3 @@
 @import "./settings-block.css";
 
 @source "..";
->>>>>>> origin/main

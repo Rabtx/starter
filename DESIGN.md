@@ -283,17 +283,6 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   `@rabtx/ui/checkbox`, `@rabtx/ui/checkbox/styles`,
   `@rabtx/ui/motion`, `@rabtx/ui/blocks/signup`, `@rabtx/ui/styles.css`, `@rabtx/ui/theme.css`.
   `@rabtx/ui/select`, `@rabtx/ui/select/styles`, `@rabtx/ui/checkbox`, `@rabtx/ui/checkbox/styles`,
-<<<<<<< HEAD
-  `@rabtx/ui/toggle`, `@rabtx/ui/toggle/styles`, `@rabtx/ui/motion`, `@rabtx/ui/styles.css`.
-- **Input** (Figma `6:14`): a wrapper draws the field (`rx-control rx-field`) around a native
-  `<input>`. Heights 28, 32 (default), 36, 44, 48. Depth: Flat is one 1px border; Floating is a
-  recess (dark top edge fading to a light bottom edge plus a faint top shade), which replaces
-  Figma's inner shadow because depth has no cast or inset shadows. Focus is a blue edge plus a 3px
-  halo; error (`aria-invalid`) is red the same way. Pill is a per-input `pill` prop (Figma's Shape
-  property), independent of the Round radius mode, so text is never clipped. Dark field values and
-  the 20% / 18% halo strengths are derived, not read from Figma. Figma's placeholder color
-  (`#9e9e9e` on `#f5f5f5`) is below 4.5:1; kept as specified, flagged for the design owner.
-=======
   `@rabtx/ui/motion`, `@rabtx/ui/blocks/signup`, `@rabtx/ui/blocks/settings`, `@rabtx/ui/styles.css`, `@rabtx/ui/theme.css`.
 - Theming: `src/styles/theme.css` is the only place a color, radius, shadow or easing is defined.
   Components read the shadcn semantic tokens (and the documented Rabtx extras) and never define
@@ -338,7 +327,6 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   `autocomplete="one-time-code"` over aria-hidden slots; the ring glides on the swap spring and
   characters roll in). No animation library. Figma's placeholder color (`#9e9e9e` on white) is
   below 4.5:1; kept as specified, flagged for the design owner.
->>>>>>> origin/main
 - **Field** (Figma `26:436`): a label (13/20 medium), one control and an optional 12/16 hint, 6px
   apart. It owns the wiring: a generated `id` for the label, the hint or error linked with
   `aria-describedby`, `aria-invalid` on an error, and a polite live region for the message. The
@@ -436,48 +424,6 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   white in dark). Measured: light 4.86 (warning) to 6.8, dark 5.07 to 6.6, asserted in
   `ui-badge.spec.ts`. Success, warning and violet reuse the same base color in dark; their dark
   values are not in Figma. Tag (outlined, `42:441`) and Chip (interactive, `6:139`) are separate.
-<<<<<<< HEAD
-- **Select** (Figma `66:770`, the trigger; the list follows Menu `7:91` and Menu Item `7:60`): a
-  native `<select>` inside a field wrapper (`rx-control rx-field`), sizes 28, 32 (default), 36, 13/20
-  text, optional leading icon, a `placeholder` (a hidden first option) and the same focus, error and
-  disabled treatment as Input. The platform does the hard parts: keyboard, typeahead, screen readers,
-  mobile pickers. Where `appearance: base-select` exists (Chromium) the list is styled to Menu: surface
-  fill, hairline border, box radius, 28px rows, item radius, hover on `--rx-selected`, a blue tick on
-  the chosen row, and a 150ms fade (off with Motion off). Elsewhere the OS list opens and the closed
-  field looks the same. Floating uses a hairline ring on the list instead of Menu's cast shadow.
-  **Notes:** Figma draws the Select trigger white and plain, like Textarea; it follows Input
-  (see Textarea, same open question). Figma's `Value` text is the primary color even for "Select an
-  option"; an unchosen placeholder is the tertiary gray here, as in Input. The chevron is HugeIcons'
-  unfold-more glyph (MIT) inlined, so the package needs no icon set. Menu itself (a general popover
-  menu, not tied to a select) is a separate component. Lightning CSS rejects
-  `::picker(select):popover-open`; use `:open::picker(select)`.
-- **Checkbox** (Figma `6:59`): a native `<input type="checkbox">` with `appearance: none`, 16px, off
-  (surface fill, strong border), on (accent fill, white tick) and mixed (accent fill, white minus),
-  plus disabled (pressed fill, default border, gray glyph). With children it wraps the box in a
-  `<label>` so the text names it and the row is clickable. `mixed` sets `indeterminate` (derived
-  state: the browser clears it on click). The tick and minus are CSS masks on `::before` (so they
-  take the text color), with a pop on the swap spring, off with Motion off. A 24px hit area comes
-  from an invisible `::after`, since 16px is below the 24px target size. Radius is its own tier,
-  `--rx-r-check`: 4px Default (Figma), 2px Sharp, **6px in Round** so a checkbox stays a square
-  and is never mistaken for a radio. Figma has no hover, error or focus state and no depth
-  variants, so none were invented (focus uses the shared 2px ring). **Flagged:** the off box's
-  border (`#e3e3e3` on white, about 1.3:1) is below the 3:1 non-text contrast WCAG asks for; it is
-  the same border token Input, Select and Textarea use, so one darker control-border token would fix
-  all of them. The Figma `Task Check` (6:78, a priority circle) is a separate component.
-- **Toggle** (Figma `6:103`): a native `<input type="checkbox" role="switch">`, announced as on or
-  off. Figma exports it as flat SVGs, so the values come from them: a 28x16 track, a 12px white
-  thumb inset 2px, off `#e3e3e3`, on `#2d7cf6`, disabled off `#f2f2f2`, disabled on `#d3e4fd`
-  (`--rx-accent-soft`; dark derived at 25% of the accent over the surface). The thumb is a
-  `::before` that slides 12px on the `switch` spring (527ms, 4% overshoot), with no JavaScript, off
-  with Motion off. An invisible `::after` makes the target 24px tall. Track and thumb share the pill
-  radius, so Sharp gives a square thumb in a square track. With children it wraps a `<label>`.
-  Server-safe (no hooks). `role="switch"` without `aria-checked` trips a lint rule; it is suppressed
-  on purpose because the native checkbox already exposes its state and `aria-checked` would
-  duplicate it and can drift. **Flagged:** the off track (`#e3e3e3` on white) is about 1.3:1, the same
-  low-contrast control border as the Checkbox, Input, Select and Textarea; one darker token would
-  fix all of them. Not in this PR: Radio, Task Check, Setting Row (which composes a Toggle).
-  Dark values are derived from the dark Sidebar and are not yet confirmed in Figma.
-=======
 - **Switch** (Figma Toggle `6:103` not yet read): a native `<input type="checkbox" role="switch">`
   with the HTML `switch` attribute (Safari 17.4+ treats it as a native switch; elsewhere it is
   ignored) and `appearance: none`. The input is the track and `::before` the thumb. Tracks 36x20,
@@ -636,7 +582,6 @@ State as of 2026-10-07. Verify against the repo before relying on it.
   `display` `allow-discrete` out; tabs with changes or errors grow a dot, Save opens the first
   error's section, and focus moves to the open panel when the bar leaves. Destructive buttons are
   a block class over the Button's private variables (no Button variant added).
->>>>>>> origin/main
 - Other frameworks: a Solid component is another thin wrapper over `button.styles.ts` plus the same
   CSS, not a clone or a rewrite. Not built yet; add it as a separate package or export with
   `solid-js` as a peer dependency, and test it with a real Solid render.
