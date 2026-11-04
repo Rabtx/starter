@@ -99,7 +99,11 @@ impl AuthService {
 
         let mut hasher = Sha256::new();
         hasher.update(refresh_token.as_bytes());
-        let refresh_token_hash = format!("{:x}", hasher.finalize());
+        let refresh_token_hash: String = hasher
+            .finalize()
+            .iter()
+            .map(|b| format!("{b:02x}"))
+            .collect();
 
         sqlx::query(
             r#"

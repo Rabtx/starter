@@ -12,7 +12,8 @@ export function createAvatarMulterOptions() {
 		storage: diskStorage({
 			destination: AVATAR_UPLOAD_DIR,
 			filename: (_req, file, callback) => {
-				const extension = extensionForMime(file.mimetype) ?? safeExtension(file.originalname);
+				const extension =
+					extensionForMime(file.mimetype) ?? safeExtension(file.originalname);
 				if (!extension) {
 					callback(new BadRequestException('Unsupported avatar file type'), '');
 					return;
@@ -27,7 +28,10 @@ export function createAvatarMulterOptions() {
 			callback: (error: Error | null, acceptFile: boolean) => void,
 		) => {
 			if (!AVATAR_ALLOWED_MIME.has(file.mimetype)) {
-				callback(new BadRequestException('Avatar must be a JPEG, PNG, or WebP image'), false);
+				callback(
+					new BadRequestException('Avatar must be a JPEG, PNG, or WebP image'),
+					false,
+				);
 				return;
 			}
 			callback(null, true);

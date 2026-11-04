@@ -5,8 +5,7 @@
 	"editor.insertSpaces": false,
 	"editor.rulers": [100],
 	"editor.codeActionsOnSave": {
-		"quickfix.oxc": "explicit",
-		"source.fixAll.ruff": "explicit"
+		"quickfix.oxc": "explicit"
 	},
 
 	// —— Language-specific formatters (oxfmt via the oxc extension) ——
@@ -43,12 +42,6 @@
 		"editor.defaultFormatter": "rust-lang.rust"
 	},
 	"rust-analyzer.check.command": "clippy",
-
-	// —— Python (scripts/python: ruff check, ruff format) ——
-	"[python]": {
-		"editor.defaultFormatter": "charliermarsh.ruff"
-	},
-	"ruff.lint.run": "onSave",
 
 	// —— Bash (scripts/bash: ShellCheck, shfmt -i 4) ——
 	"[shellscript]": {

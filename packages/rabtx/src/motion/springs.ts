@@ -9,12 +9,20 @@ export type Spring = {
 	mass: number;
 };
 
-/** beUI values, kept as the reference feel. */
+/** The reference feel. Every `--spring-*` easing in `theme.css` is solved from these. */
 export const SPRINGS = {
 	/** Press feedback: scale 0.93, settles in about 280ms. */
 	press: { stiffness: 500, damping: 30, mass: 0.6 },
 	/** Icon, label and shape swaps. About 5% overshoot. */
 	swap: { stiffness: 460, damping: 30, mass: 1 },
+	/** A tick or dash drawing itself in (stroke-dashoffset). Critically damped, about 300ms. */
+	check: { stiffness: 784, damping: 56, mass: 1 },
+	/** A button's label, status icons and width trading places. Quick, with no visible overshoot. */
+	label: { stiffness: 460, damping: 30, mass: 0.55 },
+	/** A magnetic button chasing the pointer. Soft, just under critical damping. */
+	magnetic: { stiffness: 200, damping: 15, mass: 0.3 },
+	/** A dropdown list unfolding from its trigger: about 0.2s perceived, a hint of bounce. */
+	unfold: { stiffness: 987, damping: 55.3, mass: 1 },
 	/** Sliding indicator. Slightly overdamped, no overshoot. */
 	tabs: { stiffness: 245, damping: 36, mass: 1.2 },
 	/** Dialogs and sheets. */
@@ -22,6 +30,10 @@ export const SPRINGS = {
 	toast: { stiffness: 420, damping: 34, mass: 0.75 },
 	/** Switch thumb. Heavy, squishes to 0.9. */
 	switch: { stiffness: 800, damping: 80, mass: 4 },
+	/** A radio dot gliding to the chosen option. Slightly overdamped, no overshoot, about 420ms. */
+	glide: { stiffness: 360, damping: 32, mass: 0.6 },
+	/** An accordion item opening: about 5% overshoot, most of the travel in 450ms (settles ~890ms). */
+	expand: { stiffness: 117, damping: 14.7, mass: 1 },
 } as const satisfies Record<string, Spring>;
 
 export type SpringName = keyof typeof SPRINGS;

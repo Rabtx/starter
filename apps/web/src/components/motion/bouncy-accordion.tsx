@@ -1,7 +1,5 @@
 "use client";
 
-// beui.dev/components/motion/bouncy-accordion
-
 import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { cn } from "@starter/ui/lib/utils";

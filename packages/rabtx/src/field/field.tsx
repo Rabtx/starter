@@ -1,7 +1,8 @@
 "use client";
 
 import { type ReactNode, useId } from "react";
-import { FieldContext } from "./context";
+import { FieldContext } from "./field-context";
+import { cn } from "../lib/utils";
 import { fieldParts } from "./field.styles";
 
 export type FieldProps = {
@@ -25,8 +26,8 @@ export function Field({ label, hint, error, className, children }: FieldProps) {
 		<FieldContext
 			value={{ id, describedBy: message ? `${id}-message` : undefined, invalid: !!error }}
 		>
-			<div className={`${root} ${className ?? ""}`}>
-				<label htmlFor={id} className={labelClass}>
+			<div className={cn(root, className)}>
+				<label id={`${id}-label`} htmlFor={id} className={labelClass}>
 					{label}
 				</label>
 				{children}

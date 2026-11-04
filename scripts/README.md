@@ -1,6 +1,6 @@
 # Starter scripts
 
-Scripts live under **`scripts/`** at repo root, organized by language: **bash**, **python**.
+Scripts live under **`scripts/`** at repo root, organized by purpose: **bash** utilities, **architecture** checks and **git-hooks**.
 
 ## Layout
 
@@ -8,10 +8,10 @@ Scripts live under **`scripts/`** at repo root, organized by language: **bash**,
 scripts/
 ├── bash/           # Bash – ShellCheck, shfmt
 │   ├── main.sh
-│   └── .shellcheckrc
-├── python/         # Python – ruff (lint + format)
-│   ├── main.py
-│   └── pyproject.toml
+│   ├── .shellcheckrc
+│   └── tests/
+├── architecture/   # Boundary and kebab-case naming checks
+├── git-hooks/      # Scripts run by lefthook
 └── README.md       # This file
 ```
 
@@ -19,25 +19,20 @@ scripts/
 
 | Command | Purpose |
 |---------|---------|
-| `bun run scripts:lint` | Lint bash (ShellCheck), python (ruff) |
-| `bun run scripts:format` | Format bash (shfmt), python (ruff format) |
+| `bun run scripts:lint` | Lint bash (ShellCheck) |
+| `bun run scripts:format` | Format bash (shfmt) |
 | `bun run scripts:run` | Run bash main script (same as `scripts:run:bash`) |
 | `bun run scripts:run:bash` | Run `scripts/bash/main.sh` |
-| `bun run scripts:run:python` | Run `scripts/python/main.py` |
-| `bun run test:scripts` | Run script tests for bash and python |
+| `bun run test:scripts` | Run the bash script tests |
 
 ## Prerequisites
 
 - **Bash** – for `scripts/bash`
-- **Python 3.11+** – for `scripts/python`
 
 Optional (for lint/format):
 
 - Bash: **ShellCheck**, **shfmt** (e.g. `pacman -S shellcheck shfmt`)
-- Python: **ruff** (e.g. `pip install ruff` or `pacman -S ruff`)
 
 ## QoL / goodies
 
 - **bash** – `.shellcheckrc`, shfmt 4-space indent.
-- **python** – `pyproject.toml` (ruff + black-style line-length 100, Python 3.11).
-

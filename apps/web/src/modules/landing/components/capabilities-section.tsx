@@ -115,7 +115,7 @@ function ReasoningVisual() {
 					Find recent AI papers and email me a summary.
 				</div>
 
-				<div className="self-start rounded-2xl rounded-bl-sm border border-white/20 bg-white/15 p-3 shadow-[0_20px_40px_-28px_rgba(0,0,0,0.5)] backdrop-blur-md">
+				<div className="self-start rounded-2xl rounded-bl-sm border border-white/20 bg-white/15 p-3 shadow-[0_20px_40px_-28px_rgba(0,0,0,0.5)]">
 					<div className="mb-2 flex items-center gap-2 text-white text-xs">
 						<span className="grid size-4 place-items-center rounded-full bg-white/25">
 							<HugeiconsIcon icon={SparklesIcon} className="size-2.5" aria-hidden={true} />
@@ -146,7 +146,7 @@ function ReasoningVisual() {
 					</div>
 				</div>
 
-				<div className="max-w-[92%] self-start rounded-2xl rounded-bl-sm border border-white/20 bg-white/15 px-3.5 py-2 text-white text-xs shadow-[0_20px_40px_-28px_rgba(0,0,0,0.5)] backdrop-blur-md">
+				<div className="max-w-[92%] self-start rounded-2xl rounded-bl-sm border border-white/20 bg-white/15 px-3.5 py-2 text-white text-xs shadow-[0_20px_40px_-28px_rgba(0,0,0,0.5)]">
 					Sent 5 papers to your inbox — summary included.
 				</div>
 			</div>
@@ -156,7 +156,7 @@ function ReasoningVisual() {
 
 function ToolsVisual() {
 	return (
-		<div className="relative h-full overflow-hidden rounded-2xl border border-white/10 p-4 font-mono text-xs backdrop-blur-md">
+		<div className="relative h-full overflow-hidden rounded-2xl border border-white/10 p-4 font-mono text-xs">
 			<div className="mb-3 flex items-center gap-1.5">
 				<span className="size-2.5 rounded-full bg-white/15" />
 				<span className="size-2.5 rounded-full bg-white/15" />
@@ -191,7 +191,7 @@ function MemoryVisual() {
 			{MEMORY_CHIPS.map((chip) => (
 				<div
 					key={chip}
-					className="mb-1.5 flex items-center gap-2 rounded-xl border border-white/20 bg-white/15 px-3 py-2 shadow-[0_20px_40px_-28px_rgba(0,0,0,0.5)] backdrop-blur-md"
+					className="mb-1.5 flex items-center gap-2 rounded-xl border border-white/20 bg-white/15 px-3 py-2 shadow-[0_20px_40px_-28px_rgba(0,0,0,0.5)]"
 				>
 					<span className="grid size-5 shrink-0 place-items-center rounded-md bg-white/20 text-white/80">
 						<span className="size-2 rounded-full bg-white/70" />
@@ -205,7 +205,7 @@ function MemoryVisual() {
 
 function OutputVisual() {
 	return (
-		<div className="relative mx-auto w-full max-w-[15rem] rounded-2xl border border-white/10 bg-neutral-950/85 p-3.5 backdrop-blur-md">
+		<div className="relative mx-auto w-full max-w-[15rem] rounded-2xl border border-white/10 bg-neutral-950/85 p-3.5">
 			<div className="flex items-center justify-between">
 				<span className="flex items-center gap-1.5 font-mono text-white text-xs">
 					<HugeiconsIcon icon={BracesIcon} className="size-3" aria-hidden={true} /> output.json
@@ -241,7 +241,7 @@ function OutputVisual() {
 
 function ApprovalVisual() {
 	return (
-		<div className="relative mx-auto w-full max-w-[15rem] rounded-2xl border border-white/20 bg-white/15 p-3.5 shadow-[0_20px_40px_-28px_rgba(0,0,0,0.5)] backdrop-blur-md">
+		<div className="relative mx-auto w-full max-w-[15rem] rounded-2xl border border-white/20 bg-white/15 p-3.5 shadow-[0_20px_40px_-28px_rgba(0,0,0,0.5)]">
 			<div className="flex items-center gap-1.5 text-[11px] text-white/80">
 				<HugeiconsIcon icon={Alert02Icon} className="size-3 text-amber-300" aria-hidden={true} />
 				<span className="font-medium">Approval needed</span>

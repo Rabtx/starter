@@ -30,8 +30,6 @@
 				"oxc.oxc-vscode",
 				"bradlc.vscode-tailwindcss",
 				"rust-lang.rust-analyzer",
-				"ms-python.python",
-				"charliermarsh.ruff",
 				"timonwong.shellcheck",
 				"mkhl.shfmt"
 			],
@@ -40,9 +38,6 @@
 				"editor.defaultFormatter": "oxc.oxc-vscode",
 				"[rust]": {
 					"editor.defaultFormatter": "rust-lang.rust-analyzer"
-				},
-				"[python]": {
-					"editor.defaultFormatter": "charliermarsh.ruff"
 				}
 			}
 		}

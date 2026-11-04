@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { springsCss } from "../../scripts/generate-springs";
+import { themeWithSprings } from "../../scripts/generate-springs";
 import { SPRINGS, dampingRatio, solveSpring, springFromDuration, springStep } from "./springs";
 
 describe("springs", () => {
@@ -33,6 +33,22 @@ describe("springs", () => {
 		expect(overshootPercent).toBeLessThan(6);
 	});
 
+	it("check draws in about 300ms and never overshoots", () => {
+		expect(dampingRatio(SPRINGS.check)).toBeCloseTo(1, 6);
+		const solved = solveSpring(SPRINGS.check);
+		expect(solved.overshootPercent).toBe(0);
+		expect(solved.settleMs).toBeGreaterThan(280);
+		expect(solved.settleMs).toBeLessThan(330);
+	});
+
+	it("glide is slightly overdamped and settles in about 420ms", () => {
+		expect(dampingRatio(SPRINGS.glide)).toBeGreaterThan(1);
+		const solved = solveSpring(SPRINGS.glide);
+		expect(solved.overshootPercent).toBe(0);
+		expect(solved.settleMs).toBeGreaterThan(380);
+		expect(solved.settleMs).toBeLessThan(460);
+	});
+
 	it("emits a valid linear() easing of fixed length", () => {
 		const { easing } = solveSpring(SPRINGS.press);
 		expect(easing.startsWith("linear(0, ")).toBe(true);
@@ -46,8 +62,8 @@ describe("springs", () => {
 		expect(spring.stiffness).toBeCloseTo((2 * Math.PI) ** 2 / 0.25, 6);
 	});
 
-	it("keeps the committed springs.css in sync with the definitions", () => {
-		const committed = readFileSync(new URL("../styles/springs.css", import.meta.url), "utf8");
-		expect(committed).toBe(springsCss());
+	it("keeps the springs in theme.css in sync with the definitions", () => {
+		const committed = readFileSync(new URL("../styles/theme.css", import.meta.url), "utf8");
+		expect(committed).toBe(themeWithSprings(committed));
 	});
 });

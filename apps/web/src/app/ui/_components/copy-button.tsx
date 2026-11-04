@@ -12,7 +12,7 @@ export function CopyButton({ code }: { code: string }) {
 				setCopied(true);
 				setTimeout(() => setCopied(false), 1500);
 			}}
-			className="absolute top-2 right-3 rounded px-1.5 py-0.5 text-xs text-(--rx-text-secondary) hover:text-(--rx-text)"
+			className="absolute top-2 right-3 rounded px-1.5 py-0.5 text-xs text-muted-foreground hover:text-foreground"
 		>
 			{copied ? "Copied" : "Copy"}
 		</button>

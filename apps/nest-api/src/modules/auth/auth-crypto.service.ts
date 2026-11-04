@@ -82,7 +82,9 @@ export class AuthCryptoService {
 		const iv = randomBytes(12);
 		const cipher = createCipheriv('aes-256-gcm', this.getEncryptionKey(), iv);
 		const encrypted = Buffer.concat([cipher.update(value, 'utf8'), cipher.final()]);
-		return [iv, cipher.getAuthTag(), encrypted].map((part) => part.toString('base64url')).join('.');
+		return [iv, cipher.getAuthTag(), encrypted]
+			.map((part) => part.toString('base64url'))
+			.join('.');
 	}
 
 	decryptSecret(value: string): string {
@@ -166,7 +168,8 @@ function safeHashEquals(actual: string, expected: string): boolean {
 	const actualBuffer = Buffer.from(actual, 'hex');
 	const expectedBuffer = Buffer.from(expected, 'hex');
 	return (
-		actualBuffer.length === expectedBuffer.length && timingSafeEqual(actualBuffer, expectedBuffer)
+		actualBuffer.length === expectedBuffer.length &&
+		timingSafeEqual(actualBuffer, expectedBuffer)
 	);
 }
 

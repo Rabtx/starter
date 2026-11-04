@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG BUN_VERSION=1.3.13
+ARG BUN_VERSION=1.4.4
 
 FROM oven/bun:${BUN_VERSION}-alpine AS base
 WORKDIR /app
@@ -31,7 +31,7 @@ COPY packages/typescript-config ./packages/typescript-config
 WORKDIR /app/apps/web
 RUN bun run build
 
-FROM node:22-alpine AS runner
+FROM node:26-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production

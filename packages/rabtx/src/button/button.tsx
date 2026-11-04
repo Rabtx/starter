@@ -1,78 +1,88 @@
 "use client";
 
-import type { ButtonHTMLAttributes, MouseEvent, ReactNode, Ref } from "react";
-import { type ButtonSize, type ButtonVariant, buttonClass, buttonParts } from "./button.styles";
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes, Ref } from "react";
+import type { ButtonSize } from "./button.styles";
+import { type ButtonLookProps, useButtonLook } from "./use-button";
 
-type BaseProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> & {
-	variant?: ButtonVariant;
-	size?: ButtonSize;
-	/** Swaps the content for a spinner at the same width and blocks clicks. */
-	loading?: boolean;
-	/** Removes the press scale. */
-	static?: boolean;
-	ref?: Ref<HTMLButtonElement>;
-};
+/** An icon-only button has no visible text, so its type asks for an accessible name. */
+export type IconOnly<P> =
+	| (P & { size?: Exclude<ButtonSize, "icon"> })
+	| (P & { size: "icon"; "aria-label": string });
 
-type LabelProps = BaseProps & {
-	iconOnly?: false;
-	leadingIcon?: ReactNode;
-	trailingIcon?: ReactNode;
-	children: ReactNode;
-};
+export type ButtonProps = IconOnly<
+	Omit<ButtonHTMLAttributes<HTMLButtonElement>, "size"> &
+		Omit<ButtonLookProps, "size"> & { ref?: Ref<HTMLButtonElement> }
+>;
 
-type IconOnlyProps = BaseProps & {
-	/** A square button. It has no visible text, so it needs an accessible name. */
-	iconOnly: true;
-	"aria-label": string;
-	leadingIcon?: never;
-	trailingIcon?: never;
-	children: ReactNode;
-};
-
-export type ButtonProps = LabelProps | IconOnlyProps;
-
-/** A native `<button>`. Icons are passed in, so the package depends on no icon set. */
-export function Button(props: ButtonProps) {
-	const {
-		variant,
-		size,
-		iconOnly,
-		loading,
-		static: isStatic,
-		leadingIcon,
-		trailingIcon,
-		children,
-		className,
-		type = "button",
-		onClick,
-		...rest
-	} = props;
-	const { content, icon, label, spinner } = buttonParts;
-
+/**
+ * A native `<button>`. Hover grows it a touch on devices with a real pointer, pressing springs it
+ * down to `pressScale`, and `ripple` spreads a disc from the press. Icons are children, so the
+ * package depends on no icon set.
+ */
+export function Button({
+	variant,
+	size,
+	pressScale,
+	ripple,
+	className,
+	style,
+	onPointerDown,
+	type = "button",
+	children,
+	ref,
+	...rest
+}: ButtonProps) {
+	const look = useButtonLook<HTMLButtonElement>(
+		{ variant, size, pressScale, ripple },
+		{ className, style, onPointerDown },
+	);
 	return (
 		<button
 			{...rest}
+			ref={ref}
 			type={type}
-			className={`${buttonClass({ variant, size, iconOnly })} ${className ?? ""}`}
-			data-loading={loading ? "" : undefined}
-			data-static={isStatic ? "" : undefined}
-			aria-busy={loading || undefined}
-			onClick={(event: MouseEvent<HTMLButtonElement>) =>
-				loading ? event.preventDefault() : onClick?.(event)
-			}
+			className={look.className}
+			style={look.style}
+			onPointerDown={look.onPointerDown}
 		>
-			<span className={content}>
-				{iconOnly ? (
-					<span className={icon}>{children}</span>
-				) : (
-					<>
-						{leadingIcon && <span className={icon}>{leadingIcon}</span>}
-						<span className={label}>{children}</span>
-						{trailingIcon && <span className={icon}>{trailingIcon}</span>}
-					</>
-				)}
-			</span>
-			<span className={spinner} aria-hidden="true" />
+			{look.ripples}
+			{children}
 		</button>
+	);
+}
+
+export type ButtonLinkProps = IconOnly<
+	Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "size"> &
+		Omit<ButtonLookProps, "size"> & { ref?: Ref<HTMLAnchorElement> }
+>;
+
+/** A link that looks like a Button. It navigates, so it stays an `<a>` for the browser and readers. */
+export function ButtonLink({
+	variant,
+	size,
+	pressScale,
+	ripple,
+	className,
+	style,
+	onPointerDown,
+	children,
+	ref,
+	...rest
+}: ButtonLinkProps) {
+	const look = useButtonLook<HTMLAnchorElement>(
+		{ variant, size, pressScale, ripple },
+		{ className, style, onPointerDown },
+	);
+	return (
+		<a
+			{...rest}
+			ref={ref}
+			className={look.className}
+			style={look.style}
+			onPointerDown={look.onPointerDown}
+		>
+			{look.ripples}
+			{children}
+		</a>
 	);
 }

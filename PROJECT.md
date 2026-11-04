@@ -22,13 +22,14 @@ starter/
 │   ├── web/                  # Next.js app
 │   ├── mobile/               # Expo Router + Uniwind app
 │   ├── nest-api/             # NestJS production API
+│   ├── ai-api/               # Bun + Hono AI API (RAG on pgvector, streaming chat)
 │   ├── docs/                 # Documentation app (Next.js + Fumadocs)
 │   └── rust/                 # Rust binary app (Cargo)
 ├── packages/
 │   ├── logger/               # Shared logger (TypeScript + Rust)
 │   ├── typescript-config/    # Shared TS config bases
 │   └── ui/                   # Shared web UI primitives + design tokens
-├── scripts/                  # Bash, Python scripts and tests
+├── scripts/                  # Bash scripts, architecture checks and tests
 ├── docker/                   # Docker Compose fragments
 ├── .github/workflows/        # CI/CD/security workflows
 ├── .devcontainer/            # Reproducible development environment
@@ -50,6 +51,7 @@ There is no root `docs/` directory.
 | `apps/web` | Next.js 16, React 19, Tailwind 4 | Includes unit/integration and Playwright e2e flow |
 | `apps/mobile` | Expo SDK 57, Expo Router, React Native, Uniwind | Mobile-first file-based routing |
 | `apps/nest-api` | NestJS 11, Zod, Jest | Production API spine |
+| `apps/ai-api` | Bun, Hono, @hono/zod-openapi, AI SDK, Drizzle + pgvector, bun test | RAG + streaming tool chat; verifies nest-api JWTs |
 | `apps/docs` | Next.js + Fumadocs + MDX | Project docs site |
 | `apps/rust` | Cargo, clippy, rustfmt | Rust application template |
 
@@ -72,7 +74,7 @@ Run commands from repo root:
 | `bun run start` | Start runtime targets |
 | `bun run lint` | Lint workspace + scripts |
 | `bun run lint:fix` | Apply lint autofixes |
-| `bun run format` | Format TS/JS + shell/Python + Rust |
+| `bun run format` | Format TS/JS + shell + Rust |
 | `bun run typecheck` | TypeScript type checking |
 | `bun run test` | Run tests in workspace + scripts |
 | `bun run test:coverage` | Run full coverage-oriented pass |
@@ -94,6 +96,7 @@ Examples:
 - `bun --cwd=apps/web run dev`
 - `bun --cwd=apps/mobile run start`
 - `bun --cwd=apps/nest-api run dev`
+- `bun --cwd=apps/ai-api run dev` (or `bun run dev:ai`)
 - `bun --cwd=apps/docs run dev`
 - `bun --cwd=apps/rust run dev`
 
@@ -101,7 +104,7 @@ Examples:
 
 ### Monorepo and package management
 
-- **Bun** is the only package manager (`bun@1.3.11`)
+- **Bun** is the only package manager (`bun@1.4.4`)
 - Workspaces: `apps/*` and `packages/*`
 - **Turborepo** orchestrates shared tasks (`turbo.json`)
 
@@ -114,7 +117,6 @@ Examples:
 ### Language-specific tools
 
 - **Bash:** `shellcheck`, `shfmt`
-- **Python:** `ruff`, `pytest`
 - **Rust:** `cargo fmt`, `cargo clippy`, `cargo test`
 
 ### Git hooks
@@ -160,7 +162,7 @@ More details: docs app `/docs/docker` and `docker/README.md`.
 
 ## Dev Container workflow
 
-`.devcontainer/` provides a reproducible setup with Bun, Rust, C, Python, Lua, and related tools.
+`.devcontainer/` provides a reproducible setup with Bun, Rust, and the Bash lint/format tools.
 
 - Open in VS Code/Cursor and choose **Reopen in Container**
 - See `.devcontainer/README.md` for exact toolchain and post-create steps

@@ -56,8 +56,10 @@ pub fn sign_refresh_token(session_id: &str) -> Result<String, Error> {
 
 pub fn verify_access_token(token: &str) -> Result<AccessPayload, Error> {
     let secret = env::var("JWT_SECRET").unwrap_or_else(|_| "secret".to_string());
-    let mut validation = Validation::default();
-    validation.validate_exp = true;
+    let validation = Validation {
+        validate_exp: true,
+        ..Validation::default()
+    };
 
     let token_data = decode::<AccessPayload>(
         token,
@@ -70,8 +72,10 @@ pub fn verify_access_token(token: &str) -> Result<AccessPayload, Error> {
 
 pub fn verify_refresh_token(token: &str) -> Result<RefreshPayload, Error> {
     let secret = env::var("JWT_REFRESH_SECRET").unwrap_or_else(|_| "refresh-secret".to_string());
-    let mut validation = Validation::default();
-    validation.validate_exp = true;
+    let validation = Validation {
+        validate_exp: true,
+        ..Validation::default()
+    };
 
     let token_data = decode::<RefreshPayload>(
         token,

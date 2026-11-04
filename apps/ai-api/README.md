@@ -1,43 +1,36 @@
-# AI API (`apps/ai-api`)
+# ai-api
 
-Python **FastAPI** service for in-app AI assistance. Managed with **[uv](https://docs.astral.sh/uv/)**.
-
-## Architecture
-
-```txt
-Web / Mobile  →  NestJS (auth, tenancy, audit)  →  ai-api (prompts + models)
-```
-
-- FastAPI does **not** own auth sessions, billing, or tenant CRUD.
-- Nest authenticates the user, then calls ai-api with a shared service token.
-- Model providers are behind a port (`LlmProvider`) so mock and OpenAI-compatible backends swap cleanly.
-
-## Layout
-
-```txt
-src/ai_api/
-  api/                 # HTTP routers + deps
-  application/         # use-cases
-  domain/              # ports + errors
-  infrastructure/      # providers, security
-  schemas/             # Pydantic contracts
-  config/              # settings
-  main.py              # app factory
-```
-
-## Commands
-
-`package.json` scripts resolve `uv` via `scripts/uv.mjs` (PATH or `%USERPROFILE%\\.local\\bin`), so Turbo works even when `uv` is not on PATH.
-
-From repo root or `apps/ai-api`:
+Bun + Hono + TypeScript AI service: RAG on Postgres + pgvector and streaming, tool-calling chat with
+the Vercel AI SDK. Full docs: `/docs/ai-api` (`apps/docs/content/docs/ai-api.mdx`).
 
 ```bash
-bun run uv -- sync
-bun run dev:ai
-# or: bun --cwd=apps/ai-api run dev
-bun --cwd=apps/ai-api run lint
-bun --cwd=apps/ai-api run test
+cp .env.example .env        # set AI_API_KEY; JWT_SECRET must match apps/nest-api
+bun run db:migrate          # needs Postgres with pgvector (docker compose up -d postgres)
+bun run dev                 # http://localhost:8000/api/v1/health, docs at /api/docs
 ```
 
-Health: `GET http://localhost:8000/api/v1/health`
-Assist (service token required): `POST http://localhost:8000/api/v1/assist`
+| Script | Does |
+| --- | --- |
+| `dev` | `bun --watch src/index.ts` |
+| `build` / `start` | Bundle to `dist/` (index + migrate + SQL) / run the bundle |
+| `test` / `test:coverage` | `bun test` (LLM and embeddings mocked) |
+| `typecheck` / `lint` | `tsc --noEmit` / oxlint |
+| `db:generate` / `db:migrate` | drizzle-kit generate / apply migrations |
+
+Layout:
+
+```text
+src/
+  index.ts              # Bun.serve entry: env, db, models, app
+  app.ts                # createApp(deps): middleware, routes, OpenAPI, errors
+  config/env.ts         # Zod env schema
+  common/               # envelopes, AppError, request id, error handler
+  database/             # drizzle client, schema, migrations, migrate.ts
+  modules/
+    auth/               # nest-api JWT verification
+    ai/                 # OpenAI-compatible provider (chat + embeddings)
+    rag/                # chunker, repository, service, routes
+    chat/               # tools + streaming route
+    health/             # liveness + readiness
+test/                   # bun test (mocks in helpers.ts)
+```

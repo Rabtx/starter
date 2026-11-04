@@ -2,13 +2,37 @@
 	"name": "ai-api",
 	"version": "0.1.0",
 	"private": true,
+	"type": "module",
+	"license": "MIT OR Apache-2.0",
 	"scripts": {
-		"dev": "bun scripts/uv.mjs run uvicorn ai_api.main:app --reload --host 0.0.0.0 --port 8000",
-		"start": "bun scripts/uv.mjs run uvicorn ai_api.main:app --host 0.0.0.0 --port 8000",
-		"lint": "bun scripts/uv.mjs run ruff check . || bun -e \"console.warn('[ai-api] Skipping ruff check: ruff unavailable on this host.'); process.exit(0)\"",
-		"lint:fix": "bun scripts/uv.mjs run ruff check --fix . && bun scripts/uv.mjs run ruff format . || bun -e \"console.warn('[ai-api] Skipping ruff fix: ruff unavailable on this host.'); process.exit(0)\"",
-		"format": "bun scripts/uv.mjs run ruff format . || bun -e \"console.warn('[ai-api] Skipping ruff format: ruff unavailable on this host.'); process.exit(0)\"",
-		"test": "bun scripts/pytest.mjs",
-		"uv": "bun scripts/uv.mjs"
+		"dev": "bun --watch src/index.ts",
+		"build": "bun build src/index.ts src/database/migrate.ts --target=bun --outdir=dist --root=src && rm -rf dist/database/migrations && cp -r src/database/migrations dist/database/migrations",
+		"start": "bun dist/index.js",
+		"lint": "oxlint",
+		"lint:fix": "oxlint --fix",
+		"typecheck": "tsc --noEmit",
+		"test": "bun test",
+		"test:coverage": "bun test --coverage",
+		"db:generate": "drizzle-kit generate",
+		"db:migrate": "bun src/database/migrate.ts"
+	},
+	"dependencies": {
+		"@ai-sdk/openai-compatible": "^3.0.82",
+		"@hono/zod-openapi": "^1.6.3",
+		"@scalar/hono-api-reference": "^0.12.17",
+		"@starter/logger": "workspace:*",
+		"ai": "^7.0.159",
+		"drizzle-orm": "^0.45.4",
+		"hono": "^4.13.14",
+		"jose": "^6.2.14",
+		"postgres": "^4.0.0",
+		"zod": "^4.6.7"
+	},
+	"devDependencies": {
+		"@ai-sdk/provider": "^4.0.35",
+		"@starter/typescript-config": "workspace:*",
+		"@types/bun": "^1.4.4",
+		"drizzle-kit": "^0.31.11",
+		"typescript": "^7.0.2"
 	}
 }

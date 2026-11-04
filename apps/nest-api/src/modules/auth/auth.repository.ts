@@ -235,7 +235,11 @@ export class AuthRepository {
 			.update(sessions)
 			.set({ revokedAt: new Date(), revocationReason: reason })
 			.where(
-				and(eq(sessions.id, sessionId), eq(sessions.userId, userId), isNull(sessions.revokedAt)),
+				and(
+					eq(sessions.id, sessionId),
+					eq(sessions.userId, userId),
+					isNull(sessions.revokedAt),
+				),
 			)
 			.returning({ id: sessions.id });
 		return revoked.length > 0;

@@ -1,5 +1,4 @@
 "use client";
-// beui.dev/components/motion/animated-toast-stack
 
 import {
 	Alert02Icon,

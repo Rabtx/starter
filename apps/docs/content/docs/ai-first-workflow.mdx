@@ -12,12 +12,12 @@ AI/UI research into a practical improvement plan.
 The repo already has a strong base:
 
 - Bun workspaces with Turborepo orchestration.
-- Multiple app templates: Next.js web, Expo mobile, Nest API, FastAPI, docs, and Rust.
+- Multiple app templates: Next.js web, Expo mobile, Nest API, docs, and Rust.
 - Shared TypeScript config and Tailwind token package.
-- Polyglot quality tooling for TypeScript, Bash, Python, and Rust.
+- Polyglot quality tooling for TypeScript, Bash, and Rust.
 - Git hooks through Lefthook.
 - GitHub Actions for CI, CD template, dependency review, CodeQL, and Dependabot.
-- Docker Compose fragments for Postgres, Nest API, web, AI API, and Rust.
+- Docker Compose fragments for Postgres, Nest API, web, and Rust.
 - Dev Container support.
 - Agent instructions and rule files.
 - Shared `@starter/ui` package for stable web primitives.
@@ -117,12 +117,11 @@ Why it matters:
 ### 6. Security Coverage Is JS-Heavy
 
 Security workflow covers dependency review and CodeQL for JavaScript/TypeScript. The repo also has
-Python, Rust, C, Docker, and shell scripts.
+Rust, Docker, and shell scripts.
 
 Recommendation:
 
 - Add `cargo audit` or `cargo deny` for Rust.
-- Add `pip-audit` or `uv pip audit` when Python dependencies grow.
 - Add `gitleaks` or equivalent secret scanning in CI.
 - Add container scanning if Docker images become real deployment targets.
 - Add Semgrep if custom rules become useful.
@@ -146,7 +145,7 @@ script.
 Recommendation:
 
 - Add a scaffold script later: `bun run create:app`.
-- Let it copy selected templates: web, mobile, Nest, FastAPI, docs.
+- Let it copy selected templates: web, mobile, Nest, docs.
 - Replace names, ports, package scopes, env files, and README placeholders.
 - Optionally remove unused apps for a lean product repo.
 
@@ -276,7 +275,6 @@ starter/
 ### Phase 3: Security and Release Hardening
 
 - Add Rust audit.
-- Add Python dependency audit.
 - Add Gitleaks/TruffleHog in CI.
 - Add Release Please or Changesets.
 - Add real deploy adapters for Vercel/Cloudflare/Railway/Fly/Render as optional templates.
@@ -301,7 +299,6 @@ starter/
 | GitHub workflow | PR template, issue templates, CODEOWNERS |
 | Release automation | Release Please or Changesets |
 | Rust security | `cargo audit` or `cargo deny` |
-| Python security | `pip-audit` or `uv` audit workflow |
 | Secret scanning | Gitleaks/TruffleHog CI job |
 | App scaffolding | `bun run create:app` script |
 

@@ -1,16 +1,14 @@
 import { Field } from "@rabtx/ui/field";
-import { Select } from "@rabtx/ui/select";
+import { Select, SelectItem } from "@rabtx/ui/select";
 
 export default function SelectDefault() {
 	return (
-		<Field label="Team" hint="Who owns this project." className="w-64">
-			<Select placeholder="Select a team">
-				<option value="design">Design</option>
-				<option value="engineering">Engineering</option>
-				<option value="growth">Growth</option>
-				<option value="ops" disabled>
-					Operations (full)
-				</option>
+		<Field label="Framework" hint="What the project is built with." className="w-64">
+			<Select placeholder="Pick a framework">
+				<SelectItem value="next">Next.js</SelectItem>
+				<SelectItem value="remix">Remix</SelectItem>
+				<SelectItem value="astro">Astro</SelectItem>
+				<SelectItem value="vite">Vite</SelectItem>
 			</Select>
 		</Field>
 	);

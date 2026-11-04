@@ -27,7 +27,7 @@ updated: 2026-10-08
 
 ## What
 
-Owner feedback on the first playground: too many examples, wants documentation like shadcn or beUI,
+Owner feedback on the first playground: too many examples, wants documentation like shadcn,
 Tailwind used as much as possible, minimal code, and Solid support planned.
 
 ## Proposal or Ask

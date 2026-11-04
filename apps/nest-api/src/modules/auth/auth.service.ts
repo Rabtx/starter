@@ -153,7 +153,8 @@ export class AuthService {
 			await this.recordInvalidChallengeAttempt(challenge);
 			throw invalidOtpException();
 		}
-		if (!(await this.authRepository.consumeChallenge(challenge.id))) throw invalidOtpException();
+		if (!(await this.authRepository.consumeChallenge(challenge.id)))
+			throw invalidOtpException();
 		const user = await this.usersService.findById(challenge.userId);
 		if (!user?.isActive) throw invalidCredentialsException();
 		return this.createSession(user, metadata);
@@ -222,7 +223,11 @@ export class AuthService {
 		}
 
 		if (!this.crypto.verifyRefreshToken(refreshToken, session.refreshTokenHash)) {
-			await this.authRepository.revokeSession(session.id, session.userId, 'refresh_token_reuse');
+			await this.authRepository.revokeSession(
+				session.id,
+				session.userId,
+				'refresh_token_reuse',
+			);
 			throw invalidRefreshTokenException();
 		}
 
@@ -347,7 +352,10 @@ export class AuthService {
 		}));
 	}
 
-	async revokeSession(user: AccessTokenPayload, sessionId: string): Promise<{ current: boolean }> {
+	async revokeSession(
+		user: AccessTokenPayload,
+		sessionId: string,
+	): Promise<{ current: boolean }> {
 		await this.authRepository.revokeSession(sessionId, user.sub, 'user_revoked');
 		return { current: sessionId === user.sid };
 	}
@@ -415,7 +423,9 @@ export class AuthService {
 		purpose: 'magic_link' | 'mfa_login',
 	): Promise<AuthChallengeRecord> {
 		const challengeId = this.crypto.getChallengeId(token);
-		const challenge = challengeId ? await this.authRepository.findChallengeById(challengeId) : null;
+		const challenge = challengeId
+			? await this.authRepository.findChallengeById(challengeId)
+			: null;
 		if (
 			!challenge ||
 			challenge.purpose !== purpose ||

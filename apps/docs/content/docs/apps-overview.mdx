@@ -21,7 +21,8 @@ NestJS production API: auth, tenancy, users, billing, MFA and passkeys, backed b
 
 ## `apps/ai-api`
 
-FastAPI service for LLM-assisted workflows. The Nest API proxies it; LLM keys are never exposed to clients.
+Bun + Hono AI service: RAG over Postgres + pgvector (ingest, top-k query, grounded answers) and a streaming,
+tool-calling chat endpoint built on the Vercel AI SDK. It verifies `apps/nest-api` access tokens. See [AI API](/docs/ai-api).
 
 ## `apps/rust`
 

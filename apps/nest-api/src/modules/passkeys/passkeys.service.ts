@@ -46,7 +46,11 @@ export class PasskeysService {
 			userId,
 			email: user.email,
 			purpose: 'webauthn_registration',
-			challengeHash: this.crypto.hashOtp('webauthn_registration', user.email, options.challenge),
+			challengeHash: this.crypto.hashOtp(
+				'webauthn_registration',
+				user.email,
+				options.challenge,
+			),
 			expiresAt: new Date(Date.now() + this.config.mfaChallengeTtlMinutes * 60_000),
 		});
 		return { challengeId: challenge.id, options };
@@ -68,14 +72,20 @@ export class PasskeysService {
 		const verification = await verifyRegistrationResponse({
 			response: input.response,
 			expectedChallenge: (value) =>
-				this.crypto.verifyOtp('webauthn_registration', user.email, value, challenge.codeHash),
+				this.crypto.verifyOtp(
+					'webauthn_registration',
+					user.email,
+					value,
+					challenge.codeHash,
+				),
 			expectedOrigin: this.config.webAuthnOrigins,
 			expectedRPID: this.config.webAuthnRpId,
 			requireUserVerification: true,
 		});
 		if (!verification.verified) throw invalidPasskey();
 		if (!(await this.repository.consumeChallenge(challenge.id))) throw invalidPasskey();
-		const { credential, credentialBackedUp, credentialDeviceType } = verification.registrationInfo;
+		const { credential, credentialBackedUp, credentialDeviceType } =
+			verification.registrationInfo;
 		const passkey = await this.repository.create({
 			userId: input.userId,
 			credentialId: credential.id,
@@ -119,7 +129,10 @@ export class PasskeysService {
 		return { challengeId: challenge.id, options };
 	}
 
-	async finishAuthentication(input: { challengeId: string; response: AuthenticationResponseJSON }) {
+	async finishAuthentication(input: {
+		challengeId: string;
+		response: AuthenticationResponseJSON;
+	}) {
 		const challenge = await this.repository.findAuthenticationChallenge(input.challengeId);
 		if (!challenge || challenge.consumedAt || challenge.expiresAt <= new Date()) {
 			throw invalidPasskey();
@@ -164,7 +177,10 @@ export class PasskeysService {
 
 	async remove(userId: string, passkeyId: string): Promise<{ deleted: true }> {
 		if (!(await this.repository.delete(userId, passkeyId))) {
-			throw new BadRequestException({ code: 'PASSKEY_NOT_FOUND', message: 'Passkey not found' });
+			throw new BadRequestException({
+				code: 'PASSKEY_NOT_FOUND',
+				message: 'Passkey not found',
+			});
 		}
 		return { deleted: true };
 	}

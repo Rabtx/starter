@@ -123,7 +123,7 @@ export function SiteFooter() {
 				</div>
 
 				<div className="mt-14 flex flex-col-reverse items-center gap-6 border-border border-t pt-8 sm:flex-row sm:justify-between">
-					<p className="text-muted-foreground text-xs">© 2026 beUI Pro. All rights reserved.</p>
+					<p className="text-muted-foreground text-xs">© 2026 Rabtx. All rights reserved.</p>
 					<div className="flex items-center gap-1.5">
 						{SOCIALS.map(({ label, href, icon: Icon }) => (
 							<a

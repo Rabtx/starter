@@ -37,7 +37,11 @@ export class UsersRepository {
 	}
 
 	async findById(userId: string): Promise<UserRecord | null> {
-		const [user] = await this.database.db.select().from(users).where(eq(users.id, userId)).limit(1);
+		const [user] = await this.database.db
+			.select()
+			.from(users)
+			.where(eq(users.id, userId))
+			.limit(1);
 		return user ?? null;
 	}
 

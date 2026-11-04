@@ -32,7 +32,7 @@ Write the owner's Figma link, the new variant model and the animation reference 
 
 Owner decisions (2026-10-07, in chat):
 
-- Figma file `en7xSFtcVYHkX7Iwo4hONQ` is the design source; beUI is the animation preference.
+- Figma file `en7xSFtcVYHkX7Iwo4hONQ` is the design source; CSS spring motion is the animation preference.
 - `terminal` is dropped as a material: it is the Sharp radius mode, and any monospace font is applied
   globally by the app.
 - Depth stays shadowless; the mechanism is pending an example from the owner, who will also update
@@ -62,4 +62,4 @@ the four materials as the variant model.
 ## Resolution
 
 `DESIGN.md` now has a Figma source section (file key, page and section IDs, observed tokens), the
-radius / depth / kind model, the beUI reference and a rewritten open-decisions list.
+radius / depth / kind model, the motion reference and a rewritten open-decisions list.

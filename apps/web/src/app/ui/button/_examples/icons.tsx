@@ -5,11 +5,15 @@ import { Button } from "@rabtx/ui/button";
 export default function ButtonIcons() {
 	return (
 		<>
-			<Button variant="secondary" leadingIcon={<HugeiconsIcon icon={Add01Icon} />}>
+			<Button variant="secondary">
+				<HugeiconsIcon icon={Add01Icon} />
 				New company
 			</Button>
-			<Button trailingIcon={<HugeiconsIcon icon={ArrowRight01Icon} />}>Continue</Button>
-			<Button variant="secondary" iconOnly aria-label="Settings">
+			<Button>
+				Continue
+				<HugeiconsIcon icon={ArrowRight01Icon} />
+			</Button>
+			<Button size="icon" variant="outline" aria-label="Settings">
 				<HugeiconsIcon icon={Settings01Icon} />
 			</Button>
 		</>

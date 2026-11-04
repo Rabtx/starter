@@ -59,7 +59,7 @@ export function UsageDistributionCard({ className }: Props) {
 					label="Get AI insight on user distribution"
 					className="mt-5"
 					disabled
-					title="AI insights connect after Nest AI assist is enabled"
+					title="AI insights are not available yet"
 				/>
 			</div>
 

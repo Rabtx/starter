@@ -59,14 +59,18 @@ describe('AppController (e2e)', () => {
 	});
 
 	it('exposes the optional authentication method routes', async () => {
-		const providers = await request(app.getHttpServer()).get('/api/v1/auth/methods').expect(200);
+		const providers = await request(app.getHttpServer())
+			.get('/api/v1/auth/methods')
+			.expect(200);
 
 		expect(providers.body.data).toEqual({
 			google: { enabled: expect.any(Boolean) },
 		});
 		await request(app.getHttpServer()).get('/api/v1/auth/security').expect(401);
 		await request(app.getHttpServer()).post('/api/v1/auth/security/totp/setup').expect(401);
-		await request(app.getHttpServer()).post('/api/v1/auth/security/passkeys/options').expect(401);
+		await request(app.getHttpServer())
+			.post('/api/v1/auth/security/passkeys/options')
+			.expect(401);
 	});
 
 	it('returns the standard not found error shape', async () => {

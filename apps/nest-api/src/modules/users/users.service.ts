@@ -106,7 +106,9 @@ export class UsersService {
 	): Promise<void> {
 		const attempts = user.failedLoginAttempts + 1;
 		const lockedUntil =
-			attempts >= maxAttempts ? new Date(Date.now() + lockMinutes * 60_000) : user.lockedUntil;
+			attempts >= maxAttempts
+				? new Date(Date.now() + lockMinutes * 60_000)
+				: user.lockedUntil;
 		await this.usersRepository.updateLoginSecurity(user.id, {
 			failedLoginAttempts: attempts,
 			lockedUntil,

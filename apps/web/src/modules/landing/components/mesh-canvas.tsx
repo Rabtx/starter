@@ -1,6 +1,8 @@
 "use client";
 
 import { MeshGradient } from "@paper-design/shaders-react";
+import { useInView } from "motion/react";
+import { useRef } from "react";
 import { cn } from "../lib/utils";
 
 /**
@@ -44,6 +46,9 @@ export function MeshCanvas({
 	colors: colorsProp,
 	speed = 0.28,
 }: MeshCanvasProps) {
+	const ref = useRef<HTMLDivElement>(null);
+	// Run the WebGL shader only while the plate is near the viewport; it is the costliest part of the page.
+	const inView = useInView(ref, { margin: "200px" });
 	const t = Math.min(1, Math.max(0, intensity));
 	const colors = [...(colorsProp ?? PALETTES[palette])];
 	const fallback =
@@ -56,23 +61,28 @@ export function MeshCanvas({
 					: "bg-[#6b8cff]";
 
 	return (
-		<div className={cn("pointer-events-none absolute inset-0 overflow-hidden", className)}>
+		<div
+			ref={ref}
+			className={cn("pointer-events-none absolute inset-0 overflow-hidden", className)}
+		>
 			<div className={cn("absolute inset-0", fallback)} aria-hidden />
-			<MeshGradient
-				colors={colors}
-				distortion={0.78}
-				swirl={0.18}
-				grainMixer={0.35 + t * 0.25}
-				grainOverlay={0.08 + t * 0.12}
-				speed={speed}
-				scale={1.12}
-				style={{
-					position: "absolute",
-					inset: 0,
-					width: "100%",
-					height: "100%",
-				}}
-			/>
+			{inView ? (
+				<MeshGradient
+					colors={colors}
+					distortion={0.78}
+					swirl={0.18}
+					grainMixer={0.35 + t * 0.25}
+					grainOverlay={0.08 + t * 0.12}
+					speed={speed}
+					scale={1.12}
+					style={{
+						position: "absolute",
+						inset: 0,
+						width: "100%",
+						height: "100%",
+					}}
+				/>
+			) : null}
 		</div>
 	);
 }
