@@ -48,13 +48,6 @@ The parts are shadcn's, with the same `data-slot` names, so a shadcn card drops 
 itself on the inline axis, so any of them can be left out. `CardAction` pins to the top right of
 the header; the header is a container, and under 15rem wide the action drops below the title.
 
-## Sizes
-
-`size` is `sm`, `default` or `lg`: 12, 16 or 20px of padding including the 1px edge (Figma's
-Kanban, Option and Stat cards).
-
-<ComponentPreview name="card/sizes" />
-
 ## Media
 
 An `img`, `video`, `picture` or anything with `data-slot="card-media"` placed directly in the card
@@ -123,14 +116,6 @@ a click or tap anywhere opens it. A mouse over the pile fans the peeks a little 
 similar height stack best.
 
 <ComponentPreview name="card/stack" />
-
-## Modes
-
-Depth and radius follow `data-depth` and `data-radius` on any ancestor. Flat is one 1px border;
-Floating is the raised surface (a light top edge, a dark bottom edge and a hairline ring, no cast
-shadow). Radius uses the box tier: 12px, 4px in Sharp and 20px in Round, never a capsule.
-
-<ComponentPreview name="card/modes" />
 
 ## API
 

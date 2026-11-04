@@ -31,13 +31,6 @@ It is a real `<input type="checkbox">`, so Space toggles it, forms submit it (`n
 `required`) and screen readers announce it. With children it wraps the box in a `<label>`, so the
 text names it and the whole row is clickable. A bare checkbox needs an `aria-label` or a `Field`.
 
-## Sizes
-
-`sm` (16px), `md` (20px, the default) and `lg` (24px). The label text grows with the box, and the
-click target is at least 24px for every size.
-
-<ComponentPreview name="checkbox/sizes" />
-
 ## Description
 
 `description` adds a quieter line under the label. It is linked with `aria-describedby`, so it is
@@ -64,13 +57,6 @@ does the same.
 ## Controlled
 
 <ComponentPreview name="checkbox/controlled" />
-
-## Modes
-
-The corners follow `data-radius` on any ancestor (in Round a checkbox stays a rounded square, never
-a circle). `data-motion="off"` keeps every state visible but nothing draws or travels.
-
-<ComponentPreview name="checkbox/modes" />
 
 ## API
 

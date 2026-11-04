@@ -78,14 +78,19 @@ registry. See [Theming](/docs/ui/theming) for every token.
 
 ## Modes
 
-Components never take a prop for theme, radius or motion. Set a class or an attribute on any
-ancestor and everything inside follows.
+Components never take a prop for theme, radius, size or motion. Set a class, an attribute or one
+variable on any ancestor and everything inside follows. The UI switch at the top of these pages
+opens a canvas: radius, primary color, size and animation time change the live component, and
+depth stays floating.
 
 - `class="dark"`: dark colors. `class="rabtx"` applies the theme to one subtree only, which is how
-  this site and the web app embed it next to their own themes.
+  this site and the web app embed it next to their own themes. `rabtx light` or `rabtx dark` pins it.
 - `data-depth`: `flat` or `floating`, for fields and cards
 - `data-radius`: `sharp`, `default` or `round`
+- `data-size`: `sm`, `md` or `lg`. It resizes the default control. An explicit `size` on one
+  component still wins.
 - `data-motion`: `on` or `off`. Reduced motion in the OS turns motion down as well.
+- `--motion-ms`: a number of milliseconds, with no unit. Every spring uses it. The curves stay.
 
 ## Components
 
