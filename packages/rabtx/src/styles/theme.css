@@ -279,3 +279,121 @@
 	--ease-spring-expand: var(--spring-expand);
 	/* springs-theme:end */
 }
+
+/*
+ * One size for a whole subtree. `data-size` on an ancestor resizes the default control.
+ * A component's own `sm` or `lg` class still wins, so one example can show a small control
+ * beside the page size. Heights match the Button: 32, 40 and 48.
+ */
+[data-size="sm"] {
+	--control-h: 2rem;
+	--control-px: 0.75rem;
+	--control-font: 0.75rem;
+	--control-leading: 1rem;
+	--control-icon: 14px;
+	--field-pad: 0.625rem;
+	--slider-track: 4px;
+	--slider-thumb: 1rem;
+	--slider-hit: 1.5rem;
+	--check-size: 1rem;
+	--check-glyph: 0.625rem;
+	--check-dot: 0.375rem;
+	--switch-w: 2.25rem;
+	--switch-h: 1.25rem;
+}
+[data-size="md"] {
+	--control-h: 2.5rem;
+	--control-px: 1.25rem;
+	--control-font: 0.875rem;
+	--control-leading: 1.25rem;
+	--control-icon: 16px;
+	--field-pad: 0.75rem;
+	--slider-track: 6px;
+	--slider-thumb: 1.25rem;
+	--slider-hit: 1.75rem;
+	--check-size: 1.25rem;
+	--check-glyph: 0.75rem;
+	--check-dot: 0.5rem;
+	--switch-w: 3rem;
+	--switch-h: 1.75rem;
+}
+[data-size="lg"] {
+	--control-h: 3rem;
+	--control-px: 1.5rem;
+	--control-font: 1rem;
+	--control-leading: 1.5rem;
+	--control-icon: 18px;
+	--field-pad: 1rem;
+	--slider-track: 8px;
+	--slider-thumb: 1.5rem;
+	--slider-hit: 2rem;
+	--check-size: 1.5rem;
+	--check-glyph: 0.875rem;
+	--check-dot: 0.625rem;
+	--switch-w: 3.5rem;
+	--switch-h: 2rem;
+}
+[data-size] .rx-btn-md {
+	height: var(--control-h);
+	padding-inline: var(--control-px);
+	font-size: var(--control-font);
+	line-height: var(--control-leading);
+}
+[data-size] .rx-btn-icon {
+	width: var(--control-h);
+	height: var(--control-h);
+}
+[data-size] .rx-input-field:not(.rx-input-sm):not(.rx-input-lg) {
+	--_h: var(--control-h);
+	--_pad: var(--field-pad);
+	--_font: var(--control-font);
+	--_icon: var(--control-icon);
+}
+[data-size] .rx-select-field:not(.rx-select-sm):not(.rx-select-lg) {
+	--_h: var(--control-h);
+	--_pad: var(--field-pad);
+	--_font: var(--control-font);
+	--_icon: var(--control-icon);
+}
+[data-size] .rx-slider:not(.rx-slider-sm):not(.rx-slider-lg) {
+	--_track: var(--slider-track);
+	--_thumb: var(--slider-thumb);
+	--_hit: var(--slider-hit);
+}
+[data-size] .rx-tabs-list:not(.rx-tabs-sm):not(.rx-tabs-lg) {
+	--_h: var(--control-h);
+	--_icon: var(--control-icon);
+	--_fs: var(--control-font);
+	--_lh: var(--control-leading);
+}
+[data-size] .rx-checkbox:not(.rx-checkbox-sm):not(.rx-checkbox-lg) {
+	--_size: var(--check-size);
+	--_glyph: var(--check-glyph);
+}
+[data-size] .rx-switch:not(.rx-switch-sm):not(.rx-switch-lg) {
+	--_w: var(--switch-w);
+	--_h: var(--switch-h);
+}
+[data-size] .rx-radio-group:not(.rx-radio-group-sm):not(.rx-radio-group-lg) {
+	--_size: var(--check-size);
+	--_dot: var(--check-dot);
+}
+
+/*
+ * One duration for every spring. The curves stay. Set `--motion-ms` to a number of
+ * milliseconds on an ancestor; the UI canvas writes it from a single slider.
+ */
+[style*="--motion-ms"] {
+	--spring-press-duration: calc(var(--motion-ms) * 1ms);
+	--spring-swap-duration: calc(var(--motion-ms) * 1ms);
+	--spring-check-duration: calc(var(--motion-ms) * 1ms);
+	--spring-label-duration: calc(var(--motion-ms) * 1ms);
+	--spring-magnetic-duration: calc(var(--motion-ms) * 1ms);
+	--spring-unfold-duration: calc(var(--motion-ms) * 1ms);
+	--spring-tabs-duration: calc(var(--motion-ms) * 1ms);
+	--spring-panel-duration: calc(var(--motion-ms) * 1ms);
+	--spring-toast-duration: calc(var(--motion-ms) * 1ms);
+	--spring-switch-duration: calc(var(--motion-ms) * 1ms);
+	--spring-glide-duration: calc(var(--motion-ms) * 1ms);
+	--spring-expand-duration: calc(var(--motion-ms) * 1ms);
+}

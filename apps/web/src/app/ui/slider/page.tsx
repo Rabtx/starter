@@ -8,7 +8,6 @@ import SliderForm from "./_examples/form";
 import SliderMarks from "./_examples/marks";
 import SliderRtl from "./_examples/rtl";
 import SliderRuler from "./_examples/ruler";
-import SliderSizes from "./_examples/sizes";
 import SliderStates from "./_examples/states";
 import SliderVertical from "./_examples/vertical";
 
@@ -31,12 +30,6 @@ export default function SliderPage() {
 				<code>input type=&quot;range&quot;</code>, so arrow keys, Page Up and Down, Home and End,
 				forms and screen readers work with no extra code.
 			</p>
-
-			<h2>Sizes</h2>
-			<p>Tracks are 4, 6 and 8px with 16, 20 and 24px thumbs. Medium is the default.</p>
-			<Example file="slider/_examples/sizes.tsx">
-				<SliderSizes />
-			</Example>
 
 			<h2>Value bubble</h2>
 			<p>

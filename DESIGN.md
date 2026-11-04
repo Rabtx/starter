@@ -187,7 +187,12 @@ ready-made set of classes applied only when that kind is selected, so the compon
 free of per-kind logic. `glass` is deliberately simple; its exact look is open.
 
 Radius and depth ship as token modes: CSS variables switched by `data-radius` and `data-depth` on a
-container, so components do not need props for them.
+container, so components do not need props for them. Size is the same kind of mode. `data-size="sm" | "md" | "lg"`
+on an ancestor resizes the default control (button, field, select, slider, tabs, checkbox, switch and radio).
+An explicit `size` on one component still wins.
+
+Animation time is one number. Set `--motion-ms` (milliseconds, without a unit) on an ancestor and every spring
+duration follows it. The easing curves stay. The UI canvas exposes that number as a single slider.
 
 Do not interpret polished as “add more shadows, glow or animation.”
 
