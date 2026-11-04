@@ -41,14 +41,6 @@ export default function IntroductionPage() {
 					too.
 				</li>
 			</ul>
-
-			<h2>UI canvas</h2>
-			<p>
-				The switch at the top opens UI. Docs keeps this layout. UI is one canvas, always floating,
-				with radius, primary color, size and a slider for the animation time in milliseconds. Those
-				settings sit on the page, so every component inside follows them. An explicit{" "}
-				<code>size</code> on one component still wins.
-			</p>
 		</Doc>
 	);
 }

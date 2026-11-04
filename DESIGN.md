@@ -192,15 +192,15 @@ on an ancestor resizes the default control (button, field, select, slider, tabs,
 An explicit `size` on one component still wins.
 
 Animation time is one number. Set `--motion-ms` (milliseconds, without a unit) on an ancestor and every spring
-duration follows it. The easing curves stay. The UI canvas exposes that number as a single slider.
+duration follows it. The easing curves stay. The docs UI view exposes that number as a single slider.
 
 Do not interpret polished as “add more shadows, glow or animation.”
 
 ### Motion and interaction
 
 Motion is on by default, purposeful and restrained, and CSS only on the web. Press and release feel
-responsive without moving surrounding layout. Respect reduced motion; a Motion off switch in the
-playground must also leave every state visible. Disabled controls must not activate or animate as
+responsive without moving surrounding layout. Respect reduced motion; a Motion off switch must
+also leave every state visible. Disabled controls must not activate or animate as
 enabled ones. Motion is never the only feedback channel.
 Reduced-motion and Motion off rules live in the `rx-motion` cascade layer, after
 `components` (less motion first, off after it), so they win without `!important` and whatever the

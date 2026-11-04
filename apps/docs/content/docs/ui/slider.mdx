@@ -30,13 +30,6 @@ Values are arrays, as in shadcn: one number is a slider, two (or more) a range. 
 for screen readers, arrow keys, Page Up and Down, Home and End, and the form value. Name it with a
 `Field` or an `aria-label`.
 
-## Sizes
-
-`sm` (4px track, 16px thumb), `md` (6 and 20, the default) and `lg` (8 and 24). The input is
-always at least 24px tall, so the small size keeps a usable target.
-
-<ComponentPreview name="slider/sizes" />
-
 ## Value bubble
 
 `showValue` puts the value over the thumb while it is hovered, focused or dragged; `"always"`
@@ -97,13 +90,6 @@ A slider submits under its `name`; a range submits one entry per thumb, read wit
 The native range runs from the inline start, and the fill, bubbles and marks follow it.
 
 <ComponentPreview name="slider/rtl" />
-
-## Modes
-
-Corners follow `--radius-button` (round thumbs in Default and Round, squared in Sharp). Flat drops
-the recess on the rail and the ring on the thumb. Motion off keeps every state but moves nothing.
-
-<ComponentPreview name="slider/modes" />
 
 ## API
 
